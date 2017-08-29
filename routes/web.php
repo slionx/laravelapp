@@ -77,7 +77,7 @@ Route::get('/test', 'HomeController@index');
 
 
 
-Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['adminlogin','web']], function () {
+Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web']], function () {
 
     Route::get('/index', 'PostController@index');
     //Route::get('/tags', 'PostController@tags');

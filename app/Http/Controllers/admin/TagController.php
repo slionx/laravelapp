@@ -5,10 +5,18 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Repositories\TagRepository;
 use App\Tag;
 
 class TagController extends Controller
 {
+    protected $tag;
+
+    public function __construct(TagRepository $tag)
+    {
+        $this->tag = $tag;
+    }
+
     public function index()
     {
         $tags = new Tag();
