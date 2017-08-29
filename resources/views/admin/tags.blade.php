@@ -20,21 +20,22 @@
                         </tr>
                         </thead>
                         <tbody>
-
+                        @foreach($tags as $tag)
                             <tr>
-                                <td></td>
-                                <td></td>
+                                <td>{{ $tag['name'] }}</td>
+                                <td>{{ $tag }}</td>
                                 <td>
                                     <button type="submit"
                                             class="btn btn-danger swal-dialog-target"
                                             data-dialog-msg="确定删除？"
                                             data-url=""
                                             title="删除">
-                                        <i class="fa fa-trash-o fa-fw"></i>
+                                        <i class="fa fa-trash-o fa-fw"></i>删除
                                     </button>
                                 </td>
                             </tr>
 
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
