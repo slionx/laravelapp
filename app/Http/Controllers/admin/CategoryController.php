@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryController extends Controller
 {
-    //
-
     public function index()
     {
         $category = new Category;
