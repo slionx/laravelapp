@@ -55,7 +55,6 @@ Route::resource('article', 'ArticleController');
 
 });*/
 Route::get('home/index', function () {
-
     return view('welcome');
 });
 
@@ -85,18 +84,24 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['admin
     Route::get('/image', 'PostController@image');
     Route::get('/upload', 'PostController@upload');
     Route::get('/post', 'PostController@post');
-    Route::get('/categories', 'PostController@categories');
+    Route::get('/category', 'CategoryController@index');
 
     //tag
     Route::post('/tag', 'TagController@create');
 
 
+    //category
+    Route::post('/category', 'CategoryController@create');
+
+
+
+
 });
 
 Route::group(['middleware' => ['web','auth']], function () {
-    Route::get('/login', function () {
+/*    Route::get('/login', function () {
         return view('auth.login');
-    });
+    });*/
 
     Route::get('/home', function () {
         return view('home');

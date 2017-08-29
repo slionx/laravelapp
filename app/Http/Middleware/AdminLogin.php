@@ -16,7 +16,6 @@ class AdminLogin
      */
     public function handle($request, Closure $next)
     {
-        var_dump(session());
 
         if(Auth::id() != 3){
             return redirect('/home');

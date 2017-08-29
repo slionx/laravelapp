@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Category;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -24,7 +25,6 @@ class CategoryController extends Controller
 
     public function create(Request $request){
 
-
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:category|max:255',
             'sort' => 'required|numeric',
@@ -34,17 +34,15 @@ class CategoryController extends Controller
                 ->withErrors($validator)
                 ->withInput($request->all());
         }
-
         $category = new Category;
         $category->name = $request->input('name');
         $category->sort = $request->input('sort');
-        $category->save();
+        $result = $category->save();
 
    /*     save([
             'name'=>$request->input('name'),
             'sort'=>$request->input('sort'),
         ]);*/
-
         echo 'sucess';
 
     }

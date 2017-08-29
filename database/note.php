@@ -1,11 +1,14 @@
 <?php
 /*
+创建表
 php artisan make:migration create_users_table
 
 php artisan make:migration create_users_table --create=users
 
-php artisan make:migration add_votes_to_users_table --table=users
+php artisan make:migration create_category_table --create=category
 
+php artisan make:migration add_votes_to_users_table --table=users
+生成表
 php artisan migrate
 
 php artisan make:seeder UserTableSeeder
