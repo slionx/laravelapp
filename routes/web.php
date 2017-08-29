@@ -80,17 +80,19 @@ Route::get('/test', 'HomeController@index');
 Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['adminlogin','web']], function () {
 
     Route::get('/index', 'PostController@index');
-    Route::get('/tags', 'PostController@tags');
+    //Route::get('/tags', 'PostController@tags');
     Route::get('/image', 'PostController@image');
     Route::get('/upload', 'PostController@upload');
     Route::get('/post', 'PostController@post');
-    Route::get('/category', 'CategoryController@index');
+
 
     //tag
+    Route::get('/tags', 'TagController@index');
     Route::post('/tag', 'TagController@create');
 
 
     //category
+    Route::get('/category', 'CategoryController@index');
     Route::post('/category', 'CategoryController@create');
 
 
