@@ -14,7 +14,7 @@
             <a href="/admin/image">Images</a>
         </li>
         <li @if (Request::is('admin/categories*')) class="active" @endif>
-            <a href="/admin/categories">categories</a>
+            <a href="/admin/category">category</a>
         </li>
     @endif
 </ul>

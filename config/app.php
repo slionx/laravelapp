@@ -165,6 +165,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         //'MaxHoffmann\Parsedown\ParsedownServiceProvider',  //mark
+        Intervention\Image\ImageServiceProvider::class,//图片的创建、修改和压缩处理
 
         /*
          * Package Service Providers...
@@ -230,6 +231,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         //'Markdown'        => 'MaxHoffmann\Parsedown\ParsedownFacade',//mark
+        'Image' => Intervention\Image\Facades\Image::class,//图片的创建、修改和压缩处理
 
     ],
 

@@ -5,6 +5,8 @@ php artisan make:controller tag
 创建表
 php artisan make:migration create_users_table
 
+php artisan make:migration create_images_table
+
 php artisan make:migration create_users_table --create=users
 
 php artisan make:migration create_category_table --create=category
