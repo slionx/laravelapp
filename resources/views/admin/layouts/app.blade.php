@@ -30,7 +30,22 @@
             <a class="navbar-brand" href="/admin/index">{{ config('blog.title') }} Admin</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-menu">
+
             @include('admin.partials.navbar')
+        </div>
+        @include('admin.layouts.css')
+        @include('admin.layouts.header')
+
+        <div class="page-container">
+            @include('admin.layouts.sidebar')
+            @include('admin.layouts.content')
+        </div>
+        @include('admin.layouts.script')
+
+
+
+        <div class="collapse navbar-collapse" id="navbar-menu">
+
         </div>
     </div>
 </nav>
