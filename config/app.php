@@ -166,6 +166,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         //'MaxHoffmann\Parsedown\ParsedownServiceProvider',  //mark
         Intervention\Image\ImageServiceProvider::class,//图片的创建、修改和压缩处理
+        Stevenyangecho\UEditor\UEditorServiceProvider::class,//百度编辑器
 
         /*
          * Package Service Providers...

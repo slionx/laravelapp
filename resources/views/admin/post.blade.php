@@ -1,19 +1,25 @@
 @extends('admin.layouts.app')
 @section('title','文章')
 @section('content')
+        <!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
     <div class="row">
         <div class="col-md-12">
             <div class="widget widget-default">
                 <div class="widget-header">
                     <h6><i class="fa fa-sticky-note fa-fw"></i>文章</h6>
+                    <h6><i class="fa fa-sticky-note fa-fw"></i>写文章</h6>
                 </div>
+
                 <div class="widget-body">
                     <table class="table table-hover table-bordered table-responsive">
                         <thead>
                         <tr>
                             <th>标题</th>
                             <th>状态</th>
-                            <th>action</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -91,5 +97,7 @@
             </div>
         </div>
     </div>
+    </div>
+</div>
 @endsection
 

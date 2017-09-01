@@ -67,8 +67,88 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item start ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-dashboard"></i>
+                <span class="title">仪表盘</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item start ">
+                    <a href="index.html" class="nav-link ">
+                        <i class="icon-bar-chart"></i>
+                        <span class="title">仪表盘</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li class="heading">
             <h3 class="uppercase">Features</h3>
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-docs"></i>
+                <span class="title">文章</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="ui_colors.html" class="nav-link ">
+                        <i class="icon-docs"></i>
+                        <span class="title">所有文章</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="ui_general.html" class="nav-link ">
+                        <i class="icon-note"></i>
+                        <span class="title">写文章</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="ui_buttons.html" class="nav-link ">
+                        <span class="title">分类目录</span>
+                    </a>
+                </li>
+                <li @if (Request::is('admin/tag*')) class="nav-item @endif ">
+                    <a href="/admin/tags" class="nav-link ">
+                        <span class="title">标签</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-users"></i>
+                <span class="title">所有用户</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="ui_colors.html" class="nav-link ">
+                        <span class="title">添加用户</span>
+                    </a>
+                </li>
+                <li class="nav-item  ">
+                    <a href="ui_general.html" class="nav-link ">
+                        <span class="title">个人资料</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item  ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-cogs"></i>
+                <span class="title">设置</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item  ">
+                    <a href="ui_colors.html" class="nav-link ">
+                        <span class="title">常规设置</span>
+                    </a>
+                </li>
+
+            </ul>
         </li>
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
@@ -399,7 +479,7 @@
                 <li class="nav-item  active open">
                     <a href="form_fileupload.html" class="nav-link ">
                         <span class="title">Multiple File Upload</span>
-                        <span class="selected"></span>
+                        {{--<span class="selected"></span>--}}
                     </a>
                 </li>
                 <li class="nav-item  ">

@@ -86,6 +86,10 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
     Route::get('/post', 'PostController@post');
 
 
+    Route::get('/post/create', 'PostController@create');
+    Route::post('/post/store', 'PostController@store');
+
+
     //tag
     Route::get('/tags', 'TagController@index');
     Route::post('/tag', 'TagController@create');

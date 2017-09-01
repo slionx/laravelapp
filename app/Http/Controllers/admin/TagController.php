@@ -21,7 +21,7 @@ class TagController extends Controller
     {
         $tags = new Tag();
         $tags = $tags->all();
-        return view('admin.tags', compact('tags'));
+        return view('admin.post.tags', compact('tags'));
     }
     public function create(Request $request){
 

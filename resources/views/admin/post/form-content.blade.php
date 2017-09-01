@@ -1,99 +1,112 @@
-<div class="form-group">
-    <label for="title" class="control-label">文章标题*</label>
-    <input id="title" type="text" class="form-control" name="title"
-           value=""
-           autofocus>
+<div class="row">
+    <div class="col-md-12">
 
-</div>
-<div class="form-group">
-    <label for="description" class="control-label">文章描述*</label>
+        <!-- BEGIN VALIDATION STATES-->
+        <div class="portlet light portlet-fit portlet-form bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class=" icon-layers font-red"></i>
+                    <span class="caption-subject font-red sbold uppercase">撰写新文章</span>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                        <i class="icon-cloud-upload"></i>
+                    </a>
+                    <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                        <i class="icon-wrench"></i>
+                    </a>
+                    <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                        <i class="icon-trash"></i>
+                    </a>
+                </div>
+            </div>
 
-    <textarea id="post-description-textarea" style="resize: vertical;" rows="3" spellcheck="false"
-              id="description" class="form-control autosize-target" placeholder="请使用 Markdown 格式书写"
-              name="description"></textarea>
+            <div class="portlet-body">
+                <!-- BEGIN FORM-->
+                <form action="store" id="form_sample_3" method="post" enctype="multipart/form-data">
+
+                    @if (session('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
+                        </div>
+                    @endif
+                    @if (count($errors) > 0)
+                        <div class="note note-danger note-bordered">
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
 
 
-</div>
+                    {{ csrf_field() }}
+                    <div class="form-group form-md-line-input form-md-floating-label">
+                        <input type="text" class="form-control" maxlength="255" name="title" id="maxlength_alloptions">
+                        <label for="form_control_1">标题</label>
+                        <span class="help-block">Some help goes here...</span>
+                    </div>
+                    <div class="form-group form-md-line-input form-md-floating-label">
+                        <input type="text" class="form-control" name="slug" maxlength="255" id="maxlength_alloptions">
+                        <label for="form_control_1">文章slug</label>
+                        <span class="help-block">Some help goes here...</span>
+                    </div>
+                    <div class="form-group form-md-line-input form-md-floating-label">
+                        <select class="form-control" name="category">
+                            <option value=""></option>
+                            <option value="php">php</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                        <label for="form_control_1">文章分类</label>
+                        <span class="help-block">Some help goes here...</span>
+                    </div>
+                    <div class="form-group form-md-line-input form-md-floating-label">
+                        <label for="form_control_1">开启评论</label>
+                        <input type="checkbox" class="make-switch" checked data-on-color="success" data-off-color="default">
 
-<div class="form-group">
-    <label for="slug" class="control-label">文章slug*</label>
-    <input id="slug" type="text" class="form-control" name="slug"
-           value="">
+                        <span class="help-block">Some help goes here...</span>
+                    </div>
+                    <div class="form-group form-md-line-input form-md-floating-label">
+                        <textarea class="form-control" name="memo" rows="3"></textarea>
+                        <label for="form_control_1">标签</label>
+                        <span class="help-block">Some help goes here...</span>
+                    </div>
+                    <div class="form-group form-md-line-input form-md-floating-label">
+                        <label for="form_control_1">文章内容</label>
+
+                        @include('UEditor::head')
+                                <!-- 加载编辑器的容器 -->
+                        <script id="container" name="content" type="text/plain">文章内容
+                            </script>
+                        <!-- 实例化编辑器 -->
+                        <script type="text/javascript">
+                            var ue = UE.getEditor('container');
+                            ue.ready(function() {
+                                ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.
+                            });
+                        </script>
+                    </div>
+            </div>
 
 
-</div>
-
-<div class="form-group">
-    <label for="categories" class="control-label">文章分类*</label>
-    <select name="category_id" class="form-control">
-
-    </select>
-
-
-</div>
-<div class="form-group">
-    <label for="tags[]" class="control-label">文章标签</label>
-    <select id="post-tags" name="tags[]" class="form-control" multiple>
-
-    </select>
-
-
-</div>
-<div class="form-group">
-    <label for="post-content-textarea" class="control-label">文章内容*</label>
-    <textarea spellcheck="false" id="post-content-textarea" class="form-control" name="content"
-              rows="36"
-              placeholder="请使用 Markdown 格式书写"
-              style="resize: vertical"></textarea>
-
-</div>
-
-<div class="form-group">
-    <label for="comment_info" class="control-label">评论信息</label>
-    <select style="margin-top: 5px" id="comment_info" name="comment_info" class="form-control">
-
-        <option value="default" >默认</option>
-        <option value="force_disable" >强制关闭显示评论</option>
-        <option value="force_enable" >强制开启显示评论</option>
-    </select>
-</div>
-<div class="form-group">
-    <label for="comment_type" class="control-label">评论类型</label>
-    <select id="comment_type" name="comment_type" class="form-control">
-
-        <option value="default" >默认</option>
-        <option value="raw" >自带评论</option>
-        <option value="disqus" >Disqus</option>
-        <option value="duoshuo" >多说</option>
-    </select>
-</div>
-
-<div class="form-group">
-    <label for="allow_resource_comment" class="control-label">是否允许评论</label>
-    <select id="allow_resource_comment" name="allow_resource_comment" class="form-control">
-
-        <option value="default" >默认</option>
-        <option value="false" >禁止评论</option>
-        <option value="true" >允许评论</option>
-    </select>
-</div>
-
-<div class="form-group">
-    <div class="radio radio-inline">
-        <label>
-            <input type="radio"
-
-                   name="status"
-                   value="1">发布
-        </label>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn dark">发布</button>
+                        <button type="reset" class="btn default">草稿</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <!-- END FORM-->
+        </div>
     </div>
-    <div class="radio radio-inline">
-        <label>
-            <input type="radio"
-
-                   name="status"
-                   value="0">草稿
-        </label>
-    </div>
+    <!-- END VALIDATION STATES-->
 </div>
-{{ csrf_field() }}
+</div>
+
+

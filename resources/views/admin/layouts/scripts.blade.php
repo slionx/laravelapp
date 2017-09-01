@@ -33,8 +33,3 @@
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ asset('pages/scripts/form-fileupload.min.js')}}" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
-<!-- BEGIN THEME LAYOUT SCRIPTS -->
-<script src="{{ asset('layouts/layout/scripts/layout.min.js')}}" type="text/javascript"></script>
-<script src="{{ asset('layouts/layout/scripts/demo.min.js')}}" type="text/javascript"></script>
-<script src="{{ asset('layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
-<!-- END THEME LAYOUT SCRIPTS -->

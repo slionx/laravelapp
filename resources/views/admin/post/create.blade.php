@@ -16,3 +16,7 @@
         </div>
     </div>
 @stop
+@section('theme_layout_scripts')
+    <script src="{{ asset('global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('pages/scripts/components-bootstrap-maxlength.min.js') }}" type="text/javascript"></script>
+@stop
