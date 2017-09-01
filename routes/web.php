@@ -10,7 +10,7 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-use App\Task;
+
 use Illuminate\Http\Request;
 
 
@@ -88,6 +88,9 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 
     Route::get('/post/create', 'PostController@create');
     Route::post('/post/store', 'PostController@store');
+
+    Route::get('post/upload_img', 'PostController@upload_img');
+    Route::post('post/upload_img', 'PostController@upload_img');
 
 
     //tag

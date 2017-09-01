@@ -5,7 +5,7 @@
         <!-- BEGIN LOGO -->
         <div class="page-logo">
             <a href="index.html">
-                <img src="../layouts/layout/img/logo.png" alt="logo" class="logo-default" /> </a>
+                <img src="{{ asset('layouts/layout/img/logo.png') }}" alt="logo" class="logo-default" /> </a>
             <div class="menu-toggler sidebar-toggler">
                 <span></span>
             </div>
@@ -138,7 +138,7 @@
                                 <li>
                                     <a href="#">
                                                 <span class="photo">
-                                                    <img src="../layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
+                                                    <img src="{{ asset('layouts/layout3/img/avatar2.jpg') }}" class="img-circle" alt=""> </span>
                                                 <span class="subject">
                                                     <span class="from"> Lisa Wong </span>
                                                     <span class="time">Just Now </span>
@@ -149,7 +149,7 @@
                                 <li>
                                     <a href="#">
                                                 <span class="photo">
-                                                    <img src="../layouts/layout3/img/avatar3.jpg" class="img-circle" alt=""> </span>
+                                                    <img src="{{ asset('layouts/layout3/img/avatar3.jpg') }}" class="img-circle" alt=""> </span>
                                                 <span class="subject">
                                                     <span class="from"> Richard Doe </span>
                                                     <span class="time">16 mins </span>
@@ -160,7 +160,7 @@
                                 <li>
                                     <a href="#">
                                                 <span class="photo">
-                                                    <img src="../layouts/layout3/img/avatar1.jpg" class="img-circle" alt=""> </span>
+                                                    <img src="{{ asset('layouts/layout3/img/avatar1.jpg') }}" class="img-circle" alt=""> </span>
                                                 <span class="subject">
                                                     <span class="from"> Bob Nilson </span>
                                                     <span class="time">2 hrs </span>
@@ -171,7 +171,7 @@
                                 <li>
                                     <a href="#">
                                                 <span class="photo">
-                                                    <img src="../layouts/layout3/img/avatar2.jpg" class="img-circle" alt=""> </span>
+                                                    <img src="{{ asset('layouts/layout3/img/avatar2.jpg') }}" class="img-circle" alt=""> </span>
                                                 <span class="subject">
                                                     <span class="from"> Lisa Wong </span>
                                                     <span class="time">40 mins </span>
@@ -182,7 +182,7 @@
                                 <li>
                                     <a href="#">
                                                 <span class="photo">
-                                                    <img src="../layouts/layout3/img/avatar3.jpg" class="img-circle" alt=""> </span>
+                                                    <img src="{{ asset('layouts/layout3/img/avatar3.jpg') }}" class="img-circle" alt=""> </span>
                                                 <span class="subject">
                                                     <span class="from"> Richard Doe </span>
                                                     <span class="time">46 mins </span>
@@ -310,7 +310,7 @@
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                 <li class="dropdown dropdown-user">
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                        <img alt="" class="img-circle" src="../layouts/layout/img/avatar3_small.jpg" />
+                        <img alt="" class="img-circle" src="{{ asset('layouts/layout/img/avatar3_small.jpg') }}" />
                         <span class="username username-hide-on-mobile"> Nick </span>
                         <i class="fa fa-angle-down"></i>
                     </a>

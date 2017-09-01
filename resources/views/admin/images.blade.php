@@ -6,8 +6,17 @@
             <div class="widget-header">
                 <h6><i class="fa fa-file-image-o fa-fw"></i>图片()</h6>
             </div>
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="widget-body">
-                <form role="form" class="form-horizontal" action=""
+                <form role="form" class="form-horizontal" action="post/upload_img"
                       datatype="image"
                       required="required"
                       enctype="multipart/form-data" method="post">
@@ -17,7 +26,7 @@
                             <i class="fa fa-file-image-o fa-lg fa-fw"></i>
                         </label>
                         <div class="col-xs-6">
-                            <input id="image" class="form-control" accept="image/*" type="file" name="image">
+                            <input id="image" class="form-control" accept="image/*" type="file" name="files">
                         </div>
                         <div class="col-xs-2">
                             <button type="submit" class="btn btn-primary">

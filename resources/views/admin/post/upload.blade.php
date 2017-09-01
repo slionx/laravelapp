@@ -157,7 +157,8 @@
                         <a class="btn red btn-outline" href="https://github.com/blueimp/jQuery-File-Upload" target="_blank">the official documentation</a>
                     </p>
                 </div>
-                <form id="fileupload" action="../assets/global/plugins/jquery-file-upload/server/php/" method="POST" enctype="multipart/form-data">
+                <form id="fileupload" action="post/upload_img" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
                     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
                     <div class="row fileupload-buttonbar">
                         <div class="col-lg-7">
@@ -285,9 +286,29 @@
 <!-- END CONTENT -->
 @stop
 @section('theme_layout_scripts')
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{{ asset('global/plugins/fancybox/source/jquery.fancybox.pack.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/js/vendor/tmpl.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/js/vendor/load-image.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/js/vendor/canvas-to-blob.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/blueimp-gallery/jquery.blueimp-gallery.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/js/jquery.iframe-transport.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/js/jquery.fileupload.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/js/jquery.fileupload-process.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/js/jquery.fileupload-image.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/js/jquery.fileupload-audio.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/js/jquery.fileupload-video.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/js/jquery.fileupload-validate.js') }}" type="text/javascript"></script>
+<script src="{{ asset('global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js') }}" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="{{ asset('pages/scripts/form-fileupload.min.js')}}" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{{ asset('layouts/layout/scripts/layout.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('layouts/layout/scripts/demo.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
+
 @stop
