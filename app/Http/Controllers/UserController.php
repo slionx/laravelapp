@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Http\Model;
 use Symfony\Component\HttpFoundation\Request;
 use App\Http\Requests;
 use Validator;

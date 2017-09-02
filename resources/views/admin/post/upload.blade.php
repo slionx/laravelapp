@@ -157,7 +157,7 @@
                         <a class="btn red btn-outline" href="https://github.com/blueimp/jQuery-File-Upload" target="_blank">the official documentation</a>
                     </p>
                 </div>
-                <form id="fileupload" action="post/upload_img" method="POST" enctype="multipart/form-data">
+                <form id="fileupload" action="{{ url('admin/post/upload_img') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
                     <div class="row fileupload-buttonbar">
@@ -166,7 +166,7 @@
                                         <span class="btn green fileinput-button">
                                             <i class="fa fa-plus"></i>
                                             <span> Add files... </span>
-                                            <input type="file" name="files[]" multiple=""> </span>
+                                            <input type="file" name="files" multiple=""> </span>
                             <button type="submit" class="btn blue start">
                                 <i class="fa fa-upload"></i>
                                 <span> Start upload </span>
@@ -310,5 +310,4 @@
 <script src="{{ asset('layouts/layout/scripts/demo.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
-
 @stop

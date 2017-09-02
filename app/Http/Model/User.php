@@ -1,55 +1,42 @@
 <?php
 
-namespace App;
+namespace App\Http\Model;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\DB;
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
-//use App\Http\Requests;
-//use DB;
 
-class User extends Authenticatable
+// use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+
+class User extends Eloquent implements Authenticatable
 {
     use Notifiable;
+    use AuthenticableTrait;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $table = 'users';
+    protected $primaryKey = 'id';
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    //指定允许批量复赋值的字段
+    protected $fillable = ['name','email','password','register_from'];
+    //指定不允许批量赋值的字段
+    //protected $guarded = [];
 
-    /**
-     * The articles function.
-     *
-     * return hasmany articles
-     */
-    public function articles()
-    {
-        return $this->hasMany('Article');
-    }
+    // protected $dateFormat = 'U';
+    //
+    //自动维护时间戳
+    //public $timestamps  =  true;
 
-    static function find($id)
-    {
-        return $results = DB::table('users')->where('id', $id)->first();
-        //DB::select('select * from users where id = :id', ['id' => $id]);
-    }
-    static function updatepassword($id,$data)
-    {
-        return $results = DB::table('users')->where('id', $id)->update(['password' => $data]);;
-        //DB::select('select * from users where id = :id', ['id' => $id]);
-    }
+
+
+    /*    protected function getDateFormat(){
+            return time();
+        }
+        protected function asDateTime($val){
+            return $val;
+        }*/
 }
+
+

@@ -64,16 +64,31 @@ class PostController extends Controller
 
         if ($request->hasFile('files')) {
             //判断文件在上传过程中是否出错
-            $data = Imageupload::upload(Request::file('file'));
+            //$data = Imageupload::upload(Request::file('file'));
 
-            //var_dump($path);
-            exit(json_encode($data));
             if ($request->file('files')->isValid()) {
 
+                $path = $request->file('files')->store('files');
+
+                //return $path;
+                //var_dump($path);exit
+                //return storage_path($path);
+
+                $progress = array(
+                    'files' => array(
+                        'name'=>'0qg04YIPXeHx8kKm9qGa7nNVCkL68ihLzb3lL2KC.jpeg',
+                        'size'=>false,
+                        "type"=> "image/jpeg",
+                        "error"=> "File upload aborted",
+            "deleteUrl"=> "http://l.cn../storage/files/0qg04YIPXeHx8kKm9qGa7nNVCkL68ihLzb3lL2KC.jpeg",
+            "deleteType"=> "DELETE"
+
+                    )
+                );
+                exit(json_encode($progress));
+
                 //$path = $request->avatar->store('images');
-
                 //$a= ImageuploadModel::upload(Request::file('file'));
-
 
             }
         }
