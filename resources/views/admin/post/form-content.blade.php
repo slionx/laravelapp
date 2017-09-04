@@ -45,7 +45,7 @@
 
                     {{ csrf_field() }}
                     <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="text" class="form-control" maxlength="255" name="title" id="maxlength_alloptions">
+                        <input type="text" class="form-control" maxlength="255" name="post_title" id="maxlength_alloptions">
                         <label for="form_control_1">标题</label>
                         <span class="help-block">Some help goes here...</span>
                     </div>
@@ -80,8 +80,7 @@
 
                         @include('UEditor::head')
                                 <!-- 加载编辑器的容器 -->
-                        <script id="container" name="content" type="text/plain">文章内容
-                            </script>
+                        <script id="container" name="post_content" type="text/plain">文章内容</script>
                         <!-- 实例化编辑器 -->
                         <script type="text/javascript">
                             var ue = UE.getEditor('container');

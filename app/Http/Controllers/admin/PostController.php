@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Model\Posts;
 use Matriphe\Imageupload\Imageupload;
 use Validator;
 use Image;
@@ -117,15 +118,27 @@ class PostController extends Controller
     }
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:articles|max:255',
+            'post_title' => 'required|unique:posts|max:255',
             //'cartgory' => 'required',
-            'content' => 'required',
+            'post_content' => 'required',
         ]);
         if ($validator->fails()) {
             return back()
                 ->withErrors($validator)
                 ->withInput();
         }
+
+        $article = new Posts();
+
+        $article->post_title = $request->title;
+        $article->post_content = $request->content;
+        $article->post_author = 'Slionx';
+        $article->save();
+
+/*        $article->save([
+            'title'=>$request->title,
+            'content'=>$request->content
+        ]);*/
 
     }
 }

@@ -3,12 +3,21 @@
 namespace App\Http\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class article extends Model
+class Posts extends Model
 {
-    use SoftDeletingTrait;
+    use SoftDeletes;
 
+    protected $table = 'posts';
     protected $fillable = ['title', 'content'];
+    /**
+     * 应该被调整为日期的属性
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
 
     public function tags()
     {
