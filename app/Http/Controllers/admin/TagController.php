@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\TagRepository;
-use App\Tag;
+use App\Http\Model;
 
 class TagController extends Controller
 {

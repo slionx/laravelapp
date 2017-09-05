@@ -167,7 +167,7 @@ return [
         //'MaxHoffmann\Parsedown\ParsedownServiceProvider',  //mark
         //Intervention\Image\ImageServiceProvider::class,//图片的创建、修改和压缩处理
         Stevenyangecho\UEditor\UEditorServiceProvider::class,//百度编辑器
-        Matriphe\Imageupload\ImageuploadServiceProvider::class,//图片上传
+        //Matriphe\Imageupload\ImageuploadServiceProvider::class,//图片上传
 
         /*
          * Package Service Providers...
@@ -233,9 +233,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         //'Markdown'        => 'MaxHoffmann\Parsedown\ParsedownFacade',//mark
-        'Image' => Intervention\Image\Facades\Image::class,//图片的创建、修改和压缩处理
-        'Imageupload' => Matriphe\Imageupload\ImageuploadFacade::class,//图片上传
-
+        //'Image' => Intervention\Image\Facades\Image::class,//图片的创建、修改和压缩处理
+        //'Imageupload' => Matriphe\Imageupload\ImageuploadFacade::class,//图片上传
 
 
     ],
