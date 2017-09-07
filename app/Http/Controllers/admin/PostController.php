@@ -4,13 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Model\Category;
 use App\Http\Model\Posts;
+use Illuminate\Support\Facades\Redirect;
 use Matriphe\Imageupload\Imageupload;
 use Validator;
 use Image;
 
 class PostController extends Controller
 {
+    protected $category;
+    protected $post;
+
+    public function __construct()
+    {
+        $this->category = new Category();
+        $this->category = $this->category->orderBy('sort','asc')->get();
+
+    }
+
     /**
      * Display a listing of the posts.
      *
@@ -18,7 +30,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('admin.post.index');
+
+        return view('admin.post.index',[
+            'categories'=>$this->category
+        ]);
+
     }
     /**
      * Display a listing of the posts.
@@ -101,7 +117,9 @@ class PostController extends Controller
      */
     public function post()
     {
-        return view('admin.post');
+        $this->post = new Posts();
+        $post = $this->post->paginate(10);
+        return view('admin.post.post',compact('post'));
     }
     /**
      * Display a listing of the posts.
@@ -114,26 +132,38 @@ class PostController extends Controller
     }
 
     public function create(){
-        return view('admin.post.create');
+
+        return view('admin.post.create',[
+            'categories'=>$this->category
+        ]);
     }
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
             'post_title' => 'required|unique:posts|max:255',
-            //'cartgory' => 'required',
+            'post_slug' => 'required',
+            'category' => 'required',
             'post_content' => 'required',
         ]);
         if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+            return back()->withErrors($validator)->withInput();
         }
 
         $article = new Posts();
 
-        $article->post_title = $request->title;
-        $article->post_content = $request->content;
+        $article->post_title = $request->post_title;
+        $article->post_content = $request->post_content;
         $article->post_author = 'Slionx';
-        $article->save();
+        $article->post_slug = title_case(str_slug($request->post_slug,'-'));//slug标题自动大写 空格转-方便SEO
+
+
+        if($article->save()){
+            return Redirect('admin/post/create')->with('success', 'success post');
+        }else{
+            return Redirect('admin/post/create')->withErrors('文章' . $request['post_title'] . '创建失败');
+        }
+
+
+
 
 /*        $article->save([
             'title'=>$request->title,

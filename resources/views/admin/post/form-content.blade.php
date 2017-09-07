@@ -25,44 +25,58 @@
                 <!-- BEGIN FORM-->
                 <form action="store" id="form_sample_3" method="post" enctype="multipart/form-data">
 
-                    @if (session('message'))
-                        <div class="alert alert-success">
-                            {{ session('message') }}
-                        </div>
-                    @endif
-                    @if (count($errors) > 0)
-                        <div class="note note-danger note-bordered">
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+                    @if (session('success'))
+                        <div class="note note-success note-bordered">
+                            <div class="alert alert-success">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                {{ session('success') }}
                             </div>
                         </div>
                     @endif
 
+                    @if (session('error'))
+                        <div class="note note-danger note-bordered">
+                            <div class="alert alert-error">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                {{ session('error') }}
+                            </div>
+                        </div>
+                    @endif
+
+                    @if (count($errors) > 0)
+                        <div class="note note-danger note-bordered">
+                        </div>
+                            <div class="alert alert-danger">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li><strong>{{ $error }}</strong></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                    @endif
+
 
                     {{ csrf_field() }}
-                    <div class="form-group form-md-line-input form-md-floating-label">
+                    <div class="form-group form-md-line-input form-md-floating-label {{ $errors->has('post_title') ? ' has-error' : '' }}">
                         <input type="text" class="form-control" maxlength="255" name="post_title" id="maxlength_alloptions">
                         <label for="form_control_1">标题</label>
-                        <span class="help-block">Some help goes here...</span>
+                        <span class="help-block">文章标题应小于255字节@if ($errors->has('description')){{ $errors->first('post_title') }}@endif</span>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="text" class="form-control" name="slug" maxlength="255" id="maxlength_alloptions">
+                        <input type="text" class="form-control" name="post_slug" maxlength="255" id="maxlength_alloptions">
                         <label for="form_control_1">文章slug</label>
-                        <span class="help-block">Some help goes here...</span>
+                        <span class="help-block"></span>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
                         <select class="form-control" name="category">
-                            <option value=""></option>
-                            <option value="php">php</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
                         </select>
-                        <label for="form_control_1">文章分类</label>
-                        <span class="help-block">Some help goes here...</span>
+                        <label for="form_control_1">选择分类</label>
+                        <span class="help-block">选择文章分类</span>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
                         <label for="form_control_1">开启评论</label>
@@ -96,7 +110,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button type="submit" class="btn dark">发布</button>
-                        <button type="reset" class="btn default">草稿</button>
+                        <button type="reset" class="btn default">重置</button>
                     </div>
                 </div>
             </div>
