@@ -46,14 +46,15 @@
                     @if (count($errors) > 0)
                         <div class="note note-danger note-bordered">
                         </div>
-                        <div class="alert alert-danger">
-                            <a href="#" class="close" data-dismiss="alert">&times;</a>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li><strong>{{ $error }}</strong></li>
-                                @endforeach
-                            </ul>
-                        </div>
+                            <div class="alert alert-danger">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li><strong>{{ $error }}</strong></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
                     @endif
 
 
