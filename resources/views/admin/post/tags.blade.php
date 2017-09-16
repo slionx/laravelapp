@@ -240,7 +240,6 @@
 </div>
 <!-- END CONTENT -->
 @stop
-
 @section('theme_layout_scripts')
         <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script src="../global/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js" type="text/javascript"></script>

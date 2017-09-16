@@ -38,6 +38,12 @@
             </form>
             <!-- END RESPONSIVE QUICK SEARCH FORM -->
         </li>
+
+
+
+
+
+
         <li class="nav-item start ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
@@ -67,6 +73,12 @@
                 </li>
             </ul>
         </li>
+
+
+
+
+
+
         <li class="nav-item start ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-dashboard"></i>
@@ -82,6 +94,8 @@
                 </li>
             </ul>
         </li>
+
+
         <li class="heading">
             <h3 class="uppercase">Features</h3>
         </li>
