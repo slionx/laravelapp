@@ -38,12 +38,6 @@
             </form>
             <!-- END RESPONSIVE QUICK SEARCH FORM -->
         </li>
-
-
-
-
-
-
         <li class="nav-item start ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
@@ -64,7 +58,7 @@
                         <span class="badge badge-success">1</span>
                     </a>
                 </li>
-                <li class="nav-item start ">
+                <li class="nav-item">
                     <a href="dashboard_3.html" class="nav-link ">
                         <i class="icon-graph"></i>
                         <span class="title">Dashboard 3</span>
@@ -73,20 +67,14 @@
                 </li>
             </ul>
         </li>
-
-
-
-
-
-
-        <li class="nav-item start ">
+        <li class="nav-item">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-dashboard"></i>
                 <span class="title">仪表盘</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item start ">
+                <li class="nav-item">
                     <a href="index.html" class="nav-link ">
                         <i class="icon-bar-chart"></i>
                         <span class="title">仪表盘</span>
@@ -94,8 +82,6 @@
                 </li>
             </ul>
         </li>
-
-
         <li class="heading">
             <h3 class="uppercase">Features</h3>
         </li>

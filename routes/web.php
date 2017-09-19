@@ -80,6 +80,9 @@ Route::get('/test', 'HomeController@index');
 Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web']], function () {
     Route::get('/', 'PostController@index');
 
+    //menu
+    Route::get('/menu', 'MenuController@index');
+
     Route::get('/index', 'PostController@index');
     //Route::get('/tags', 'PostController@tags');
     Route::get('/image', 'PostController@image');
