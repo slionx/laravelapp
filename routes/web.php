@@ -81,7 +81,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
     Route::get('/', 'PostController@index');
 
     //menu
-    Route::get('/menu', 'MenuController@index');
+    Route::get('/menu', 'MenuController@show');
     Route::post('/menu', 'MenuController@create');
 
 

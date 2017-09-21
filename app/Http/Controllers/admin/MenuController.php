@@ -13,6 +13,12 @@ class MenuController extends Controller
     public function index(){
         $menu = new Menu;
         $menu = $menu->all();
+        return view('admin.layouts.sidebar', compact('menu'));
+        //return view('admin.menu');
+    }
+    public function show(){
+        $menu = new Menu;
+        $menu = $menu->all();
         return view('admin.menu', compact('menu'));
         //return view('admin.menu');
     }

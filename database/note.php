@@ -15,6 +15,8 @@ php artisan make:migration add_votes_to_users_table --table=users    //更新表
 生成表
 php artisan migrate
 
+php artisan migrate:refresh  刷新表
+
 注意: 如果在执行迁移时发生「class not found」错误，试着先执行 composer dump-autoload 命令后再进行一次。
 
 

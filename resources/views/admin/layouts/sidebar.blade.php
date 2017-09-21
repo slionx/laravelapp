@@ -29,7 +29,7 @@
                 </a>
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search...">
-                                    <span class="input-group-btn">
+                    <span class="input-group-btn">
                                         <a href="javascript:;" class="btn submit">
                                             <i class="icon-magnifier"></i>
                                         </a>
@@ -38,6 +38,13 @@
             </form>
             <!-- END RESPONSIVE QUICK SEARCH FORM -->
         </li>
+        @inject('menu','App\Http\Model\Menu')
+        <?php
+        if(isset($menu)) {
+            //$list = new $menu;
+            print_r($menu::show());
+        }
+        ?>
         <li class="nav-item start ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
@@ -58,7 +65,7 @@
                         <span class="badge badge-success">1</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item start">
                     <a href="dashboard_3.html" class="nav-link ">
                         <i class="icon-graph"></i>
                         <span class="title">Dashboard 3</span>
