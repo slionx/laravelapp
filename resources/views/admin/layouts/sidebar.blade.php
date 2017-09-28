@@ -38,13 +38,13 @@
             </form>
             <!-- END RESPONSIVE QUICK SEARCH FORM -->
         </li>
-        @inject('menu','App\Http\Model\Menu')
         <?php
-        if(isset($menu)) {
-            //$list = new $menu;
-            print_r($menu::show());
-        }
+        var_dump($menu['open'][0]);
+        exit;
+
         ?>
+
+
         <li class="nav-item start ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-home"></i>

@@ -77,7 +77,7 @@ Route::get('/test', 'HomeController@index');
 
 
 
-Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web']], function () {
+Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','menu']], function () {
     Route::get('/', 'PostController@index');
 
     //menu
