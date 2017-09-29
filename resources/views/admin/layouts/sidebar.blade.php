@@ -38,11 +38,46 @@
             </form>
             <!-- END RESPONSIVE QUICK SEARCH FORM -->
         </li>
-        <?php
-        var_dump($menu['open'][0]);
-        exit;
+        @if(isset($menu['head']) && count($menu['head']))
+            @foreach($menu['head'] as $v)
+                <li class="nav-item ">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="{{ $v['icon'] }}"></i>
+                        <span class="title">{{ $v['display_name'] }}</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        @if(isset($menu['body']) && count($menu['body']))
+                        @foreach($menu['body'][$v['id']] as $vv)
+                            <li class="nav-item">
+                                <a href="index.html" class="nav-link ">
+                                    <i class="{{ $vv['icon'] }}"></i>
+                                    <span class="title">{{ $vv['display_name'] }}</span>
+                                </a>
+                            </li>
+                        @endforeach
+                        @endif
+                    </ul>
+                </li>
+            @endforeach
+        @endif
+        <li class="nav-item">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="fa fa-dashboard"></i>
+                <span class="title">菜单管理</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item">
+                    <a href="menu" class="nav-link ">
+                        <i class="icon-bar-chart"></i>
+                        <span class="title">添加菜单</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
 
-        ?>
+
 
 
         <li class="nav-item start ">

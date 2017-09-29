@@ -27,9 +27,10 @@ class MenuController extends Controller
     public function create(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'menu_name' => 'required|unique:menu|max:255',
-            'menu_type' => 'required|numeric',
+            'menu_name' => 'required',
+            'display_name' => 'required|unique:menu|max:255',
             'parentid' => 'required|numeric',
+            'icon' => 'required',
         ]);
         if ($validator->fails()) {
             return back()
@@ -38,8 +39,9 @@ class MenuController extends Controller
         }
         $menu = new Menu;
         $menu->menu_name = $request->input('menu_name');
-        $menu->menu_type = $request->input('menu_type');
+        $menu->display_name = $request->input('display_name');
         $menu->parentid = $request->input('parentid');
+        $menu->icon = $request->input('icon');
         $result = $menu->save();
 
         /*     save([

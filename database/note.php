@@ -12,13 +12,25 @@ php artisan make:migration create_users_table --create=users
 php artisan make:migration create_category_table --create=category   //创建表
 
 php artisan make:migration add_votes_to_users_table --table=users    //更新表
+
 生成表
 php artisan migrate
 
 php artisan migrate:refresh  刷新表
+------------追加字段----------------
+假设是users表
+php artisan make:migration add_votes_to_users_table --table=users
+加votes字段
+Schema::table('users', function ($table) {
+    $table->bigInteger('votes');
+});
+最后
+php artisan migrate
+------------追加字段----------------
+
+
 
 注意: 如果在执行迁移时发生「class not found」错误，试着先执行 composer dump-autoload 命令后再进行一次。
-
 
 php artisan make:migration add_excerpt_to_articles_table --table=articles    //也可以创建一个新的迁移文件：追加excerpt字段
 

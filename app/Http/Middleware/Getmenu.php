@@ -18,8 +18,6 @@ class Getmenu
      */
     public function handle($request, Closure $next)
     {
-        var_dump($this->getMenu());
-
         view()->share('menu',$this->getMenu());
         return $next($request);
     }
@@ -31,20 +29,24 @@ class Getmenu
     public function getMenu(){
         //$menu = new Menu();
         //$menu = $menu->all();
-        $menu  = DB::table('menu')->select('id','menu_name','menu_type','parentid')->get();
+        $menu  = DB::table('menu')->select('id','menu_name','display_name','parentid','icon')->get();
         $menu = $this->object2array($menu);
-        $nav = [];
-        //$menu['top'] = [];
-        foreach ($menu as $k =>$v){
+        $tmp = [];
+        $arr = [];
+
+        foreach ($menu as $k=> $v){
             if($v['parentid'] == 0){
-                $nav[] = $v['id'];
-                //$menu['top'] = $v['id'];
-            }else{
-                //$nav['body'][] = $v;
+                $tmp['head'][] = $v;
+                foreach ($menu as $vv){
+                    if($v['id'] == $vv['parentid']){
+                        $arr[] = $vv;
+                    }
+                }
+                $tmp['body'][$v['id']] = $arr;
+                unset($arr);
             }
         }
-        $menu['open'] = array_values ($nav);
-        return $menu;
+        return $tmp;
 
     }
 }

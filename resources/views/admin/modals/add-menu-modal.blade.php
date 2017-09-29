@@ -28,13 +28,17 @@
                         <div class="col-md-8">
                             <input id="name" type="text" class="form-control" name="menu_name" autofocus>
                         </div>
-                        <label for="name" class="col-md-4 control-label">菜单类型</label>
+                        <label for="name" class="col-md-4 control-label">菜单名称</label>
                         <div class="col-md-8">
-                            <input id="sort" type="text" class="form-control" name="menu_type" autofocus>
+                            <input id="display_name" type="text" class="form-control" name="display_name" autofocus>
                         </div>
                         <label for="name" class="col-md-4 control-label">父级id</label>
                         <div class="col-md-8">
-                            <input id="sort" type="text" class="form-control" name="parentid" autofocus>
+                            <input id="parentid" type="text" class="form-control" name="parentid" autofocus>
+                        </div>
+                        <label for="name" class="col-md-4 control-label">图标</label>
+                        <div class="col-md-8">
+                            <input id="icon" type="text" class="form-control" name="icon" autofocus>
                         </div>
                     </div>
                     {{ csrf_field() }}
