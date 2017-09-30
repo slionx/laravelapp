@@ -70,9 +70,13 @@
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
                         <select class="form-control" name="category">
+                            @if(isset($categories)&&count($categories))
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
+                                @else
+                                <option value=""></option>
+                            @endif
                         </select>
                         <label for="form_control_1">选择分类</label>
                         <span class="help-block">选择文章分类</span>

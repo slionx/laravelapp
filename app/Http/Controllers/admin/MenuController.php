@@ -18,8 +18,8 @@ class MenuController extends Controller
     }
     public function show(){
         $menu = new Menu;
-        $menu = $menu->all();
-        return view('admin.menu', compact('menu'));
+        $result = $menu->all();
+        return view('admin.menu', compact('result'));
         //return view('admin.menu');
     }
 

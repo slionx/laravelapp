@@ -19,20 +19,20 @@
                                 <thead>
                                 <tr>
                                     <th>id</th>
+                                    <th>索引</th>
                                     <th>名称</th>
-                                    <th>类型</th>
                                     <th>父级id</th>
-                                    <th>操作</th>
+                                    <th>图标</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($menu as $val)
+                                @foreach($result as $val)
                                     <tr>
                                         <td>{{ $val['id'] }}</td>
                                         <td>{{ $val['menu_name'] }}</td>
-                                        <td>{{ $val['menu_type'] }}</td>
+                                        <td>{{ $val['display_name'] }}</td>
                                         <td>{{ $val['parentid'] }}</td>
-                                        <td></td>
+                                        <td>{{ $val['icon'] }}</td>
                                         <td>
                                             <div>
                                                 <a href="" class="btn btn-info"

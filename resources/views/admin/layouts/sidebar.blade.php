@@ -40,7 +40,7 @@
         </li>
         @if(isset($menu['head']) && count($menu['head']))
             @foreach($menu['head'] as $v)
-                <li class="nav-item ">
+                <li class="nav-item @if(isset($id)) @if($v['id'] == $id) active  @endif @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="{{ $v['icon'] }}"></i>
                         <span class="title">{{ $v['display_name'] }}</span>
@@ -49,8 +49,8 @@
                     <ul class="sub-menu">
                         @if(isset($menu['body']) && count($menu['body']))
                         @foreach($menu['body'][$v['id']] as $vv)
-                            <li class="nav-item">
-                                <a href="index.html" class="nav-link ">
+                            <li class="nav-item @if(isset($id)) @if($vv['id'] == $iid) active  @endif @endif">
+                                <a href="/admin/{{ $vv['menu_name'] }}/{{ $v['id'] }}/{{ $vv['id'] }}" class="nav-link ">
                                     <i class="{{ $vv['icon'] }}"></i>
                                     <span class="title">{{ $vv['display_name'] }}</span>
                                 </a>
@@ -63,14 +63,14 @@
         @endif
         <li class="nav-item">
             <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="fa fa-dashboard"></i>
+                <i class="fa fa-navicon"></i>
                 <span class="title">菜单管理</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
                 <li class="nav-item">
                     <a href="menu" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
+                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
                         <span class="title">添加菜单</span>
                     </a>
                 </li>
@@ -451,7 +451,7 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item  active open">
+        <li class="nav-item">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-settings"></i>
                 <span class="title">Form Stuff</span>
@@ -518,7 +518,7 @@
                         <span class="title">Image Cropping</span>
                     </a>
                 </li>
-                <li class="nav-item  active open">
+                <li class="nav-item">
                     <a href="form_fileupload.html" class="nav-link ">
                         <span class="title">Multiple File Upload</span>
                         {{--<span class="selected"></span>--}}
