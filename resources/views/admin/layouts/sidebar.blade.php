@@ -40,7 +40,7 @@
         </li>
         @if(isset($menu['head']) && count($menu['head']))
             @foreach($menu['head'] as $v)
-                <li class="nav-item @if(isset($id)) @if($v['id'] == $id) active  @endif @endif">
+                <li class="nav-item @if(isset($menuName))@if($v['menu_name'] == $menuName[0])active open @endif @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="{{ $v['icon'] }}"></i>
                         <span class="title">{{ $v['display_name'] }}</span>
@@ -49,8 +49,8 @@
                     <ul class="sub-menu">
                         @if(isset($menu['body']) && count($menu['body']))
                         @foreach($menu['body'][$v['id']] as $vv)
-                            <li class="nav-item @if(isset($id)) @if($vv['id'] == $iid) active  @endif @endif">
-                                <a href="/admin/{{ $vv['menu_name'] }}/{{ $v['id'] }}/{{ $vv['id'] }}" class="nav-link ">
+                            <li class="nav-item @if(isset($menuName))@if($vv['menu_name'] == $menuName[1])active @endif @endif">
+                                <a href="/admin/{{ $vv['menu_name'] }}" class="nav-link ">
                                     <i class="{{ $vv['icon'] }}"></i>
                                     <span class="title">{{ $vv['display_name'] }}</span>
                                 </a>
@@ -69,7 +69,7 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item">
-                    <a href="menu" class="nav-link ">
+                    <a href="/admin/menu" class="nav-link ">
                         <i class="fa phpdebugbar-fa-angle-double-down"></i>
                         <span class="title">添加菜单</span>
                     </a>

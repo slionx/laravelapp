@@ -19,11 +19,29 @@ class Getmenu
     public function handle($request, Closure $next)
     {
         view()->share('menu',$this->getMenu());
+        view()->share('menuName',$this->getMenuName());
+
         return $next($request);
     }
-    function object2array(&$object) {
+    public function object2array(&$object) {
         $object =  json_decode( json_encode( $object),true);
         return  $object;
+    }
+
+    public function getMenuName(){
+        $str = str_replace('/admin/', '', $_SERVER['REQUEST_URI']);
+        if(strpos($str,'/')){
+            $url = explode('/',$str);
+            $url[1] = $url[0].'/'.$url[1];
+
+        }else{
+            $url[0] = 0;
+            $url[1] = 0;
+
+        }
+
+        return $url;
+
     }
 
     public function getMenu(){

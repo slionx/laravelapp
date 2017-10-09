@@ -97,7 +97,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 
 
 
-    Route::get('/post/create/{id}/{iid}', 'PostController@create');
+    Route::get('/post/create/', 'PostController@create');
     Route::post('/post/store', 'PostController@store');
 
     Route::get('post/upload_img', 'PostController@upload_img');

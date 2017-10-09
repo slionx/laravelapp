@@ -132,12 +132,10 @@ class PostController extends Controller
         return view('admin.categories');
     }
 
-    public function create($id,$iid){
+    public function create(){
 
         return view('admin.post.create',[
             'categories'=>$this->category,
-            'id'=>$id,
-            'iid'=>$iid,
 
         ]);
     }
