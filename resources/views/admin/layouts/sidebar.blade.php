@@ -40,16 +40,21 @@
         </li>
         @if(isset($menu['head']) && count($menu['head']))
             @foreach($menu['head'] as $v)
-                <li class="nav-item @if(isset($menuName))@if($v['menu_name'] == $menuName[0])active open @endif @endif">
+			    <?php
+			    //var_dump($v);
+			    ?>
+
+                <li class="nav-item @if($v['menu_name'] == $menu['url_keyword'][0])active open @endif ">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="{{ $v['icon'] }}"></i>
                         <span class="title">{{ $v['display_name'] }}</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        @if(isset($menu['body']) && count($menu['body']))
+                        @if(isset($menu['body'][$v['id']]) && count($menu['body'][$v['id']]))
                         @foreach($menu['body'][$v['id']] as $vv)
-                            <li class="nav-item @if(isset($menuName))@if($vv['menu_name'] == $menuName[1])active @endif @endif">
+
+                            <li class="nav-item @if($vv['menu_keyword'][1] == $menu['url_keyword'][1])active @endif">
                                 <a href="/admin/{{ $vv['menu_name'] }}" class="nav-link ">
                                     <i class="{{ $vv['icon'] }}"></i>
                                     <span class="title">{{ $vv['display_name'] }}</span>
@@ -64,7 +69,7 @@
         <li class="nav-item">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-navicon"></i>
-                <span class="title">菜单管理</span>
+                <span class="title">菜单管理--</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">

@@ -239,6 +239,8 @@
     <!-- END CONTENT BODY -->
 </div>
 <!-- END CONTENT -->
+
+
 @stop
 @section('theme_layout_scripts')
         <!-- BEGIN PAGE LEVEL PLUGINS -->

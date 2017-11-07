@@ -45,25 +45,78 @@ class Getmenu
     }
 
     public function getMenu(){
+	    $tmp = [];
+	    $str = str_replace('/admin/', '', $_SERVER['REQUEST_URI']);
+	    if(strpos($str,'/')){
+		    $tmp['url_keyword'] = explode('/',$str);
+	    }else{
+		    $tmp['url_keyword'][0] = false;
+		    $tmp['url_keyword'][1] = false;
+	    }
+	    //var_dump($tmp);exit;
+
         //$menu = new Menu();
         //$menu = $menu->all();
         $menu  = DB::table('menu')->select('id','menu_name','display_name','parentid','icon')->get();
         $menu = $this->object2array($menu);
-        $tmp = [];
+
         $arr = [];
 
-        foreach ($menu as $k=> $v){
+
+        foreach ($menu as $k => $v){
+	        if($v['parentid'] == 0){
+		        $tmp['head'][] = $v;
+	        }else{
+		        foreach ($menu as $kk => $vv){
+		        	if($v['parentid'] == $vv['id']){
+				        //var_dump($vv);
+
+				        if(strpos($v['menu_name'],'/')){
+					        $v['menu_keyword'] = explode('/',$v['menu_name']);
+				        }else{
+					        $v['menu_keyword'] =  false;
+				        }
+
+				        $tmp['body'][$vv['id']][] = $v;
+			        }
+		        }
+	        }
+        }
+	    //dd($tmp);
+	    //exit;
+
+
+
+
+/*        foreach ($menu as $k=> $v){
             if($v['parentid'] == 0){
                 $tmp['head'][] = $v;
                 foreach ($menu as $vv){
+	                //当二级菜单父级 ID 等于一级 ID 时
                     if($v['id'] == $vv['parentid']){
+	                    if(strpos($vv['menu_name'],'/')){
+		                    $vv['menu_keyword'] = explode('/',$vv['menu_name']);
+		                    if($vv['menu_keyword'][1]){
+
+		                    }else{
+			                    $vv['menu_keyword'][1] = false;
+		                    }
+	                    }
                         $arr[] = $vv;
+	                    var_dump($arr);
+                    }else{
+
+                    	//一级菜单下没有二级菜单时
+	                    //$zxc['arr'][1] = false;
+	                    //$arr[]['arr'][1] = false;
                     }
+
                 }
+                //var_dump($arr);
                 $tmp['body'][$v['id']] = $arr;
-                unset($arr);
+                //unset($arr);
             }
-        }
+        }*/
         return $tmp;
 
     }

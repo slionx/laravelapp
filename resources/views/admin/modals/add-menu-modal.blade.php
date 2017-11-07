@@ -24,11 +24,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="name" class="col-md-4 control-label">分类菜单</label>
+                        <label for="name" class="col-md-4 control-label">路径</label>
                         <div class="col-md-8">
                             <input id="name" type="text" class="form-control" name="menu_name" autofocus>
                         </div>
-                        <label for="name" class="col-md-4 control-label">菜单名称</label>
+                        <label for="name" class="col-md-4 control-label">显示名称</label>
                         <div class="col-md-8">
                             <input id="display_name" type="text" class="form-control" name="display_name" autofocus>
                         </div>

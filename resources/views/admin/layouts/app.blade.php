@@ -17,7 +17,9 @@
 
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
-
+<?php
+//dd($menu['body'][1]);
+?>
 {{-- Navigation Bar --}}
 {{--<nav class="navbar navbar-default">
     <div class="container-fluid">
