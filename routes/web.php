@@ -82,7 +82,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 
     //menu
     Route::get('/menu/show', 'MenuController@show');
-    Route::post('/menu', 'MenuController@create');
+    Route::post('/menu', 'MenuController@create')->name('menu.create');
 
 
     Route::get('/index', 'PostController@index');
