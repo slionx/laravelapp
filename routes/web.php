@@ -79,10 +79,21 @@ Route::get('/test', 'HomeController@index');
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','menu']], function () {
     Route::get('/', 'PostController@index');
+/*路由资源可用方法
+ *
+ *  GET	/posts	index	posts.index
+	GET	/posts/create	create	posts.create
+	POST	/posts	store	posts.store
+	GET	/posts/{post}	show	posts.show
+	GET	/posts/{post}/edit	edit	posts.edit
+	PUT/PATCH	/posts/{post}	update	posts.update
+	DELETE	/posts/{post}	destroy	posts.destroy
+*/
 
     //menu
-    Route::get('/menu/show', 'MenuController@show');
-    Route::post('/menu', 'MenuController@create')->name('menu.create');
+    //Route::get('/menu/show', 'MenuController@show');
+    //Route::post('/menu', 'MenuController@create')->name('menu.create');
+	Route::resource('menu' ,'MenuController');
 
 
     Route::get('/index', 'PostController@index');

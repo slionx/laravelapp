@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">添加菜单</h4>
             </div>
-            <form role="form" class="form-horizontal" action="{{ route('menu.create') }}" method="post">
+            <form role="form" class="form-horizontal" action="{{ route('menu.store') }}" method="post">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-10">
