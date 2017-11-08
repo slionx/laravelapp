@@ -27,9 +27,9 @@ class MenuController extends Controller
     public function create(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'menu_name' => 'required',
-            'display_name' => 'required|unique:menu|max:255',
-            'parentid' => 'required|numeric',
+            'menu_name' => 'bail|required',
+            'display_name' => 'bail|required|unique:menu|max:255',
+            'parentid' => 'bail|required|numeric',
             'icon' => 'required',
         ]);
         if ($validator->fails()) {

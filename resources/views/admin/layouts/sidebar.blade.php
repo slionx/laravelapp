@@ -54,7 +54,7 @@
                         @if(isset($menu['body'][$v['id']]) && count($menu['body'][$v['id']]))
                         @foreach($menu['body'][$v['id']] as $vv)
 
-                            <li class="nav-item @if($vv['menu_keyword'][1] == $menu['url_keyword'][1])active @endif">
+                            <li class="nav-item @if($vv['menu_keyword'][0].$vv['menu_keyword'][1] == $menu['url_keyword'][0].$menu['url_keyword'][1])active @endif">
                                 <a href="/admin/{{ $vv['menu_name'] }}" class="nav-link ">
                                     <i class="{{ $vv['icon'] }}"></i>
                                     <span class="title">{{ $vv['display_name'] }}</span>

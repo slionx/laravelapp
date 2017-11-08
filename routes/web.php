@@ -105,12 +105,12 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 
 
     //tag
-    Route::get('/tags', 'TagController@index');
+    Route::get('/tag/show', 'TagController@index');
     Route::post('/tag', 'TagController@create');
 
 
     //category
-    Route::get('/category', 'CategoryController@index');
+    Route::get('/category/show', 'CategoryController@index');
     Route::post('/category', 'CategoryController@create');
 
 
