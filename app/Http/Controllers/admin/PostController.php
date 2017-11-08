@@ -32,9 +32,9 @@ class PostController extends Controller
     {
         return view('admin.index');
 
-/*        return view('admin.post.index',[
-            'categories'=>$this->category
-        ]);*/
+        /*        return view('admin.post.index',[
+                    'categories'=>$this->category
+                ]);*/
 
     }
     /**
@@ -98,8 +98,8 @@ class PostController extends Controller
                         'size'=>false,
                         "type"=> "image/jpeg",
                         "error"=> "File upload aborted",
-            "deleteUrl"=> "http://l.cn../storage/files/0qg04YIPXeHx8kKm9qGa7nNVCkL68ihLzb3lL2KC.jpeg",
-            "deleteType"=> "DELETE"
+                        "deleteUrl"=> "http://l.cn../storage/files/0qg04YIPXeHx8kKm9qGa7nNVCkL68ihLzb3lL2KC.jpeg",
+                        "deleteType"=> "DELETE"
 
                     )
                 );
@@ -167,10 +167,23 @@ class PostController extends Controller
 
 
 
-/*        $article->save([
-            'title'=>$request->title,
-            'content'=>$request->content
-        ]);*/
+        /*        $article->save([
+                    'title'=>$request->title,
+                    'content'=>$request->content
+                ]);*/
+
+    }
+
+    public function show(){
+
+    }
+    public function edit(){
+
+    }
+    public function update(){
+
+    }
+    public function destroy(){
 
     }
 }

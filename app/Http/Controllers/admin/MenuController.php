@@ -11,14 +11,14 @@ class MenuController extends Controller
 {
 
     public function index(){
-        $menu = new Menu;
-        $menu = $menu->all();
+        //$menu = new Menu;
+        $menu = Menu::all();
         return view('admin.layouts.sidebar', compact('menu'));
         //return view('admin.menu');
     }
     public function show(){
-        $menu = new Menu;
-        $result = $menu->all();
+        //$menu = new Menu;
+        $result = Menu::all();
         return view('admin.menu', compact('result'));
         //return view('admin.menu');
     }
@@ -49,6 +49,20 @@ class MenuController extends Controller
                  'sort'=>$request->input('sort'),
              ]);*/
         echo 'sucess';
+
+    }
+    public function edit($id){
+        echo $id;
+        //return view('admin.menu');
+        // $input->id;
+        //$menu = Menu::edit($id);
+        //return response()->json($menu);
+
+    }
+    public function update(){
+
+    }
+    public function destroy(){
 
     }
 }

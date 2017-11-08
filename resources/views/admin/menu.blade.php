@@ -177,7 +177,7 @@
                                             <td>{{ $val['icon'] }}</td>
                                             <td>
                                                 <div>
-                                                    <a href="" class="btn btn-info"
+                                                    <a href="{{url('admin/menu/'.$val['id'].'/edit')}}" class="btn btn-info"
                                                        data-toggle="tooltip" data-placement="top" title="编辑">
                                                         <i class="fa fa-pencil fa-fw">编辑</i>
                                                     </a>
