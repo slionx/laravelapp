@@ -90,6 +90,13 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	DELETE	/posts/{post}	destroy	posts.destroy
 */
 
+
+/*	Route::get('/post/{post}', function () {
+		//
+	})->name('post.show');
+
+echo route('post.show', ['post' => $post]);*/
+
     //menu
     //Route::get('/menu/show', 'MenuController@show');
     //Route::post('/menu', 'MenuController@create')->name('menu.create');

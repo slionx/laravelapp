@@ -12,7 +12,8 @@
         "laravel/tinker": "^1.0",
         "intervention/image": "^2.4",
         "stevenyangecho/laravel-u-editor": "~1.4",
-        "matriphe/imageupload": "6.*"
+        "matriphe/imageupload": "6.*",
+        "filp/whoops": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
