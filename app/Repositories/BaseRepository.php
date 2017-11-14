@@ -2,9 +2,25 @@
 
 namespace App\Repositories;
 
-trait BaseRepository
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Container\Container as App;
+
+class BaseRepository
 {
-    /**
+	/*
+	 * @var Model
+	 */
+	protected $model;
+
+	/*
+	 * @param Application @app
+	 */
+	public function __construct(App $App) {
+		$this->model = $App;
+	}
+
+	/**
      * Get number of records
      *
      * @return array

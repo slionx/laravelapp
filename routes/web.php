@@ -13,7 +13,7 @@
 
 use Illuminate\Http\Request;
 
-
+Route::get('test', 'TestController@index');
 
 Route::get('/num','HomeController@index');
 // User Auth
