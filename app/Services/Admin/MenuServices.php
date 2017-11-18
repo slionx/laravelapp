@@ -6,7 +6,13 @@ use App\Repositories\MenuRepository;
 
 class MenuServices{
 
-	protected $module = 'menu';
+	protected $model = 'menu';
+
+
+	public function all(){
+		return $menus = MenuRepository::getNumber();
+
+	}
 
 
 

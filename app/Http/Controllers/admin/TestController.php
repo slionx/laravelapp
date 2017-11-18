@@ -13,14 +13,20 @@ class testController extends Controller
 	protected $service;
 
 	public function __construct(MenuServices $services){
-		//$this->service = $services;
+		$this->service = $services;
 
 	}
 
     public function index(){
-        //$all = $this->service->all();
+        $all = $this->service->all();
         echo 11;
-        //var_dump($all);
+        var_dump($all);
     }
+
+	public function test(){
+		//$all = $this->service->all();
+		echo 11;
+		//var_dump($all);
+	}
 
 }

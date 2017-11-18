@@ -2,13 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Repositories\BaseRepository;
+
 use App\Http\Model\Menu;
+use App\Repositories\BaseRepository;
 
 class MenuRepository extends BaseRepository
 {
 
-
+/*
     protected $menu;
 
 
@@ -16,11 +17,27 @@ class MenuRepository extends BaseRepository
     {
         $this->model = $menu;
 
-    }
+    }*/
 
-    public function all(){
-    	return $this->model->toArray();
-    }
+	/**
+	 * Specify Model class name
+	 *
+	 * @return string
+	 */
+	public function model()
+	{
+		return Menu::class;
+	}
+
+	/**
+	 * Boot up the repository, pushing criteria
+	 */
+	public function boot()
+	{
+
+	}
+
+
 
 
 }

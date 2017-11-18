@@ -4,7 +4,9 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Container\Container as App;
+use Illuminate\Support\Collection;
 
 class BaseRepository
 {

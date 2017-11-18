@@ -13,7 +13,7 @@
 
 use Illuminate\Http\Request;
 
-Route::get('test', 'TestController@index');
+
 
 Route::get('/num','HomeController@index');
 // User Auth
@@ -89,7 +89,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	PUT/PATCH	/posts/{post}	update	posts.update
 	DELETE	/posts/{post}	destroy	posts.destroy
 */
-
+	Route::get('/aa','TestController@index'); //测试路由
 
 /*	Route::get('/post/{post}', function () {
 		//
@@ -235,3 +235,7 @@ Route::any('foo', function () {
 */
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
