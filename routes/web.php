@@ -74,6 +74,10 @@ Route::get('user', 'UserController@AllUser');
 
 
 Route::get('/test', 'HomeController@index');
+Route::get('email/verify/{token}','UserController@verify')->name('email.verify');
+Route::get('/', function () {
+	return view('welcome');
+});
 
 
 
@@ -153,9 +157,7 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::get('/reset', function () {
         return view('auth.passwords.reset');
     });
-    Route::get('/', function () {
-        return view('welcome');
-    });
+
 
     /**
      * Show Task Dashboard

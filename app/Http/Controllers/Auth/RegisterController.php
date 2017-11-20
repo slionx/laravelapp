@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Model;
-use Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Model\User;
+use Auth;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Mail;
+use Validator;
+use Illuminate\Support\Facades\DB;
+
 
 class RegisterController extends Controller
 {
@@ -62,10 +66,47 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+
+
+	    try {
+		    $user = User::create( [
+			    'name'               => $data['name'],
+			    'email'              => $data['email'],
+			    'avatar'             => 'images/avatars/default.png',
+			    'confirmation_token' => str_random( 40 ),
+			    'password'           => bcrypt( $data['password'] ),
+		    ] );
+		    $this->sendVerifyEmailToUser( $user );
+		    DB::commit();
+		    return $user;
+	    } catch ( Exception $e ) {
+		    DB::rollback();
+		    echo $e->getMessage();
+		    echo $e->getCode();
+
+	    }
+
     }
+
+	private function sendVerifyEmailToUser($user) {
+		$name = $user['name'];
+		//$url = route('email.verify',['token'=>$user['confirmation_token'],'name'=>$name]);
+		//$email = $user['email'];
+		$flag = Mail::send('email.test',['name'=>$name,'token'=>$user['confirmation_token']],function($message){
+			$to = '787756466@qq.com';
+			$message->to($to)->subject('请确认你在Slionx博客的注册邮箱');
+
+			//$attachment = storage_path('app/files/test.doc');
+			//在邮件中上传附件
+			//$message->attach($attachment,['as'=>"=?UTF-8?B?".base64_encode('测试文档')."?=.doc"]);
+
+		});
+		if(count(Mail::failures()) > 0){
+
+		}else{
+
+		}
+		return $flag;
+
+	}
 }

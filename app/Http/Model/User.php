@@ -19,8 +19,8 @@ class User extends Eloquent implements Authenticatable
     protected $table = 'users';
     protected $primaryKey = 'id';
 
-    //指定允许批量复赋值的字段
-    protected $fillable = ['name','email','password','register_from'];
+    //指定必须赋值的字段
+    protected $fillable = ['name','email','password','avatar','is_active','confirmation_token'];
     //指定不允许批量赋值的字段
     //protected $guarded = [];
 
