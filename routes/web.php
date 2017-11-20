@@ -75,6 +75,9 @@ Route::get('user', 'UserController@AllUser');
 
 Route::get('/test', 'HomeController@index');
 Route::get('email/verify/{token}','UserController@verify')->name('email.verify');
+/*Route::get('email/test/',function (){
+	return view('email/test');
+});*/
 Route::get('/', function () {
 	return view('welcome');
 });
