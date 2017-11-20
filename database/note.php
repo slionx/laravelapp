@@ -135,6 +135,3 @@ Available commands:
 
 
 */
-
-
-?>
