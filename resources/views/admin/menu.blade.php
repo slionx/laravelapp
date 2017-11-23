@@ -13,7 +13,7 @@
                 <div class="toggler-close"> </div>
                 <div class="theme-options">
                     <div class="theme-option theme-colors clearfix">
-                        <span> THEME COLOR </span>
+                        <span> THEME COLOR 主题切换</span>
                         <ul>
                             <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="Default"> </li>
                             <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="Dark Blue"> </li>
@@ -151,12 +151,12 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <div id="bootstrap_alerts_demo"> </div>
+                            <div id="bootstrap_alerts_demo"></div>
                             <div class="widget-body">
-                                <a class="btn pull-right" role="button" data-toggle="modal" data-target="#add-category-modal">
+                                {{--<a class="btn pull-right" role="button" data-toggle="modal" data-target="#add-category-modal">
                                     <i class="fa fa-folder-o"></i>
-                                </a>
-                                <table class="table table-hover table-striped table-bordered table-responsive" style="overflow: auto">
+                                </a>--}}
+                                <table class="table table-hover table-striped table-bordered table-responsive" style="overflow: auto;width: 65%;">
                                     <thead>
                                     <tr>
                                         <th>id</th>
@@ -195,6 +195,8 @@
 
                                     </tbody>
                                 </table>
+
+
                             </div>
                             {{--content--}}
                         </div>
