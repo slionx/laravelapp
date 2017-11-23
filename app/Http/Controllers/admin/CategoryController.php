@@ -15,9 +15,22 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $category = new Category;
-        $categorise = $category->all();
-        return view('admin.categories', compact('categorise'));
+        //$category = new Category;
+	    //return $categorise = $category->all()->toJson();
+        //return view('admin.categories', compact('categorise'));
+	    return view('admin.categories');
+
+    }
+
+    public function show(){
+	    $category = new Category;
+	    $count = $category->count();
+	    $data = $category->where()->all();
+	    $output['data'] = $data;
+	    $output['draw'] = $count;
+
+	    return json_encode($output);
+
 
     }
 

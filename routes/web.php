@@ -112,21 +112,22 @@ echo route('post.show', ['post' => $post]);*/
         //
     })->name('menu.edit');*/
 
-
-    Route::get('/index', 'PostController@index');
-    //Route::get('/tags', 'PostController@tags');
-    Route::get('/image', 'PostController@image');
-    Route::get('/upload', 'PostController@upload');
-    Route::get('/post', 'PostController@post');
-
-/*    Route::get('/post/create/{id}/{iid}', function ($id) {
-        return 'User '.$id;
-    });*/
+	//Route::get('/tags', 'PostController@tags');
 
 
 
-    Route::get('/post/create/', 'PostController@create');
-    Route::post('/post/store', 'PostController@store');
+
+	Route::resource('post','PostController');
+
+	Route::get('/index', 'PostController@index');
+	Route::get('/post/create/', 'PostController@create');
+	Route::post('/post/store', 'PostController@store');
+
+	Route::get('/image', 'PostController@image');
+	Route::get('/upload', 'PostController@upload');
+	Route::get('/post', 'PostController@post');
+
+
 
     Route::get('post/upload_img', 'PostController@upload_img');
     Route::post('post/upload_img', 'PostController@upload_img');
@@ -138,7 +139,8 @@ echo route('post.show', ['post' => $post]);*/
 
 
     //category
-    Route::get('/category/show', 'CategoryController@index');
+    Route::get('/category/index', 'CategoryController@index');
+	Route::get('/category/show', 'CategoryController@show')->name('category.show');
     Route::post('/category', 'CategoryController@create');
 
 
@@ -171,35 +173,6 @@ Route::group(['middleware' => ['web','auth']], function () {
         ]);
     });
 
-    /**
-     * Add New Task
-     */
-    Route::post('/task', function (Request $request) {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/')
-                ->withInput()
-                ->withErrors($validator);
-        }
-
-        $task = new Task;
-        $task->name = $request->name;
-        $task->save();
-
-        return redirect('/');
-    });
-
-    /**
-     * Delete Task
-     */
-    Route::delete('/task/{id}', function ($id) {
-        Task::findOrFail($id)->delete();
-
-        return redirect('/');
-    });
 });
 
 
