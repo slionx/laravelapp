@@ -294,12 +294,13 @@
 {{--    <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>
+
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
     <!-- END PAGE LEVEL SCRIPTS -->--}}
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
 
         $(document).ready(function() {
@@ -317,8 +318,11 @@
                 "processing": true,
                 "serverSide": true,
                 "columns": [
-                    { "data": "id", "title":"序号","defaultContent":""},
-                    { "data": "name", "title":"用户名","defaultContent":""},
+                    { "data": "id"},
+                    { "data": "name"},
+                    { "data": "sort"},
+                    { "data": "created_at"},
+                    { "data": "updated_at"},
                 ],
                 "autoWidth": true,//自动宽度
                 "pagingType":   "full_numbers",
@@ -356,7 +360,7 @@
 
 
             });
-            $(".table").colResizable();
+            $("#sample_table").colResizable();
             $("#tb-refresh").on("click",function(){
                 //加载一个新的文件
                 //fnReloadAjax方法有3个主要参数

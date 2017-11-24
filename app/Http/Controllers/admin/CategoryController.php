@@ -10,6 +10,89 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Database\Eloquent\Model;
 
 
+array (
+	'draw' => '1',
+	'columns' =>
+		array (
+			0 =>
+				array (
+					'data' => 'id',
+					'name' => '',
+					'searchable' => 'true',
+					'orderable' => 'true',
+					'search' =>
+						array (
+							'value' => '',
+							'regex' => 'false',
+						),
+				),
+			1 =>
+				array (
+					'data' => 'name',
+					'name' => '',
+					'searchable' => 'true',
+					'orderable' => 'true',
+					'search' =>
+						array (
+							'value' => '',
+							'regex' => 'false',
+						),
+				),
+			2 =>
+				array (
+					'data' => 'sort',
+					'name' => '',
+					'searchable' => 'true',
+					'orderable' => 'true',
+					'search' =>
+						array (
+							'value' => '',
+							'regex' => 'false',
+						),
+				),
+			3 =>
+				array (
+					'data' => 'created_at',
+					'name' => '',
+					'searchable' => 'true',
+					'orderable' => 'true',
+					'search' =>
+						array (
+							'value' => '',
+							'regex' => 'false',
+						),
+				),
+			4 =>
+				array (
+					'data' => 'updated_at',
+					'name' => '',
+					'searchable' => 'true',
+					'orderable' => 'true',
+					'search' =>
+						array (
+							'value' => '',
+							'regex' => 'false',
+						),
+				),
+		),
+	'order' =>
+		array (
+			0 =>
+				array (
+					'column' => '0',
+					'dir' => 'asc',
+				),
+		),
+	'start' => '0',
+	'length' => '10',
+	'search' =>
+		array (
+			'value' => '',
+			'regex' => 'false',
+		),
+	'_token' => 'cSafjMOIBUsVV9ShKv6M7x50NY1tReVSsCKJcp6u',
+	'_' => '1511494322453',
+);
 
 class CategoryController extends Controller
 {
@@ -22,10 +105,14 @@ class CategoryController extends Controller
 
     }
 
-    public function show(){
+    public function show(Request $request){
+	    $filename="ntmzn.txt";
+	    $handle=fopen($filename,"a+");
+	    fwrite($handle,var_export($request->all(),true));
+	    fclose($handle);
 	    $category = new Category;
 	    $count = $category->count();
-	    $data = $category->where()->all();
+	    $data = $category->all();
 	    $output['data'] = $data;
 	    $output['draw'] = $count;
 

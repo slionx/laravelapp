@@ -168,6 +168,7 @@ return [
         //Intervention\Image\ImageServiceProvider::class,//图片的创建、修改和压缩处理
         Stevenyangecho\UEditor\UEditorServiceProvider::class,//百度编辑器
         //Matriphe\Imageupload\ImageuploadServiceProvider::class,//图片上传
+	    Yajra\DataTables\DataTablesServiceProvider::class,//DataTables
 
         /*
          * Package Service Providers...
@@ -235,6 +236,7 @@ return [
         //'Markdown'        => 'MaxHoffmann\Parsedown\ParsedownFacade',//mark
         //'Image' => Intervention\Image\Facades\Image::class,//图片的创建、修改和压缩处理
         //'Imageupload' => Matriphe\Imageupload\ImageuploadFacade::class,//图片上传
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,//DataTables
 
 
     ],
