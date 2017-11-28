@@ -92,7 +92,8 @@ class RegisterController extends Controller
 		$name = $user['name'];
 		//$url = route('email.verify',['token'=>$user['confirmation_token'],'name'=>$name]);
 		//$email = $user['email'];
-		$flag = Mail::send('email.test',['name'=>$name,'token'=>$user['confirmation_token']],function($message){
+
+		$flag = Mail::send('email.send',['name'=>$name,'token'=>$user['confirmation_token']],function($message){
 			$to = '787756466@qq.com';
 			$message->to($to)->subject('请确认你在Slionx博客的注册邮箱');
 

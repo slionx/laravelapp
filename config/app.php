@@ -169,6 +169,7 @@ return [
         Stevenyangecho\UEditor\UEditorServiceProvider::class,//百度编辑器
         //Matriphe\Imageupload\ImageuploadServiceProvider::class,//图片上传
 	    Yajra\DataTables\DataTablesServiceProvider::class,//DataTables
+	    Yajra\DataTables\HtmlServiceProvider::class,
 
         /*
          * Package Service Providers...

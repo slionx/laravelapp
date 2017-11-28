@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller{
 
+
+
+
 	public function AllUser(){
 		//all()
 //        $user = User::all();

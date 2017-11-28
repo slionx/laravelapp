@@ -14,7 +14,9 @@
         "stevenyangecho/laravel-u-editor": "~1.4",
         "matriphe/imageupload": "6.*",
         "filp/whoops": "^2.1",
-        "yajra/laravel-datatables-oracle": "~8.0"
+        "yajra/laravel-datatables-oracle": "~8.0",
+        "yajra/laravel-datatables": "^1.0",
+        "yajra/laravel-datatables-html": "^3.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 Route::get('/num','HomeController@index');
 // User Auth
 Auth::routes();
+
 Route::post('password/change', 'HomeController@changePassword')->middleware('auth');
 
 Route::get('home/{id}/edit', 'HomeController@edit')->name('edit');
@@ -32,7 +33,7 @@ Route::post('user/upload/avatar', 'UserController@update')->name('uploadAvatar')
 
 
 }));*/
-
+Route::get('table', 'admin\CategoryController@index');
 
 /*Route::get('user',['as' => 'profile',function () {
     echo  Route('profile');
@@ -85,7 +86,7 @@ Route::get('/', function () {
 
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','menu']], function () {
-    Route::get('/', 'PostController@index');
+    //Route::get('/', 'PostController@index');
 /*路由资源可用方法
  *
  *  GET	/posts	index	posts.index
@@ -159,9 +160,9 @@ Route::group(['middleware' => ['web','auth']], function () {
 
 
 
-    Route::get('/reset', function () {
+/*    Route::get('/reset', function () {
         return view('auth.passwords.reset');
-    });
+    });*/
 
 
     /**
@@ -211,9 +212,5 @@ Route::any('foo', function () {
     return 'hello foo';
 });
 */
-
-
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
