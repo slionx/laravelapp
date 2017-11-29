@@ -11,6 +11,10 @@ use Matriphe\Imageupload\Imageupload;
 use Validator;
 use Image;
 
+/**
+ * Class PostController
+ * @package App\Http\Controllers\Admin
+ */
 class PostController extends Controller {
 	protected $category;
 	protected $post;
@@ -36,6 +40,9 @@ class PostController extends Controller {
 
 	}
 
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function create() {
 		return view( 'admin.post.create', [
 			'categories' => $this->category,
@@ -71,7 +78,13 @@ class PostController extends Controller {
 
 	}
 
-	public function show() {
+	/**
+	 *
+	 */
+	public function show($id) {
+		$post = Posts::find($id);
+		//echo $post->post_title;
+		return view('post.show',compact('post'));
 
 	}
 
@@ -79,10 +92,16 @@ class PostController extends Controller {
 
 	}
 
+	/**
+	 *
+	 */
 	public function update() {
 
 	}
 
+	/**
+	 * @param $id
+	 */
 	public function destroy( $id ) {
 
 	}

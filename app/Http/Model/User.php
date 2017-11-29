@@ -6,14 +6,17 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
-// use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Eloquent implements Authenticatable
+class User extends Eloquent implements AuthenticatableContract,CanResetPasswordContract
+
 {
 	use Notifiable;
 	use AuthenticableTrait;
+	use CanResetPassword;
 
 	protected $table = 'users';
 	protected $primaryKey = 'id';
@@ -37,14 +40,8 @@ class User extends Eloquent implements Authenticatable
 			return $val;
 		}*/
 	public function sendPasswordResetNotification($token){
-		//url(config('app.url').route('password.reset', $this->token, false))
-		$flag = Mail::send('email.resetpassword',['name'=>1,'token'=>$token],function($message){
-			$message->to($this->email)->subject('请确认你在找回密码');
-
-			//$attachment = storage_path('app/files/test.doc');
-			//在邮件中上传附件
-			//$message->attach($attachment,['as'=>"=?UTF-8?B?".base64_encode('测试文档')."?=.doc"]);
-
+		$flag = Mail::send('email.resetpassword',['token'=>$token],function($message){
+			$message->to($this->email)->subject('Slionx 博客帐户密码重置');
 		});
 	}
 }

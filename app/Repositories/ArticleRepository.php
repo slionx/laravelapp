@@ -5,15 +5,31 @@ namespace App\Repositories;
 use App\Article;
 use App\Scopes\DraftScope;
 
+/**
+ * Class ArticleRepository
+ * @package App\Repositories
+ */
 class ArticleRepository
 {
-    use BaseRepository;
+    //use BaseRepository;
 
-    protected $model;
+	/**
+	 * @var Article
+	 */
+	protected $model;
 
-    protected $visitor;
+	/**
+	 * @var VisitorRepository
+	 */
+	protected $visitor;
 
-    public function __construct(Article $article, VisitorRepository $visitor)
+	/**
+	 * ArticleRepository constructor.
+	 *
+	 * @param Article $article
+	 * @param VisitorRepository $visitor
+	 */
+	public function __construct(Article $article, VisitorRepository $visitor)
     {
         $this->model = $article;
 

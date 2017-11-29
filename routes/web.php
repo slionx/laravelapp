@@ -46,7 +46,7 @@ Route::get('ic',[
 
 
 //Route::resource('article','Admin\ArticleController');
-Route::resource('article', 'ArticleController');
+//Route::resource('article', 'ArticleController');
 /*
  * admin 路由组
  * admin spacename
@@ -83,7 +83,7 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
-
+Route::resource('post','admin\PostController');
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','menu']], function () {
     //Route::get('/', 'PostController@index');
@@ -118,7 +118,7 @@ echo route('post.show', ['post' => $post]);*/
 
 
 
-	Route::resource('post','PostController');
+
 
 	Route::get('/index', 'PostController@index');
 	Route::get('/post/create/', 'PostController@create');

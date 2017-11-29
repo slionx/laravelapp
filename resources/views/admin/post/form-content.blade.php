@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-
+    @include('UEditor::head')
         <!-- BEGIN VALIDATION STATES-->
         <div class="portlet light portlet-fit portlet-form bordered">
             <div class="portlet-title">
@@ -95,11 +95,12 @@
                     <div class="form-group form-md-line-input form-md-floating-label">
                         <label for="form_control_1">文章内容</label>
 
-                        @include('UEditor::head')
+
                                 <!-- 加载编辑器的容器 -->
                         <script id="container" name="post_content" type="text/plain">文章内容</script>
                         <!-- 实例化编辑器 -->
                         <script type="text/javascript">
+
                             var ue = UE.getEditor('container');
                             ue.ready(function() {
                                 ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.
@@ -112,8 +113,8 @@
             <div class="form-actions">
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="submit" class="btn dark">发布</button>
-                        <button type="reset" class="btn default">重置</button>
+                        <button type="submit" class="btn btn-success pull-right">发布</button>
+                        <button type="reset" class="btn btn-default pull-right">重置</button>
                     </div>
                 </div>
             </div>

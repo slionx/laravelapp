@@ -6,7 +6,7 @@ use App\Category;
 
 class CategoryRepository
 {
-    use BaseRepository;
+    //use BaseRepository;
 
     protected $model;
 

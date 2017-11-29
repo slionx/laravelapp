@@ -85,13 +85,7 @@
                                                                         <tr>
                                                                             <td bgcolor="#ffffff" align="left"
                                                                                 style="background-color:#ffffff; font-size: 17px; color:#7b7b7b; padding:28px 0 0 0;line-height:25px;">
-                                                                                <b>你好{{ $name }}，欢迎注册Slionx博客!</b>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td align="left" valign="top"
-                                                                                style="font-size:15px; color:#7b7b7b; font-size:14px; line-height: 25px; font-family:Hiragino Sans GB; padding: 20px 0px 20px 0px">
-                                                                                为了保证你正常使用博客功能，请激活账号。
+                                                                                <b>Slionx 博客帐户密码重置</b>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -107,7 +101,7 @@
 <a style="text-decoration:none;color:#ffffff;"
    href="{{ route('password.reset',['token'=>$token]) }}"
    target="_blank">
-<div style="padding:10px 25px 10px 25px;border-radius:3px;text-align:center;text-decoration:none;background-color:#00a5b5;color:#ffffff;font-size:17px;margin:0;white-space:nowrap">立即激活账号
+<div style="padding:10px 25px 10px 25px;border-radius:3px;text-align:center;text-decoration:none;background-color:#00a5b5;color:#ffffff;font-size:17px;margin:0;white-space:nowrap">重置密码
 </div>
 </a>
 </span>
