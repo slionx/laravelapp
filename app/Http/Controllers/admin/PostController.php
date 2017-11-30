@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Model\Category;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use Matriphe\Imageupload\Imageupload;
 use Validator;
 use Image;
+use Illuminate\Auth\Middleware;
 
 /**
  * Class PostController
@@ -20,6 +22,7 @@ class PostController extends Controller {
 	protected $post;
 
 	public function __construct() {
+		$this->middleware('auth')->except(['index','post','show']);
 		$this->category = new Category();
 		$this->category = $this->category->orderBy( 'sort', 'asc' )->get();
 		$this->post     = new Posts();
@@ -40,6 +43,8 @@ class PostController extends Controller {
 
 	}
 
+
+
 	/**
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
@@ -49,13 +54,23 @@ class PostController extends Controller {
 		] );
 	}
 
-	public function store( Request $request ) {
-		$validator = Validator::make( $request->all(), [
+	public function store(Request $request ) {
+
+
+		$rules = [
 			'post_title'   => 'required|unique:posts|max:255',
 			'post_slug'    => 'required',
 			'category'     => 'required',
 			'post_content' => 'required',
-		] );
+		];
+		$messages = [
+			'post_title.required'=>'标题不能为空',
+			'post_title.max'=>'标题最长不能超过255字符',
+			'post_slug.required'=>'标题不能为空',
+			'category.required'=>'标题不能为空',
+			'post_content.required'=>'标题不能为空',
+		];
+		$validator = Validator::make( $request->all(),$rules);
 		if ( $validator->fails() ) {
 			return back()->withErrors( $validator )->withInput();
 		}
@@ -84,7 +99,7 @@ class PostController extends Controller {
 	public function show($id) {
 		$post = Posts::find($id);
 		//echo $post->post_title;
-		return view('post.show',compact('post'));
+		return view('home.post.show',compact('post'));
 
 	}
 
@@ -186,9 +201,9 @@ class PostController extends Controller {
 	 * @return Response
 	 */
 	public function post() {
-		$post = $this->post->paginate( 10 );
+		$post = $this->post->paginate( 1 );
 
-		return view( 'admin.post.post', compact( 'post' ) );
+		return view( 'home.post.list', compact( 'post' ) );
 	}
 
 	/**

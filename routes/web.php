@@ -82,8 +82,9 @@ Route::get('email/verify/{token}','UserController@verify')->name('email.verify')
 Route::get('/', function () {
 	return view('welcome');
 });
-
+Route::get('post/list/', 'admin\PostController@post');
 Route::resource('post','admin\PostController');
+
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','menu']], function () {
     //Route::get('/', 'PostController@index');

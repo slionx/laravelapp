@@ -59,12 +59,12 @@
 
                     {{ csrf_field() }}
                     <div class="form-group form-md-line-input form-md-floating-label {{ $errors->has('post_title') ? ' has-error' : '' }}">
-                        <input type="text" class="form-control" maxlength="255" name="post_title" id="maxlength_alloptions">
+                        <input type="text" class="form-control" value="{{ old('post_title') }}" maxlength="255" name="post_title" id="maxlength_alloptions">
                         <label for="form_control_1">标题</label>
                         <span class="help-block">文章标题应小于255字节@if ($errors->has('description')){{ $errors->first('post_title') }}@endif</span>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="text" class="form-control" name="post_slug" maxlength="255" id="maxlength_alloptions">
+                        <input type="text" class="form-control" value="{{ old('post_slug') }}" name="post_slug" maxlength="255" id="maxlength_alloptions">
                         <label for="form_control_1">文章slug</label>
                         <span class="help-block"></span>
                     </div>
@@ -88,7 +88,7 @@
                         <span class="help-block">Some help goes here...</span>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
-                        <textarea class="form-control" name="memo" rows="3"></textarea>
+                        <textarea class="form-control"  name="memo" rows="3"></textarea>
                         <label for="form_control_1">标签</label>
                         <span class="help-block">Some help goes here...</span>
                     </div>
@@ -97,7 +97,7 @@
 
 
                                 <!-- 加载编辑器的容器 -->
-                        <script id="container" name="post_content" type="text/plain">文章内容</script>
+                        <script id="container" name="post_content" type="text/plain">{!! old('post_content') !!}</script>
                         <!-- 实例化编辑器 -->
                         <script type="text/javascript">
 

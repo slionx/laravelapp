@@ -13,6 +13,8 @@ php artisan make:migration create_category_table --create=category   //创建表
 
 php artisan make:migration add_votes_to_users_table --table=users    //更新表
 
+php artisan make:request StorePostRequest    //创建 request
+
 生成表
 php artisan migrate
 
