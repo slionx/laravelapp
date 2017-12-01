@@ -82,9 +82,9 @@ Route::get('email/verify/{token}','UserController@verify')->name('email.verify')
 Route::get('/', function () {
 	return view('welcome');
 });
+
 Route::get('post/list/', 'admin\PostController@post');
 Route::resource('post','admin\PostController');
-
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','menu']], function () {
     //Route::get('/', 'PostController@index');
@@ -99,6 +99,8 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	DELETE	/posts/{post}	destroy	posts.destroy
 */
 	Route::get('/aa','TestController@index'); //测试路由
+
+
 
 /*	Route::get('/post/{post}', function () {
 		//

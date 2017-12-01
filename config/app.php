@@ -164,12 +164,13 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        //'MaxHoffmann\Parsedown\ParsedownServiceProvider',  //mark
+        MaxHoffmann\Parsedown\ParsedownServiceProvider::class,  //mark
         //Intervention\Image\ImageServiceProvider::class,//图片的创建、修改和压缩处理
         Stevenyangecho\UEditor\UEditorServiceProvider::class,//百度编辑器
         //Matriphe\Imageupload\ImageuploadServiceProvider::class,//图片上传
 	    Yajra\DataTables\DataTablesServiceProvider::class,//DataTables
 	    Yajra\DataTables\HtmlServiceProvider::class,
+        App\Providers\CategoryServiceProvider::class,
 
         /*
          * Package Service Providers...

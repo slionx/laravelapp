@@ -1,5 +1,13 @@
 <?php
+
 /*
+ *
+ *
+dd(Hash::make('password'));
+dd(app('make')->make('password'));
+dd(app()['hash']->make('password'));
+dd(app('Illuminate\Hashing\BcryptHasher')->make('pwassword'));
+
 php artisan make:controller tag
 
 创建表
@@ -29,6 +37,8 @@ Schema::table('users', function ($table) {
 最后
 php artisan migrate
 ------------追加字段----------------
+
+
 
 
 

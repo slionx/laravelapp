@@ -87,10 +87,13 @@
 
                         <span class="help-block">Some help goes here...</span>
                     </div>
-                    <div class="form-group form-md-line-input form-md-floating-label">
-                        <textarea class="form-control"  name="memo" rows="3"></textarea>
-                        <label for="form_control_1">标签</label>
-                        <span class="help-block">Some help goes here...</span>
+                    <div class="11">
+                        <select class="js-example-basic-multiple11" name="states[]" multiple="multiple">
+                            <option value="AL">Alabama</option>
+                            <option value="1">1</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
                         <label for="form_control_1">文章内容</label>
@@ -125,5 +128,10 @@
     <!-- END VALIDATION STATES-->
 </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple11').select2();
+    });
+</script>
 
 

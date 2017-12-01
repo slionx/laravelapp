@@ -1,0 +1,114 @@
+a{
+    text-decoration: none;
+}
+body {
+    background-image: url('../images/bg.jpg');
+    background-size: auto;
+
+}
+
+.site-content{
+    background-color: #fff;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1200px;
+    border: #FFF 10px solid;
+    border-top: none;
+    border-radius: 10px 10px 15px 15px;
+    box-shadow: 0 0 16px #E2E2E2;
+    opacity: 0.9;
+}
+body >.vegas-timer {
+    position: fixed;
+    z-index: -1;
+    top: 0;
+}
+.vegas-timer {
+    top: auto;
+    bottom: 0;
+    height: 2px;
+}
+
+.content-area{
+    width: 70%;
+    float: left;
+    padding: 10px 15px 0;
+}
+.widget-area{
+    width: 30%;
+    float: left;
+    padding-top: 20px;
+}
+.article-post{
+    margin: 0 0 20px;
+    padding: 0 0 40px;
+    background: url('../images/divider.png') center bottom no-repeat;
+    background-size: 580px auto;
+}
+
+.widget-area .widget-title {
+    color: #00a5b5;
+    min-height: 35px;
+    line-height: 26px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    text-shadow: 1px 1px 0 #666666;
+}
+.widget-area li {
+    line-height: 17px;
+    padding: 6px 0;
+    border-bottom: 1px solid #f2f2f2;
+}
+.widget-area .widget {
+    position: relative;
+    margin: 0 0 25px;
+    padding: 10px;
+    background: #f9f9f9;
+    min-height: 25px;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: none;
+    border-left-style: solid;
+    border-top-color: #DCDDDE;
+    border-right-color: #DCDDDE;
+    border-left-color: #DCDDDE;
+    box-shadow: 0px -5px 0px 0px #00a5b5;
+    border-radius: 4px 4px 0px 0px;
+}
+.widget-area ul, .widget-area ol {
+    list-style: none;
+    margin: 0;
+}
+.widget-area .widget-bottom {
+    height: 8px;
+    left: 0;
+    bottom: -8px;
+    position: absolute;
+    width: 100%;
+}
+.widget-area .widget-bottom {
+    height: 8px;
+    left: 0;
+    bottom: -8px;
+    position: absolute;
+    width: 100%;
+}
+.widget-bottom div {
+    background: url('../images/widget_bottom.png') no-repeat;
+    width: 50%;
+    height: 8px;
+    float: left;
+}
+.widget-bottom div.r {
+    background-position: right;
+}
+.pagination-div{
+    width: 70%;
+    text-align: center;
+}
+
