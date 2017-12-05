@@ -27,7 +27,8 @@ class PostController extends Controller {
     public function __construct() {
         //$this->post = $post;
        $category = app('category');
-       dd($category);
+       //dd($category);
+	    exit;
 
     }
 
