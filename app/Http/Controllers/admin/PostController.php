@@ -5,15 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Model\Category;
-//use App\Http\Model\Posts;
 use Illuminate\Support\Facades\Redirect;
 use Matriphe\Imageupload\Imageupload;
 use Validator;
 use Image;
 use Illuminate\Auth\Middleware;
-//use app\Repositories\PostRepository;
-//use app\Repositories\CategoryRepository;
+use App\Repositories\CategoryRepository;
+use App\Http\Model\Posts;
 
 /**
  * Class PostController
@@ -21,15 +19,12 @@ use Illuminate\Auth\Middleware;
  */
 class PostController extends Controller {
 
-    //protected $post;
-    //protected $category;
+	protected $CategoryRepository;
+	protected $post;
 
-    public function __construct() {
-        //$this->post = $post;
-       $category = app('category');
-       //dd($category);
-	    exit;
-
+    public function __construct( CategoryRepository $CategoryRepository ,Posts $post) {
+	    $this->CategoryRepository = $CategoryRepository;
+	    $this->post = $post;
     }
 
     /**
@@ -40,20 +35,14 @@ class PostController extends Controller {
     public function index() {
         return view( 'admin.index' );
 
-        /*        return view('admin.post.index',[
-                    'categories'=>$this->category
-                ]);*/
-
     }
-
-
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create() {
         return view( 'admin.post.create', [
-            'categories' => $this->category->get(),
+            'categories' => $this->CategoryRepository->Category()->get(),
         ] );
     }
 
@@ -203,7 +192,7 @@ class PostController extends Controller {
      * @return Response
      */
     public function post() {
-        $post = $this->post->pag( 1 );
+        $post = $this->post->paginate( 1 );
 
         return view( 'home.post.list', compact( 'post' ) );
     }

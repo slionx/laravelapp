@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Model\Menu;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use App\Services\Admin\MenuServices;
+use App\Service\Admin\MenuServices;
 
 class testController extends Controller
 {

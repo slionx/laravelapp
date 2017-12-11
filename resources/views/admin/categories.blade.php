@@ -285,7 +285,7 @@
             </div>
             //---------------------------------------------------
 
-            {{--@include('admin.modals.add-category-modal')--}}
+            @include('admin.modals.add-category-modal')
         </div>
     </div>
 @stop

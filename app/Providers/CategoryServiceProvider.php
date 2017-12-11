@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Services\CategoryServices;
+use App\Services\CategoryService;
 
 class CategoryServiceProvider extends ServiceProvider
 {
@@ -24,8 +24,14 @@ class CategoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('Category', function () {
-            return new Category();
-        });
+	    //使用singleton绑定单例
+	    /*$this->app->singleton('Category',function(){
+		    return new CategoryRepository();
+	    });*/
+
+/*	    //使用bind绑定实例到接口以便依赖注入
+	    $this->app->bind('Category',function(){
+		    return new CategoryRepository();
+	    });*/
     }
 }

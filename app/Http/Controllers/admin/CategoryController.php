@@ -105,7 +105,12 @@ Eof
 
 	}
 
-	public function create(Request $request){
+	public function create(  ) {
+		return view('admin.categories');
+
+	}
+
+	public function store(Request $request){
 
 		$validator = Validator::make($request->all(), [
 			'name' => 'required|unique:category|max:255',

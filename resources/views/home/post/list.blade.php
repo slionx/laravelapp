@@ -67,7 +67,7 @@
             </aside>
             <aside id="" class="widget"><h1 class="widget-title">文章归档</h1>
                 <ul>
-                    <li><a href="http://s.me/?m=201708">2017年八月</a>&nbsp;(27)</li>
+                    <li><a href="http://s.me/?m=201708">2017年八月</a>&nbsp;<span class="badge badge-primary badge-pill">2</span></li>
                     <li><a href="http://s.me/?m=201707">2017年七月</a>&nbsp;(1)</li>
                     <li><a href="http://s.me/?m=201706">2017年六月</a>&nbsp;(7)</li>
                     <li><a href="http://s.me/?m=201705">2017年五月</a>&nbsp;(2)</li>
@@ -78,6 +78,22 @@
                     <div class="l"></div>
                     <div class="r"></div>
                 </div>
+            </aside>
+            <aside class="widget">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Cras justo odio
+                            <span class="badge badge-primary badge-pill"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Dapibus ac facilisis
+                            <span class="badge badge-primary badge-pill">2</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                                Morbi leo risus
+                            </font></font><span class="badge badge-primary badge-pill"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1</font></font></span>
+                    </li>
+                </ul>
             </aside>
         </div>
         <div class="clearfix"></div>

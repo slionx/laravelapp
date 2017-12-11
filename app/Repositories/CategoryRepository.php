@@ -2,17 +2,22 @@
 
 namespace App\Repositories;
 
-use App\Category;
+
+use App\Http\Model\Category;
 
 class CategoryRepository
 {
 
     protected $model;
 
-    public function __construct(Category $category)
+    public function __construct( Category $category )
     {
         $this->model = $category;
     }
+
+	public function Category() {
+		return $this->model;
+	}
 
     /**
      * Get record by the name.
@@ -33,8 +38,8 @@ class CategoryRepository
      * @param  string  $sortColumn
      * @return collection
      */
-    public function get( $sort = 'desc', $sortColumn = 'created_at')
+    /*public function get( $sort = 'desc', $sortColumn = 'created_at')
     {
         return $this->model->orderBy($sortColumn, $sort)->get();
-    }
+    }*/
 }

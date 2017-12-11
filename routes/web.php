@@ -145,7 +145,8 @@ echo route('post.show', ['post' => $post]);*/
     //category
     Route::get('/category/index', 'CategoryController@index');
 	Route::get('/category/show', 'CategoryController@show')->name('category.show');
-    Route::post('/category', 'CategoryController@create');
+    Route::get('/category', 'CategoryController@create');
+	Route::post('/category', 'CategoryController@store');
 
 
 

@@ -7,7 +7,6 @@
 
     <title>{{ config('blog.title') }} Admin</title>
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     @include('admin.layouts.css')
     @yield('theme_layout_styles','')
     <!--[if lt IE 9]>
