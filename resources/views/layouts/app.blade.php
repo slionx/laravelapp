@@ -14,10 +14,16 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('global/plugins/bootstrap-switch/css/bootstrap-switch.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('global/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div id="app">
-        <div class="vegas-timer"><div class="vegas-timer-progress" style="transition-duration: 0ms;"></div></div>
+
+        <div class="progress" style="display: none;" >
+            <div id="prog" class="progress-bar progress-bar-striped bg-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div id="loader" class="loader" ></div>
 
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -48,7 +54,11 @@
                         <li class="nav-item">
                             <a class="nav-link disabled" href="#">Disabled</a>
                         </li>
-                        &nbsp;
+                        <li class="nav-item">
+                            <div class="switch" data-on="success" data-off="warning">
+                                <input type="checkbox" name="control-loader" data-size="mini" checked />
+                            </div>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -80,191 +90,142 @@
                 </div>
             </div>
         </nav>
+        <style>
+            .loading_background { cursor: wait; display: block; width: 100%; height: 100%; background: rgba(0,0,0,.5); position: absolute; top: 0; left: 0; z-index: 10001; }
+            #loading_manage { color: #666; font-size: 20px; position: absolute; z-index: 10002; left: 45%; top: 40%; border: 1px solid rgb(187, 187, 187); width: auto; height: 80px; line-height: 78px; padding-left: 16px; padding-right: 20px; background: #fff; display: none; cursor: pointer; border-radius: 8px; background-repeat: no-repeat; background-position: 8px 50%; box-shadow: 0 1px 15px rgba(0,0,0,.175); }
+            #loading_manage i { font-size: 24px; }
+        </style>
+        <iframe src="http://www.google.com"></iframe>
+        <div id="loading_background" class="loading_background" style="display: none;"></div>
+        <div id="loading_manage">
+            <i class="fa fa-spinner fa-spin animated"></i> 正在为您玩命加载中…
+        </div>
 
-        <div class="progress" style="height: 10px;">
-            <div id="prog" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%;line-height: 10px;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-6">
-                <button id="pause" class="btn btn-primary" value="pause">暂停</button>
-                <button id="stop" class="btn btn-primary" value="stop">停止</button>
-                <!--<button id="goon" class="btn btn-primary">继续<button>-->
-            </div>
-        </div>
 
         @yield('content')
     </div>
+    <div class="scroll-to-top" style="display: block;">
+        <i class="icon-arrow-up"></i>
+    </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('global/plugins/jquery.min.js') }}"></script>
+    <script src="{{ asset('global/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('global/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+    {{--<script src="{{ asset('js/app.js') }}"></script>--}}
 <script>
-    var value = 0;
-    var time = 1;
+    $(document).ready(function(){
 
+        $("input[name='control-loader']").on('switchChange.bootstrapSwitch', function(event, state) {
+            //console.log(this); // DOM element
+            //console.log(event); // jQuery event
+            console.log(state); // true | false
+        });
 
-    //百分数增加，0-30时为红色，30-60为黄色，60-90为蓝色，>90为绿色
-    function increment( ) {
-        value += 1;
-        $("#prog").css("width",value + "%").text(value + "%");
-        if (value>=0 && value<=30) {
-            $("#prog").addClass("progress-bar-danger");
-        }
-        else if (value>=30 && value <=60) {
-            $("#prog").removeClass("progress-bar-danger");
-            $("#prog").addClass("progress-bar-warning");
-        }
-        else if (value>=60 && value <=90 && document.readyState === "interactive") {
-            $("#prog").removeClass("progress-bar-warning");
-            $("#prog").addClass("progress-bar-info");
-        }
-        else if(value >= 90 && value<100 && window.document.readyState == "complete") {
-        //else if(window.document.readyState == "complete") {
-
-            $("#prog").removeClass("progress-bar-info");
-            $("#prog").addClass("progress-bar-success");
-        }
-        else{
-            return;
-        }
-        console.log(value);
-
-        st = setTimeout(increment,time);
-    }
-
-    increment();
-
-
-
-    /*var value = 0;
-    var time = 3;
-    function increment(t)
-    {
-        value += 1;
-        if( value <90){
-            $("#prog").css("width",value + "%").text(value + "%");
-        }
-        if (value>=0 && value<=30) {
-            $("#prog").addClass("progress-bar-danger");
-        }
-        else if (value>=30 && value <=60) {
-            $("#prog").removeClass("progress-bar-danger");
-            $("#prog").addClass("progress-bar-warning");
-        }
-        else if (value>=60 && value <=90) {
-            $("#prog").removeClass("progress-bar-warning");
-            $("#prog").addClass("progress-bar-info");
-        }
-        else{
-            setTimeout(reset,100);
-            return;
-
-        }
-        st = setTimeout(increment,time);
-
-
-        if (window.document.readyState == "complete")
-        {
-            $("#prog").css("width",value + "%").text(value + "%");
-            $("#prog").removeClass("progress-bar-info");
-            $("#prog").addClass("progress-bar-success");
-
-            if (t) {
-                window.clearInterval(t);
+        // Hanles sidebar toggler
+        var handleSidebarToggler = function () {
+            var body = $('body');
+            if ($.cookie && $.cookie('sidebar_closed') === '1' && App.getViewPort().width >= resBreakpointMd) {
+                $('body').addClass('page-sidebar-closed');
+                $('.page-sidebar-menu').addClass('page-sidebar-menu-closed');
             }
-        }
-    }
-    increment();*/
-    /*t = window.setInterval(function () {
-        increment(t);
-    }, 700);*/
 
+            // handle sidebar show/hide
+            $('body').on('click', '.sidebar-toggler', function (e) {
+                var sidebar = $('.page-sidebar');
+                var sidebarMenu = $('.page-sidebar-menu');
+                $(".sidebar-search", sidebar).removeClass("open");
 
+                if (body.hasClass("page-sidebar-closed")) {
+                    body.removeClass("page-sidebar-closed");
+                    sidebarMenu.removeClass("page-sidebar-menu-closed");
+                    if ($.cookie) {
+                        $.cookie('sidebar_closed', '0');
+                    }
+                } else {
+                    body.addClass("page-sidebar-closed");
+                    sidebarMenu.addClass("page-sidebar-menu-closed");
+                    if (body.hasClass("page-sidebar-fixed")) {
+                        sidebarMenu.trigger("mouseleave");
+                    }
+                    if ($.cookie) {
+                        $.cookie('sidebar_closed', '1');
+                    }
+                }
 
+                $(window).trigger('resize');
+            });
+        };
+
+    });
+
+    var value = 0;
+    var time = 10;
     document.onreadystatechange = function () {
         if (document.readyState === "loading") {
             //alert("loading");
         }
-        if (document.readyState === "interactive") {
-            //alert("interactive");
+        if (window.document.readyState === "interactive") {
+            loading();
+            //l();
         }
         if (document.readyState === "complete") {
-            //alert("complete");
+            completed();
+            //c();
         }
     }
-    $(window).load(function() {
-        //alert("hi");
-    });
-    /*$(document).ready(function(){
-        var value = 0;
-        var time = 50;
 
+    //加载中显示遮罩
+    function loading() {
+        //$('#loading_background').show();
+        //$('#loading_manage').show();
+        $('.loader').show();
+        return;
+    }
+    //加载完成，隐藏遮罩
+    function completed() {
+        //$('#loading_background').hide();
+        //$('#loading_manage').hide();
+        $('.loader').hide();
+    }
 
-        //百分数增加，0-30时为红色，30-60为黄色，60-90为蓝色，>90为绿色
-        function increment( ) {
-            value += 1;
-            $("#prog").css("width",value + "%").text(value + "%");
-            if (value>=0 && value<=30) {
-                $("#prog").addClass("progress-bar-danger");
-            }
-            else if (value>=30 && value <=60) {
-                $("#prog").removeClass("progress-bar-danger");
-                $("#prog").addClass("progress-bar-warning");
-            }
-            else if (value>=60 && value <=90) {
-                $("#prog").removeClass("progress-bar-warning");
-                $("#prog").addClass("progress-bar-info");
-            }
-            else if(value >= 90 && value<100) {
-                $("#prog").removeClass("progress-bar-info");
-                $("#prog").addClass("progress-bar-success");
-            }
-            else{
-                setTimeout(reset,3000);
-                return;
-
-            }
-
-            st = setTimeout(increment,time);
+    function l() {
+        value += 1;
+        //$("#prog").css("width",value + "%").text(value + "%");
+        $("#prog").css("width",value + "%");
+        if (value>=0 && value<=30) {
+            $("#prog").addClass("progress-bar-danger");
         }
-
-        increment();
-        if(window.loaded){
-            $("#prog").fadeOut();
+        else if (value>=30 && value <=60) {
+            $("#prog").removeClass("progress-bar-danger");
+            $("#prog").addClass("progress-bar-warning");
         }
-
-        //进度条复位函数
-        function reset( ) {
-            value = 0
-            $("#prog").removeClass("progress-bar-success").css("width","0%").text("0%");
-            //setTimeout(increment,5000);
+        else if (value>=60 && value <=90 ) {
+            $("#prog").removeClass("progress-bar-warning");
+            $("#prog").addClass("progress-bar-info");
+        }else{
+            return;
         }
+        st = setTimeout(l,time);
+    }
 
+    function c() {
+        value += 1;
+        $("#prog").css("width",value + "%");
+        if(value >= 90 && value<100 ) {
+            $("#prog").removeClass("progress-bar-info");
+            $("#prog").addClass("progress-bar-success");
+        }else {
+            h = setTimeout(hide,1000);
+            return;
+        }
+        st = setTimeout(c,time);
+    }
 
-        //进度条停止与重新开始
-        $("#stop").click(function () {
-            if ("stop" == $("#stop").val()) {
-                //$("#prog").stop();
-                clearTimeout(st);
-                $("#prog").css("width","0%").text("等待启动");
-                $("#stop").val("start").text("重新开始");
-            } else if ("start" == $("#stop").val()) {
-                increment();
-                $("#stop").val("stop").text("停止");
-            }
-        });
-        //进度条暂停与继续
-        $("#pause").click(function() {
-            if ("pause" == $("#pause").val()) {
-                //$("#prog").stop();
-                clearTimeout(st);
-                $("#pause").val("goon").text("继续");
-            } else if ("goon" == $("#pause").val()) {
-                increment();
-                $("#pause").val("stop").text("暂停");
-            }
-        });
+    function hide() {
+        $(".progress").hide();
+    }
 
-    });*/
 </script>
 </body>
 </html>
