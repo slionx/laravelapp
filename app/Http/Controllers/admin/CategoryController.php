@@ -34,13 +34,13 @@ class CategoryController extends Controller
 		],
 		])->columns([
 			['data' => 'id', 'name' => 'id', 'title' => trans('common.number')],
-			['data' => 'name', 'name' => 'name', 'title' => 'Name'],
-			['data' => 'sort', 'name' => 'sort', 'title' => 'Sort'],
+			['data' => 'name', 'name' => 'name', 'title' => '名称'],
+			['data' => 'sort', 'name' => 'sort', 'title' => '排序'],
 			['data' => 'created_at', 'name' => 'created_at', 'title' => trans('menu.created_at')],
 			['data' => 'updated_at', 'name' => 'updated_at', 'title' => trans('menu.updated_at')],
             ]);
 
-    return view('admin.table', compact('html'));
+    return view('admin.categories', compact('html'));
 
 /*		$html = Builder::parameters([
 			'searchDelay' => 350,

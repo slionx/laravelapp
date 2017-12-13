@@ -5,99 +5,144 @@
     <link href="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
 
 
+
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="widget widget-default">
-                        <div class="page-bar">
-                            <ul class="page-breadcrumb">
-                                <li>
-                                    <a href="index.html">主页</a>
-                                    <i class="fa fa-circle"></i>
-                                </li>
-                                <li>
-                                    <span>菜单</span>
-                                </li>
-                            </ul>
-                            <div class="page-toolbar">
-                                <div class="btn-group pull-right">
-                                    <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
-                                        <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li>
-                                            <a href="#">
-                                                <i class="icon-bell"></i> Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="icon-shield"></i> Another action</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="icon-user"></i> Something else here</a>
-                                        </li>
-                                        <li class="divider"> </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="icon-bag"></i> Separated link</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="widget-header">
-
-                        </div>
-                        {{--<div class="widget-body">
-
-                            <table class="table table-hover table-striped table-bordered table-responsive" style="overflow: auto">
-                                <thead>
-                                <tr>
-                                    <th>排序</th>
-                                    <th>名称</th>
-                                    <th>日期</th>
-                                    <th>文章</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($categorise as $val)
-                                    <tr>
-                                        <td>{{ $val['sort'] }}</td>
-                                        <td>{{ $val['name'] }}</td>
-                                        <td>{{ $val['updated_at'] }}</td>
-                                        <td></td>
-                                        <td>
-                                            <div>
-                                                <a href="" class="btn btn-info"
-                                                   data-toggle="tooltip" data-placement="top" title="编辑">
-                                                    <i class="fa fa-pencil fa-fw">编辑</i>
-                                                </a>
-                                                <button class="btn btn-danger swal-dialog-target"
-                                                        data-toggle="tooltip" data-placement="top" title="删除"
-                                                        data-url=""
-                                                        data-dialog-msg="删除?">
-                                                    <i class="fa fa-trash-o fa-fw">删除</i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                @endforeach
-
-                                </tbody>
-                            </table>
-                        </div>--}}
-
+            <!-- BEGIN PAGE HEADER-->
+            <!-- BEGIN THEME PANEL -->
+            <div class="theme-panel hidden-xs hidden-sm">
+                <div class="toggler"> </div>
+                <div class="toggler-close"> </div>
+                <div class="theme-options">
+                    <div class="theme-option theme-colors clearfix">
+                        <span> THEME COLOR </span>
+                        <ul>
+                            <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="Default"> </li>
+                            <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="Dark Blue"> </li>
+                            <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="Blue"> </li>
+                            <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="Grey"> </li>
+                            <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light"> </li>
+                            <li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2"> </li>
+                        </ul>
+                    </div>
+                    <div class="theme-option">
+                        <span> Theme Style </span>
+                        <select class="layout-style-option form-control input-sm">
+                            <option value="square" selected="selected">Square corners</option>
+                            <option value="rounded">Rounded corners</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span> Layout </span>
+                        <select class="layout-option form-control input-sm">
+                            <option value="fluid" selected="selected">Fluid</option>
+                            <option value="boxed">Boxed</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span> Header </span>
+                        <select class="page-header-option form-control input-sm">
+                            <option value="fixed" selected="selected">Fixed</option>
+                            <option value="default">Default</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span> Top Menu Dropdown</span>
+                        <select class="page-header-top-dropdown-style-option form-control input-sm">
+                            <option value="light" selected="selected">Light</option>
+                            <option value="dark">Dark</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span> Sidebar Mode</span>
+                        <select class="sidebar-option form-control input-sm">
+                            <option value="fixed">Fixed</option>
+                            <option value="default" selected="selected">Default</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span> Sidebar Menu </span>
+                        <select class="sidebar-menu-option form-control input-sm">
+                            <option value="accordion" selected="selected">Accordion</option>
+                            <option value="hover">Hover</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span> Sidebar Style </span>
+                        <select class="sidebar-style-option form-control input-sm">
+                            <option value="default" selected="selected">Default</option>
+                            <option value="light">Light</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span> Sidebar Position </span>
+                        <select class="sidebar-pos-option form-control input-sm">
+                            <option value="left" selected="selected">Left</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span> Footer </span>
+                        <select class="page-footer-option form-control input-sm">
+                            <option value="fixed">Fixed</option>
+                            <option value="default" selected="selected">Default</option>
+                        </select>
                     </div>
                 </div>
             </div>
+            <!-- END THEME PANEL -->
+            <!-- BEGIN PAGE BAR -->
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <a href="index.html">Home</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    <li>
+                        <a href="#">Tables</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    <li>
+                        <span>Datatables</span>
+                    </li>
+                </ul>
+                <div class="page-toolbar">
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
+                            <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li>
+                                <a href="#">
+                                    <i class="icon-bell"></i> Action</a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-shield"></i> Another action</a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-user"></i> Something else here</a>
+                            </li>
+                            <li class="divider"> </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-bag"></i> Separated link</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE BAR -->
+            <!-- BEGIN PAGE TITLE-->
+            <h3 class="page-title"> Managed Datatables
+                <small>managed datatable samples</small>
+            </h3>
+            <!-- END PAGE TITLE-->
+            <!-- END PAGE HEADER-->
 
-            //----------------------------------------------------
             <div class="row">
                 <div class="col-md-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -149,141 +194,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_table">
-                                <thead>
-                                <tr>
-                                    <th> 排序 </th>
-                                    <th> 名称 </th>
-                                    <th> 日期 </th>
-                                    <th> 文章 </th>
-                                    <th> 操作 </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="odd gradeX">
-                                    <td> shuxer </td>
-                                    <td>
-                                        <a href="mailto:shuxer@gmail.com"> shuxer@gmail.com </a>
-                                    </td>
-                                    <td>
-                                        <span class="label label-sm label-success"> Approved </span>
-                                    </td>
-                                    <td class="center"> 12 Jan 2012 </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-docs"></i> New Post </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-tag"></i> New Comment </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-user"></i> New User </a>
-                                                </li>
-                                                <li class="divider"> </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-flag"></i> Comments
-                                                        <span class="badge badge-success">4</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="odd gradeX">
-                                    <td> looper </td>
-                                    <td>
-                                        <a href="mailto:looper90@gmail.com"> looper90@gmail.com </a>
-                                    </td>
-                                    <td>
-                                        <span class="label label-sm label-warning"> Suspended </span>
-                                    </td>
-                                    <td class="center"> 12.12.2011 </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-docs"></i> New Post </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-tag"></i> New Comment </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-user"></i> New User </a>
-                                                </li>
-                                                <li class="divider"> </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-flag"></i> Comments
-                                                        <span class="badge badge-success">4</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="odd gradeX">
-                                    <td> userwow </td>
-                                    <td>
-                                        <a href="mailto:userwow@yahoo.com"> userwow@yahoo.com </a>
-                                    </td>
-                                    <td>
-                                        <span class="label label-sm label-success"> Approved </span>
-                                    </td>
-                                    <td class="center"> 12.12.2011 </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"> Actions
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-docs"></i> New Post </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-tag"></i> New Comment </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-user"></i> New User </a>
-                                                </li>
-                                                <li class="divider"> </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="icon-flag"></i> Comments
-                                                        <span class="badge badge-success">4</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
+                                <div class="table-scrollable">
+                                    {!! $html->table() !!}
 
+                                </div>
+                            </div>
 
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>
-            //---------------------------------------------------
+
 
             @include('admin.modals.add-category-modal')
         </div>
@@ -299,86 +222,81 @@
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
     <!-- END PAGE LEVEL SCRIPTS -->--}}
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>
-    <script type="text/javascript">
+    {!! $html->scripts() !!}
+    {{--
+ <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>
+ <script type="text/javascript">
 
-        $(document).ready(function() {
+     $(document).ready(function() {
 
-            var table = $('#sample_table').DataTable({
-                "ajax": {
-                    "url": "http://l.cn/admin/category/show",
-                    "type": "GET",
-                    "data": function ( d ) {
-                        d._token = "{{csrf_token()}}";
-                    },
-                    "dataSrc": "data",
-                    "error":function(){alert("服务器未正常响应，请重试");}
-                },
-                "processing": true,
-                "serverSide": true,
-                "columns": [
-                    { "data": "id"},
-                    { "data": "name"},
-                    { "data": "sort"},
-                    { "data": "created_at"},
-                    { "data": "updated_at"},
-                ],
-                "autoWidth": true,//自动宽度
-                "pagingType":   "full_numbers",
-                "sLoadingRecords": "正在加载数据...",
-                "sZeroRecords": "暂无数据",
-                "stateSave": true,
-                "searching": true,
-                "dom": '<"top"f>lrt<"bottom"ip<"clear">>',
-                "order": [[ 0, "asc" ]],
-
-
-                /*"aoColumnDefs": [ { "bSortable": false, "aTargets": [0] },{ "class": "tn", "targets": [ 0 ] }
-
-                   ],*/
-                "language": {
-                    "processing": "玩命加载中...",
-                    "lengthMenu": "显示 _MENU_ 项结果",
-                    "zeroRecords": "没有匹配结果",
-                    "info": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-                    "search": "搜索",
-                    "infoEmpty": "显示第 0 至 0 项结果，共 0 项",
-                    "infoFiltered": "(由 _MAX_ 项结果过滤)",
-                    "infoPostFix": "",
-                    "url": "",
-                    "paginate": {
-                        "first":    "首页",
-                        "previous": "上一页",
-                        "next":     "下一页",
-                        "last":     "末页"
-                    }
-                },
-                _fnPageChange:function(){
-                    alert("1111");
-                }
+         var table = $('#sample_table').DataTable({
+             "ajax": {
+                 "url": "http://l.cn/admin/category/show",
+                 "type": "GET",
+                 "data": function ( d ) {
+                     d._token = "{{csrf_token()}}";
+                 },
+                 "dataSrc": "data",
+                 "error":function(){alert("服务器未正常响应，请重试");}
+             },
+             "processing": true,
+             "serverSide": true,
+             "columns": [
+                 { "data": "id"},
+                 { "data": "name"},
+                 { "data": "sort"},
+                 { "data": "created_at"},
+                 { "data": "updated_at"},
+             ],
+             "autoWidth": true,//自动宽度
+             "pagingType":   "full_numbers",
+             "sLoadingRecords": "正在加载数据...",
+             "sZeroRecords": "暂无数据",
+             "stateSave": true,
+             "searching": true,
+             "dom": '<"top"f>lrt<"bottom"ip<"clear">>',
+             "order": [[ 0, "asc" ]],
 
 
-            });
-            $("#sample_table").colResizable();
-            $("#tb-refresh").on("click",function(){
-                //加载一个新的文件
-                //fnReloadAjax方法有3个主要参数
-                //1、oSettings=[类似jquery ajax的data:{id:2}]
-                //2、sNewSource=加载数据的URL
-                //3、回调函数fnCallback
-                //table.fnReloadAjax( 'media/examples_support/json_source2.txt' );
-                //刷新新的数据
-                //table.fnReloadAjax();
-            });
+             /*"aoColumnDefs": [ { "bSortable": false, "aTargets": [0] },{ "class": "tn", "targets": [ 0 ] }
+
+                ],*/
+             "language": {
+                 "processing": "玩命加载中...",
+                 "lengthMenu": "显示 _MENU_ 项结果",
+                 "zeroRecords": "没有匹配结果",
+                 "info": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                 "search": "搜索",
+                 "infoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                 "infoFiltered": "(由 _MAX_ 项结果过滤)",
+                 "infoPostFix": "",
+                 "url": "",
+                 "paginate": {
+                     "first":    "首页",
+                     "previous": "上一页",
+                     "next":     "下一页",
+                     "last":     "末页"
+                 }
+             },
+             _fnPageChange:function(){
+                 alert("1111");
+             }
 
 
-
-
-
-
-
-
-        });
-    </script>
+         });
+         $("#sample_table").colResizable();
+         $("#tb-refresh").on("click",function(){
+             //加载一个新的文件
+             //fnReloadAjax方法有3个主要参数
+             //1、oSettings=[类似jquery ajax的data:{id:2}]
+             //2、sNewSource=加载数据的URL
+             //3、回调函数fnCallback
+             //table.fnReloadAjax( 'media/examples_support/json_source2.txt' );
+             //刷新新的数据
+             //table.fnReloadAjax();
+         });
+     });
+ </script>--}}
 @stop

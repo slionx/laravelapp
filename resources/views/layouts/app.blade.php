@@ -95,7 +95,7 @@
             #loading_manage { color: #666; font-size: 20px; position: absolute; z-index: 10002; left: 45%; top: 40%; border: 1px solid rgb(187, 187, 187); width: auto; height: 80px; line-height: 78px; padding-left: 16px; padding-right: 20px; background: #fff; display: none; cursor: pointer; border-radius: 8px; background-repeat: no-repeat; background-position: 8px 50%; box-shadow: 0 1px 15px rgba(0,0,0,.175); }
             #loading_manage i { font-size: 24px; }
         </style>
-        <iframe src="http://www.google.com"></iframe>
+        {{--<iframe src="http://www.google.com"></iframe>--}}
         <div id="loading_background" class="loading_background" style="display: none;"></div>
         <div id="loading_manage">
             <i class="fa fa-spinner fa-spin animated"></i> 正在为您玩命加载中…
@@ -112,7 +112,7 @@
     <script src="{{ asset('global/plugins/jquery.min.js') }}"></script>
     <script src="{{ asset('global/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('global/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
-    {{--<script src="{{ asset('js/app.js') }}"></script>--}}
+    <script src="{{ asset('js/app.js') }}"></script>
 <script>
     $(document).ready(function(){
 
@@ -190,6 +190,7 @@
     }
 
     function l() {
+        $(".progress").show();
         value += 1;
         //$("#prog").css("width",value + "%").text(value + "%");
         $("#prog").css("width",value + "%");

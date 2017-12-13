@@ -7,6 +7,7 @@
 
     <title>{{ config('blog.title') }} Admin</title>
 
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     @include('admin.layouts.css')
     @yield('theme_layout_styles','')
     <!--[if lt IE 9]>
@@ -16,6 +17,7 @@
 
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+<div id="loader" class="loader" ></div>
 <?php
 //dd($menu['body'][1]);
 ?>
@@ -44,7 +46,7 @@
 
 
 
-        <!-- BEGIN CONTAINER -->
+<!-- BEGIN CONTAINER -->
 <div class="page-container">
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar-wrapper">
@@ -53,9 +55,9 @@
     <!-- END SIDEBAR -->
 
 
-    @yield('content','暂无内容')
+@yield('content','暂无内容')
 
-            <!-- BEGIN QUICK SIDEBAR -->
+<!-- BEGIN QUICK SIDEBAR -->
     <a href="javascript:;" class="page-quick-sidebar-toggler">
         <i class="icon-login"></i>
     </a>
@@ -315,7 +317,7 @@
                                         </div>
                                         <div class="cont-col2">
                                             <div class="desc"> You have 4 pending tasks.
-                                                        <span class="label label-sm label-warning "> Take action
+                                                <span class="label label-sm label-warning "> Take action
                                                             <i class="fa fa-share"></i>
                                                         </span>
                                             </div>
@@ -449,7 +451,7 @@
                                         </div>
                                         <div class="cont-col2">
                                             <div class="desc"> You have 4 pending tasks.
-                                                        <span class="label label-sm label-warning "> Take action
+                                                <span class="label label-sm label-warning "> Take action
                                                             <i class="fa fa-share"></i>
                                                         </span>
                                             </div>
@@ -618,6 +620,31 @@
     <!-- END QUICK SIDEBAR -->
 
     @include('admin.layouts.footer')
+    <script>
+        document.onreadystatechange = function () {
+            if (document.readyState === "loading") {
+                //alert("loading");
+            }
+            if (window.document.readyState === "interactive") {
+                loading();
+            }
+            if (document.readyState === "complete") {
+                completed();
+            }
+        }
+        //加载中显示遮罩
+        function loading() {
+            $('.loader').show();
+            return;
+        }
+        //加载完成，隐藏遮罩
+        function completed() {
+            $('.loader').hide();
+        }
+
+    </script>
+
+
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
