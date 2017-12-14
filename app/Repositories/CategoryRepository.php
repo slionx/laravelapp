@@ -3,23 +3,34 @@
 namespace App\Repositories;
 
 
+use App\Contracts\CategoryInterface;
 use App\Http\Model\Category;
 
-class CategoryRepository
+
+class CategoryRepository implements CategoryInterface
 {
 
-    protected $model;
+    /*protected $model;
 
-    public function __construct( Category $category )
+    public function __construct( Category $category  )
     {
         $this->model = $category;
-    }
+    }*/
 
-	public function Category() {
-		return $this->model;
+
+	public function all() {
+		return Category::all();
 	}
 
-    /**
+	public function find( $id ) {
+    	return Category::find($id);
+	}
+
+	public function save( $data ) {
+		return Category::create($data);
+	}
+
+	/**
      * Get record by the name.
      * 
      * @param  string $name
@@ -27,7 +38,7 @@ class CategoryRepository
      */
     public function getByName($name)
     {
-        return $this->model->where('name', $name)->first();
+        //return $this->model->where('name', $name)->first();
     }
 
     /**

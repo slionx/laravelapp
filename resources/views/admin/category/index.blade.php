@@ -166,9 +166,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="btn-group">
-                                            <button id="sample_editable_1_new" class="btn sbold green"> Add New
+                                            <a href="{{ route('category.create') }}" id="sample_editable_1_new" class="btn sbold green"> Add New
                                                 <i class="fa fa-plus"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -206,9 +206,6 @@
                     <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>
-
-
-            @include('admin.modals.add-category-modal')
         </div>
     </div>
 @stop
@@ -224,6 +221,10 @@
     <!-- END PAGE LEVEL SCRIPTS -->--}}
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+{{--    <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>--}}
     {!! $html->scripts() !!}
     {{--
  <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>

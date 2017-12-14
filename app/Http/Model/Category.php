@@ -8,5 +8,7 @@ class Category extends Model
 {
     protected $table = 'category';
 
-    protected $guarded = 'updated_at';
+	protected $fillable = ['name','sort'];
+
+    //protected $guarded = 'updated_at';
 }

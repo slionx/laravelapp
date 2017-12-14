@@ -170,7 +170,9 @@ return [
         //Matriphe\Imageupload\ImageuploadServiceProvider::class,//图片上传
 	    Yajra\DataTables\DataTablesServiceProvider::class,//DataTables
 	    Yajra\DataTables\HtmlServiceProvider::class,
+
         App\Providers\CategoryServiceProvider::class,
+	    App\Providers\PermissionServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -183,7 +185,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+	    App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
