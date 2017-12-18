@@ -27,12 +27,10 @@ class CategoryController extends Controller {
 		if ( request()->ajax() ) {
 			return $this->ajaxData();
 		}
-
 		$html = $builder->parameters( [
 			'searchDelay' => 350,
 			'language'    => [
 				'url' => url( 'zh.json' )
-
 			],
 		] )->columns( [
 			[ 'data' => 'id', 'name' => 'id', 'title' => trans( 'common.number' ) ],
