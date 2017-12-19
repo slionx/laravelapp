@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class permission extends Model
 {
-	protected $table = 'posts';
+	protected $table = 'permissions';
 
 	protected $fillable = ['name','slug','description'];
 
