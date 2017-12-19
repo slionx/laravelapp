@@ -54,7 +54,11 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 			return $this->roles->contains('name',$role);
 		}
 		return !! $role->intersect($this->role)->count();
+	}
 
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
 	}
 
 }

@@ -17,10 +17,9 @@ class AdminLogin
     public function handle($request, Closure $next)
     {
 
-        /*if(Auth::id() != 3){
-            return redirect('/home');
-        }*/
-
-        return $next($request);
+        if($request->user() && $request->user()->isAdmin()){
+            return $next($request);
+        }
+        return redirect('/');
     }
 }

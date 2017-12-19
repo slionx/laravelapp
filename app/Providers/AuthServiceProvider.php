@@ -35,7 +35,6 @@ class AuthServiceProvider extends ServiceProvider
 
 	protected function getPermissions(  ) {
     	$roles = Permission::with('roles')->get();
-    	var_dump($roles);exit;
     	return $roles;
     }
 }

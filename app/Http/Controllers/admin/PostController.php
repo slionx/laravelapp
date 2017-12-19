@@ -23,6 +23,7 @@ class PostController extends Controller {
 	protected $post;
 
     public function __construct( CategoryRepository $CategoryRepository ,Posts $post) {
+        $this->middleware('isadmin');
 	    $this->CategoryRepository = $CategoryRepository;
 	    $this->post = $post;
     }
@@ -89,7 +90,7 @@ class PostController extends Controller {
      */
     public function show($id) {
         $post = Posts::find($id);
-        \Auth::loginUsingId(1);
+        //\Auth::loginUsingId(1);
         //echo $post->post_title;
         return view('home.post.show',compact('post'));
 
