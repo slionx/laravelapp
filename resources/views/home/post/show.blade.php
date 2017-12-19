@@ -55,6 +55,9 @@
                         <header class="entry-title">
                             <h2 class="blog-post-title">
                                     {{ $post->post_title }}
+                                @can('edit.form')
+                                    <a href="#">edit.form</a>
+                                @endcan
                             </h2>
                             <div class="text-muted">
                                         <span class="timeline">

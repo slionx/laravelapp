@@ -89,6 +89,7 @@ class PostController extends Controller {
      */
     public function show($id) {
         $post = Posts::find($id);
+        \Auth::loginUsingId(1);
         //echo $post->post_title;
         return view('home.post.show',compact('post'));
 
