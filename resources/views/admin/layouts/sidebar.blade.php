@@ -69,14 +69,50 @@
         <li class="nav-item">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-navicon"></i>
-                <span class="title">菜单管理--</span>
+                <span class="title">文章管理</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
                 <li class="nav-item">
-                    <a href="/admin/menu" class="nav-link ">
+                    <a href="/post/create" class="nav-link ">
                         <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">添加菜单</span>
+                        <span class="title">添加文章</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/category" class="nav-link ">
+                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
+                        <span class="title">文章分类</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/category/create" class="nav-link ">
+                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
+                        <span class="title">添加分类</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/permission" class="nav-link ">
+                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
+                        <span class="title">权限主页</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/permission/create" class="nav-link ">
+                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
+                        <span class="title">添加权限</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/role/" class="nav-link ">
+                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
+                        <span class="title">规则主页</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/role/create" class="nav-link ">
+                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
+                        <span class="title">添加规则</span>
                     </a>
                 </li>
             </ul>

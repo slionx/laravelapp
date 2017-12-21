@@ -113,6 +113,7 @@ echo route('post.show', ['post' => $post]);*/
     //Route::post('/menu', 'MenuController@create')->name('menu.create');
 	Route::resource('menu' ,'MenuController');
 	Route::resource('permission' ,'PermissionController');
+	Route::resource('role' ,'RoleController');
 /*    Route::get('menu/{id}/edit', function ($id) {
         //
     })->name('menu.edit');*/
@@ -144,7 +145,7 @@ echo route('post.show', ['post' => $post]);*/
 
 
     //category
-    Route::get('/category/index', 'CategoryController@index');
+    Route::get('/category', 'CategoryController@index');
 	Route::get('/category/show', 'CategoryController@show')->name('category.show');
     Route::get('/category', 'CategoryController@create');
 	Route::post('/category', 'CategoryController@store');

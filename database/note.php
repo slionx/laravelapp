@@ -52,6 +52,10 @@ php artisan db:seed
 
 php artisan db:seed --class=UserTableSeeder
 
+php artisan help make:controller
+
+php artisan key:generate
+
 Usage:
   command [options] [arguments]
 

@@ -46,6 +46,7 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 	}
 
 	public function roles() {
+		//role_user
 		return $this->belongsToMany(Role::class);
 	}
 

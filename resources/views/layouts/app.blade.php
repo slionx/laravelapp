@@ -55,11 +55,7 @@
                         <li class="nav-item">
                             <a class="nav-link disabled" href="#">Disabled</a>
                         </li>
-                        <li class="nav-item">
-                            <div class="switch" data-on="success" data-off="warning">
-                                <input type="checkbox" name="control-loader" data-size="mini" checked />
-                            </div>
-                        </li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

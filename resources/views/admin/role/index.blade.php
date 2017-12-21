@@ -99,11 +99,11 @@
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <a href="#">权限</a>
+                        <a href="#">规则</a>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <span>添加权限</span>
+                        <span>添加规则</span>
                     </li>
                 </ul>
                 <div class="page-toolbar">
@@ -164,7 +164,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="btn-group">
-                                            <a href="{{ route('permission.create') }}" id="sample_editable_1_new" class="btn sbold green"> Add New
+                                            <a href="{{ route('role.create') }}" id="sample_editable_1_new" class="btn sbold green"> Add New
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </div>

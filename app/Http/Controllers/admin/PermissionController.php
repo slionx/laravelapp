@@ -60,7 +60,7 @@ Eof;
 
 	public function store( Request $request  ) {
 		$validator = Validator::make( $request->all(), [
-			'name' => 'required|unique:category|max:255',
+			'name' => 'required|unique:permissions|max:255',
 			'slug' => 'required|max:255',
 			'description' => 'required|max:255',
 		] );
@@ -72,8 +72,11 @@ Eof;
 		if ( $this->permission->save($request->all()) ) {
 			return Redirect( 'admin/permission/create' )->with( 'success', '创建成功' );
 		} else {
-			return Redirect( 'admin/permission/create' )->withErrors( '分类' . $request->name . '创建失败' );
+			return Redirect( 'admin/permission/create' )->withErrors( '权限' . $request->name . '创建失败' );
 		}
+	}
 
+	public function show(  ) {
+		
 	}
 }

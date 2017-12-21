@@ -219,7 +219,7 @@
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
     <!-- END PAGE LEVEL SCRIPTS -->--}}
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 {{--    <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>

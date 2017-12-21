@@ -12,6 +12,7 @@ use Image;
 use Illuminate\Auth\Middleware;
 use App\Repositories\CategoryRepository;
 use App\Http\Model\Posts;
+use App\Http\Model\User;
 
 /**
  * Class PostController
@@ -43,7 +44,7 @@ class PostController extends Controller {
      */
     public function create() {
         return view( 'admin.post.create', [
-            'categories' => $this->CategoryRepository->Category()->get(),
+            'categories' => $this->CategoryRepository->all(),
         ] );
     }
 
@@ -194,6 +195,12 @@ class PostController extends Controller {
      * @return Response
      */
     public function post() {
+	    $user = User::find(1);
+
+	    foreach ($user->roles as $role) {
+		    echo $role;
+	    }
+
         $post = $this->post->paginate( 1 );
 
         return view( 'home.post.list', compact( 'post' ) );
