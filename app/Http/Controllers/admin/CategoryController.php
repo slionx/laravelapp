@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Database\Eloquent\Model;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
+use App\Repositories\CategoryRepository;
 
 
 class CategoryController extends Controller {
 
-	public function __construct(CategoryInterface $category){
-		$this->category = $category;
+	public function __construct(CategoryRepository $CategoryRepository){
+		$this->CategoryRepository = $CategoryRepository;
 	}
 
 	/**
@@ -68,7 +69,7 @@ class CategoryController extends Controller {
 	public function ajaxData() {
 		//return DataTables::of(Category::query())->toJson();
 
-		return DataTables::of( $this->category->all() )
+		return DataTables::of( $this->CategoryRepository->all() )
 		                 ->addColumn( 'action', function ( $permission ) {
 			                 return <<<Eof
 			                 <a class="btn btn-sm yellow-gold btn-outline filter-submit margin-bottom">

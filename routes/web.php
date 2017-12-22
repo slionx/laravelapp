@@ -125,9 +125,9 @@ echo route('post.show', ['post' => $post]);*/
 
 
 
-	Route::get('/index', 'PostController@index');
+	/*Route::get('/index', 'PostController@index');
 	Route::get('/post/create/', 'PostController@create');
-	Route::post('/post/store', 'PostController@store');
+	Route::post('/post/store', 'PostController@store');*/
 
 	Route::get('/image', 'PostController@image');
 	Route::get('/upload', 'PostController@upload');
@@ -145,10 +145,10 @@ echo route('post.show', ['post' => $post]);*/
 
 
     //category
-    Route::get('/category', 'CategoryController@index');
+   /* Route::get('/category', 'CategoryController@index');
 	Route::get('/category/show', 'CategoryController@show')->name('category.show');
     Route::get('/category', 'CategoryController@create');
-	Route::post('/category', 'CategoryController@store');
+	Route::post('/category', 'CategoryController@store');*/
 	Route::resource('category' ,'CategoryController');
 
 
