@@ -25,4 +25,5 @@ return array (
   'zh' => '中文',
   'en' => '英文',
   'logout' => '退出',
+  'name' => '用户名',
 );

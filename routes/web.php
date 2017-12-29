@@ -25,7 +25,7 @@ Route::get('home/{id}/edit', 'HomeController@edit')->name('edit');
 
 Route::post('home/run_edit', 'HomeController@run_edit')->name('run_edit');
 
-Route::post('user/upload/avatar', 'UserController@update')->name('uploadAvatar');
+Route::post('user/upload/avatar', 'admin\UserController@update')->name('uploadAvatar');
 
 
 /*Route::get('user/{id}/edit', array('before' => 'auth|csrf', function($id)->middleware('auth');
@@ -58,24 +58,21 @@ Route::get('ic',[
 Route::get('home/index', function () {
     return view('welcome');
 });
-
-
 Route::get('home/login', function () {
     return view('auth.login');
 });
-
 Route::get('home/changepw', function () {
     return view('home/changepw');
 });
 
 Route::post('home/changepw', 'HomeController@changePassword')->name('changePassword');
-Route::get('user', 'UserController@AllUser');
+
 
 //Route::get('login', 'IndexController@login')->name('login');
 
 
 Route::get('/test', 'HomeController@index');
-Route::get('email/verify/{token}','UserController@verify')->name('email.verify');
+Route::get('email/verify/{token}','admin\UserController@verify')->name('email.verify');
 /*Route::get('email/test/',function (){
 	return view('email/test');
 });*/
@@ -114,17 +111,13 @@ echo route('post.show', ['post' => $post]);*/
 	Route::resource('menu' ,'MenuController');
 	Route::resource('permission' ,'PermissionController');
 	Route::resource('role' ,'RoleController');
+	Route::resource('user' ,'UserController');
+
 /*    Route::get('menu/{id}/edit', function ($id) {
         //
     })->name('menu.edit');*/
 
 	//Route::get('/tags', 'PostController@tags');
-
-
-
-
-
-
 	/*Route::get('/index', 'PostController@index');
 	Route::get('/post/create/', 'PostController@create');
 	Route::post('/post/store', 'PostController@store');*/
@@ -133,11 +126,8 @@ echo route('post.show', ['post' => $post]);*/
 	Route::get('/upload', 'PostController@upload');
 	Route::get('/post', 'PostController@post');
 
-
-
     Route::get('post/upload_img', 'PostController@upload_img');
     Route::post('post/upload_img', 'PostController@upload_img');
-
 
     //tag
     Route::get('/tag/show', 'TagController@index');
@@ -150,9 +140,6 @@ echo route('post.show', ['post' => $post]);*/
     Route::get('/category', 'CategoryController@create');
 	Route::post('/category', 'CategoryController@store');*/
 	Route::resource('category' ,'CategoryController');
-
-
-
 
 });
 
@@ -170,19 +157,8 @@ Route::group(['middleware' => ['web','auth']], function () {
 /*    Route::get('/reset', function () {
         return view('auth.passwords.reset');
     });*/
-
-
-    /**
-     * Show Task Dashboard
-     */
-    Route::get('/addtasks', function () {
-        return view('tasks', [
-            'tasks' => Task::orderBy('created_at', 'asc')->get()
-        ]);
-    });
-
 });
-
+Route::get('/home', 'HomeController@index')->name('home');
 
 
 
@@ -220,4 +196,4 @@ Route::any('foo', function () {
 });
 */
 
-Route::get('/home', 'HomeController@index')->name('home');
+

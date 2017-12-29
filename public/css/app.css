@@ -10,7 +10,9 @@
 }
 
 hr, img {
-    border: 0
+    border: 0;
+    text-align: center;
+
 }
 
 body, figure {

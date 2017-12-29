@@ -24,7 +24,7 @@ class PostController extends Controller {
 	protected $post;
 
     public function __construct( CategoryRepository $CategoryRepository ,Posts $post) {
-        $this->middleware('isadmin');
+        //$this->middleware('isadmin');
 	    $this->CategoryRepository = $CategoryRepository;
 	    $this->post = $post;
     }
@@ -96,6 +96,9 @@ class PostController extends Controller {
         return view('home.post.show',compact('post'));
 
     }
+
+
+
 
     public function edit() {
 

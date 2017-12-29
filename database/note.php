@@ -10,6 +10,8 @@ dd(app('Illuminate\Hashing\BcryptHasher')->make('pwassword'));
 
 php artisan make:controller tag
 
+php artisan help make:controller
+
 创建表
 php artisan make:migration create_users_table
 

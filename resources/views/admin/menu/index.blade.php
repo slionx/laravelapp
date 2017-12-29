@@ -1,11 +1,11 @@
 @extends('admin.layouts.app')
 @section('title','分类')
 @section('content')
-
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
+
             <!-- BEGIN PAGE HEADER-->
             <!-- BEGIN THEME PANEL -->
             <div class="theme-panel hidden-xs hidden-sm">
@@ -13,7 +13,7 @@
                 <div class="toggler-close"> </div>
                 <div class="theme-options">
                     <div class="theme-option theme-colors clearfix">
-                        <span> THEME COLOR </span>
+                        <span> THEME COLOR 主题切换</span>
                         <ul>
                             <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="Default"> </li>
                             <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="Dark Blue"> </li>
@@ -22,13 +22,6 @@
                             <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light"> </li>
                             <li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2"> </li>
                         </ul>
-                    </div>
-                    <div class="theme-option">
-                        <span> Theme Style </span>
-                        <select class="layout-style-option form-control input-sm">
-                            <option value="square" selected="selected">Square corners</option>
-                            <option value="rounded">Rounded corners</option>
-                        </select>
                     </div>
                     <div class="theme-option">
                         <span> Layout </span>
@@ -93,15 +86,11 @@
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="index.html">主页</a>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <a href="#">权限</a>
-                        <i class="fa fa-circle"></i>
-                    </li>
-                    <li>
-                        <span>添加权限</span>
+                        <span>菜单</span>
                     </li>
                 </ul>
                 <div class="page-toolbar">
@@ -133,43 +122,23 @@
             </div>
             <!-- END PAGE BAR -->
             <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title"> Managed Datatables
-                <small>managed datatable samples</small>
+            <h3 class="page-title"> Metronic Alerts API
+                <small>metronic api for bootstrap alerts1</small>
             </h3>
+
             <!-- END PAGE TITLE-->
             <!-- END PAGE HEADER-->
-
             <div class="row">
                 <div class="col-md-12">
-                   @if (session('success'))
-                    <div class="alert alert-success alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert"></button>
-                        <div class="alert alert-success">
-
-                            {{ session('success') }}
-                        </div>
-                    </div>
-                    @endif
-                    @if (count($errors) > 0)
-                        <div class="alert alert-block alert-danger fade in">
-                            <button type="button" class="close" data-dismiss="alert"></button>
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                @endif
-                <!-- BEGIN PORTLET-->
-                    <div class="portlet light form-fit bordered">
+                    <!-- BEGIN PORTLET-->
+                    <div class="portlet light bordered">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="icon-social-dribbble font-dark"></i>
-                                <span class="caption-subject font-dark bold uppercase">添加权限</span>
+                                <i class="icon-social-dribbble font-green"></i>
+                                <span class="caption-subject font-green bold uppercase">Demo</span>
                             </div>
                             <div class="actions">
+                                <a class=" btn green btn-outline sbold" href="{{ route('menu.create') }}"> 添加菜单 </a>
                                 <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
                                     <i class="icon-cloud-upload"></i>
                                 </a>
@@ -181,56 +150,67 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="portlet-body form">
-                            <form action="{{ route('permission.store') }}" method="post" class="form-horizontal form-bordered">
-                                <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
-                                    <label for="name" class="col-sm-3 control-label">名称</label>
-                                    <div class="col-sm-4">
-                                        <div class="input-icon right">
-                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="分类名称为必填项，最大长度255。"></i>
-                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="名称">
-                                            <span  class="help-block">{{ $errors->has('name') ? ' 名称为必填项，最大长度255。' : '' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group {{ $errors->has('slug') ? ' has-error' : '' }}">
-                                    <label for="slug" class="col-sm-3 control-label">权限</label>
-                                    <div class="col-sm-4">
-                                        <div class="input-icon right">
-                                            <i class="{{ $errors->has('slug') ? ' fa fa-warning tooltips' : '' }}" data-original-title="权限为必填项"></i>
-                                            <input type="text" name="slug" value="{{ old('slug') }}" class="form-control" id="slug" placeholder="权限">
-                                            <span  class="help-block">{{ $errors->has('slug') ? ' 权限为必填项，最大长度255。' : '' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
-                                    <label for="description" class="col-sm-3 control-label">简介</label>
-                                    <div class="col-sm-4">
-                                        <div class="input-icon right">
-                                            <i class="{{ $errors->has('description') ? ' fa fa-warning tooltips' : '' }}" data-original-title="简介为必填项"></i>
-                                            <input type="text" name="description" value="{{ old('description') }}" class="form-control" id="description" placeholder="简介">
-                                            <span  class="help-block">{{ $errors->has('description') ? ' 简介为必填项，最大长度255。' : '' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{ csrf_field() }}
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-offset-3 col-md-9">
-                                            <button type="submit" class="btn green">
-                                                <i class="fa fa-check"></i> 提交</button>
-                                            <button type="button" class="btn btn-outline grey-salsa">取消</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="portlet-body">
+                            <div id="bootstrap_alerts_demo"></div>
+                            <div class="widget-body">
+                                {{--<a class="btn pull-right" role="button" data-toggle="modal" data-target="#add-category-modal">
+                                    <i class="fa fa-folder-o"></i>
+                                </a>--}}
+                                <table class="table table-hover table-striped table-bordered table-responsive" style="overflow: auto;width: 65%;">
+                                    <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>索引</th>
+                                        <th>名称</th>
+                                        <th>父级id</th>
+                                        <th>图标</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($result as $val)
+                                        <tr>
+                                            <td>{{ $val['id'] }}</td>
+                                            <td>{{ $val['menu_name'] }}</td>
+                                            <td>{{ $val['display_name'] }}</td>
+                                            <td>{{ $val['parentid'] }}</td>
+                                            <td>{{ $val['icon'] }}</td>
+                                            <td>
+                                                <div>
+                                                    <a href="{{url('admin/menu/'.$val['id'].'/edit')}}" class="btn btn-info"
+                                                       data-toggle="tooltip" data-placement="top" title="编辑">
+                                                        <i class="fa fa-pencil fa-fw">编辑</i>
+                                                    </a>
+                                                    <button class="btn btn-danger swal-dialog-target"
+                                                            data-toggle="tooltip" data-placement="top" title="删除"
+                                                            data-url=""
+                                                            data-dialog-msg="删除?">
+                                                        <i class="fa fa-trash-o fa-fw">删除</i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                            {{--content--}}
                         </div>
                     </div>
-                    <!-- END PORTLET-->
+                    {{--END PORTLET--}}
                 </div>
             </div>
+
+            @include('admin.modals.add-menu-modal')
         </div>
     </div>
+    <!-- END CONTENT -->
+
+
 @stop
 @section('theme_layout_scripts')
 @stop

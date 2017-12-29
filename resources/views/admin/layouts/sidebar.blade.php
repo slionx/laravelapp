@@ -106,13 +106,25 @@
                 <li class="nav-item">
                     <a href="/admin/role/" class="nav-link ">
                         <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">规则主页</span>
+                        <span class="title">角色管理</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="/admin/role/create" class="nav-link ">
                         <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">添加规则</span>
+                        <span class="title">添加角色</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/role/create" class="nav-link ">
+                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
+                        <span class="title">添加菜单</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/user/" class="nav-link ">
+                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
+                        <span class="title">用户管理</span>
                     </a>
                 </li>
             </ul>

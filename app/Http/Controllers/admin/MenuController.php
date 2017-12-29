@@ -12,16 +12,20 @@ class MenuController extends Controller
 
     public function index(){
         //$menu = new Menu;
-        $menu = Menu::all();
-        return view('admin.layouts.sidebar', compact('menu'));
+        $result = Menu::all();
+        return view('admin.menu.index', compact('result'));
         //return view('admin.menu');
     }
     public function show(){
         //$menu = new Menu;
         $result = Menu::all();
-        return view('admin.menu', compact('result'));
+        return view('admin.menu.index', compact('result'));
         //return view('admin.menu');
     }
+
+	public function create() {
+		return view( 'admin.menu.create' );
+	}
 
 
     public function store(Request $request){
