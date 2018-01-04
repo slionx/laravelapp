@@ -97,6 +97,8 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 */
 	Route::get('/aa','TestController@index'); //测试路由
 
+	Route::get('/test', 'RoleController@test');
+
 
 
 /*	Route::get('/post/{post}', function () {

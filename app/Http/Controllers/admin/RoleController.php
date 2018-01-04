@@ -8,22 +8,30 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
+use App\Http\Model\helpers;
 
 class RoleController extends Controller
 {
 
 	public function __construct( Role $role ) {
 		$this->role = $role;
-
 	}
+
+	public function test(  ) {
+		//dd(role::find(1)->permissions() );
+		human_filesize();
+	}
+	
 	public function ajaxData() {
 
 		return DataTables::of( $this->role->all() )
-		                 ->addColumn( 'action', function (  ) {
-			                 $url = route('role.edit',1);
+		                 ->addColumn( 'action', function ( $permission ) {
+			                 $url = route('role.edit',$permission->id);
 			                 return <<<Eof
 			                 <a href="{$url}" class="btn btn-sm yellow-gold btn-outline filter-submit margin-bottom">
                              <i class="fa fa-edit"></i> 修改</a>
+                             
+                             
                              <a class="btn btn-sm red btn-outline filter-cancel">
                              <i class="fa fa-trash"></i> 删除</a>
 Eof;

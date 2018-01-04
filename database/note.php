@@ -28,6 +28,8 @@ php artisan make:request StorePostRequest    //创建 request
 生成表
 php artisan migrate
 
+composer dumpautoload
+
 php artisan migrate:refresh  刷新表
 ------------追加字段----------------
 假设是users表
