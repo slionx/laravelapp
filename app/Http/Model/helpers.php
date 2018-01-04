@@ -20,7 +20,7 @@
 
 
 
-	private function getModalShowActionButtion( $id ) {
+	 function getModalShowActionButtion( $id ) {
 		if ( haspermission( $this->module . 'controller.show' ) ) {
 			return '<a href="' . route( $this->module . '.show', [ encodeId( $id, $this->module ) ] ) . '" class="btn btn-xs btn-info tooltips" data-toggle="modal" data-target="#myModal" data-original-title="' . trans( 'common.show' ) . '"  data-placement="top"><i class="fa fa-eye"></i></a> ';
 		}
