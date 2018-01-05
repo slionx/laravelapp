@@ -26,4 +26,7 @@ return array (
   'en' => '英文',
   'logout' => '退出',
   'name' => '用户名',
+  'role' => '角色',
+  'create_role' => '添加角色',
+  'edit_role' => '编辑角色',
 );

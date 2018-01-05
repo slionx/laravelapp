@@ -8,7 +8,7 @@
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <!-- BEGIN THEME PANEL -->
-            @include('admin.layouts.theme-panel')
+        @include('admin.layouts.theme-panel')
             <!-- END THEME PANEL -->
             <!-- BEGIN PAGE BAR -->
             <div class="page-bar">
@@ -18,11 +18,11 @@
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <a href="#">分类</a>
+                        <a href="#">{{ trans('common.role') }}</a>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <span>添加分类</span>
+                        <span>{{ trans('common.edit_role') }}</span>
                     </li>
                 </ul>
                 <div class="page-toolbar">
@@ -88,7 +88,7 @@
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="icon-social-dribbble font-dark"></i>
-                                <span class="caption-subject font-dark bold uppercase">添加分类</span>
+                                <span class="caption-subject font-dark bold uppercase">{{ trans('common.edit_role') }}</span>
                             </div>
                             <div class="actions">
                                 <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
@@ -103,45 +103,60 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form action="{{ route('menu.store') }}" method="post" class="form-horizontal form-bordered">
-                                <div class="form-group {{ $errors->has('menu_name') ? ' has-error' : '' }}">
-                                    <label for="menu_name" class="col-sm-3 control-label">路径</label>
+                            <form action="{{ route('role.store') }}" method="post" class="form-horizontal form-bordered">
+                                <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
+                                    <label for="name" class="col-sm-3 control-label">名称</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('menu_name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="分类名称为必填项，最大长度255。"></i>
-                                            <input type="text" name="menu_name" value="{{ old('menu_name') }}" class="form-control" id="menu_name" placeholder="路径">
-                                            <span  class="help-block">{{ $errors->has('menu_name') ? ' 路径名称为必填项，最大长度255。' : '' }}</span>
+                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="分类名称为必填项，最大长度255。"></i>
+                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="名称">
+                                            <span  class="help-block">{{ $errors->has('name') ? ' 名称为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group {{ $errors->has('display_name') ? ' has-error' : '' }}">
-                                    <label for="display_name" class="col-sm-3 control-label">显示名称</label>
+                                <div class="form-group {{ $errors->has('slug') ? ' has-error' : '' }}">
+                                    <label for="slug" class="col-sm-3 control-label">规则</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('display_name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="排序为必填项，序号只能为数字。"></i>
-                                            <input type="text" name="display_name" value="{{ old('display_name') }}" class="form-control" id="display_name" placeholder="显示名称">
-                                            <span  class="help-block">{{ $errors->has('display_name') ? ' 显示名称为必填项，序号只能为数字。' : '' }}</span>
+                                            <i class="{{ $errors->has('slug') ? ' fa fa-warning tooltips' : '' }}" data-original-title="排序为必填项，序号只能为数字。"></i>
+                                            <input type="text" name="slug" value="{{ old('slug') }}" class="form-control" id="slug" placeholder="排序">
+                                            <span  class="help-block">{{ $errors->has('slug') ? ' 规则为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group {{ $errors->has('parentid') ? ' has-error' : '' }}">
-                                    <label for="parentid" class="col-sm-3 control-label">父级id</label>
+                                <div class="form-group {{ $errors->has('slug') ? ' has-error' : '' }}">
+                                    <label for="slug" class="col-sm-3 control-label">权限</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('parentid') ? ' fa fa-warning tooltips' : '' }}" data-original-title="排序为必填项，序号只能为数字。"></i>
-                                            <input type="text" name="parentid" value="{{ old('parentid') }}" class="form-control" id="parentid" placeholder="父级id">
-                                            <span  class="help-block">{{ $errors->has('parentid') ? ' 父级id为必填项，序号只能为数字。' : '' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group {{ $errors->has('icon') ? ' has-error' : '' }}">
-                                    <label for="sort" class="col-sm-3 control-label">图标</label>
-                                    <div class="col-sm-4">
-                                        <div class="input-icon right">
-                                            <i class="{{ $errors->has('icon') ? ' fa fa-warning tooltips' : '' }}" data-original-title="排序为必填项，序号只能为数字。"></i>
-                                            <input type="text" name="icon" value="{{ old('icon') }}" class="form-control" id="icon" placeholder="图标">
-                                            <span  class="help-block">{{ $errors->has('icon') ? ' 排序为必填项。' : '' }}</span>
-                                            <span  class="help-block">更多图标请查看 <a href="http://fontawesome.io/icons/" target="_black">Font Awesome</a></span>
+                                                <div class="table-scrollable">
+                                                    <table class="table table-bordered table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th> 模块 </th>
+                                                            <th> 权限 </th>
+
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($role_permissionArray as $controller => $permission)
+                                                        <tr>
+                                                            <td> {{ $controller }} </td>
+                                                            <td>
+                                                                @foreach($permission as $name)
+                                                                <input type="checkbox" name="permission[]">
+                                                                    {{ $name }}
+
+                                                                @endforeach
+
+                                                            </td>
+                                                            {{--<td>
+                                                                <span class="label label-sm label-success"> Approved </span>
+                                                            </td>--}}
+                                                        </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
