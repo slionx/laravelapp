@@ -9,7 +9,7 @@
             <!-- BEGIN PAGE HEADER-->
             <!-- BEGIN THEME PANEL -->
         @include('admin.layouts.theme-panel')
-            <!-- END THEME PANEL -->
+        <!-- END THEME PANEL -->
             <!-- BEGIN PAGE BAR -->
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -27,7 +27,8 @@
                 </ul>
                 <div class="page-toolbar">
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
+                        <button type="button" class="btn green btn-sm btn-outline dropdown-toggle"
+                                data-toggle="dropdown"> Actions
                             <i class="fa fa-angle-down"></i>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
@@ -43,7 +44,7 @@
                                 <a href="#">
                                     <i class="icon-user"></i> Something else here</a>
                             </li>
-                            <li class="divider"> </li>
+                            <li class="divider"></li>
                             <li>
                                 <a href="#">
                                     <i class="icon-bag"></i> Separated link</a>
@@ -62,14 +63,14 @@
 
             <div class="row">
                 <div class="col-md-12">
-                   @if (session('success'))
-                    <div class="alert alert-success alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert"></button>
-                        <div class="alert alert-success">
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert"></button>
+                            <div class="alert alert-success">
 
-                            {{ session('success') }}
+                                {{ session('success') }}
+                            </div>
                         </div>
-                    </div>
                     @endif
                     @if (count($errors) > 0)
                         <div class="alert alert-block alert-danger fade in">
@@ -103,14 +104,17 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form action="{{ route('role.store') }}" method="post" class="form-horizontal form-bordered">
+                            <form action="{{ route('role.store') }}" method="post"
+                                  class="form-horizontal form-bordered">
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="col-sm-3 control-label">名称</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="分类名称为必填项，最大长度255。"></i>
-                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="名称">
-                                            <span  class="help-block">{{ $errors->has('name') ? ' 名称为必填项，最大长度255。' : '' }}</span>
+                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}"
+                                               data-original-title="分类名称为必填项，最大长度255。"></i>
+                                            <input type="text" name="name" value="{{ old('name') }}"
+                                                   class="form-control" id="name" placeholder="名称">
+                                            <span class="help-block">{{ $errors->has('name') ? ' 名称为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -118,9 +122,11 @@
                                     <label for="slug" class="col-sm-3 control-label">规则</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('slug') ? ' fa fa-warning tooltips' : '' }}" data-original-title="排序为必填项，序号只能为数字。"></i>
-                                            <input type="text" name="slug" value="{{ old('slug') }}" class="form-control" id="slug" placeholder="排序">
-                                            <span  class="help-block">{{ $errors->has('slug') ? ' 规则为必填项，最大长度255。' : '' }}</span>
+                                            <i class="{{ $errors->has('slug') ? ' fa fa-warning tooltips' : '' }}"
+                                               data-original-title="排序为必填项，序号只能为数字。"></i>
+                                            <input type="text" name="slug" value="{{ old('slug') }}"
+                                                   class="form-control" id="slug" placeholder="排序">
+                                            <span class="help-block">{{ $errors->has('slug') ? ' 规则为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -128,23 +134,43 @@
                                     <label for="slug" class="col-sm-3 control-label">权限</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                                <div class="table-scrollable">
-                                                    <table class="table table-bordered table-hover">
-                                                        <thead>
-                                                        <tr>
-                                                            <th> 模块 </th>
-                                                            <th> 权限 </th>
-
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @foreach($role_permissionArray as $controller => $permission)
+                                            <div class="table-scrollable">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th> 模块</th>
+                                                        <th> 权限</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($permissionArray as $controller => $permission)
                                                         <tr>
                                                             <td> {{ $controller }} </td>
                                                             <td>
-                                                                @foreach($permission as $name)
-                                                                <input type="checkbox" name="permission[]">
-                                                                    {{ $name }}
+                                                                @foreach($role_permissionArray as $_name )
+
+                                                                    <?php
+                                                                    var_dump($_name);
+                                                                    ?>
+
+
+
+
+                                                                        {{--@if(array_key_exists($_name['id'],$permission))
+                                                                            <input type="checkbox" checked
+                                                                                   name="permission[]">{{ $permission[$_name['id']] }}
+
+                                                                        @else
+                                                                            --}}{{--<input type="checkbox" name="permission[]">--}}{{--1
+
+
+                                                                        @endif--}}
+
+
+
+
+
+
 
                                                                 @endforeach
 
@@ -153,10 +179,10 @@
                                                                 <span class="label label-sm label-success"> Approved </span>
                                                             </td>--}}
                                                         </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +191,8 @@
                                     <div class="row">
                                         <div class="col-md-offset-3 col-md-9">
                                             <button type="submit" class="btn green">
-                                                <i class="fa fa-check"></i> 提交</button>
+                                                <i class="fa fa-check"></i> 提交
+                                            </button>
                                             <button type="button" class="btn btn-outline grey-salsa">取消</button>
                                         </div>
                                     </div>

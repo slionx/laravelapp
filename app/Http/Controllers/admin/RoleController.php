@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\Role;
+use App\Http\Model\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -15,8 +16,9 @@ class RoleController extends Controller
 
 	protected $module = 'role';
 
-	public function __construct( Role $role ) {
+	public function __construct( Role $role , Permission $permission ) {
 		$this->role = $role;
+        $this->permission = $permission;
 	}
 
 	
@@ -119,14 +121,23 @@ Eof;*/
 	public function edit($id)
 	{
 		$role_permissionArray = [];
+		$permissionArray = [];
 		$role_permission = Role::find($id)->permissions()->get();
 		foreach ( $role_permission as $permission){
 			$controller = explode('.',$permission->slug);
 			$role_permissionArray[$controller[0]][] = $permission->name;
 		}
+        $permissions = $this->permission->all();
+        foreach ( $permissions as $permission){
+            $controller = explode('.',$permission->slug);
+            $permissionArray[$controller[0]][$permission->id] = $permission->name;
+            //$permissionArray[$controller[0]]['id'] = $permission->id;
+        }
 
 
-		return view( 'admin.role.edit' ,compact('role_permissionArray'));
+
+
+		return view( 'admin.role.edit' ,compact('role_permissionArray','permissionArray'));
 	}
 
 	/**
