@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form action="{{ route('role.store') }}" method="post"
+                            <form action="{{ route('role.edit') }}" method="post"
                                   class="form-horizontal form-bordered">
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="col-sm-3 control-label">名称</label>
@@ -147,14 +147,22 @@
                                                         <tr>
                                                             <td> {{ $controller }} </td>
                                                             <td>
-                                                                @foreach($role_permissionArray as $_name )
+                                                                @if(is_array($permission))
+                                                                    @foreach($permission as $k => $v)
+                                                                        <div class="col-md-4">
+                                                                            <div class="i-checks">
+                                                                                <label>
+                                                                                    <input type="checkbox" name="permission[]" @if(in_array($v['id'],$role_permissionArray)) checked @endif   > <i></i> {{ $v['name'] }}
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    @endforeach
+
 
                                                                     <?php
-                                                                    var_dump($_name);
+
                                                                     ?>
-
-
-
 
                                                                         {{--@if(array_key_exists($_name['id'],$permission))
                                                                             <input type="checkbox" checked
@@ -167,12 +175,7 @@
                                                                         @endif--}}
 
 
-
-
-
-
-
-                                                                @endforeach
+                                                                @endif
 
                                                             </td>
                                                             {{--<td>

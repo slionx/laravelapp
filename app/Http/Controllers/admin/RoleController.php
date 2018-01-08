@@ -120,22 +120,22 @@ Eof;*/
 	 */
 	public function edit($id)
 	{
-		$role_permissionArray = [];
+
 		$permissionArray = [];
+		$array = [];
 		$role_permission = Role::find($id)->permissions()->get();
 		foreach ( $role_permission as $permission){
-			$controller = explode('.',$permission->slug);
-			$role_permissionArray[$controller[0]][] = $permission->name;
+			$array[] = $permission->toArray();
 		}
-        $permissions = $this->permission->all();
-        foreach ( $permissions as $permission){
-            $controller = explode('.',$permission->slug);
-            $permissionArray[$controller[0]][$permission->id] = $permission->name;
-            //$permissionArray[$controller[0]]['id'] = $permission->id;
-        }
-
-
-
+		$role_permissionArray = array_column($array,'id');
+		
+        $permissions = $this->permission->all('id','name','slug');
+		if ($permissions->isNotEmpty()) {
+			foreach ($permissions as $v) {
+				$temp = explode('.', $v->slug);
+				$permissionArray[$temp[0]][] = $v->toArray();
+			}
+		}
 
 		return view( 'admin.role.edit' ,compact('role_permissionArray','permissionArray'));
 	}
