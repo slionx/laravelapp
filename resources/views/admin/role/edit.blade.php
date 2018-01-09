@@ -104,15 +104,17 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form action="{{ route('role.edit') }}" method="post"
+                            <form action="{{ route('role.update',$id) }}" method="post"
                                   class="form-horizontal form-bordered">
+                                {{csrf_field()}}
+                                {{method_field('PUT')}}
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="col-sm-3 control-label">名称</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
                                             <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}"
                                                data-original-title="分类名称为必填项，最大长度255。"></i>
-                                            <input type="text" name="name" value="{{ old('name') }}"
+                                            <input type="text" name="name" value="{{ old('name',$role->name) }}"
                                                    class="form-control" id="name" placeholder="名称">
                                             <span class="help-block">{{ $errors->has('name') ? ' 名称为必填项，最大长度255。' : '' }}</span>
                                         </div>
@@ -124,7 +126,7 @@
                                         <div class="input-icon right">
                                             <i class="{{ $errors->has('slug') ? ' fa fa-warning tooltips' : '' }}"
                                                data-original-title="排序为必填项，序号只能为数字。"></i>
-                                            <input type="text" name="slug" value="{{ old('slug') }}"
+                                            <input type="text" name="slug" value="{{ old('slug',$role->slug) }}"
                                                    class="form-control" id="slug" placeholder="排序">
                                             <span class="help-block">{{ $errors->has('slug') ? ' 规则为必填项，最大长度255。' : '' }}</span>
                                         </div>
@@ -152,7 +154,7 @@
                                                                         <div class="col-md-4">
                                                                             <div class="i-checks">
                                                                                 <label>
-                                                                                    <input type="checkbox" name="permission[]" @if(in_array($v['id'],$role_permissionArray)) checked @endif   > <i></i> {{ $v['name'] }}
+                                                                                    <input type="checkbox" name="permission[]" @if(in_array($v['id'],$role_permissionArray)) checked @endif value="{{ $v['id'] }}"   > <i></i> {{ $v['name'] }}
                                                                                 </label>
                                                                             </div>
                                                                         </div>

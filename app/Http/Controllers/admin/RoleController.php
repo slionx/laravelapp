@@ -121,14 +121,16 @@ Eof;*/
 	public function edit($id)
 	{
 
+
 		$permissionArray = [];
 		$array = [];
+		$role = $this->role->find($id);
 		$role_permission = Role::find($id)->permissions()->get();
 		foreach ( $role_permission as $permission){
 			$array[] = $permission->toArray();
 		}
 		$role_permissionArray = array_column($array,'id');
-		
+
         $permissions = $this->permission->all('id','name','slug');
 		if ($permissions->isNotEmpty()) {
 			foreach ($permissions as $v) {
@@ -137,7 +139,8 @@ Eof;*/
 			}
 		}
 
-		return view( 'admin.role.edit' ,compact('role_permissionArray','permissionArray'));
+
+		return view( 'admin.role.edit' ,compact('role_permissionArray','permissionArray','id','role'));
 	}
 
 	/**
@@ -149,7 +152,32 @@ Eof;*/
 	 */
 	public function update(Request $request, $id)
 	{
-		//
+		try {
+			$result = $this->role->find($id);
+			$result->name = $request->name;
+			$result->slug = $request->slug;
+			$bool = $result->save();
+
+
+			//$bool = $this->role->update( $request->all(),['id'=>$id] );
+
+			if ($bool) {
+				// 更新角色权限关系
+				if (isset($request->permission)) {
+					$this->role->permissions()->sync($request->permission,1);
+				}else{
+					$this->role->permissions()->sync([]);
+				}
+
+			}
+			return redirect()->route('role.edit',$id);
+		} catch ( Exception $e ) {
+
+			return redirect()->route('role.edit',$id);
+		}
+
+
+
 	}
 
 	/**
