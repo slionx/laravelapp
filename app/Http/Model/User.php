@@ -47,19 +47,35 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 
 	public function roles() {
 		//role_user
-		return $this->belongsToMany(Role::class);
+		return $this->belongsToMany(Role::class,'role_user','user_id','role_id')->withPivot(['user_id','role_id']);
 	}
 
+	//判断是否有某个角色
 	public function hasRole($role) {
 		if(is_string($role)){
-			return $this->roles->contains('name',$role);
+			return $this->roles->contains('name',$role); //contains 方法判断集合是否包含一个给定项
 		}
-		return !! $role->intersect($this->role)->count();
+		return !! $role->intersect($this->role)->count(); //intersect 方法返回两个集合的交集
 	}
 
     public function isAdmin()
     {
         return $this->hasRole('admin');
+	}
+
+	//给用户分配角色
+	public function assignRole( $role ) {
+		return $this->roles()->save($role);
+	}
+
+	//取消用户分配角色
+	public function deleteRole( $role ) {
+		return $this->roles()->detach($role);
+	}
+
+	//用户是否有权限
+	public function hasPermission( $permission ) {
+		return $this->hasRole($permission->roles);
 	}
 
 }

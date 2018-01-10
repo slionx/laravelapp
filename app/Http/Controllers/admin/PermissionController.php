@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use App\Contracts\PermissionInterface;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
 
 class permissionController extends Controller
 {
+	protected $module = 'permission';
+
 
 	public function __construct( PermissionInterface $permission  ) {
 		$this->permission = $permission;
@@ -41,16 +43,9 @@ class permissionController extends Controller
 	public function ajaxData() {
 
 		return DataTables::of( $this->permission->all() )
-		                 ->addColumn( 'action', function (  ) {
-			                 $url = route('permission.edit',1);
-			                 return <<<Eof
-			                 <a href="{$url}" class="btn btn-sm yellow-gold btn-outline filter-submit margin-bottom">
-                             <i class="fa fa-edit"></i> 修改</a>
-                             <a class="btn btn-sm red btn-outline filter-cancel">
-                             <i class="fa fa-trash"></i> 删除</a>
-Eof;
-
-		                 } )
+		                 ->addColumn( 'action', function ( $permission ) {
+			                 return getActionButtonAttribute( $permission->id,$this->module);
+		                 })
 		                 ->toJson();
 	}
 
@@ -78,5 +73,26 @@ Eof;
 
 	public function show(  ) {
 		
+	}
+
+	public function edit( $id ) {
+		$permission = $this->permission->find($id);
+		return view( 'admin.permission.edit' ,compact('permission','id'));
+	}
+
+	public function update( Request $request, $id ) {
+		try {
+			$result = $this->permission->find($id);
+			$result->name = $request->name;
+			$result->slug = $request->slug;
+			$result->description = $request->description;
+			$bool = $result->save();
+			return redirect()->route('permission.edit',$id);
+
+		} catch ( Exception $e ) {
+			return redirect()->route('permission.edit',$id);
+		}
+
+
 	}
 }

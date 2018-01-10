@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\User;
+use App\Http\Model\Role;
 use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use App\Http\Requests;
@@ -12,6 +13,13 @@ use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
 
 class UserController extends Controller {
+
+	protected $module = 'user';
+
+	public function __construct( User $user ,Role $role  ) {
+		$this->user = $user;
+		$this->role = $role;
+	}
 
 	public function AllUser() {
 		//all()
@@ -59,19 +67,21 @@ class UserController extends Controller {
 	private function ajaxData() {
 		//return DataTables::of(Category::query())->toJson();
 		return DataTables::of( User::all() )
-		                 ->addColumn( 'action', function ( $permission ) {
-			                 return <<<Eof
-			                 <a class="btn btn-sm yellow-gold btn-outline filter-submit margin-bottom">
-                             <i class="fa fa-edit"></i> 修改</a>
-                             <a class="btn btn-sm red btn-outline filter-cancel">
-                             <i class="fa fa-trash"></i> 删除</a>				
-Eof;
+		                 ->addColumn( 'action', function ( $user ) {
+			                 return getActionButtonAttribute( $user->id,$this->module);
 		                 } )
 		                 ->toJson();
 	}
 
 	public function create() {
 		return view( 'admin.user.create' );
+	}
+
+	public function edit( $id ) {
+		$user = User::find($id);
+		$roles = Role::all();
+
+		return view( 'admin.user.edit' ,compact('user','roles','id'));
 	}
 
 	/**

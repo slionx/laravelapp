@@ -108,7 +108,7 @@
                                     <label for="name" class="col-sm-3 control-label">名称</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="分类名称为必填项，最大长度255。"></i>
+                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="名称名称为必填项，最大长度255。"></i>
                                             <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="名称">
                                             <span  class="help-block">{{ $errors->has('name') ? ' 名称为必填项，最大长度255。' : '' }}</span>
                                         </div>
@@ -118,12 +118,51 @@
                                     <label for="slug" class="col-sm-3 control-label">规则</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('slug') ? ' fa fa-warning tooltips' : '' }}" data-original-title="排序为必填项，序号只能为数字。"></i>
+                                            <i class="{{ $errors->has('slug') ? ' fa fa-warning tooltips' : '' }}" data-original-title="规则为必填项，序号只能为数字。"></i>
                                             <input type="text" name="slug" value="{{ old('slug') }}" class="form-control" id="slug" placeholder="排序">
                                             <span  class="help-block">{{ $errors->has('slug') ? ' 规则为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group {{ $errors->has('permission') ? ' has-error' : '' }}">
+                                    <label for="slug" class="col-sm-3 control-label">权限</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-icon right">
+                                            <span  class="help-block">{{ $errors->has('permission') ? ' 权限为必填项' : '' }}</span>
+                                            <div class="table-scrollable">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th> 模块</th>
+                                                        <th> 权限</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($permissionArray as $controller => $permission)
+                                                        <tr>
+                                                            <td> {{ $controller }} </td>
+                                                            <td>
+                                                                @if(is_array($permission))
+                                                                    @foreach($permission as $k => $v)
+                                                                        <div class="col-md-4">
+                                                                            <div class="i-checks">
+                                                                                <label>
+                                                                                    <input type="checkbox" name="permission[]" value="{{ $v['id'] }}"> <i></i> {{ $v['name'] }}
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    @endforeach
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {{ csrf_field() }}
                                 <div class="form-actions">
                                     <div class="row">

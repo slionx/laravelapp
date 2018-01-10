@@ -74,7 +74,14 @@ Eof;*/
 	 */
 	public function create(  )
 	{
-		return view( 'admin.role.create' );
+		$permissions = $this->permission->all('id','name','slug');
+		if ($permissions->isNotEmpty()) {
+			foreach ($permissions as $v) {
+				$temp = explode('.', $v->slug);
+				$permissionArray[$temp[0]][] = $v->toArray();
+			}
+		}
+		return view( 'admin.role.create',compact('permissionArray') );
 	}
 
 	/**
@@ -88,16 +95,25 @@ Eof;*/
 		$validator = Validator::make( $request->all(), [
 			'name' => 'required|unique:roles|max:255',
 			'slug' => 'required|max:255',
+			'permission'=> 'required',
 		] );
 		if ( $validator->fails() ) {
 			return back()
 				->withErrors( $validator )
 				->withInput( $request->all() );
 		}
-		if ( $this->role->create($request->all()) ) {
+		$result = $this->role->create($request->all());
+
+		if ( $result ) {
+			if($request->permission){
+				foreach ($request->permission as $permission){
+					$result->givePermission($this->permission->find($permission));
+				}
+			}
+
 			return Redirect( 'admin/role/create' )->with( 'success', '创建成功' );
 		} else {
-			return Redirect( 'admin/role/create' )->withErrors( '规则' . $request->name . '创建失败' );
+			return Redirect( 'admin/role/create' )->withErrors( '角色' . $request->name . '创建失败' );
 		}
 	}
 
@@ -157,22 +173,16 @@ Eof;*/
 			$result->name = $request->name;
 			$result->slug = $request->slug;
 			$bool = $result->save();
-
-
-			//$bool = $this->role->update( $request->all(),['id'=>$id] );
-
 			if ($bool) {
 				// 更新角色权限关系
 				if (isset($request->permission)) {
-					$this->role->permissions()->sync($request->permission,1);
+					$result->permissions()->sync($request->permission);
 				}else{
-					$this->role->permissions()->sync([]);
+					$result->permissions()->sync([]);
 				}
-
 			}
 			return redirect()->route('role.edit',$id);
 		} catch ( Exception $e ) {
-
 			return redirect()->route('role.edit',$id);
 		}
 
