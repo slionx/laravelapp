@@ -49,6 +49,9 @@
 
             .title {
                 font-size: 84px;
+                background: rgba(154,154,154,.5);
+                color: #fff;
+                border-radius: 8px;
             }
 
             .links > a {
