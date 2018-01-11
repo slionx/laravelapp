@@ -27,6 +27,9 @@ Route::post('home/run_edit', 'HomeController@run_edit')->name('run_edit');
 
 Route::post('user/upload/avatar', 'admin\UserController@update')->name('uploadAvatar');
 
+Route::get('uploadImages', 'HomeController@create')->name('G_uploadImages');
+Route::post('uploadImages', 'HomeController@uploadImages')->name('P_uploadImages');
+
 
 /*Route::get('user/{id}/edit', array('before' => 'auth|csrf', function($id)->middleware('auth');
 {
@@ -55,6 +58,8 @@ Route::get('ic',[
     Route::get('index', 'IndexController@index')->name('index');
 
 });*/
+Route::get('/', 'HomeController@welcome');
+
 Route::get('home/index', function () {
     return view('welcome');
 });
@@ -76,9 +81,10 @@ Route::get('email/verify/{token}','admin\UserController@verify')->name('email.ve
 /*Route::get('email/test/',function (){
 	return view('email/test');
 });*/
-Route::get('/', function () {
+/*Route::get('/', function () {
 	return view('welcome');
-});
+});*/
+
 
 Route::get('post/list/', 'admin\PostController@post');
 Route::resource('post','admin\PostController');

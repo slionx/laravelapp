@@ -99,6 +99,7 @@
         </div>
 
 
+
         @yield('content')
     </div>
     <div class="scroll-to-top" style="display: block;">

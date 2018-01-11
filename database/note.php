@@ -12,6 +12,9 @@ php artisan make:controller tag -r
 
 php artisan help make:controller
 
+php artisan storage:link
+
+
 
 创建表
 php artisan make:migration create_users_table

@@ -9,8 +9,10 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
         <!-- Styles -->
+        <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
         <style>
             html, body {
                 background-color: #fff;
@@ -50,7 +52,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #ffffff;
                 padding: 0 25px;
                 font-size: 12px;
                 font-weight: 600;
@@ -73,11 +75,51 @@
                 </div>
             @endif
 
+
+                @if(isset($home_bg_images) && $home_bg_images)
+                    <div id="home-cover-slideshow">
+                        @foreach ($home_bg_images as $image)
+                            <div class="home-cover-img" data-src="{{ asset('storage') }}/{{ $image }}"></div>
+                        @endforeach
+                    </div>
+                @endif
+
+                {{--<div class="container">
+                    <div class="content">
+                        <div class="home-box">
+                            <h2 title="{{ $site_title or 'title' }}" style="margin: 0;">
+                                {{ $site_title or '我的个人博客' }}
+                                <a aria-hidden="true" href="">
+                                    <img class="img-circle" src="{{ $avatar or 'https://raw.githubusercontent.com/lufficc/images/master/Xblog/logo.png' }}" alt="{{ $author or 'Author' }}">
+                                </a>
+                            </h2>
+                            <h3 title="{{ $description or 'description' }}" aria-hidden="true" style="margin: 0">
+                                {{ $description or 'Stay Hungry. Stay Foolish.' }}
+                            </h3>
+                            <p class="links">
+                                <font aria-hidden="true">»</font>
+                                <a href="{{ route('post.index') }}" aria-label="点击查看博客文章列表">博客</a>
+
+                                    <font aria-hidden="true">/</font>
+                                    <a href="" aria-label="查看{{ $author or 'author' }}的">name</a>
+
+                            </p>
+                            <p class="links">
+                                <font aria-hidden="true">»</font>
+
+                                    <a href="" target="_blank" aria-label="{{ $author or 'author' }} 的  地址">
+                                        <i class="fa fa- fa-fw" title=""></i>
+                                    </a>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>--}}
+
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Slionx
                 </div>
-
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
@@ -87,5 +129,7 @@
                 </div>
             </div>
         </div>
+        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
+        <script src="{{ asset('js/welcome.js') }}"></script>
     </body>
 </html>

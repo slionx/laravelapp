@@ -6,7 +6,6 @@ use App\Http\Model\User;
 use App\Http\Model\Role;
 use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use App\Http\Requests;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
@@ -119,6 +118,7 @@ class UserController extends Controller {
 		//$path = Storage::putFile('avatars', $request->file('avatar'));
 		//var_dump($path);
 	}
+
 
 	public function uploadAvatar( Request $request ) {
 		$user = auth()->user();
