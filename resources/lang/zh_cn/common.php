@@ -29,4 +29,13 @@ return array (
   'role' => '角色',
   'create_role' => '添加角色',
   'edit_role' => '编辑角色',
+  'role'=>'角色',
+  'category'=>'分类',
+  'tag'=>'标签',
+	'menu'=>'菜单',
+	'permission'=>'权限',
+	'post'=>'文章',
+	'user'=>'用户',
+
+
 );

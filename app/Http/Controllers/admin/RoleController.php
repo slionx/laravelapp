@@ -29,17 +29,6 @@ class RoleController extends Controller
 			                 return getActionButtonAttribute($permission->id,$this->module);
 		                 } )
 		                 ->toJson();
-
-
-
-		/*<<<Eof
-			                 <a href="{$url}" class="btn btn-sm yellow-gold btn-outline filter-submit margin-bottom">
-                             <i class="fa fa-edit"></i> 修改</a>
-
-
-                             <a class="btn btn-sm red btn-outline filter-cancel">
-                             <i class="fa fa-trash"></i> 删除</a>
-Eof;*/
 	}
 	/**
 	 * Display a listing of the resource.
@@ -156,7 +145,7 @@ Eof;*/
 		}
 
 
-		return view( 'admin.role.edit' ,compact('role_permissionArray','permissionArray','id','role'));
+		return view( 'admin.role.edit' ,compact('role_permissionArray','permissionArray','role'));
 	}
 
 	/**
@@ -166,24 +155,21 @@ Eof;*/
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $id)
+	public function update(Request $request ,Role $role)
 	{
 		try {
-			$result = $this->role->find($id);
-			$result->name = $request->name;
-			$result->slug = $request->slug;
-			$bool = $result->save();
+			$bool = $role->update($request->all());
 			if ($bool) {
 				// 更新角色权限关系
 				if (isset($request->permission)) {
-					$result->permissions()->sync($request->permission);
+					$role->permissions()->sync($request->permission);
 				}else{
-					$result->permissions()->sync([]);
+					$role->permissions()->sync([]);
 				}
 			}
-			return redirect()->route('role.edit',$id);
+			return redirect()->route($this->module.'.edit',$role->id);
 		} catch ( Exception $e ) {
-			return redirect()->route('role.edit',$id);
+			return back()->withErrors(' Failed! ' . $e->getMessage());
 		}
 
 

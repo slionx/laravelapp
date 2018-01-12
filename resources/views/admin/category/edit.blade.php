@@ -22,7 +22,7 @@
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <span>{{ trans('common.create') }}{{ trans('common.category') }}</span>
+                        <span>{{ trans('common.edit') }}{{ trans('common.category') }}</span>
                     </li>
                 </ul>
                 <div class="page-toolbar">
@@ -88,7 +88,7 @@
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="icon-social-dribbble font-dark"></i>
-                                <span class="caption-subject font-dark bold uppercase">添加分类</span>
+                                <span class="caption-subject font-dark bold uppercase">{{ trans('common.edit') }}{{ trans('common.category') }}</span>
                             </div>
                             <div class="actions">
                                 <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
@@ -103,13 +103,13 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form action="{{ route('category.store') }}" method="post" class="form-horizontal form-bordered">
+                            <form action="{{ route('category.update',$category->id) }}" method="post" class="form-horizontal form-bordered">
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="col-sm-3 control-label">分类名称</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
                                             <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="分类名称为必填项，最大长度255。"></i>
-                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="名称">
+                                            <input type="text" name="name" value="{{ old('name',$category->name) }}" class="form-control" id="name" placeholder="名称">
                                             <span  class="help-block">{{ $errors->has('name') ? ' 分类名称为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
@@ -119,7 +119,7 @@
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
                                             <i class="{{ $errors->has('sort') ? ' fa fa-warning tooltips' : '' }}" data-original-title="排序为必填项，序号只能为数字。"></i>
-                                            <input type="text" name="sort" value="{{ old('sort') }}" class="form-control" id="sort" placeholder="排序">
+                                            <input type="text" name="sort" value="{{ old('sort',$category->sort) }}" class="form-control" id="sort" placeholder="排序">
                                             <span  class="help-block">{{ $errors->has('sort') ? ' 排序为必填项，序号只能为数字。' : '' }}</span>
                                         </div>
                                     </div>

@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form action="{{ route('role.update',$id) }}" method="post"
+                            <form action="{{ route('role.update',$role->id) }}" method="post"
                                   class="form-horizontal form-bordered">
                                 {{csrf_field()}}
                                 {{method_field('PUT')}}

@@ -15,9 +15,12 @@ use App\Repositories\CategoryRepository;
 
 class CategoryController extends Controller {
 
-	public function __construct(CategoryRepository $CategoryRepository){
+	public function __construct( CategoryRepository $CategoryRepository ) {
 		$this->CategoryRepository = $CategoryRepository;
 	}
+
+	protected $module = 'category';
+
 
 	/**
 	 * Display index page.
@@ -43,42 +46,13 @@ class CategoryController extends Controller {
 
 		return view( 'admin.category.index', compact( 'html' ) );
 
-		/*		$html = Builder::parameters([
-					'searchDelay' => 350,
-					'drawCallback' => <<<Eof
-							function() {
-								LaravelDataTables["dataTableBuilder"].$('.tooltips').tooltip( {
-								  placement : 'top',
-								  html : true
-								});
-							},
-		Eof
-				])->addIndex(['data' => 'DT_Row_Index', 'name' => 'DT_Row_Index', 'title' => ''])
-							   ->addColumn(['data' => 'id', 'name' => 'id', 'title' => 'id'])
-							   ->addColumn(['data' => 'name', 'name' => 'name', 'title' => 'name'])
-							   ->addColumn(['data' => 'sort', 'name' => 'sort', 'title' => 'sort'])
-							   ->addColumn(['data' => 'created_at', 'name' => 'created_at', 'title' => 'created_at'])
-							   ->addColumn(['data' => 'updated_at', 'name' => 'updated_at', 'title' => 'updated_at'])
-							   ->addAction(['data' => 'action', 'name' => 'action', 'title' => 'action']);*/
-
-
-		//return compact('html');
-		//return view('admin.table');
 	}
 
 	public function ajaxData() {
-		//return DataTables::of(Category::query())->toJson();
 
 		return DataTables::of( $this->CategoryRepository->all() )
-		                 ->addColumn( 'action', function ( $permission ) {
-			                 return <<<Eof
-			                 <a class="btn btn-sm yellow-gold btn-outline filter-submit margin-bottom">
-                             <i class="fa fa-edit"></i> 修改</a>
-                             <a class="btn btn-sm red btn-outline filter-cancel">
-                             <i class="fa fa-trash"></i> 删除</a>
-														
-Eof;
-
+		                 ->addColumn( 'action', function ( $CategoryRepository ) {
+			                 return getActionButtonAttribute( $CategoryRepository->id, $this->module );
 		                 } )
 		                 ->toJson();
 	}
@@ -102,23 +76,7 @@ Eof;
 		                  ->make( true );
 	}
 
-	/*    public function index()
-		{
-			//$category = new Category;
-			//return $categorise = $category->all()->toJson();
-			//return view('admin.categories', compact('categorise'));
-			return view('admin.categories');
-
-		}*/
-
 	public function show( Request $request ) {
-		$category       = new Category;
-		$count          = $category->count();
-		$data           = $category->all();
-		$output['data'] = $data;
-		$output['draw'] = $count;
-
-		return json_encode( $output );
 
 
 	}
@@ -138,10 +96,29 @@ Eof;
 				->withErrors( $validator )
 				->withInput( $request->all() );
 		}
-		if ( $this->category->save($request->all()) ) {
+		if ( $this->category->save( $request->all() ) ) {
 			return Redirect( 'admin/category/create' )->with( 'success', '创建成功' );
 		} else {
 			return Redirect( 'admin/category/create' )->withErrors( '分类' . $request->name . '创建失败' );
+		}
+	}
+
+	public function edit( $id ) {
+		$category = $this->CategoryRepository->find($id);
+		return view( 'admin.category.edit',compact('category') );
+	}
+
+	public function update( Request $request ,$id ) {
+		try {
+			$result       = $this->CategoryRepository->find( $id );
+			$result->name = $request->name;
+			$result->slug = $request->slug;
+			$bool         = $result->save();
+			if ( $bool ) {
+				return redirect()->route( 'role.edit', $id );
+			}
+		} catch ( Exception $e ) {
+			return back()->withErrors(' Failed! ' . $e->getMessage());
 		}
 
 	}

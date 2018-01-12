@@ -170,6 +170,7 @@ return [
         //Matriphe\Imageupload\ImageuploadServiceProvider::class,//图片上传
 	    Yajra\DataTables\DataTablesServiceProvider::class,//DataTables
 	    Yajra\DataTables\HtmlServiceProvider::class,
+	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,//ide-helper
 
         App\Providers\CategoryServiceProvider::class,
 	    App\Providers\PermissionServiceProvider::class,
