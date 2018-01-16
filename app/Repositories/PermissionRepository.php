@@ -3,25 +3,13 @@
 namespace App\Repositories;
 
 
-use App\Contracts\PermissionInterface;
 use App\Http\Model\Permission;
 
 
-class PermissionRepository implements PermissionInterface
+class PermissionRepository extends Repository
 {
-
-
-
-	public function all() {
-		return Permission::all();
-	}
-
-	public function find( $id ) {
-    	return Permission::find($id);
-	}
-
-	public function save( $data ) {
-		return Permission::create($data);
+	function model() {
+		return Permission::class;
 	}
 
 }

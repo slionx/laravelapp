@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Http\Model\Role;
-use App\Http\Model\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
+use App\Repositories\RoleRepository as RoleRepository;
+use App\Repositories\PermissionRepository as Permission;
 
 
 class RoleController extends Controller
@@ -16,7 +18,7 @@ class RoleController extends Controller
 
 	protected $module = 'role';
 
-	public function __construct( Role $role , Permission $permission ) {
+	public function __construct( RoleRepository $role , Permission $permission ) {
 		$this->role = $role;
         $this->permission = $permission;
 	}
@@ -126,11 +128,16 @@ class RoleController extends Controller
 	public function edit($id)
 	{
 
-
 		$permissionArray = [];
 		$array = [];
 		$role = $this->role->find($id);
-		$role_permission = Role::find($id)->permissions()->get();
+		//$role_permission = $this->role->find($id)->permissions()->get();
+
+		$role_permission = $this->role->a();
+
+		dd($role_permission);
+
+
 		foreach ( $role_permission as $permission){
 			$array[] = $permission->toArray();
 		}

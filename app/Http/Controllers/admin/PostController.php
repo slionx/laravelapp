@@ -10,6 +10,7 @@ use Matriphe\Imageupload\Imageupload;
 use Validator;
 use Image;
 use Illuminate\Auth\Middleware;
+use App\Repositories\PostRepository;
 use App\Repositories\CategoryRepository;
 use App\Http\Model\Posts;
 use App\Http\Model\User;
@@ -21,12 +22,12 @@ use App\Http\Model\User;
 class PostController extends Controller {
 
 	protected $CategoryRepository;
-	protected $post;
+	protected $PostRepository;
 
-    public function __construct( CategoryRepository $CategoryRepository ,Posts $post) {
+    public function __construct( CategoryRepository $CategoryRepository ,PostRepository $PostRepository) {
         //$this->middleware('isadmin');
 	    $this->CategoryRepository = $CategoryRepository;
-	    $this->post = $post;
+	    $this->post = $PostRepository;
     }
 
     /**

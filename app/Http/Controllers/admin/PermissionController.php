@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Contracts\PermissionInterface;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
+use App\Repositories\PermissionRepository;
 
 class permissionController extends Controller
 {
 	protected $module = 'permission';
 
 
-	public function __construct( PermissionInterface $permission  ) {
+	public function __construct( PermissionRepository $permission  ) {
 		$this->permission = $permission;
 	}
 
@@ -64,7 +65,7 @@ class permissionController extends Controller
 				->withErrors( $validator )
 				->withInput( $request->all() );
 		}
-		if ( $this->permission->save($request->all()) ) {
+		if ( $this->permission->create($request->all()) ) {
 			return Redirect( 'admin/permission/create' )->with( 'success', '创建成功' );
 		} else {
 			return Redirect( 'admin/permission/create' )->withErrors( '权限' . $request->name . '创建失败' );
