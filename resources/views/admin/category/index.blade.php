@@ -3,9 +3,6 @@
 @section('content')
     <link href="{{ asset('global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
-
-
-
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
@@ -83,7 +80,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="btn-group">
-                                            <a href="{{ route('category.create') }}" id="sample_editable_1_new" class="btn sbold green"> Add New
+                                            <a href="{{ route('category.create') }}" id="sample_editable_1_new" class="btn sbold green"> {{ trans('common.create') }}{{ trans('common.category') }}
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </div>
@@ -127,94 +124,6 @@
     </div>
 @stop
 @section('theme_layout_scripts')
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
-{{--    <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
-
-    <!-- END PAGE LEVEL PLUGINS -->
-    <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
-    <!-- END PAGE LEVEL SCRIPTS -->--}}
-
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-{{--    <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>--}}
     {!! $html->scripts() !!}
-    {{--
- <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>
- <script type="text/javascript">
-
-     $(document).ready(function() {
-
-         var table = $('#sample_table').DataTable({
-             "ajax": {
-                 "url": "http://l.cn/admin/category/show",
-                 "type": "GET",
-                 "data": function ( d ) {
-                     d._token = "{{csrf_token()}}";
-                 },
-                 "dataSrc": "data",
-                 "error":function(){alert("服务器未正常响应，请重试");}
-             },
-             "processing": true,
-             "serverSide": true,
-             "columns": [
-                 { "data": "id"},
-                 { "data": "name"},
-                 { "data": "sort"},
-                 { "data": "created_at"},
-                 { "data": "updated_at"},
-             ],
-             "autoWidth": true,//自动宽度
-             "pagingType":   "full_numbers",
-             "sLoadingRecords": "正在加载数据...",
-             "sZeroRecords": "暂无数据",
-             "stateSave": true,
-             "searching": true,
-             "dom": '<"top"f>lrt<"bottom"ip<"clear">>',
-             "order": [[ 0, "asc" ]],
-
-
-             /*"aoColumnDefs": [ { "bSortable": false, "aTargets": [0] },{ "class": "tn", "targets": [ 0 ] }
-
-                ],*/
-             "language": {
-                 "processing": "玩命加载中...",
-                 "lengthMenu": "显示 _MENU_ 项结果",
-                 "zeroRecords": "没有匹配结果",
-                 "info": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-                 "search": "搜索",
-                 "infoEmpty": "显示第 0 至 0 项结果，共 0 项",
-                 "infoFiltered": "(由 _MAX_ 项结果过滤)",
-                 "infoPostFix": "",
-                 "url": "",
-                 "paginate": {
-                     "first":    "首页",
-                     "previous": "上一页",
-                     "next":     "下一页",
-                     "last":     "末页"
-                 }
-             },
-             _fnPageChange:function(){
-                 alert("1111");
-             }
-
-
-         });
-         $("#sample_table").colResizable();
-         $("#tb-refresh").on("click",function(){
-             //加载一个新的文件
-             //fnReloadAjax方法有3个主要参数
-             //1、oSettings=[类似jquery ajax的data:{id:2}]
-             //2、sNewSource=加载数据的URL
-             //3、回调函数fnCallback
-             //table.fnReloadAjax( 'media/examples_support/json_source2.txt' );
-             //刷新新的数据
-             //table.fnReloadAjax();
-         });
-     });
- </script>--}}
 @stop

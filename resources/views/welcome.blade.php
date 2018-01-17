@@ -13,6 +13,8 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/welcome.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/loader.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/typing.css') }}" rel="stylesheet">
         <style>
             html, body {
                 background-color: #fff;
@@ -70,6 +72,7 @@
         </style>
     </head>
     <body>
+    <div id="loader" class="loader" ></div>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -120,10 +123,10 @@
                 </div>--}}
 
             <div class="content">
-                <div class="title m-b-md">
+                <div id="title" class="title m-b-md">
                     Slionx
                 </div>
-                <div class="links">
+                <div class="links" >
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
@@ -134,5 +137,42 @@
         </div>
         <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
         <script src="{{ asset('js/welcome.js') }}"></script>
+    <script src="{{ asset('js/typing.js') }}"></script>
+    <script>
+        document.onreadystatechange = function () {
+            if (window.document.readyState === "interactive") {
+                loading();
+            }
+            if (document.readyState === "complete") {
+                setTimeout('completed()', 1000);
+                //completed();
+            }
+        }
+        function loading() {
+            $('.loader').show();
+            return;
+        }
+        function completed() {
+            $('.loader').hide();
+        }
+
+        var app = document.getElementById('title');
+
+        var typewriter = new Typewriter(app, {
+            loop: true,
+            cursor:'_'
+        });
+
+        typewriter.pauseFor(500)
+            .typeString('Slionx')
+            .pauseFor(2500)
+            .deleteAll()
+            .typeString('The quieter you become')
+            .pauseFor(1500)
+            .deleteChars(19)
+            .typeString(' more you are able to hear!')
+            .pauseFor(1500)
+            .start();
+    </script>
     </body>
 </html>
