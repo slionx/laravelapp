@@ -21,4 +21,17 @@
     <script src="{{ asset('global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('pages/scripts/components-bootstrap-maxlength.min.js') }}" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('#post_tags').select2({
+                post_tag:true
+            });
+            if ($('#post_tags').hasClass("select2-hidden-accessible")) {
+                console.log(1);
+            }else {
+                alert(1);
+            }
+        });
+    </script>
 @stop

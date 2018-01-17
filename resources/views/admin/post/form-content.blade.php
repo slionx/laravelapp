@@ -87,12 +87,19 @@
 
                         <span class="help-block">Some help goes here...</span>
                     </div>
-                    <div class="11">
-                        <select class="js-example-basic-multiple11" name="states[]" multiple="multiple">
-                            <option value="AL">Alabama</option>
-                            <option value="1">1</option>
-                            <option value="WY">Wyoming</option>
+
+                    <div class="form-group">
+                        <label for="post_tag">文章标签</label>
+                        <select class="form-control" name="post_tag[]" id="post_tags" multiple>
+                            @foreach($tags as $tag)
+                                <option value="{{ $tag->name }}">{{ $tag->name }}</option>
+                            @endforeach
                         </select>
+                        @if ($errors->has('post_tag[]'))
+                            <span class="help-block">
+                         <strong>{{ $errors->first('post_tag[]') }}</strong>
+                            </span>
+                        @endif
 
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
@@ -128,10 +135,6 @@
     <!-- END VALIDATION STATES-->
 </div>
 </div>
-<script>
-    $(document).ready(function() {
-        $('.js-example-basic-multiple11').select2();
-    });
-</script>
+
 
 

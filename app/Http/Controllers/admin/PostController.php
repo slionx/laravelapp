@@ -12,6 +12,7 @@ use Image;
 use Illuminate\Auth\Middleware;
 use App\Repositories\PostRepository;
 use App\Repositories\CategoryRepository;
+use App\Repositories\TagRepository;
 use App\Http\Model\Posts;
 use App\Http\Model\User;
 
@@ -24,9 +25,10 @@ class PostController extends Controller {
 	protected $CategoryRepository;
 	protected $PostRepository;
 
-    public function __construct( CategoryRepository $CategoryRepository ,PostRepository $PostRepository) {
+    public function __construct( CategoryRepository $CategoryRepository ,PostRepository $PostRepository, TagRepository $TagRepository) {
         //$this->middleware('isadmin');
 	    $this->CategoryRepository = $CategoryRepository;
+	    $this->TagRepository = $TagRepository;
 	    $this->post = $PostRepository;
     }
 
@@ -46,6 +48,7 @@ class PostController extends Controller {
     public function create() {
         return view( 'admin.post.create', [
             'categories' => $this->CategoryRepository->all(),
+            'tags' => $this->TagRepository->all(),
         ] );
     }
 
