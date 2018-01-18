@@ -17,7 +17,7 @@ interface RepositoryInterface {
 
 	public function update(array $data, $id, $attribute="id");
 
-	public function create(array $data);
+	public function create($data);
 
 	public function delete($id);
 

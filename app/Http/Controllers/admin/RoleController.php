@@ -65,7 +65,8 @@ class RoleController extends Controller
 	 */
 	public function create(  )
 	{
-		$permissions = $this->permission->all('id','name','slug');
+
+		$permissions = $this->permission->all(['id','name','slug']);
 		if ($permissions->isNotEmpty()) {
 			foreach ($permissions as $v) {
 				$temp = explode('.', $v->slug);
@@ -131,27 +132,19 @@ class RoleController extends Controller
 		$permissionArray = [];
 		$array = [];
 		$role = $this->role->find($id);
-		//$role_permission = $this->role->find($id)->permissions()->get();
-
-		$role_permission = $this->role->a();
-
-		dd($role_permission);
-
-
+		$role_permission = Role::find($id)->permissions()->get();
 		foreach ( $role_permission as $permission){
 			$array[] = $permission->toArray();
 		}
 		$role_permissionArray = array_column($array,'id');
 
-        $permissions = $this->permission->all('id','name','slug');
+        $permissions = $this->permission->all(['id','name','slug']);
 		if ($permissions->isNotEmpty()) {
 			foreach ($permissions as $v) {
 				$temp = explode('.', $v->slug);
 				$permissionArray[$temp[0]][] = $v->toArray();
 			}
 		}
-
-
 		return view( 'admin.role.edit' ,compact('role_permissionArray','permissionArray','role'));
 	}
 

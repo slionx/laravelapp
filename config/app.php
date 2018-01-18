@@ -174,7 +174,7 @@ return [
 
         App\Providers\CategoryServiceProvider::class,
 	    App\Providers\PermissionServiceProvider::class,
-	    //App\Providers\RepositoryServiceProvider::class,
+	    App\Providers\RepositoryServiceProvider::class,
 
         /*
          * Package Service Providers...

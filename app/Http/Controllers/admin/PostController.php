@@ -39,7 +39,6 @@ class PostController extends Controller {
      */
     public function index() {
         return view( 'admin.index' );
-
     }
 
     /**
@@ -63,9 +62,9 @@ class PostController extends Controller {
         $messages = [
             'post_title.required'=>'标题不能为空',
             'post_title.max'=>'标题最长不能超过255字符',
-            'post_slug.required'=>'标题不能为空',
-            'category.required'=>'标题不能为空',
-            'post_content.required'=>'标题不能为空',
+            'post_slug.required'=>'slug不能为空',
+            'category.required'=>'分类不能为空',
+            'post_content.required'=>'文章内容不能为空',
         ];
         $validator = Validator::make( $request->all(),$rules);
         if ( $validator->fails() ) {
@@ -78,7 +77,7 @@ class PostController extends Controller {
         $this->post->post_slug    = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
 
 
-        if ( $this->post->save() ) {
+        if ( $this->post->save($request->all()) ) {
             return Redirect( 'admin/post/create' )->with( 'success', 'success post' );
         } else {
             return Redirect( 'admin/post/create' )->withErrors( '文章' . $request['post_title'] . '创建失败' );

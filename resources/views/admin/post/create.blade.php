@@ -19,10 +19,16 @@
 @stop
 @section('theme_layout_scripts')
     <script src="{{ asset('global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('pages/scripts/components-bootstrap-maxlength.min.js') }}" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+
+            $('#maxlength_post_title').maxlength({
+                alwaysShow: true,
+            });
+            $('#maxlength_post_slug').maxlength({
+                alwaysShow: true,
+            });
 
             $('#post_tags').select2({
                 post_tag:true

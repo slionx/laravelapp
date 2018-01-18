@@ -11,9 +11,8 @@ class tag extends Model
     protected $table = 'tags';
     protected $fillable = ['name'];
 
-    public function articles()
+    public function Posts()
     {
-
-        return $this->belongsToMany('Article');
+        return $this->belongsToMany('posts');
     }
 }

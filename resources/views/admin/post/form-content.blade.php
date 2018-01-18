@@ -23,7 +23,7 @@
 
             <div class="portlet-body">
                 <!-- BEGIN FORM-->
-                <form action="store" id="form_sample_3" method="post" enctype="multipart/form-data">
+                <form action="{{ route('post.store') }}"  method="post" enctype="multipart/form-data">
 
                     @if (session('success'))
                         <div class="note note-success note-bordered">
@@ -59,14 +59,14 @@
 
                     {{ csrf_field() }}
                     <div class="form-group form-md-line-input form-md-floating-label {{ $errors->has('post_title') ? ' has-error' : '' }}">
-                        <input type="text" class="form-control" value="{{ old('post_title') }}" maxlength="255" name="post_title" id="maxlength_alloptions">
-                        <label for="form_control_1">标题</label>
-                        <span class="help-block">文章标题应小于255字节@if ($errors->has('description')){{ $errors->first('post_title') }}@endif</span>
+                        <input type="text" class="form-control" value="{{ old('post_title') }}" maxlength="255" name="post_title" id="maxlength_post_title">
+                        <label for="post_title">文章标题</label>
+                        <span class="help-block">{{ $errors->has('post_title') ? ' 文章标题为必填项，文章标题应小于255字节。' : '' }}</span>
                     </div>
-                    <div class="form-group form-md-line-input form-md-floating-label">
-                        <input type="text" class="form-control" value="{{ old('post_slug') }}" name="post_slug" maxlength="255" id="maxlength_alloptions">
-                        <label for="form_control_1">文章slug</label>
-                        <span class="help-block"></span>
+                    <div class="form-group form-md-line-input form-md-floating-label {{ $errors->has('post_slug') ? ' has-error' : '' }}">
+                        <input type="text" class="form-control" value="{{ old('post_slug') }}" name="post_slug" maxlength="255" id="maxlength_post_slug">
+                        <label for="post_slug">文章slug</label>
+                        <span class="help-block">{{ $errors->has('post_slug') ? ' 文章slug为必填项，文章标题应小于255字节。' : '' }}</span>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
                         <select class="form-control" name="category">
@@ -78,14 +78,13 @@
                                 <option value=""></option>
                             @endif
                         </select>
-                        <label for="form_control_1">选择分类</label>
+                        <label for="category">选择分类</label>
                         <span class="help-block">选择文章分类</span>
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">
-                        <label for="form_control_1">开启评论</label>
-                        <input type="checkbox" class="make-switch" checked data-on-color="success" data-off-color="default">
-
-                        <span class="help-block">Some help goes here...</span>
+                        <label for="allow_comment">开启评论</label>
+                        <input type="checkbox" name="allow_comment" class="make-switch" checked data-on-color="success" data-off-color="default">
+                        <span class="help-block">是否开启文章评论</span>
                     </div>
 
                     <div class="form-group">
@@ -95,11 +94,7 @@
                                 <option value="{{ $tag->name }}">{{ $tag->name }}</option>
                             @endforeach
                         </select>
-                        @if ($errors->has('post_tag[]'))
-                            <span class="help-block">
-                         <strong>{{ $errors->first('post_tag[]') }}</strong>
-                            </span>
-                        @endif
+                        <span class="help-block"><strong>{{ $errors->has('post_tag[]') ? ' 文章标签必填项。' : '' }}</strong></span>
 
                     </div>
                     <div class="form-group form-md-line-input form-md-floating-label">

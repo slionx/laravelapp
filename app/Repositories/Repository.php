@@ -48,7 +48,7 @@ abstract class Repository implements RepositoryInterface {
 		return $this->model->where($attribute, '=', $id)->update($data);
 	}
 
-	public function create( array $data ) {
+	public function create(  $data ) {
 		return $this->model->create($data);
 	}
 
