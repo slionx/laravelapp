@@ -40,9 +40,7 @@ Route::get('table', 'admin\CategoryController@index');
 });*/
 Route::get('/', 'HomeController@welcome');
 
-Route::get('home/index', function () {
-    return view('welcome');
-});
+
 Route::get('home/login', function () {
     return view('auth.login');
 });
@@ -110,7 +108,7 @@ Route::group(['middleware' => ['web','auth']], function () {
         return view('auth.passwords.reset');
     });*/
 });
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 
 
