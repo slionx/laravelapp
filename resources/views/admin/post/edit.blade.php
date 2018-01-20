@@ -7,10 +7,9 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">写文章</h3>
+                        <h3 class="panel-title">编辑文章</h3>
                     </div>
                     <div class="panel-body">
-
                         <div class="row">
                             <div class="col-md-12">
                             @include('UEditor::head')
@@ -33,16 +32,14 @@
                                             </a>
                                         </div>
                                     </div>
-
                                     <div class="portlet-body">
                                         <!-- BEGIN FORM-->
-                                        <form action="{{ route('admin.post.store') }}"  method="post" enctype="multipart/form-data">
+                                        <form action="{{ route('admin.post.update') }}"  method="post" enctype="multipart/form-data">
                                         @include('admin.post.form-content')
-
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <button type="submit" class="btn btn-success pull-right">发布</button>
+                                                    <button type="submit" class="btn btn-success pull-right">更新</button>
                                                     <button type="reset" class="btn btn-default pull-right">重置</button>
                                                 </div>
                                             </div>

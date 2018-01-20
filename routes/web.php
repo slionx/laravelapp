@@ -54,8 +54,9 @@ Route::get('/test', 'HomeController@index');
 Route::get('email/verify/{token}','admin\UserController@verify')->name('email.verify');
 
 
-Route::get('post/list/', 'admin\PostController@post');
-Route::resource('post','admin\PostController');
+Route::get('post/list/', 'admin\PostController@post')->name('post.list');
+Route::get('post/show/', 'admin\PostController@show')->name('post.show');
+
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','menu']], function () {
     //Route::get('/', 'PostController@index');
@@ -69,6 +70,12 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	PUT/PATCH	/posts/{post}	update	posts.update
 	DELETE	/posts/{post}	destroy	posts.destroy
 */
+	Route::get('/post/index/', 'PostController@index')->name('post.index');
+	Route::get('/post/create/', 'PostController@create')->name('post.create');
+	Route::get('/post/{post}/edit/', 'PostController@edit')->name('post.edit');
+	Route::delete('/post/{post}/', 'PostController@destroy')->name('post.destroy');
+	Route::post('/post/', 'PostController@store')->name('post.store');
+	Route::put('/post/{post}', 'PostController@update')->name('post.update');
 
 	Route::resource('menu' ,'MenuController');
 	Route::resource('permission' ,'PermissionController');
@@ -82,7 +89,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 
 	Route::get('/image', 'PostController@image');
 	Route::get('/upload', 'PostController@upload');
-	Route::get('/post', 'PostController@post');
+	//Route::get('/post', 'PostController@post');
 
     Route::get('post/upload_img', 'PostController@upload_img');
     Route::post('post/upload_img', 'PostController@upload_img');

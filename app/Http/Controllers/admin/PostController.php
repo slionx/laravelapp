@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Yajra\Datatables\Datatables;
+use Yajra\DataTables\Html\Builder;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,6 +18,7 @@ use App\Repositories\TagRepository;
 use App\Http\Model\Posts;
 use App\Http\Model\User;
 
+
 /**
  * Class PostController
  * @package App\Http\Controllers\Admin
@@ -24,8 +27,12 @@ class PostController extends Controller {
 
 	protected $CategoryRepository;
 	protected $PostRepository;
+	protected $module = 'post';
 
-    public function __construct( CategoryRepository $CategoryRepository ,PostRepository $PostRepository, TagRepository $TagRepository) {
+    public function __construct( CategoryRepository $CategoryRepository ,
+	                             PostRepository $PostRepository,
+	                             TagRepository $TagRepository
+    ) {
         //$this->middleware('isadmin');
 	    $this->CategoryRepository = $CategoryRepository;
 	    $this->TagRepository = $TagRepository;
@@ -37,9 +44,39 @@ class PostController extends Controller {
      *
      * @return Response
      */
-    public function index() {
-        return view( 'admin.index' );
+    public function index( Builder $builder ) {
+	    if ( request()->ajax() ) {
+		    return $this->ajaxData();
+	    }
+	    $html = $builder->parameters( [
+		    'searchDelay' => 350,
+		    'language'    => [
+			    'url' => url( 'zh.json' )
+		    ],
+	    ] )->columns( [
+		    [ 'data' => 'id', 'name' => 'id', 'title' => trans( 'common.number' ) ],
+		    [ 'data' => 'post_title', 'name' => 'post_title', 'title' => '标题' ],
+		    [ 'data' => 'post_category', 'name' => 'post_category', 'title' => '分类' ],
+		    [ 'data' => 'post_tag', 'name' => 'post_tag', 'title' => '标签' ],
+		    [ 'data' => 'comments_status', 'name' => 'comments_status', 'title' => '评论状态' ],
+		    [ 'data' => 'comments_count', 'name' => 'comments_count', 'title' => '评论数' ],
+		    [ 'data' => 'followers_count', 'name' => 'followers_count', 'title' => '阅读数' ],
+
+
+		    [ 'data' => 'created_at', 'name' => 'created_at', 'title' => trans( 'menu.created_at' ) ],
+		    [ 'data' => 'updated_at', 'name' => 'updated_at', 'title' => trans( 'menu.updated_at' ) ],
+	    ] )->addAction( [ 'data' => 'action', 'name' => 'action', 'title' => trans( 'common.action' ) ] );;
+
+        return view( 'admin.post.index' , compact( 'html' ) );
     }
+
+	public function ajaxData() {
+		return DataTables::of( $this->post->all() )
+		                 ->addColumn( 'action', function ( $PostRepository ) {
+			                 return getActionButtonAttribute( $PostRepository->id, $this->module );
+		                 } )
+		                 ->toJson();
+	}
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -66,21 +103,20 @@ class PostController extends Controller {
             'category.required'=>'分类不能为空',
             'post_content.required'=>'文章内容不能为空',
         ];
-        $validator = Validator::make( $request->all(),$rules);
+        $validator = Validator::make( $request->all(),$rules,$messages);
         if ( $validator->fails() ) {
             return back()->withErrors( $validator )->withInput();
         }
 
-        $this->post->post_title   = $request->post_title;
-        $this->post->post_content = $request->post_content;
-        $this->post->post_author  = 'Slionx';
-        $this->post->post_slug    = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
+        $data['post_title']   = $request->post_title;
+	    $data['post_content'] = $request->post_content;
+	    $data['post_author']  = 'Slionx';
+	    $data['post_slug']    = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
 
-
-        if ( $this->post->save($request->all()) ) {
-            return Redirect( 'admin/post/create' )->with( 'success', 'success post' );
+        if ( $this->post->create($data) ) {
+            return Redirect( 'post/create' )->with( 'success', 'success post' );
         } else {
-            return Redirect( 'admin/post/create' )->withErrors( '文章' . $request['post_title'] . '创建失败' );
+            return Redirect( 'post/create' )->withErrors( '文章' . $request['post_title'] . '创建失败' );
         }
         /*        $article->save([
                     'title'=>$request->title,
@@ -103,7 +139,9 @@ class PostController extends Controller {
 
 
 
-    public function edit() {
+    public function edit($id) {
+    	$post = $this->post->find($id);
+
 
     }
 

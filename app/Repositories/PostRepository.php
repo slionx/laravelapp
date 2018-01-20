@@ -20,7 +20,7 @@ class PostRepository extends Repository {
 		return Posts::class;
 	}
 
-	public function create(  $request ) {
+/*	public function create(  $request ) {
 		$ids = [];
 		$tags = $request['tags'];
 		if (!empty($tags)) {
@@ -29,12 +29,9 @@ class PostRepository extends Repository {
 				array_push($ids, $tag->id);
 			}
 		}
-
 		Posts::tags()->sync($ids);
-
 		Posts::save($request->all());
 
-
-	}
+	}*/
 
 }

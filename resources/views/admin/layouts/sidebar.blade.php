@@ -80,6 +80,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('post.index') }}" class="nav-link ">
+                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
+                        <span class="title">文章管理</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/admin/category" class="nav-link ">
                         <i class="fa phpdebugbar-fa-angle-double-down"></i>
                         <span class="title">文章分类</span>
