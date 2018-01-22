@@ -54,8 +54,8 @@ Route::get('/test', 'HomeController@index');
 Route::get('email/verify/{token}','admin\UserController@verify')->name('email.verify');
 
 
-Route::get('post/list/', 'admin\PostController@post')->name('post.list');
-Route::get('post/show/', 'admin\PostController@show')->name('post.show');
+Route::get('post/list/', 'admin\PostController@list')->name('post.list');
+Route::get('post/{post}/', 'admin\PostController@show')->name('post.show');
 
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','menu']], function () {
@@ -70,11 +70,12 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	PUT/PATCH	/posts/{post}	update	posts.update
 	DELETE	/posts/{post}	destroy	posts.destroy
 */
-	Route::get('/post/index/', 'PostController@index')->name('post.index');
-	Route::get('/post/create/', 'PostController@create')->name('post.create');
-	Route::get('/post/{post}/edit/', 'PostController@edit')->name('post.edit');
-	Route::delete('/post/{post}/', 'PostController@destroy')->name('post.destroy');
-	Route::post('/post/', 'PostController@store')->name('post.store');
+	Route::get('/post/index', 'PostController@index')->name('post.index');
+	Route::get('/post/create', 'PostController@create')->name('post.create');
+	Route::get('/post/{post}/edit', 'PostController@edit')->name('post.edit');
+	Route::delete('/post/{post}', 'PostController@destroy')->name('post.destroy');
+	Route::post('/post', 'PostController@store')->name('post.store');
+
 	Route::put('/post/{post}', 'PostController@update')->name('post.update');
 
 	Route::resource('menu' ,'MenuController');

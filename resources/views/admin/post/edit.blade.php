@@ -18,7 +18,7 @@
                                     <div class="portlet-title">
                                         <div class="caption">
                                             <i class=" icon-layers font-red"></i>
-                                            <span class="caption-subject font-red sbold uppercase">撰写新文章</span>
+                                            <span class="caption-subject font-red sbold uppercase">编辑文章</span>
                                         </div>
                                         <div class="actions">
                                             <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
@@ -34,13 +34,13 @@
                                     </div>
                                     <div class="portlet-body">
                                         <!-- BEGIN FORM-->
-                                        <form action="{{ route('admin.post.update') }}"  method="post" enctype="multipart/form-data">
+                                        <form action="{{ route('post.update',$post->id) }}"  method="post">
+                                        <input type="hidden" name="_method" value="put">
                                         @include('admin.post.form-content')
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <button type="submit" class="btn btn-success pull-right">更新</button>
-                                                    <button type="reset" class="btn btn-default pull-right">重置</button>
                                                 </div>
                                             </div>
                                         </div>

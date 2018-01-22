@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
 	        $table->string('email')->unique();
 	        $table->string('password');
 	        $table->smallInteger('is_active')->default(0);
-	        $table->string('confirmation_token');
+	        $table->string('confirmation_token')->default();
 	        $table->string('avatar')->nullable();
 	        $table->string('comments')->default();
 	        //$table->json('setting');

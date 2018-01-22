@@ -40,12 +40,12 @@ function getDestroyActionButton($id,$module)
 	$csrfToken = csrf_field();
 	$method = method_field('delete');
 	return <<<Eof
-		<a  class="btn btn-sm red btn-outline filter-cancel">
-                             <i class="fa fa-trash"></i> {$delete}</a>
-                             <button class="btn btn-outline red-mint  uppercase" data-toggle="confirmation" data-singleton="true" data-original-title="" title="">Confirmation 2</button>
-		<form action="{$url}" method="POST" style="display:none">
-						$csrfToken
+		<a href="{$url}" class="btn btn-sm red btn-outline filter-cancel" onclick="event.preventDefault();document.getElementById('delete-form-{$id}').submit();">
+                             <i class="fa fa-trash"></i> {$delete}
+                             </a>
+		<form id="delete-form-{$id}" action="{$url}" method="POST" style="display:none">
 						$method
+						$csrfToken
 					</form>
 Eof;
 

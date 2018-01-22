@@ -36,7 +36,7 @@
 
                                     <div class="portlet-body">
                                         <!-- BEGIN FORM-->
-                                        <form action="{{ route('admin.post.store') }}"  method="post" enctype="multipart/form-data">
+                                        <form action="{{ route('post.store') }}"  method="post" enctype="multipart/form-data">
                                         @include('admin.post.form-content')
 
                                         <div class="form-actions">

@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+<style>
+    .blog-post-content img{ width: 100%}
+</style>
 @section('content')
 
     <div class="site-content">
@@ -27,7 +29,7 @@
 
                         </div>
                         <div class="blog-post-content">
-                            {!! $item->post_content !!}
+                            {!!  substr($item->post_content,50) !!}
                         </div>
                         <div class="clearfix"></div>
                         <div class=" text-muted blog-quote">

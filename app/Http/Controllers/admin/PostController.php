@@ -89,39 +89,22 @@ class PostController extends Controller {
     }
 
     public function store(Request $request) {
-
-        $rules = [
-            'post_title'   => 'required|unique:posts|max:255',
-            'post_slug'    => 'required',
-            'category'     => 'required',
-            'post_content' => 'required',
-        ];
-        $messages = [
-            'post_title.required'=>'标题不能为空',
-            'post_title.max'=>'标题最长不能超过255字符',
-            'post_slug.required'=>'slug不能为空',
-            'category.required'=>'分类不能为空',
-            'post_content.required'=>'文章内容不能为空',
-        ];
-        $validator = Validator::make( $request->all(),$rules,$messages);
-        if ( $validator->fails() ) {
-            return back()->withErrors( $validator )->withInput();
-        }
-
+	    $this->Validator( $request);
         $data['post_title']   = $request->post_title;
 	    $data['post_content'] = $request->post_content;
 	    $data['post_author']  = 'Slionx';
+	    $data['comments_status']   = $request->comments_status;
 	    $data['post_slug']    = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
 
+
+	    //$this->syncTag($request['post_tag']);
+
         if ( $this->post->create($data) ) {
-            return Redirect( 'post/create' )->with( 'success', 'success post' );
+            return Redirect( 'admin/post/create' )->with( 'success', 'success post' );
         } else {
-            return Redirect( 'post/create' )->withErrors( '文章' . $request['post_title'] . '创建失败' );
+            return Redirect( 'admin/post/create' )->withErrors( '文章' . $request['post_title'] . '创建失败' );
         }
-        /*        $article->save([
-                    'title'=>$request->title,
-                    'content'=>$request->content
-                ]);*/
+
 
     }
 
@@ -130,8 +113,6 @@ class PostController extends Controller {
      */
     public function show($id) {
         $post = Posts::find($id);
-        //\Auth::loginUsingId(1);
-        //echo $post->post_title;
         return view('home.post.show',compact('post'));
 
     }
@@ -141,14 +122,69 @@ class PostController extends Controller {
 
     public function edit($id) {
     	$post = $this->post->find($id);
+	    $tags = $this->TagRepository->all();
+	    $categories = $this->CategoryRepository->all();
+	    return view('admin.post.edit',compact('post','tags','categories'));
 
+    }
+
+	public function Validator( $request ) {
+
+		$rules = [
+			'post_title'   => 'required|unique:posts|max:255',
+			'post_slug'    => 'required',
+			'post_content' => 'required',
+			'category'     => 'required',
+			'post_tag' => 'required',
+			'comments_status' => 'required',
+		];
+		$messages = [
+			'post_title.required'=>'标题不能为空',
+			'post_title.max'=>'标题最长不能超过255字符',
+			'post_slug.required'=>'slug不能为空',
+			'category.required'=>'分类不能为空',
+			'post_content.required'=>'文章内容不能为空',
+			'post_tag.required'=>'至少选择一个标签',
+		];
+		$validator = Validator::make( $request->all(),$rules,$messages);
+		if ( $validator->fails() ) {
+			return back()->withErrors( $validator )->withInput();
+		}
+    }
+
+	public function syncTag( $array=[],Posts $posts ) {
+		$ids = [];
+		$tags = $array['post_tag'];
+		if (!empty($tags)) {
+			foreach ($tags as $tagName) {
+				$tag = Tag::firstOrCreate(['name' => $tagName]);
+				array_push($ids, $tag->id);
+			}
+		}
+		$posts->tags()->sync($ids);
 
     }
 
     /**
      *
      */
-    public function update() {
+    public function update($id ,Request $request) {
+    	$this->Validator( $request);
+
+	    //$this->syncTag($request['post_tag']);
+
+	    $data['post_title']   = $request->post_title;
+	    $data['post_content'] = $request->post_content;
+	    $data['post_author']  = 'Slionx';
+	    $data['comments_status']   = $request->comments_status;
+	    $data['post_slug']    = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
+
+	    if($this->post->update($data,$id)){
+		    return redirect('admin/post/index')->with('success', '文章' . $request['post_title'] . '更新成功');
+	    }else{
+		    return Redirect::back()->withInput()->withErrors('errors','更新失败！');
+	    }
+
 
     }
 
@@ -157,6 +193,11 @@ class PostController extends Controller {
      */
     public function destroy( $id ) {
 
+	    if($this->post->delete($id)){
+		    return Redirect::back()->with('success', '删除成功！');
+	    }else{
+		    return Redirect::back()->withInput()->with('errors','删除失败！');
+	    }
     }
 
     /**
@@ -238,11 +279,11 @@ class PostController extends Controller {
      *
      * @return Response
      */
-    public function post() {
+    public function list() {
 	    $user = User::find(1);
 
 	    foreach ($user->roles as $role) {
-		    echo $role;
+		    //echo $role;
 	    }
 
         $post = $this->post->paginate( 1 );
