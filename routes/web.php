@@ -50,7 +50,6 @@ Route::get('home/changepw', function () {
 
 Route::post('home/changepw', 'HomeController@changePassword')->name('changePassword');
 
-Route::get('/test', 'HomeController@index');
 Route::get('email/verify/{token}','admin\UserController@verify')->name('email.verify');
 
 
@@ -59,7 +58,6 @@ Route::get('post/{post}/', 'admin\PostController@show')->name('post.show');
 
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','menu']], function () {
-    //Route::get('/', 'PostController@index');
 /*路由资源可用方法
  *
  *  GET	/posts	index	posts.index
@@ -70,19 +68,25 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	PUT/PATCH	/posts/{post}	update	posts.update
 	DELETE	/posts/{post}	destroy	posts.destroy
 */
-	Route::get('/post/index', 'PostController@index')->name('post.index');
+    Route::get('/', 'PostController@index')->name('admin');
+
+	/*Route::get('/post/index', 'PostController@index')->name('post.index');
 	Route::get('/post/create', 'PostController@create')->name('post.create');
 	Route::get('/post/{post}/edit', 'PostController@edit')->name('post.edit');
 	Route::delete('/post/{post}', 'PostController@destroy')->name('post.destroy');
 	Route::post('/post', 'PostController@store')->name('post.store');
-
 	Route::put('/post/{post}', 'PostController@update')->name('post.update');
+    Route::get('post/upload_img', 'PostController@upload_img');
+    Route::post('post/upload_img', 'PostController@upload_img');*/
+
+    Route::resource('post' ,'PostController')->except('show');
 
 	Route::resource('menu' ,'MenuController');
 	Route::resource('permission' ,'PermissionController');
 	Route::resource('role' ,'RoleController');
 	Route::resource('user' ,'UserController');
 	Route::resource('category' ,'CategoryController');
+    Route::resource('tag', 'TagController');
 
 /*    Route::get('menu/{id}/edit', function ($id) {
         //
@@ -90,17 +94,10 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 
 	Route::get('/image', 'PostController@image');
 	Route::get('/upload', 'PostController@upload');
-	//Route::get('/post', 'PostController@post');
 
-    Route::get('post/upload_img', 'PostController@upload_img');
-    Route::post('post/upload_img', 'PostController@upload_img');
 
-    //tag
-    Route::get('/tag/show', 'TagController@index');
-    Route::post('/tag', 'TagController@create');
 
 });
-
 Route::group(['middleware' => ['web','auth']], function () {
 /*    Route::get('/login', function () {
         return view('auth.login');
@@ -110,13 +107,11 @@ Route::group(['middleware' => ['web','auth']], function () {
         return view('home');
     });
 
-
-
 /*    Route::get('/reset', function () {
         return view('auth.passwords.reset');
     });*/
 });
-//Route::get('/home', 'HomeController@index')->name('home');
+
 
 
 

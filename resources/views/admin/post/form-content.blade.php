@@ -53,13 +53,13 @@
 </div>
 <div class="form-group form-md-line-input form-md-floating-label">
     <label for="allow_comment">开启评论</label>
-    <input type="checkbox" name="comments_status" class="make-switch" {{ isset($post->comments_status) ? 'checked' : '' }} data-on-color="success" data-off-color="default">
+    <input type="checkbox" name="comments_status" class="make-switch" {{ isset($post->comments_status) ? 'checked' : 'checked' }} data-on-color="success" data-off-color="default">
     <span class="help-block">是否开启文章评论</span>
 </div>
 
-<div class="form-group">
+<div class="form-group form-md-line-input {{ $errors->has('post_tag') ? ' has-error' : '' }}">
     <label for="post_tag">文章标签</label>
-    <select class="form-control" name="post_tag[]" id="post_tags" multiple>
+    <select class="form-control " name="post_tag[]" id="post_tags" multiple>
         @if(isset($post->post_tag))
             <?php
             $tags = explode(',',$post->post_tag);
@@ -89,8 +89,7 @@
 
         @endif
     </select>
-    <span class="help-block"><strong>{{ $errors->has('post_tag[]') ? ' 文章标签必填项。' : '' }}</strong></span>
-
+    <span class="help-block"><strong>{{ $errors->has('post_tag') ? ' 文章标签必填项。' : '' }}</strong></span>
 </div>
 <div class="form-group form-md-line-input form-md-floating-label">
     <label for="form_control_1">文章内容</label>

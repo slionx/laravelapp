@@ -89,7 +89,7 @@ class PostController extends Controller {
     }
 
     public function store(Request $request) {
-	    $this->Validator( $request);
+	    return $this->Validator( $request);
         $data['post_title']   = $request->post_title;
 	    $data['post_content'] = $request->post_content;
 	    $data['post_author']  = 'Slionx';
@@ -136,15 +136,14 @@ class PostController extends Controller {
 			'post_content' => 'required',
 			'category'     => 'required',
 			'post_tag' => 'required',
-			'comments_status' => 'required',
 		];
 		$messages = [
 			'post_title.required'=>'标题不能为空',
 			'post_title.max'=>'标题最长不能超过255字符',
 			'post_slug.required'=>'slug不能为空',
 			'category.required'=>'分类不能为空',
-			'post_content.required'=>'文章内容不能为空',
 			'post_tag.required'=>'至少选择一个标签',
+            'post_content.required'=>'文章内容不能为空',
 		];
 		$validator = Validator::make( $request->all(),$rules,$messages);
 		if ( $validator->fails() ) {

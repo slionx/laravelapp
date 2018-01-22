@@ -1,16 +1,15 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
+                <div class="panel panel-theme">
                     <div class="panel-heading">
-                        <h3 class="panel-title">写文章</h3>
+
                     </div>
                     <div class="panel-body">
-
                         <div class="row">
                             <div class="col-md-12">
                             @include('UEditor::head')
@@ -43,7 +42,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <button type="submit" class="btn btn-success pull-right">发布</button>
-                                                    <button type="reset" class="btn btn-default pull-right">重置</button>
+                                                    <button type="reset" class="btn btn-danger pull-right">重置</button>
                                                 </div>
                                             </div>
                                         </div>
