@@ -4,7 +4,7 @@ namespace App\Http\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class tag extends Model
+class Tag extends Model
 {
     //use SoftDeletingTrait;
 
@@ -15,4 +15,6 @@ class tag extends Model
     {
         return $this->belongsToMany('posts');
     }
+
+
 }

@@ -19,10 +19,14 @@ class Posts extends Model
     protected $dates = ['deleted_at'];
 
 
-    public function tags()
-    {
-        return $this->belongsToMany('Tag');
-    }
+	public function tag()
+	{
+		return $this->belongsToMany(Tag::class,'post_tag','post_id','tag_id')->withPivot(['post_id','tag_id']);
+	}
+
+	public function saveTag($tag) {
+		return $this->tag()->save($tag);
+	}
 
     public function user()
     {

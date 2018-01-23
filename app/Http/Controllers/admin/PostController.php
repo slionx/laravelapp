@@ -17,6 +17,7 @@ use App\Repositories\CategoryRepository;
 use App\Repositories\TagRepository;
 use App\Http\Model\Posts;
 use App\Http\Model\User;
+use App\Http\Model\Tag;
 
 
 /**
@@ -89,7 +90,7 @@ class PostController extends Controller {
     }
 
     public function store(Request $request) {
-	    return $this->Validator( $request);
+	    $this->Validator( $request);
         $data['post_title']   = $request->post_title;
 	    $data['post_content'] = $request->post_content;
 	    $data['post_author']  = 'Slionx';
@@ -98,9 +99,26 @@ class PostController extends Controller {
 
 
 	    //$this->syncTag($request['post_tag']);
+	    $result = $this->post->create($data);
 
-        if ( $this->post->create($data) ) {
-            return Redirect( 'admin/post/create' )->with( 'success', 'success post' );
+
+	    $ids = [];
+	    $tags = $request['post_tag'];
+	    if (!empty($tags)) {
+		    foreach ($tags as $tagName) {
+
+		    	//dd($this->TagRepository->find($tagName));
+			    //Posts->Posts::saveTag($this->TagRepository->find($tagName));
+		    }
+	    }
+	    //$tag = Tag::firstOrCreate(['name' => $tagName]);
+	    //array_push($ids, $tag->id);
+
+
+	    //$result->saveTag();
+
+        if ( $result ) {
+            return Redirect( 'admin/post/create' )->with( 'success', '文章' . $request['post_title'] . '创建成功' );
         } else {
             return Redirect( 'admin/post/create' )->withErrors( '文章' . $request['post_title'] . '创建失败' );
         }
@@ -128,7 +146,7 @@ class PostController extends Controller {
 
     }
 
-	public function Validator( $request ) {
+	public function Validator(Request $request ) {
 
 		$rules = [
 			'post_title'   => 'required|unique:posts|max:255',
@@ -168,7 +186,7 @@ class PostController extends Controller {
      *
      */
     public function update($id ,Request $request) {
-    	$this->Validator( $request);
+	    $this->Validator( $request);
 
 	    //$this->syncTag($request['post_tag']);
 

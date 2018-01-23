@@ -71,15 +71,9 @@
             $('#maxlength_post_slug').maxlength({
                 alwaysShow: true,
             });
-
             $('#post_tags').select2({
                 post_tag:true
             });
-            if ($('#post_tags').hasClass("select2-hidden-accessible")) {
-                console.log(1);
-            }else {
-                alert(1);
-            }
         });
     </script>
 @stop

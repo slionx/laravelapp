@@ -1,18 +1,14 @@
 @if (session('success'))
-    <div class="note note-success note-bordered">
-        <div class="alert alert-success">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            {{ session('success') }}
-        </div>
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        {{ session('success') }}
     </div>
 @endif
 
 @if (session('error'))
-    <div class="note note-danger note-bordered">
-        <div class="alert alert-error">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            {{ session('error') }}
-        </div>
+    <div class="alert alert-error">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        {{ session('error') }}
     </div>
 @endif
 @if (count($errors) > 0)
@@ -42,9 +38,9 @@
             <option value="{{ $post->post_category }}">{{ $post->post_category }}</option>
         @else
             @if(isset($categories)&& count($categories))
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
             @endif
         @endif
     </select>
@@ -61,17 +57,17 @@
     <label for="post_tag">文章标签</label>
     <select class="form-control " name="post_tag[]" id="post_tags" multiple>
         @if(isset($post->post_tag))
-            <?php
-            $tags = explode(',',$post->post_tag);
-            ?>
-                <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" data-select2-id="60" style="width: 100%;">
+			<?php
+			$tags = explode(',',$post->post_tag);
+			?>
+            <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr" data-select2-id="60" style="width: 100%;">
                     <span class="selection">
                         <span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1">
                             <ul class="select2-selection__rendered">
                                  @foreach($tags as $tag)
-                                <li class="select2-selection__choice" title="{{$tag}}" data-select2-id="0">
+                                    <li class="select2-selection__choice" title="{{$tag}}" data-select2-id="0">
                                     <span class="select2-selection__choice__remove" role="presentation">×</span>{{$tag}}</li>
-                                <li class="select2-selection__choice" title="California" data-select2-id="0">
+                                    <li class="select2-selection__choice" title="California" data-select2-id="0">
                                     <span class="select2-selection__choice__remove" role="presentation">×</span>{{$tag}}</li>
                                 @endforeach
                                 <li class="select2-search select2-search--inline">
@@ -82,9 +78,9 @@
                     <span class="dropdown-wrapper" aria-hidden="true"></span></span>
         @else
             @if(isset($tags)&&count($tags))
-            @foreach($tags as $tag)
-                <option value="{{ $tag->name }}">{{ $tag->name }}</option>
-            @endforeach
+                @foreach($tags as $tag)
+                    <option value="{{ $tag->name }}">{{ $tag->name }}</option>
+                @endforeach
             @endif
 
         @endif
