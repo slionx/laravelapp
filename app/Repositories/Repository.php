@@ -15,6 +15,7 @@ use Illuminate\Container\Container as App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+
 abstract class Repository implements RepositoryInterface ,CriteriaInterface {
 
 	private $app;

@@ -24,5 +24,6 @@ class PermissionServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('App\Contracts\PermissionInterface','App\Repositories\PermissionRepository');
+
     }
 }

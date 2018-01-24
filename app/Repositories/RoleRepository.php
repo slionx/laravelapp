@@ -18,9 +18,6 @@ class RoleRepository extends Repository {
 		return Role::class;
 	}
 
-	function a(){
-		$this->model()->permissions();
-	}
 
 
 

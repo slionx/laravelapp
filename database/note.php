@@ -8,6 +8,50 @@ dd(app('make')->make('password'));
 dd(app()['hash']->make('password'));
 dd(app('Illuminate\Hashing\BcryptHasher')->make('pwassword'));
 
+//服务容器的产生
+
+入口index.php
+自动加载
+require __DIR__.'/../bootstrap/autoload.php';
+服务容器生成
+$app = require_once __DIR__.'/../bootstrap/app.php';
+服务容器创建
+$app = new Illuminate\Foundation\Application(
+    realpath(__DIR__.'/../')
+);
+$app->singleton(
+    Illuminate\Contracts\Http\Kernel::class,
+    App\Http\Kernel::class
+);
+
+
+//服务绑定
+//普通模式绑定回调函数 --回调函数服务绑定
+        $this->app-bind(App\Services\testService::class ,function ($app){
+        	return new App\Services\testService();
+        });
+
+//单例模式绑定回调函数  --回调函数服务绑定
+        $this->app->singleton(App\Services\testService::class ,function ($app){
+	        return new App\Services\testService();
+        });
+
+//绑定实例对象  --实例对象服务绑定
+		$test = new App\Services\testService();
+        $this->app->instance('testService',$test);
+
+//绑定具体类名称
+
+		$this->app->bind('App\Contracts\Contracts::class','App\Repositories\Contracts::class');
+//这种情况，服务为类名的会通过服务容器中的getClosure()函数自动生成创建该类实例对象的回调函数并进行绑定，服务名称用接口名更好
+
+//服务解析
+app(some::class);
+app()['some::class'];
+app('Illuminate\Hashing\BcryptHasher');
+\App::make(some::class);
+
+
 php artisan make:controller tag -r
 
 php artisan help make:controller
