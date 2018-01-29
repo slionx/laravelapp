@@ -104,6 +104,8 @@
                         </div>
                         <div class="portlet-body form">
                             <form action="{{ route('category.update',$category->id) }}" method="post" class="form-horizontal form-bordered">
+                                {{ csrf_field() }}
+                                {{method_field('PUT')}}
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="col-sm-3 control-label">分类名称</label>
                                     <div class="col-sm-4">
@@ -124,7 +126,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{ csrf_field() }}
                                 <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-offset-3 col-md-9">

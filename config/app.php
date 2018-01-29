@@ -171,6 +171,7 @@ return [
 	    Yajra\DataTables\DataTablesServiceProvider::class,//DataTables
 	    Yajra\DataTables\HtmlServiceProvider::class,
 	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,//ide-helper
+	    Prettus\Repository\Providers\RepositoryServiceProvider::class,//RepositoryServiceProvider
 
         App\Providers\CategoryServiceProvider::class,
 	    App\Providers\PermissionServiceProvider::class,

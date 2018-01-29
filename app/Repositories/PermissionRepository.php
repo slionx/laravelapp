@@ -2,15 +2,10 @@
 
 namespace App\Repositories;
 
-
-use App\Http\Model\Permission;
-
-
-class PermissionRepository extends Repository
+class PermissionRepository extends BaseRepository
 {
 	function model() {
-		return Permission::class;
+		return "App\\Http\\Model\\Permission";
 	}
-
 
 }

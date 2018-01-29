@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Http\Model\Category;
+use Prettus\Repository\Eloquent\BaseRepository;
 
-class CategoryRepository extends Repository
+class CategoryRepository extends BaseRepository
 {
 
 	/**
@@ -14,6 +14,6 @@ class CategoryRepository extends Repository
 	 */
 	public function model()
 	{
-		return Category::class;
+		return "App\\Http\\Model\\Category";
 	}
 }

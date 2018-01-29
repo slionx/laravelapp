@@ -56,25 +56,6 @@ class CategoryController extends Controller {
 		                 ->toJson();
 	}
 
-	/**
-	 * Process dataTable ajax response.
-	 *
-	 * @param \Yajra\Datatables\Datatables $datatables
-	 *
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function data( Datatables $datatables ) {
-		$builder = Category::query()->select( 'id', 'name', 'sort', 'created_at', 'updated_at' );
-
-		return $datatables->eloquent( $builder )
-		                  ->editColumn( 'name', function ( $user ) {
-			                  return '<a>' . $user->name . '</a>';
-		                  } )
-		                  ->addColumn( 'action', 'eloquent.tables.users-action' )
-		                  ->rawColumns( [ 'name', 'action' ] )
-		                  ->make( true );
-	}
-
 	public function show( Request $request ) {
 
 
@@ -95,7 +76,7 @@ class CategoryController extends Controller {
 				->withErrors( $validator )
 				->withInput( $request->all() );
 		}
-		if ( $this->category->save( $request->all() ) ) {
+		if ( $this->CategoryRepository->create( $request->all() ) ) {
 			return Redirect( 'admin/category/create' )->with( 'success', '创建成功' );
 		} else {
 			return Redirect( 'admin/category/create' )->withErrors( '分类' . $request->name . '创建失败' );
@@ -108,13 +89,11 @@ class CategoryController extends Controller {
 	}
 
 	public function update( Request $request ,$id ) {
+
 		try {
-			$result       = $this->CategoryRepository->find( $id );
-			$result->name = $request->name;
-			$result->slug = $request->slug;
-			$bool         = $result->save();
+			$bool       = $this->CategoryRepository->update($request->all(), $id );
 			if ( $bool ) {
-				return redirect()->route( 'role.edit', $id );
+				return redirect()->route( 'category.index');
 			}
 		} catch ( Exception $e ) {
 			return back()->withErrors(' Failed! ' . $e->getMessage());
@@ -122,7 +101,9 @@ class CategoryController extends Controller {
 
 	}
 
-	public function destroy(  ) {
+	public function destroy( $id ) {
+
+		$this->CategoryRepository->delete($id);
 
 	}
 

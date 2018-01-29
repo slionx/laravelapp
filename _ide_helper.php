@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.5.32 on 2018-01-20.
+ * Generated for Laravel 5.5.32 on 2018-01-29.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -440,6 +440,8 @@ namespace Illuminate\Support\Facades {
         /**
          * Resolve the given type from the container.
          * 
+         * 从容器中解析给定类型
+         * 
          * (Overriding Container::make)
          *
          * @param string $abstract
@@ -454,6 +456,8 @@ namespace Illuminate\Support\Facades {
         
         /**
          * Determine if the given abstract type has been bound.
+         * 
+         * 确定给定抽象类型是否已绑定
          * 
          * (Overriding Container::bound)
          *
@@ -479,6 +483,8 @@ namespace Illuminate\Support\Facades {
         
         /**
          * Boot the application's service providers.
+         * 
+         * 引导应用程序的服务提供者
          *
          * @return void 
          * @static 
@@ -789,6 +795,8 @@ namespace Illuminate\Support\Facades {
         
         /**
          * Register the core class aliases in the container.
+         * 
+         * 注册核心容器类别名
          *
          * @return void 
          * @static 
@@ -1008,6 +1016,8 @@ namespace Illuminate\Support\Facades {
         
         /**
          * Register an existing instance as shared in the container.
+         * 
+         * 将现有实例注册为容器中共享的实例
          *
          * @param string $abstract
          * @param mixed $instance

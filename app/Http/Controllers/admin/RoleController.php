@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Http\Model\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
-use App\Repositories\RoleRepository as RoleRepository;
+use App\Repositories\RoleRepository as Role;
 use App\Repositories\PermissionRepository as Permission;
 
 
@@ -18,7 +17,7 @@ class RoleController extends Controller
 
 	protected $module = 'role';
 
-	public function __construct( RoleRepository $role , Permission $permission ) {
+	public function __construct( Role $role , Permission $permission ) {
 		$this->role = $role;
         $this->permission = $permission;
 	}
@@ -27,10 +26,10 @@ class RoleController extends Controller
 	public function ajaxData() {
 
 		return DataTables::of( $this->role->all() )
-		                 ->addColumn( 'action', function ( $permission ) {
-			                 return getActionButtonAttribute($permission->id,$this->module);
+		                 ->addColumn( 'action', function ( $role ) {
+			                 return getActionButtonAttribute($role->id,$this->module);
 		                 } )
-		                 ->toJson();
+		->toJson();
 	}
 	/**
 	 * Display a listing of the resource.
@@ -155,19 +154,26 @@ class RoleController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request ,Role $role)
+	public function update(Request $request ,$id)
 	{
+		dd($id);
 		try {
-			$bool = $role->update($request->all());
+			$bool = $this->role->update($request->all());
 			if ($bool) {
 				// 更新角色权限关系
-				if (isset($request->permission)) {
+				/*if (isset($request->permission)) {
 					$role->permissions()->sync($request->permission);
 				}else{
 					$role->permissions()->sync([]);
-				}
+				}*/
 			}
 			return redirect()->route($this->module.'.edit',$role->id);
+
+			return $this->role
+				->with( [ 'permissions' ] )->whereHas( 'permissions', function ( $query ) {
+					$query->where( 'name', 'admin' );
+				} );
+
 		} catch ( Exception $e ) {
 			return back()->withErrors(' Failed! ' . $e->getMessage());
 		}

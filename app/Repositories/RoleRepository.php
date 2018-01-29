@@ -8,18 +8,11 @@
 
 namespace App\Repositories;
 
-use App\Http\Model\Role;
-use App\Http\Model\Permission;
 
-
-class RoleRepository extends Repository {
+class RoleRepository extends BaseRepository {
 
 	function model() {
-		return Role::class;
+		return "App\\Http\\Model\\Role";
 	}
-
-
-
-
 
 }
