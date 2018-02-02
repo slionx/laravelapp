@@ -127,16 +127,11 @@ class RoleController extends Controller
 	 */
 	public function edit($id)
 	{
-
-		$permissionArray = [];
-		$array = [];
 		$role = $this->role->find($id);
-		$role_permission = Role::find($id)->permissions()->get();
+		$role_permission = $role->getPermission();
 		foreach ( $role_permission as $permission){
-			$array[] = $permission->toArray();
+			$role_permissionArray[] = $permission->id;
 		}
-		$role_permissionArray = array_column($array,'id');
-
         $permissions = $this->permission->all(['id','name','slug']);
 		if ($permissions->isNotEmpty()) {
 			foreach ($permissions as $v) {
@@ -144,6 +139,7 @@ class RoleController extends Controller
 				$permissionArray[$temp[0]][] = $v->toArray();
 			}
 		}
+
 		return view( 'admin.role.edit' ,compact('role_permissionArray','permissionArray','role'));
 	}
 
@@ -156,30 +152,21 @@ class RoleController extends Controller
 	 */
 	public function update(Request $request ,$id)
 	{
-		dd($id);
 		try {
-			$bool = $this->role->update($request->all());
+			$bool = $this->role->update($request->all(),$id);
 			if ($bool) {
-				// 更新角色权限关系
-				/*if (isset($request->permission)) {
-					$role->permissions()->sync($request->permission);
-				}else{
-					$role->permissions()->sync([]);
-				}*/
+				if(is_array($request->permission)){
+					foreach ($request->permission as $pid){
+						$permissions[] = $this->permission->find($pid)->id;
+					}
+				}
+				$role = $this->role->find($id);
+				$role->syncPermission($permissions);
 			}
 			return redirect()->route($this->module.'.edit',$role->id);
-
-			return $this->role
-				->with( [ 'permissions' ] )->whereHas( 'permissions', function ( $query ) {
-					$query->where( 'name', 'admin' );
-				} );
-
 		} catch ( Exception $e ) {
 			return back()->withErrors(' Failed! ' . $e->getMessage());
 		}
-
-
-
 	}
 
 	/**
@@ -192,4 +179,5 @@ class RoleController extends Controller
 	{
 		echo $id;
 	}
+
 }

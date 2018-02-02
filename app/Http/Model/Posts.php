@@ -24,8 +24,12 @@ class Posts extends Model
 		return $this->belongsToMany(Tag::class,'post_tag','post_id','tag_id')->withPivot(['post_id','tag_id']);
 	}
 
-	public function saveTag($tag) {
-		return $this->tag()->save($tag);
+	public function attachTag( $tag ) {
+		return $this->tag()->attach($tag);
+	}
+
+	public function syncTag( $tag ) {
+		return $this->tag()->sync($tag);
 	}
 
     public function user()

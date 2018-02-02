@@ -34,8 +34,13 @@
 </div>
 <div class="form-group form-md-line-input form-md-floating-label">
     <select class="form-control" name="category">
-        @if(isset($post->post_category))
+        @if($post->post_category)
             <option value="{{ $post->post_category }}">{{ $post->post_category }}</option>
+            @if(isset($categories)&& count($categories))
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            @endif
         @else
             @if(isset($categories)&& count($categories))
                 @foreach($categories as $category)
@@ -56,7 +61,7 @@
 <div class="form-group form-md-line-input {{ $errors->has('post_tag') ? ' has-error' : '' }}">
     <label for="post_tag">文章标签</label>
     <select class="form-control " name="post_tag[]" id="post_tags" multiple>
-        @if(isset($post->post_tag))
+        @if($post->post_tag)
 			<?php
 			$tags = explode(',',$post->post_tag);
 			?>
@@ -77,9 +82,9 @@
                     </span>
                     <span class="dropdown-wrapper" aria-hidden="true"></span></span>
         @else
-            @if(isset($tags)&&count($tags))
+            @if($tags)
                 @foreach($tags as $tag)
-                    <option value="{{ $tag->name }}">{{ $tag->name }}</option>
+                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                 @endforeach
             @endif
 

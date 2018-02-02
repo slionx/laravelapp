@@ -8,6 +8,8 @@
 
 namespace App\Repositories;
 
+use Prettus\Repository\Eloquent\BaseRepository;
+
 
 class RoleRepository extends BaseRepository {
 

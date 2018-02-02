@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Model\User;
-use App\Http\Model\Role;
 use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
+use App\Repositories\RoleRepository as Role;
+use App\Repositories\UserRepository as User;
+
 
 class UserController extends Controller {
 
@@ -65,7 +66,7 @@ class UserController extends Controller {
 
 	private function ajaxData() {
 		//return DataTables::of(Category::query())->toJson();
-		return DataTables::of( User::all() )
+		return DataTables::of( $this->user->all() )
 		                 ->addColumn( 'action', function ( $user ) {
 			                 return getActionButtonAttribute( $user->id,$this->module);
 		                 } )
@@ -77,9 +78,8 @@ class UserController extends Controller {
 	}
 
 	public function edit( $id ) {
-		$user = User::find($id);
-		$roles = Role::all();
-
+		$user = $this->user->find($id);
+		$roles = $user->getRole();
 		return view( 'admin.user.edit' ,compact('user','roles','id'));
 	}
 

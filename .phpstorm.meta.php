@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2018-01-29.
+    * Generated on 2018-02-02.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -60,7 +60,6 @@ namespace PHPSTORM_META {
         'datatables.fractal' => \League\Fractal\Manager::class,
         'datatables.transformer' => \Yajra\DataTables\Transformers\FractalTransformer::class,
         'parsedown' => \Parsedown::class,
-        'App\Contracts\PermissionInterface' => \App\Repositories\PermissionRepository::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -159,7 +158,6 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
-        'App\Contracts\CategoryInterface' => \App\Repositories\CategoryRepository::class,
     ]));
     override(\Illuminate\Contracts\Container\Container::make(0), map([
         '' => '@',
@@ -213,7 +211,6 @@ namespace PHPSTORM_META {
         'datatables.fractal' => \League\Fractal\Manager::class,
         'datatables.transformer' => \Yajra\DataTables\Transformers\FractalTransformer::class,
         'parsedown' => \Parsedown::class,
-        'App\Contracts\PermissionInterface' => \App\Repositories\PermissionRepository::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -312,7 +309,6 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
-        'App\Contracts\CategoryInterface' => \App\Repositories\CategoryRepository::class,
     ]));
     override(\Illuminate\Contracts\Container\Container::makeWith(0), map([
         '' => '@',
@@ -366,7 +362,6 @@ namespace PHPSTORM_META {
         'datatables.fractal' => \League\Fractal\Manager::class,
         'datatables.transformer' => \Yajra\DataTables\Transformers\FractalTransformer::class,
         'parsedown' => \Parsedown::class,
-        'App\Contracts\PermissionInterface' => \App\Repositories\PermissionRepository::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -465,7 +460,6 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
-        'App\Contracts\CategoryInterface' => \App\Repositories\CategoryRepository::class,
     ]));
     override(\App::make(0), map([
         '' => '@',
@@ -519,7 +513,6 @@ namespace PHPSTORM_META {
         'datatables.fractal' => \League\Fractal\Manager::class,
         'datatables.transformer' => \Yajra\DataTables\Transformers\FractalTransformer::class,
         'parsedown' => \Parsedown::class,
-        'App\Contracts\PermissionInterface' => \App\Repositories\PermissionRepository::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -618,7 +611,6 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
-        'App\Contracts\CategoryInterface' => \App\Repositories\CategoryRepository::class,
     ]));
     override(\App::makeWith(0), map([
         '' => '@',
@@ -672,7 +664,6 @@ namespace PHPSTORM_META {
         'datatables.fractal' => \League\Fractal\Manager::class,
         'datatables.transformer' => \Yajra\DataTables\Transformers\FractalTransformer::class,
         'parsedown' => \Parsedown::class,
-        'App\Contracts\PermissionInterface' => \App\Repositories\PermissionRepository::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -771,7 +762,6 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
-        'App\Contracts\CategoryInterface' => \App\Repositories\CategoryRepository::class,
     ]));
     override(\app(0), map([
         '' => '@',
@@ -825,7 +815,6 @@ namespace PHPSTORM_META {
         'datatables.fractal' => \League\Fractal\Manager::class,
         'datatables.transformer' => \Yajra\DataTables\Transformers\FractalTransformer::class,
         'parsedown' => \Parsedown::class,
-        'App\Contracts\PermissionInterface' => \App\Repositories\PermissionRepository::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -924,7 +913,6 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
-        'App\Contracts\CategoryInterface' => \App\Repositories\CategoryRepository::class,
     ]));
     override(\resolve(0), map([
         '' => '@',
@@ -978,7 +966,6 @@ namespace PHPSTORM_META {
         'datatables.fractal' => \League\Fractal\Manager::class,
         'datatables.transformer' => \Yajra\DataTables\Transformers\FractalTransformer::class,
         'parsedown' => \Parsedown::class,
-        'App\Contracts\PermissionInterface' => \App\Repositories\PermissionRepository::class,
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
@@ -1077,7 +1064,6 @@ namespace PHPSTORM_META {
         'auth.password.broker' => \Illuminate\Auth\Passwords\PasswordBroker::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'command.tinker' => \Laravel\Tinker\Console\TinkerCommand::class,
-        'App\Contracts\CategoryInterface' => \App\Repositories\CategoryRepository::class,
     ]));
 
     override(\Illuminate\Support\Arr::add(0), type(0));

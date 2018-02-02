@@ -34,10 +34,9 @@
                                     </div>
 
                                     <div class="portlet-body">
-                                        <!-- BEGIN FORM-->
+                                        {{--<!-- BEGIN FORM-->--}}
                                         <form action="{{ route('post.store') }}"  method="post" enctype="multipart/form-data">
                                         @include('admin.post.form-content')
-
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -47,7 +46,7 @@
                                             </div>
                                         </div>
                                         </form>
-                                        <!-- END FORM-->
+                                        {{--<!-- END FORM-->--}}
                                     </div>
                                 </div>
                                 <!-- END VALIDATION STATES-->

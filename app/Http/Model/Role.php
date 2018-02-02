@@ -27,8 +27,20 @@ class Role extends Model
 		return $this->permissions()->detach($permission);
 	}
 
+	public function syncPermission( $permission ) {
+		return $this->permissions()->sync($permission);
+	}
+
+	public function attachPermission( $permissions ) {
+		return $this->permissions()->attach($permissions);
+	}
+
 	//判断角色是否有权限
 	public function hasPermission(Permission $permission ) {
 		return $this->permissions->contains($permission);
+	}
+
+	public function getPermission() {
+		return $this->permissions->all();
 	}
 }

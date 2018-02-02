@@ -8,16 +8,15 @@ use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
-use Matriphe\Imageupload\Imageupload;
 use Validator;
+use App\Repositories\PostRepository as Post;
+use App\Repositories\CategoryRepository as Category;
+use App\Repositories\TagRepository as Tag;
+
+use Matriphe\Imageupload\Imageupload;
 use Image;
 use Illuminate\Auth\Middleware;
-use App\Repositories\PostRepository;
-use App\Repositories\CategoryRepository;
-use App\Repositories\TagRepository;
-use App\Http\Model\Posts;
-use App\Http\Model\User;
-use App\Http\Model\Tag;
+
 
 
 /**
@@ -26,18 +25,18 @@ use App\Http\Model\Tag;
  */
 class PostController extends Controller {
 
-	protected $CategoryRepository;
-	protected $PostRepository;
+	protected $Category;
+	protected $Post;
 	protected $module = 'post';
 
-    public function __construct( CategoryRepository $CategoryRepository ,
-	                             PostRepository $PostRepository,
-	                             TagRepository $TagRepository
+    public function __construct( Category $Category ,
+	                             Post $Post,
+	                             Tag $Tag
     ) {
         //$this->middleware('isadmin');
-	    $this->CategoryRepository = $CategoryRepository;
-	    $this->TagRepository = $TagRepository;
-	    $this->post = $PostRepository;
+	    $this->category = $Category;
+	    $this->tag = $Tag;
+	    $this->post = $Post;
     }
 
     /**
@@ -84,43 +83,31 @@ class PostController extends Controller {
      */
     public function create() {
         return view( 'admin.post.create', [
-            'categories' => $this->CategoryRepository->all(),
-            'tags' => $this->TagRepository->all(),
+            'categories' => $this->category->all(),
+            'tags' => $this->tag->all(),
         ] );
     }
 
     public function store(Request $request) {
-	    $this->Validator( $request);
-        $data['post_title']   = $request->post_title;
-	    $data['post_content'] = $request->post_content;
-	    $data['post_author']  = 'Slionx';
-	    $data['comments_status']   = $request->comments_status;
-	    $data['post_slug']    = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
-
-
-	    //$this->syncTag($request['post_tag']);
-	    $result = $this->post->create($data);
-
-
-	    $ids = [];
-	    $tags = $request['post_tag'];
-	    if (!empty($tags)) {
-		    foreach ($tags as $tagName) {
-
-		    	//dd($this->TagRepository->find($tagName));
-			    //Posts->Posts::saveTag($this->TagRepository->find($tagName));
-		    }
+    	if($this->Validator( $request))
+	    {
+	    	return $this->Validator( $request);
 	    }
-	    //$tag = Tag::firstOrCreate(['name' => $tagName]);
-	    //array_push($ids, $tag->id);
 
+	    $request->post_slug   = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
 
-	    //$result->saveTag();
-
+	    $result = $this->post->create($request->all());
         if ( $result ) {
-            return Redirect( 'admin/post/create' )->with( 'success', '文章' . $request['post_title'] . '创建成功' );
+	        if(is_array($request->post_tag)){
+		        foreach ($request->post_tag as $tag){
+			        $tags[] = $this->tag->find($tag)->id;
+		        }
+		        $result->attachTag($tags);
+	        }
+
+            return Redirect( 'admin/post' )->with( 'success', '文章' . $request['post_title'] . '创建成功' );
         } else {
-            return Redirect( 'admin/post/create' )->withErrors( '文章' . $request['post_title'] . '创建失败' );
+            return Redirect( 'admin/post' )->withErrors( '文章' . $request['post_title'] . '创建失败' );
         }
 
 
@@ -130,9 +117,8 @@ class PostController extends Controller {
      *
      */
     public function show($id) {
-        $post = Posts::find($id);
+        $post = $this->post->find($id);
         return view('home.post.show',compact('post'));
-
     }
 
 
@@ -140,13 +126,13 @@ class PostController extends Controller {
 
     public function edit($id) {
     	$post = $this->post->find($id);
-	    $tags = $this->TagRepository->all();
-	    $categories = $this->CategoryRepository->all();
+	    $tags = $this->tag->all();
+	    $categories = $this->category->all();
 	    return view('admin.post.edit',compact('post','tags','categories'));
 
     }
 
-	public function Validator(Request $request ) {
+	public function Validator($request ) {
 
 		$rules = [
 			'post_title'   => 'required|unique:posts|max:255',
@@ -169,35 +155,28 @@ class PostController extends Controller {
 		}
     }
 
-	public function syncTag( $array=[],Posts $posts ) {
-		$ids = [];
-		$tags = $array['post_tag'];
-		if (!empty($tags)) {
-			foreach ($tags as $tagName) {
-				$tag = Tag::firstOrCreate(['name' => $tagName]);
-				array_push($ids, $tag->id);
-			}
-		}
-		$posts->tags()->sync($ids);
-
-    }
 
     /**
      *
      */
     public function update($id ,Request $request) {
-	    $this->Validator( $request);
+	    if($this->Validator( $request))
+	    {
+		    return $this->Validator( $request);
+	    }
 
-	    //$this->syncTag($request['post_tag']);
+	    $request->post_slug    = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
 
-	    $data['post_title']   = $request->post_title;
-	    $data['post_content'] = $request->post_content;
-	    $data['post_author']  = 'Slionx';
-	    $data['comments_status']   = $request->comments_status;
-	    $data['post_slug']    = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
+	    if($this->post->update($request->all(),$id)){
+		    if(is_array($request->post_tag)){
+			    foreach ($request->post_tag as $tag){
+				    $tags[] = $this->tag->find($tag)->id;
+			    }
+			    $post = $this->post->find($id);
+			    $post->syncTag($tags);
+		    }
 
-	    if($this->post->update($data,$id)){
-		    return redirect('admin/post/index')->with('success', '文章' . $request['post_title'] . '更新成功');
+		    return Redirect::route('post.index')->with('success', '文章' . $request['post_title'] . '更新成功');
 	    }else{
 		    return Redirect::back()->withInput()->withErrors('errors','更新失败！');
 	    }
@@ -211,7 +190,7 @@ class PostController extends Controller {
     public function destroy( $id ) {
 
 	    if($this->post->delete($id)){
-		    return Redirect::back()->with('success', '删除成功！');
+		    return Redirect::route('post.index')->with('success', '删除成功！');
 	    }else{
 		    return Redirect::back()->withInput()->with('errors','删除失败！');
 	    }
@@ -297,11 +276,6 @@ class PostController extends Controller {
      * @return Response
      */
     public function list() {
-	    $user = User::find(1);
-
-	    foreach ($user->roles as $role) {
-		    //echo $role;
-	    }
 
         $post = $this->post->paginate( 1 );
 

@@ -74,7 +74,7 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item">
-                    <a href="/post/create" class="nav-link ">
+                    <a href="/admin/post/create" class="nav-link ">
                         <i class="fa phpdebugbar-fa-angle-double-down"></i>
                         <span class="title">添加文章</span>
                     </a>

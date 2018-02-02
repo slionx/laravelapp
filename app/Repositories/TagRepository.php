@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Http\Model\Tag;
+use Prettus\Repository\Eloquent\BaseRepository;
 
-class TagRepository extends Repository
+class TagRepository extends BaseRepository
 {
 	function model() {
-		return Tag::class;
+		return "App\\Http\\Model\\Tag";
 	}
 }

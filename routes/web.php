@@ -30,6 +30,7 @@ Route::post('uploadImages', 'HomeController@uploadImages')->name('P_uploadImages
 
 Route::get('table', 'admin\CategoryController@index');
 
+
 /*
  * admin 路由组
  * admin spacename
