@@ -16,4 +16,9 @@ class Category extends Model
 	protected $fillable = ['name','sort'];
 
     //protected $guarded = 'updated_at';
+
+
+	public function posts() {
+		return $this->hasMany(Posts::class,'post_category');
+	}
 }

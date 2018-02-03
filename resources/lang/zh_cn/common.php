@@ -36,6 +36,7 @@ return array (
 	'permission'=>'权限',
 	'post'=>'文章',
 	'user'=>'用户',
+	'index'=>'主页',
 
 
 );

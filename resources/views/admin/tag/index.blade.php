@@ -19,7 +19,11 @@
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <a href="#">{{ trans('common.tag') }}</a>
+                        <a href="{{ route('tag.index') }}">{{ trans('common.tag') }}</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+                    <li>
+                        <span>{{ trans('common.tag') }}{{ trans('common.index') }}</span>
                     </li>
                 </ul>
                 <div class="page-toolbar">

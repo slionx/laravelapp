@@ -18,6 +18,19 @@ class Posts extends Model
      */
     protected $dates = ['deleted_at'];
 
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 * 定义关联关系允许通过文章访问所属分类
+	 */
+	public function category(){
+    	return $this->belongsTo(Category::class);
+    }
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
+
 
 	public function tag()
 	{
@@ -28,12 +41,12 @@ class Posts extends Model
 		return $this->tag()->attach($tag);
 	}
 
+	public function getTag(){
+		return $this->tag()->get();
+	}
+
 	public function syncTag( $tag ) {
 		return $this->tag()->sync($tag);
 	}
 
-    public function user()
-    {
-        return $this->belongsTo('User');
-    }
 }

@@ -61,8 +61,6 @@ class PostController extends Controller {
 		    [ 'data' => 'comments_status', 'name' => 'comments_status', 'title' => '评论状态' ],
 		    [ 'data' => 'comments_count', 'name' => 'comments_count', 'title' => '评论数' ],
 		    [ 'data' => 'followers_count', 'name' => 'followers_count', 'title' => '阅读数' ],
-
-
 		    [ 'data' => 'created_at', 'name' => 'created_at', 'title' => trans( 'menu.created_at' ) ],
 		    [ 'data' => 'updated_at', 'name' => 'updated_at', 'title' => trans( 'menu.updated_at' ) ],
 	    ] )->addAction( [ 'data' => 'action', 'name' => 'action', 'title' => trans( 'common.action' ) ] );;
@@ -71,7 +69,12 @@ class PostController extends Controller {
     }
 
 	public function ajaxData() {
-		return DataTables::of( $this->post->all() )
+
+		return DataTables::of(
+			$this->post->scopeQuery(function($query){
+				return $query->orderBy('id','asc');
+			})->all()
+		)
 		                 ->addColumn( 'action', function ( $PostRepository ) {
 			                 return getActionButtonAttribute( $PostRepository->id, $this->module );
 		                 } )
@@ -96,18 +99,17 @@ class PostController extends Controller {
 
 	    $request->post_slug   = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
 
-	    $result = $this->post->create($request->all());
-        if ( $result ) {
+	    $result = auth()->user()->posts()->create($request->all());
+        if ( !$result ) {
 	        if(is_array($request->post_tag)){
 		        foreach ($request->post_tag as $tag){
 			        $tags[] = $this->tag->find($tag)->id;
 		        }
 		        $result->attachTag($tags);
 	        }
-
-            return Redirect( 'admin/post' )->with( 'success', '文章' . $request['post_title'] . '创建成功' );
+            return Redirect::route( 'post.index' )->with( 'success', '文章' . $request['post_title'] . '创建成功' );
         } else {
-            return Redirect( 'admin/post' )->withErrors( '文章' . $request['post_title'] . '创建失败' );
+            return Redirect::route( 'post.index' )->withErrors( '文章' . $request['post_title'] . '创建失败' );
         }
 
 
@@ -128,6 +130,8 @@ class PostController extends Controller {
     	$post = $this->post->find($id);
 	    $tags = $this->tag->all();
 	    $categories = $this->category->all();
+	    $tag = $post->getTag();
+	    dd($tag);
 	    return view('admin.post.edit',compact('post','tags','categories'));
 
     }

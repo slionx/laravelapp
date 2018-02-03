@@ -16,15 +16,15 @@
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="{{ route('admin') }}">Home</a>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <a href="#">{{ trans('common.permission') }}</a>
+                        <a href="{{ route('post.index') }}">{{ trans('common.post') }}</a>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <span>{{ trans('common.create') }}{{ trans('common.permission') }}</span>
+                        <span>{{ trans('common.post') }}{{ trans('common.index') }}</span>
                     </li>
                 </ul>
                 <div class="page-toolbar">
@@ -113,7 +113,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
+                            <div class="dataTables_wrapper no-footer">
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+                                @if (session('error'))
+                                    <div class="alert alert-error">
+                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                                 <div class="table-scrollable">
                                     {!! $html->table() !!}
 
@@ -147,77 +159,6 @@
 
     {!! $html->scripts() !!}
  <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>
- <script type="text/javascript">
 
-     $(document).ready(function() {
-
-         var table = $('#sample_table').DataTable({
-             "ajax": {
-                 "url": "http://l.cn/admin/category/show",
-                 "type": "GET",
-                 "data": function ( d ) {
-                     d._token = "{{csrf_token()}}";
-                 },
-                 "dataSrc": "data",
-                 "error":function(){alert("服务器未正常响应，请重试");}
-             },
-             "processing": true,
-             "serverSide": true,
-             "columns": [
-                 { "data": "id"},
-                 { "data": "name"},
-                 { "data": "sort"},
-                 { "data": "created_at"},
-                 { "data": "updated_at"},
-             ],
-             "autoWidth": true,//自动宽度
-             "pagingType":   "full_numbers",
-             "sLoadingRecords": "正在加载数据...",
-             "sZeroRecords": "暂无数据",
-             "stateSave": true,
-             "searching": true,
-             "dom": '<"top"f>lrt<"bottom"ip<"clear">>',
-             "order": [[ 0, "asc" ]],
-
-
-             /*"aoColumnDefs": [ { "bSortable": false, "aTargets": [0] },{ "class": "tn", "targets": [ 0 ] }
-
-                ],*/
-             "language": {
-                 "processing": "玩命加载中...",
-                 "lengthMenu": "显示 _MENU_ 项结果",
-                 "zeroRecords": "没有匹配结果",
-                 "info": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-                 "search": "搜索",
-                 "infoEmpty": "显示第 0 至 0 项结果，共 0 项",
-                 "infoFiltered": "(由 _MAX_ 项结果过滤)",
-                 "infoPostFix": "",
-                 "url": "",
-                 "paginate": {
-                     "first":    "首页",
-                     "previous": "上一页",
-                     "next":     "下一页",
-                     "last":     "末页"
-                 }
-             },
-             _fnPageChange:function(){
-                 alert("1111");
-             }
-
-
-         });
-         $("#sample_table").colResizable();
-         $("#tb-refresh").on("click",function(){
-             //加载一个新的文件
-             //fnReloadAjax方法有3个主要参数
-             //1、oSettings=[类似jquery ajax的data:{id:2}]
-             //2、sNewSource=加载数据的URL
-             //3、回调函数fnCallback
-             //table.fnReloadAjax( 'media/examples_support/json_source2.txt' );
-             //刷新新的数据
-             //table.fnReloadAjax();
-         });
-     });
- </script>
 
 @stop

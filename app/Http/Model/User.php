@@ -45,6 +45,10 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 		});
 	}
 
+	public function posts() {
+		return $this->hasMany(Posts::class,'post_author');
+	}
+
 	public function roles() {
 		return $this->belongsToMany(Role::class,'role_user','user_id','role_id')->withPivot(['user_id','role_id']);
 	}

@@ -1,16 +1,3 @@
-@if (session('success'))
-    <div class="alert alert-success">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        {{ session('success') }}
-    </div>
-@endif
-
-@if (session('error'))
-    <div class="alert alert-error">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        {{ session('error') }}
-    </div>
-@endif
 @if (count($errors) > 0)
     <div class="alert alert-danger">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -34,7 +21,7 @@
 </div>
 <div class="form-group form-md-line-input form-md-floating-label">
     <select class="form-control" name="category">
-        @if($post->post_category)
+        @if(isset($post->post_category))
             <option value="{{ $post->post_category }}">{{ $post->post_category }}</option>
             @if(isset($categories)&& count($categories))
                 @foreach($categories as $category)
@@ -61,7 +48,7 @@
 <div class="form-group form-md-line-input {{ $errors->has('post_tag') ? ' has-error' : '' }}">
     <label for="post_tag">文章标签</label>
     <select class="form-control " name="post_tag[]" id="post_tags" multiple>
-        @if($post->post_tag)
+        @if(isset($post->post_tag))
 			<?php
 			$tags = explode(',',$post->post_tag);
 			?>
