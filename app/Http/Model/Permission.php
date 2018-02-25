@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Http\Model\permission
  *
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Http\Model\Role[] $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Http\Model\permission[] permission
  * @mixin \Eloquent
  */
 class permission extends Model

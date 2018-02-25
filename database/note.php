@@ -52,6 +52,8 @@ app('Illuminate\Hashing\BcryptHasher');
 \App::make(some::class);
 
 
+php artisan key:generate
+
 php artisan make:controller tag -r
 
 php artisan help make:controller
