@@ -79,18 +79,26 @@ class UserController extends Controller {
 
 	public function edit( $id ) {
 		$user = $this->user->find($id);
-		$roles = $user->getRole();
-		return view( 'admin.user.edit' ,compact('user','roles','id'));
+		$nowroles = $user->getRole();
+		foreach ($nowroles as $role){
+			$now_role[] = $role->id;
+		}
+
+			 //var_dump($nowroles);
+
+
+		$roles = $this->role->all();
+		return view( 'admin.user.edit' ,compact('user','roles','now_role','id'));
 	}
 
-	/**
-	 * Update the avatar for the user.
-	 *
-	 * @param  Request $request
-	 *
-	 * @return Response
-	 */
-	public function update( Request $request ) {
+
+	public function update( Request $request ,$id) {
+		$user = $this->user->find($id);
+		$user->syncRoles($request->role);
+
+
+
+		/*
 		$validator = Validator::make( $request->all(), [
 			'avatar' => 'required|image|mimes:jpeg,jpg,png|max:' . 2048,
 		] );
@@ -100,10 +108,10 @@ class UserController extends Controller {
 				->withInput();
 		}
 
-		/*$file = $request->avatar;
+		$file = $request->avatar;
 		var_dump($file);
 
-		var_dump($request->file('avatar'));exit;*/
+		var_dump($request->file('avatar'));exit;
 		//判断文件在请求中是否存在
 		if ( $request->hasFile( 'avatar' ) ) {
 			//判断文件在上传过程中是否出错
@@ -113,6 +121,7 @@ class UserController extends Controller {
 
 			}
 		}
+		*/
 		//$path = $request->file('avatar')->store('avatars');
 		//Storage::put('avatars/1', $fileContents);
 		//$path = Storage::putFile('avatars', $request->file('avatar'));

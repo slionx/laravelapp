@@ -81,6 +81,9 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 		return $this->hasRole($permission->roles);
 	}
 
+	public function syncRoles( $id ) {
+		return $this->roles()->sync($id);
+	}
 
 	public function getRole(  ) {
 		return $this->roles->all();

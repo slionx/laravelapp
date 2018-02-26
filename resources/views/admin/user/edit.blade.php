@@ -102,8 +102,9 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form action="{{ route('user.store') }}" method="post" class="form-horizontal form-bordered">
+                            <form action="{{ route('user.update',$user->id) }}" method="post" class="form-horizontal form-bordered">
                                 {{ csrf_field() }}
+                                {{method_field('PUT')}}
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="col-sm-3 control-label">昵称</label>
                                     <div class="col-sm-4">
@@ -142,7 +143,7 @@
                                             <label class="checkbox-inline"><div class="i-checks">
                                                     <label class="">
                                                         <div class="icheckbox_square-green checked" style="position: relative;">
-                                                            <input type="checkbox" name="role[]" checked="checked" value="{{ $role->id }}" >
+                                                            <input type="checkbox" name="role[]" @if (in_array($role->id,$now_role))  checked="checked" @endif value="{{ $role->id }}" >
                                                             <ins class="iCheck-helper"></ins></div> {{ $role->name }} [<a data-target="#myModal" data-toggle="modal" href="http://any.cn/admin/role/qln8XnvO">查看角色权限</a>]
                                                     </label>
                                                 </div>
