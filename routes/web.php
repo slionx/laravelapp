@@ -25,8 +25,7 @@ Route::post('home/run_edit', 'HomeController@run_edit')->name('run_edit');
 
 Route::post('user/upload/avatar', 'admin\UserController@update')->name('uploadAvatar');
 
-Route::get('uploadImages', 'HomeController@create')->name('G_uploadImages');
-Route::post('uploadImages', 'HomeController@uploadImages')->name('P_uploadImages');
+
 
 Route::get('table', 'admin\CategoryController@index');
 
@@ -69,6 +68,14 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	PUT/PATCH	/posts/{post}	update	posts.update
 	DELETE	/posts/{post}	destroy	posts.destroy
 */
+	//欢迎页路由
+	Route::resource('welcome' ,'WelcomeController');
+
+	//Route::get('/welcome/index', 'WelcomeController@index')->name('welcome.index');
+	Route::get('uploadSlideImages', 'WelcomeController@create')->name('G_uploadImages');
+	Route::post('uploadSlideImages', 'WelcomeController@uploadImages')->name('P_uploadImages');
+	//Route::post('/welcome', 'WelcomeController@store')->name('welcome.store');
+
     Route::get('/', 'PostController@index')->name('admin');
 
 	/*Route::get('/post/index', 'PostController@index')->name('post.index');

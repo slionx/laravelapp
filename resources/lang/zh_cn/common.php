@@ -37,6 +37,7 @@ return array (
 	'post'=>'文章',
 	'user'=>'用户',
 	'index'=>'主页',
+	'welcome'=>'欢迎页',
 
 
 );

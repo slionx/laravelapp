@@ -21,12 +21,8 @@
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
-                height: 100vh;
+                overflow: hidden;
                 margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
             }
 
             .flex-center {
@@ -36,7 +32,7 @@
             }
 
             .position-ref {
-                position: relative;
+                /*position: relative;*/
             }
 
             .top-right {
@@ -46,7 +42,11 @@
             }
 
             .content {
+                position: absolute;
+                top: 18vw;
+                z-index: 200;
                 text-align: center;
+
             }
 
             .title {
@@ -81,14 +81,24 @@
                 </div>
             @endif
 
-
-                @if(isset($home_bg_images) && $home_bg_images)
-                    <div id="home-cover-slideshow">
-                        @foreach ($home_bg_images as $image)
-                            <div class="home-cover-img" data-src="{{ asset('storage') }}/{{ $image }}"></div>
-                        @endforeach
-                    </div>
+                @if(Cache::get('welcomeType') == 'slide')
+                    @if(isset($home_bg_images) && $home_bg_images)
+                        <div id="home-cover-slideshow">
+                            @foreach ($home_bg_images as $image)
+                                <div class="home-cover-img" data-src="{{ asset('storage') }}/{{ $image }}"></div>
+                            @endforeach
+                        </div>
+                    @endif
+                @else
+                        <video width="100%" height="100%" @if(Cache::has('videoAddress')) src="{{ Cache::get('videoAddress') }}" @endif autoplay="autoplay" loop="loop" ></video>
                 @endif
+                <!--
+                http://ofo.oss-cn-qingdao.aliyuncs.com/ofoweb/official/new.mp4
+
+                http://v4.music.126.net/20180228172455/f45baba0207dc0261eb895e29d3573e8/web/cloudmusic/mv/20180201093929/e37174eb-e7b1-4810-a62f-02780b829dac/a45112c9a122c042918ec91532b6e2a6.mp4
+
+-->
+
 
                 {{--<div class="container">
                     <div class="content">

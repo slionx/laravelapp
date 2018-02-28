@@ -98,27 +98,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/permission" class="nav-link ">
-                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">权限主页</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="/admin/permission/create" class="nav-link ">
                         <i class="fa phpdebugbar-fa-angle-double-down"></i>
                         <span class="title">添加权限</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/role/" class="nav-link ">
-                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">角色管理</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/role/create" class="nav-link ">
-                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">添加角色</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -127,10 +109,104 @@
                         <span class="title">添加菜单</span>
                     </a>
                 </li>
-                <li class="nav-item">
+            </ul>
+        </li>
+        <li class="nav-item start ">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-home"></i>
+                <span class="title">系统权限</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item start ">
+                    <a href="/admin/permission" class="nav-link ">
+                        <i class="icon-bar-chart"></i>
+                        <span class="title">权限主页</span>
+                    </a>
+                </li>
+                <li class="nav-item start ">
+                    <a href="/admin/permission/create" class="nav-link ">
+                        <i class="icon-bulb"></i>
+                        <span class="title">添加权限</span>
+                        <span class="badge badge-success">1</span>
+                    </a>
+                </li>
+                <li class="nav-item start">
+                    <a href="/admin/role/" class="nav-link ">
+                        <i class="icon-graph"></i>
+                        <span class="title">角色管理</span>
+                        <span class="badge badge-danger">5</span>
+                    </a>
+                </li>
+                <li class="nav-item start">
+                    <a href="/admin/role/create" class="nav-link ">
+                        <i class="icon-graph"></i>
+                        <span class="title">添加角色</span>
+                        <span class="badge badge-danger">5</span>
+                    </a>
+                </li>
+                <li class="nav-item start">
                     <a href="/admin/user/" class="nav-link ">
-                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
+                        <i class="icon-graph"></i>
                         <span class="title">用户管理</span>
+                        <span class="badge badge-danger">5</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-home"></i>
+                <span class="title">欢迎页管理</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item start ">
+                    <a href="{{ route('welcome.index') }}" class="nav-link ">
+                        <i class="icon-bar-chart"></i>
+                        <span class="title">欢迎页管理</span>
+                    </a>
+                </li>
+                <li class="nav-item start ">
+                    <a href="admin/uploadSlideImages/" class="nav-link ">
+                        <i class="icon-bar-chart"></i>
+                        <span class="title">上传幻灯图片</span>
+                    </a>
+                </li>
+                <li class="nav-item start ">
+                    <a href="admin/uploadVideo/" class="nav-link ">
+                        <i class="icon-bar-chart"></i>
+                        <span class="title">上传视频</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-home"></i>
+                <span class="title">访问日志</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item start ">
+                    <a href="admin/uploadSlideImages/" class="nav-link ">
+                        <i class="icon-bar-chart"></i>
+                        <span class="title">访问日志</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;" class="nav-link nav-toggle">
+                <i class="icon-home"></i>
+                <span class="title">系统设置</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li class="nav-item start ">
+                    <a href="admin/uploadSlideImages/" class="nav-link ">
+                        <i class="icon-bar-chart"></i>
+                        <span class="title">系统设置</span>
                     </a>
                 </li>
             </ul>
@@ -139,7 +215,7 @@
 
 
 
-        <li class="nav-item start ">
+        <li class="nav-item">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">Dashboard</span>

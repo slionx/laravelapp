@@ -22,37 +22,10 @@ class HomeController extends Controller
 
     public function welcome(){
 
-	    $home_bg_images = Storage::allFiles('images');
+	    $home_bg_images = Storage::allFiles('slide');
 
 	    return view('welcome',compact('home_bg_images'));
     }
 
-    public function create(){
-	    return view('image');
-    }
 
-	public function uploadImages(Request $request){
-		$validator = Validator::make( $request->all(), [
-			'image' => 'required|image|mimes:jpeg,jpg,png|max:' . 800048,
-		] );
-		if ( $validator->fails() ) {
-			return back()
-				->withErrors( $validator )
-				->withInput();
-		}
-
-		try {
-			if ( $request->hasFile( 'image' ) ) {
-				if ( $request->file( 'image' )->isValid() ) {
-					$path = $request->image->store( 'images', 'public' );
-					if ( $path ) {
-						echo '添加成功' . $path;
-						//return back()->with( 'success', '添加成功' );
-					}
-				}
-			}
-		} catch ( Exception $e ) {
-			echo $e->getMessage();
-		}
-	}
 }
