@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,7 @@ class WelcomeController extends Controller
 	 * @return $this
 	 */
 	public function uploadSlideImages(Request $request){
+
 		$validator = Validator::make( $request->all(), [
 			'image' => 'required|image|mimes:jpeg,jpg,png|max:' . 800048,
 		] );

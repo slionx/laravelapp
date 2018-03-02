@@ -36,17 +36,16 @@
             }
 
             .top-right {
-                position: absolute;
+                position: fixed;
                 right: 10px;
                 top: 18px;
             }
 
             .content {
                 position: absolute;
-                top: 18vw;
                 z-index: 200;
                 text-align: center;
-
+                margin-top: 250px;
             }
 
             .title {
