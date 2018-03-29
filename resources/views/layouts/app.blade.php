@@ -17,6 +17,8 @@
     <link href="{{ asset('global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('global/plugins/bootstrap-switch/css/bootstrap-switch.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('global/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('global/css/components.min.css') }}" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
     <div id="app">

@@ -281,7 +281,7 @@ class PostController extends Controller {
      */
     public function list() {
 
-        $post = $this->post->paginate( 1 );
+        $post = $this->post->paginate( 3 );
 
         return view( 'home.post.list', compact( 'post' ) );
     }
