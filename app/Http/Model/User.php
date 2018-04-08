@@ -50,7 +50,8 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 	}
 
 	public function roles() {
-		return $this->belongsToMany(Role::class,'role_user','user_id','role_id')->withPivot(['user_id','role_id']);
+		//return $this->belongsToMany(Role::class,'role_user','user_id','role_id')->withPivot(['user_id','role_id']);
+		return $this->belongsToMany(Role::class);
 	}
 
 	//判断是否有某个角色
@@ -87,7 +88,9 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 
 	public function getRole(  ) {
 		return $this->roles->all();
-
+	}
+	public function getOwnRole(  ) {
+		return $this->roles->first();
 	}
 
 }

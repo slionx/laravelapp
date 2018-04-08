@@ -39,14 +39,16 @@ function getDestroyActionButton($id,$module)
 	$delete = trans('common.delete');
 	$csrfToken = csrf_field();
 	$method = method_field('delete');
+	//event.preventDefault();document.getElementById('delete-form-{$id}').submit()
 	return <<<Eof
-		<a href="{$url}" class="btn btn-sm red btn-outline filter-cancel" onclick="event.preventDefault();document.getElementById('delete-form-{$id}').submit();">
+		<a href="javascript:;" class="btn btn-sm red btn-outline filter-cancel destroy_item" onclick="return false;">
                              <i class="fa fa-trash"></i> {$delete}
-                             </a>
-		<form id="delete-form-{$id}" action="{$url}" method="POST" style="display:none">
+                            
+		<form action="{$url}" method="POST" style="display:none">
 						$method
 						$csrfToken
 					</form>
+ 		</a>
 Eof;
 
 }

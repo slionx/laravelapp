@@ -109,7 +109,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
+                            <div class="dataTables_wrapper no-footer">
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                                 <div class="table-scrollable">
                                     {!! $html->table() !!}
 

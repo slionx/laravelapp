@@ -129,9 +129,14 @@ class RoleController extends Controller
 	{
 		$role = $this->role->find($id);
 		$role_permission = $role->getPermission();
-		foreach ( $role_permission as $permission){
-			$role_permissionArray[] = $permission->id;
+		if($role_permission){
+			foreach ( $role_permission as $permission){
+				$role_permissionArray[] = $permission->id;
+			}
+		}else{
+			$role_permissionArray = [];
 		}
+
         $permissions = $this->permission->all(['id','name','slug']);
 		if ($permissions->isNotEmpty()) {
 			foreach ($permissions as $v) {
@@ -159,11 +164,16 @@ class RoleController extends Controller
 					foreach ($request->permission as $pid){
 						$permissions[] = $this->permission->find($pid)->id;
 					}
+					$role = $this->role->find($id);
+					$role->syncPermission($permissions);
 				}
-				$role = $this->role->find($id);
-				$role->syncPermission($permissions);
 			}
-			return redirect()->route($this->module.'.edit',$role->id);
+			if($bool){
+				return redirect('admin/'.$this->module)->with( 'success', '更新成功' );
+			}else{
+				return Redirect::back()->with('error','更新失败！');
+			}
+
 		} catch ( Exception $e ) {
 			return back()->withErrors(' Failed! ' . $e->getMessage());
 		}

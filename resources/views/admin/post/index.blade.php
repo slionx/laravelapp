@@ -121,12 +121,12 @@
                                     </div>
                                 @endif
                                 @if (session('error'))
-                                    <div class="alert alert-error">
+                                    <div class="alert alert-danger">
                                         <a href="#" class="close" data-dismiss="alert">&times;</a>
                                         {{ session('error') }}
                                     </div>
                                 @endif
-                                <div class="table-scrollable">
+                                    <div class="table-scrollable">
                                     {!! $html->table() !!}
 
                                 </div>
@@ -140,7 +140,18 @@
         </div>
     </div>
 @stop
+
 @section('theme_layout_scripts')
+    <script type="text/javascript">
+        $(document).on('click','.destroy_item',function() {
+            var _item = $(this);
+            var title = "确定要删除么";
+            var bool = confirm(title);
+            if(bool === true){
+                _item.children('form').submit();
+            }
+        });
+    </script>
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
@@ -151,7 +162,7 @@
     <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
 
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('global/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>

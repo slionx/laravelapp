@@ -9,13 +9,15 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Database\Eloquent\Model;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
-use App\Repositories\CategoryRepository;
+use App\Repositories\CategoryRepository as Category;
+use App\Repositories\PostRepository as Post;
 
 
 class CategoryController extends Controller {
 
-	public function __construct( CategoryRepository $CategoryRepository ) {
-		$this->CategoryRepository = $CategoryRepository;
+	public function __construct( Category $Category ,Post $post) {
+		$this->CategoryRepository = $Category;
+		$this->post = $post;
 	}
 
 	protected $module = 'category';
@@ -103,7 +105,14 @@ class CategoryController extends Controller {
 
 	public function destroy( $id ) {
 
-		$this->CategoryRepository->delete($id);
+		if($this->post->find($id,['post_category'])){
+			return Redirect::back()->with('error','该分类下有对应文章，无法删除！');
+		}
+		if($this->CategoryRepository->delete($id)){
+			return Redirect::route('category.index')->with('success', '删除成功！');
+		}else{
+			return Redirect::back()->with('error','删除失败！');
+		}
 
 	}
 

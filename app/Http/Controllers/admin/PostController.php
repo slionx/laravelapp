@@ -68,17 +68,18 @@ class PostController extends Controller {
         return view( 'admin.post.index' , compact( 'html' ) );
     }
 
+	/**
+	 * @return mixed
+	 */
 	public function ajaxData() {
 
 		return DataTables::of(
 			$this->post->scopeQuery(function($query){
 				return $query->orderBy('id','asc');
 			})->all()
-		)
-		                 ->addColumn( 'action', function ( $PostRepository ) {
-			                 return getActionButtonAttribute( $PostRepository->id, $this->module );
-		                 } )
-		                 ->toJson();
+		)->addColumn( 'action', function ( $PostRepository ) {
+			return getActionButtonAttribute( $PostRepository->id, $this->module );
+		} )->toJson();
 	}
 
     /**
@@ -91,7 +92,12 @@ class PostController extends Controller {
         ] );
     }
 
-    public function store(Request $request) {
+	/**
+	 * @param Request $request
+	 *
+	 * @return $this|PostController|\Illuminate\Http\RedirectResponse
+	 */
+	public function store(Request $request) {
     	if($this->Validator( $request))
 	    {
 	    	return $this->Validator( $request);
@@ -115,18 +121,23 @@ class PostController extends Controller {
 
     }
 
-    /**
-     *
-     */
-    public function show($id) {
+	/**
+	 * @param $id
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function show($id) {
         $post = $this->post->find($id);
         return view('home.post.show',compact('post'));
     }
 
 
-
-
-    public function edit($id) {
+	/**
+	 * @param $id
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function edit($id) {
     	$post = $this->post->find($id);
 	    $tags = $this->tag->all();
 	    $categories = $this->category->all();
@@ -136,6 +147,11 @@ class PostController extends Controller {
 
     }
 
+	/**
+	 * @param $request
+	 *
+	 * @return $this
+	 */
 	public function Validator($request ) {
 
 		$rules = [
@@ -160,17 +176,18 @@ class PostController extends Controller {
     }
 
 
-    /**
-     *
-     */
-    public function update($id ,Request $request) {
+	/**
+	 * @param $id
+	 * @param Request $request
+	 *
+	 * @return $this|PostController|\Illuminate\Http\RedirectResponse
+	 */
+	public function update($id ,Request $request) {
 	    if($this->Validator( $request))
 	    {
 		    return $this->Validator( $request);
 	    }
-
 	    $request->post_slug    = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
-
 	    if($this->post->update($request->all(),$id)){
 		    if(is_array($request->post_tag)){
 			    foreach ($request->post_tag as $tag){
@@ -179,24 +196,24 @@ class PostController extends Controller {
 			    $post = $this->post->find($id);
 			    $post->syncTag($tags);
 		    }
-
 		    return Redirect::route('post.index')->with('success', '文章' . $request['post_title'] . '更新成功');
 	    }else{
 		    return Redirect::back()->withInput()->withErrors('errors','更新失败！');
 	    }
-
-
     }
 
-    /**
-     * @param $id
-     */
-    public function destroy( $id ) {
+
+	/**
+	 * @param $id
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function destroy( $id ) {
 
 	    if($this->post->delete($id)){
 		    return Redirect::route('post.index')->with('success', '删除成功！');
 	    }else{
-		    return Redirect::back()->withInput()->with('errors','删除失败！');
+		    return Redirect::back()->with('error','删除失败！');
 	    }
     }
 

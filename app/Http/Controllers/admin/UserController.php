@@ -43,6 +43,7 @@ class UserController extends Controller {
 	}
 
 	public function index( Builder $builder ) {
+
 		if ( request()->ajax() ) {
 			return $this->ajaxData();
 		}
@@ -56,6 +57,7 @@ class UserController extends Controller {
 			[ 'data' => 'name', 'name' => 'name', 'title' => '用户名' ],
 			[ 'data' => 'email', 'name' => 'email', 'title' => '邮箱' ],
 			[ 'data' => 'is_active', 'name' => 'is_active', 'title' => '是否激活邮箱' ],
+			[ 'data' => 'role', 'name' => 'role_slug', 'title' => '角色' ],
 			[ 'data' => 'avatar', 'name' => 'avatar', 'title' => '头像' ],
 			[ 'data' => 'created_at', 'name' => 'created_at', 'title' => trans( 'menu.created_at' ) ],
 			[ 'data' => 'updated_at', 'name' => 'updated_at', 'title' => trans( 'menu.updated_at' ) ],
@@ -65,8 +67,14 @@ class UserController extends Controller {
 	}
 
 	private function ajaxData() {
-		//return DataTables::of(Category::query())->toJson();
-		return DataTables::of( $this->user->all() )
+		$tmp = $this->user->all();
+		foreach ($tmp as $k => $v){
+			//$v->getRole();
+			$user_data[$k] = $v;
+			$user_data[$k]['role'] = $v->roles[0]->slug;
+			$user_data[$k]['is_active'] = $user_data[$k]['is_active'] ? '是' : '否';
+		}
+		return DataTables::of( $user_data )
 		                 ->addColumn( 'action', function ( $user ) {
 			                 return getActionButtonAttribute( $user->id,$this->module);
 		                 } )
@@ -145,7 +153,7 @@ class UserController extends Controller {
 			return back()->with( 'success', '修改成功' );
 		}
 
-		return back()->with( 'success', '修改失败' );
+		return back()->with( 'error', '修改失败' );
 	}
 
 	private function uploadImage( User $user, Request $request, $key, $max = 1024, $fileName = 'image' ) {
