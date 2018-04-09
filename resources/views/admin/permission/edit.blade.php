@@ -8,8 +8,8 @@
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <!-- BEGIN THEME PANEL -->
-            @include('admin.layouts.theme-panel')
-            <!-- END THEME PANEL -->
+        @include('admin.layouts.theme-panel')
+        <!-- END THEME PANEL -->
             <!-- BEGIN PAGE BAR -->
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -27,7 +27,8 @@
                 </ul>
                 <div class="page-toolbar">
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
+                        <button type="button" class="btn green btn-sm btn-outline dropdown-toggle"
+                                data-toggle="dropdown"> Actions
                             <i class="fa fa-angle-down"></i>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
@@ -43,7 +44,7 @@
                                 <a href="#">
                                     <i class="icon-user"></i> Something else here</a>
                             </li>
-                            <li class="divider"> </li>
+                            <li class="divider"></li>
                             <li>
                                 <a href="#">
                                     <i class="icon-bag"></i> Separated link</a>
@@ -62,15 +63,6 @@
 
             <div class="row">
                 <div class="col-md-12">
-                   @if (session('success'))
-                    <div class="alert alert-success alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert"></button>
-                        <div class="alert alert-success">
-
-                            {{ session('success') }}
-                        </div>
-                    </div>
-                    @endif
                     @if (count($errors) > 0)
                         <div class="alert alert-block alert-danger fade in">
                             <button type="button" class="close" data-dismiss="alert"></button>
@@ -103,16 +95,19 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form action="{{ route('permission.update',$id) }}" method="post" class="form-horizontal form-bordered">
+                            <form action="{{ route('permission.update',$id) }}" method="post"
+                                  class="form-horizontal form-bordered">
                                 {{csrf_field()}}
                                 {{method_field('PUT')}}
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="col-sm-3 control-label">名称</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="分类名称为必填项，最大长度255。"></i>
-                                            <input type="text" name="name" value="{{ $permission->name }}" class="form-control" id="name" placeholder="名称">
-                                            <span  class="help-block">{{ $errors->has('name') ? ' 名称为必填项，最大长度255。' : '' }}</span>
+                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}"
+                                               data-original-title="分类名称为必填项，最大长度255。"></i>
+                                            <input type="text" name="name" value="{{ $permission->name }}"
+                                                   class="form-control" id="name" placeholder="名称">
+                                            <span class="help-block">{{ $errors->has('name') ? ' 名称为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -120,9 +115,11 @@
                                     <label for="slug" class="col-sm-3 control-label">权限</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('slug') ? ' fa fa-warning tooltips' : '' }}" data-original-title="权限为必填项"></i>
-                                            <input type="text" name="slug" value="{{ $permission->slug }}" class="form-control" id="slug" placeholder="权限">
-                                            <span  class="help-block">{{ $errors->has('slug') ? ' 权限为必填项，最大长度255。' : '' }}</span>
+                                            <i class="{{ $errors->has('slug') ? ' fa fa-warning tooltips' : '' }}"
+                                               data-original-title="权限为必填项"></i>
+                                            <input type="text" name="slug" value="{{ $permission->slug }}"
+                                                   class="form-control" id="slug" placeholder="权限">
+                                            <span class="help-block">{{ $errors->has('slug') ? ' 权限为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -130,9 +127,11 @@
                                     <label for="description" class="col-sm-3 control-label">简介</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('description') ? ' fa fa-warning tooltips' : '' }}" data-original-title="简介为必填项"></i>
-                                            <input type="text" name="description" value="{{ $permission->description }}" class="form-control" id="description" placeholder="简介">
-                                            <span  class="help-block">{{ $errors->has('description') ? ' 简介为必填项，最大长度255。' : '' }}</span>
+                                            <i class="{{ $errors->has('description') ? ' fa fa-warning tooltips' : '' }}"
+                                               data-original-title="简介为必填项"></i>
+                                            <input type="text" name="description" value="{{ $permission->description }}"
+                                                   class="form-control" id="description" placeholder="简介">
+                                            <span class="help-block">{{ $errors->has('description') ? ' 简介为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +140,8 @@
                                     <div class="row">
                                         <div class="col-md-offset-3 col-md-9">
                                             <button type="submit" class="btn green">
-                                                <i class="fa fa-check"></i> 提交</button>
+                                                <i class="fa fa-check"></i> 提交
+                                            </button>
                                             <button type="button" class="btn btn-outline grey-salsa">取消</button>
                                         </div>
                                     </div>

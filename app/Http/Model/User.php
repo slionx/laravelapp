@@ -25,6 +25,9 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 	protected $fillable = ['name','email','password','avatar','is_active','confirmation_token'];
 	//指定不允许批量赋值的字段
 	//protected $guarded = [];
+	protected $hidden = [
+		'password', 'remember_token','confirmation_token',
+	];
 
 	// protected $dateFormat = 'U';
 	//

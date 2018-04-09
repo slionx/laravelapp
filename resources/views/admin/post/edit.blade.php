@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -70,11 +70,8 @@
             $('#post_tags').select2({
                 post_tag:true
             });
-            if ($('#post_tags').hasClass("select2-hidden-accessible")) {
-                console.log(1);
-            }else {
-                alert(1);
-            }
+            var arr = [<?php echo $tag;?>];
+            $('#post_tags').val(arr).trigger('change');
         });
     </script>
 @stop

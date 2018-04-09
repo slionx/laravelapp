@@ -76,6 +76,15 @@ class MenuController extends Controller
 
     }
     public function destroy($id){
-	    $result = $this->menu->delete($id);
+	    try {
+		    $result = $this->menu->delete($id);
+		    if($result){
+			    return redirect()->route('menu.index')->with('success', '删除成功！');
+		    }else{
+			    return redirect()->route('menu.index')->with('error', '删除失败！');
+		    }
+	    } catch (Exception $e) {
+		    return redirect()->route('menu.index')->with('error', '删除失败！'.$e->getMessage());
+	    }
     }
 }

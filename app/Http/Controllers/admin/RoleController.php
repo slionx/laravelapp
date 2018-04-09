@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Yajra\Datatables\Datatables;
@@ -104,7 +105,7 @@ class RoleController extends Controller
 
 			return Redirect( 'admin/role/create' )->with( 'success', '创建成功' );
 		} else {
-			return Redirect( 'admin/role/create' )->withErrors( '角色' . $request->name . '创建失败' );
+			return Redirect( 'admin/role/create' )->withInput()->withErrors( '角色' . $request->name . '创建失败' );
 		}
 	}
 
@@ -187,7 +188,28 @@ class RoleController extends Controller
 	 */
 	public function destroy($id)
 	{
-		echo $id;
+		$role = $this->role->find($id);
+		$user = $role->roleHasUser($id);
+		if($user){
+			return redirect()->back()->with('error','该角色下有对应用户，无法删除！');
+		}else{
+			$permissions = [];
+			$rolePermission = $role->getPermission();
+			foreach ($rolePermission as $v){
+				$permissions[] = $v->id;
+			}
+			if($permissions){
+				if($role->deletePermission($permissions)){
+					if($this->role->delete($id)){
+						return redirect()->route('role.index')->with('success', '删除成功！');
+					}
+				}
+			}else{
+				if($this->role->delete($id)){
+					return redirect()->route('role.index')->with('success', '删除成功！');
+				}
+			}
+		}
 	}
 
 }

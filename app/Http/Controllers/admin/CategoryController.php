@@ -95,10 +95,10 @@ class CategoryController extends Controller {
 		try {
 			$bool       = $this->CategoryRepository->update($request->all(), $id );
 			if ( $bool ) {
-				return redirect()->route( 'category.index');
+				return redirect()->route( 'category.index')->with('success', '更新成功！');
 			}
 		} catch ( Exception $e ) {
-			return back()->withErrors(' Failed! ' . $e->getMessage());
+			return redirect()->back()->with('error','更新失败！'. $e->getMessage());
 		}
 
 	}
@@ -106,12 +106,12 @@ class CategoryController extends Controller {
 	public function destroy( $id ) {
 
 		if($this->post->find($id,['post_category'])){
-			return Redirect::back()->with('error','该分类下有对应文章，无法删除！');
+			return redirect()->back()->with('error','该分类下有对应文章，无法删除！');
 		}
 		if($this->CategoryRepository->delete($id)){
-			return Redirect::route('category.index')->with('success', '删除成功！');
+			return redirect()->route('category.index')->with('success', '删除成功！');
 		}else{
-			return Redirect::back()->with('error','删除失败！');
+			return redirect()->back()->with('error','删除失败！');
 		}
 
 	}

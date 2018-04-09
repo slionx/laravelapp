@@ -66,7 +66,7 @@
                 </li>
             @endforeach
         @endif
-        <li class="nav-item">
+        <li class="nav-item  @if (Request::is('admin/post*')) active open @endif @if (Request::is('admin/category*')) active open @endif">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-navicon"></i>
                 <span class="title">文章管理</span>
@@ -97,41 +97,29 @@
                         <span class="title">添加分类</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/admin/permission/create" class="nav-link ">
-                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">添加权限</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/role/create" class="nav-link ">
-                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">添加菜单</span>
-                    </a>
-                </li>
             </ul>
         </li>
-        <li class="nav-item start ">
+        <li class="nav-item start @if (Request::is('admin/permission*')) active open @endif @if (Request::is('admin/role*')) active open @endif @if (Request::is('admin/user*')) active open @endif">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
                 <span class="title">系统权限</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item start ">
+                <li class="nav-item start @if (Request::is('admin/permission')) active open @endif ">
                     <a href="/admin/permission" class="nav-link ">
                         <i class="icon-bar-chart"></i>
-                        <span class="title">权限主页</span>
+                        <span class="title">权限管理</span>
                     </a>
                 </li>
-                <li class="nav-item start ">
+                <li class="nav-item start @if (Request::is('admin/permission/create')) active open @endif ">
                     <a href="/admin/permission/create" class="nav-link ">
                         <i class="icon-bulb"></i>
                         <span class="title">添加权限</span>
                         <span class="badge badge-success">1</span>
                     </a>
                 </li>
-                <li class="nav-item start">
+                <li class="nav-item start @if (Request::is('admin/role')) active open @endif">
                     <a href="/admin/role/" class="nav-link ">
                         <i class="icon-graph"></i>
                         <span class="title">角色管理</span>

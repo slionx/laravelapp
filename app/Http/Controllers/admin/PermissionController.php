@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Mockery\Exception;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
 use App\Repositories\PermissionRepository;
@@ -79,19 +80,53 @@ class permissionController extends Controller
 		return view( 'admin.permission.edit' ,compact('permission','id'));
 	}
 
+	/**
+	 * @param Request $request
+	 * @param $id
+	 *
+	 * @return $this|\Illuminate\Http\RedirectResponse
+	 */
 	public function update( Request $request, $id ) {
 		try {
-			$result = $this->permission->find($id);
-			$result->name = $request->name;
-			$result->slug = $request->slug;
-			$result->description = $request->description;
-			$bool = $result->save();
-			return redirect()->route('permission.edit',$id);
-
+			$validator = Validator::make( $request->all(), [
+				'name' => 'required|max:255',
+				'slug' => 'required|max:255',
+				'description' => 'required|max:255',
+			] );
+			if ( $validator->fails() ) {
+				return back()
+					->withErrors( $validator )
+					->withInput( $request->all() );
+			}
+			$permission = $this->permission->find($id);
+			$permission->name = $request->name;
+			$permission->slug = $request->slug;
+			$permission->description = $request->description;
+			$bool = $permission->save();
+			if($bool){
+				return Redirect( 'admin/permission/' )->with( 'success', '更新成功' );
+			} else {
+				return redirect()->route('permission.edit',$id)->withInput()->withErrors( '更新失败,请稍后重试！' );
+			}
 		} catch ( Exception $e ) {
-			return redirect()->route('permission.edit',$id);
+			return redirect()->route('permission.edit',$id)->withInput()->withErrors( $e->getMessage() );
 		}
+	}
 
-
+	/**
+	 * @param $id
+	 */
+	public function destroy($id)
+	{
+		try {
+			$result = $this->permission->delete($id);
+			if($result){
+				return redirect()->route('role.index')->with('success', '删除成功！');
+			}else{
+				return redirect()->route('role.index')->with('error', '删除失败！');
+			}
+		} catch (Exception $e) {
+			return redirect()->route('role.index')->with('error', '删除失败！'.$e->getMessage());
+		}
 	}
 }

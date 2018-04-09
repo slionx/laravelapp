@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 @section('title','分类')
 @section('content')
-    <link href="{{ asset('global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css"/>
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
@@ -10,7 +10,7 @@
             <!-- BEGIN PAGE HEADER-->
             <!-- BEGIN THEME PANEL -->
         @include('admin.layouts.theme-panel')
-            <!-- END THEME PANEL -->
+        <!-- END THEME PANEL -->
             <!-- BEGIN PAGE BAR -->
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -24,7 +24,8 @@
                 </ul>
                 <div class="page-toolbar">
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
+                        <button type="button" class="btn green btn-sm btn-outline dropdown-toggle"
+                                data-toggle="dropdown"> Actions
                             <i class="fa fa-angle-down"></i>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
@@ -40,7 +41,7 @@
                                 <a href="#">
                                     <i class="icon-user"></i> Something else here</a>
                             </li>
-                            <li class="divider"> </li>
+                            <li class="divider"></li>
                             <li>
                                 <a href="#">
                                     <i class="icon-bag"></i> Separated link</a>
@@ -80,14 +81,16 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="btn-group">
-                                            <a href="{{ route('category.create') }}" id="sample_editable_1_new" class="btn sbold green"> {{ trans('common.create') }}{{ trans('common.category') }}
+                                            <a href="{{ route('category.create') }}" id="sample_editable_1_new"
+                                               class="btn sbold green"> {{ trans('common.create') }}{{ trans('common.category') }}
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="btn-group pull-right">
-                                            <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown">Tools
+                                            <button class="btn green  btn-outline dropdown-toggle"
+                                                    data-toggle="dropdown">Tools
                                                 <i class="fa fa-angle-down"></i>
                                             </button>
                                             <ul class="dropdown-menu pull-right">
@@ -137,15 +140,31 @@
 @stop
 @section('theme_layout_scripts')
     <script type="text/javascript">
-        $(document).on('click','.destroy_item',function() {
+        $(document).on('click', '.destroy_item', function () {
             var _item = $(this);
             var title = "确定要删除么";
             var bool = confirm(title);
-            if(bool === true){
+            if (bool === true) {
                 _item.children('form').submit();
             }
         });
     </script>
     <script src="{{ asset('global/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
     {!! $html->scripts() !!}
+
+{{--    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script src="{{ asset('global/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>--}}
 @stop
