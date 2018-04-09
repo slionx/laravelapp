@@ -45,19 +45,6 @@ class PostController extends Controller {
 	 * @return Response
 	 */
 	public function index( Builder $builder ) {
-
-		$tmp = $this->post->scopeQuery( function ( $query ) {
-			return $query->orderBy( 'id', 'asc' );
-		} )->all();
-		foreach ($tmp as $k => $v){
-			$post[$k] = $v;
-			$this->category->find($v['post_category'])->name;
-			//$post[$k]['category'] = $this->category->find($v['post_category'])->name;
-		}
-		//var_dump($post);
-		exit(11);
-
-
 		if ( request()->ajax() ) {
 			return $this->ajaxData();
 		}
@@ -69,7 +56,7 @@ class PostController extends Controller {
 		] )->columns( [
 			[ 'data' => 'id', 'name' => 'id', 'title' => trans( 'common.number' ) ],
 			[ 'data' => 'post_title', 'name' => 'post_title', 'title' => '标题' ],
-			[ 'data' => 'category', 'name' => 'post_category', 'title' => '分类' ],
+			[ 'data' => 'post_category', 'name' => 'post_category', 'title' => '分类' ],
 			[ 'data' => 'post_tag', 'name' => 'post_tag', 'title' => '标签' ],
 			[ 'data' => 'comments_status', 'name' => 'comments_status', 'title' => '评论状态' ],
 			[ 'data' => 'comments_count', 'name' => 'comments_count', 'title' => '评论数' ],
@@ -90,7 +77,9 @@ class PostController extends Controller {
 		} )->all();
 		foreach ($tmp as $k => $v){
 			$post[$k] = $v;
-			$post[$k]['category'] = $this->category->find($v['post_category'])->name;
+			if($v['post_category']){
+				$post[$k]['post_category'] = $this->category->find($v['post_category'])->name;
+			}
 		}
 		return DataTables::of( $post )->addColumn( 'action', function ( $PostRepository ) {
 			return getActionButtonAttribute( $PostRepository->id, $this->module );
