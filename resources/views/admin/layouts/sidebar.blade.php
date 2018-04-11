@@ -66,7 +66,7 @@
                 </li>
             @endforeach
         @endif
-        <li class="nav-item  @if (Request::is('admin/post*')) active open @endif @if (Request::is('admin/category*')) active open @endif">
+        <li class="nav-item  @if (Request::is('admin/post*')) active open @endif @if (Request::is('admin/category*')) active open @endif @if (Request::is('admin/tag*')) active open @endif">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-navicon"></i>
                 <span class="title">文章管理</span>
@@ -82,19 +82,31 @@
                 <li class="nav-item">
                     <a href="{{ route('post.index') }}" class="nav-link ">
                         <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">文章管理</span>
+                        <span class="title">文章列表</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="/admin/category" class="nav-link ">
                         <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">文章分类</span>
+                        <span class="title">分类列表</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="/admin/category/create" class="nav-link ">
                         <i class="fa phpdebugbar-fa-angle-double-down"></i>
                         <span class="title">添加分类</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/tag" class="nav-link ">
+                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
+                        <span class="title">标签列表</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/tag/create" class="nav-link ">
+                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
+                        <span class="title">添加标签</span>
                     </a>
                 </li>
             </ul>

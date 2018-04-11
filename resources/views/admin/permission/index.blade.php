@@ -166,5 +166,5 @@
     <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>
-@stop--}}
+    <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>--}}
+@stop

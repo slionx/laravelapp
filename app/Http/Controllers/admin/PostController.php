@@ -56,6 +56,7 @@ class PostController extends Controller {
 		] )->columns( [
 			[ 'data' => 'id', 'name' => 'id', 'title' => trans( 'common.number' ) ],
 			[ 'data' => 'post_title', 'name' => 'post_title', 'title' => '标题' ],
+			[ 'data' => 'post_slug', 'name' => 'post_slug', 'title' => 'slug' ],
 			[ 'data' => 'post_category', 'name' => 'post_category', 'title' => '分类' ],
 			[ 'data' => 'post_tag', 'name' => 'post_tag', 'title' => '标签' ],
 			[ 'data' => 'comments_status', 'name' => 'comments_status', 'title' => '评论状态' ],
@@ -75,11 +76,23 @@ class PostController extends Controller {
 		$tmp = $this->post->scopeQuery( function ( $query ) {
 			return $query->orderBy( 'id', 'asc' );
 		} )->all();
+
 		foreach ($tmp as $k => $v){
 			$post[$k] = $v;
 			if($v['post_category']){
 				$post[$k]['post_category'] = $this->category->find($v['post_category'])->name;
 			}
+			$tags = $this->post->find($v['id'])->getTag();
+			$tag = '';
+			if(count($tags) > 1){
+				foreach ( $tags as $v ) {
+					$tag .= $v->name ." ";
+				}
+			}elseif(count($tags) == 1){
+				$tag = $tags[0]->name;
+			}
+			$post[$k]['post_tag'] = $tag;
+
 		}
 		return DataTables::of( $post )->addColumn( 'action', function ( $PostRepository ) {
 			return getActionButtonAttribute( $PostRepository->id, $this->module );
@@ -105,9 +118,7 @@ class PostController extends Controller {
 		if ( $this->Validator( $request ) ) {
 			return $this->Validator( $request );
 		}
-
 		$request->post_slug = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
-
 		$result = auth()->user()->posts()->create( $request->all() );
 		if ( ! $result ) {
 			if ( is_array( $request->post_tag ) ) {
@@ -115,13 +126,20 @@ class PostController extends Controller {
 					$tags[] = $this->tag->find( $tag )->id;
 				}
 				$result->attachTag( $tags );
+				$this->updateTagSum($request->post_tag);
 			}
-
 			return redirect()->route( 'post.index' )->with( 'success', '文章' . $request['post_title'] . '创建成功' );
 		} else {
 			return redirect()->route( 'post.index' )->withErrors( '文章' . $request['post_title'] . '创建失败' );
 		}
+	}
 
+	public function updateTagSum( $tags ) {
+		foreach ( $tags as $tagid ) {
+			$result = $this->tag->find($tagid);
+			$count = $result->getTagSum();
+			$this->tag->update(['count'=>$count],$tagid);
+		}
 
 	}
 
@@ -220,6 +238,7 @@ class PostController extends Controller {
 				}
 				$post = $this->post->find( $id );
 				$post->syncTag( $tags );
+				$this->updateTagSum($request->post_tag);
 			}
 
 			return redirect()->route( 'post.index' )->with( 'success', '文章' . $request['post_title'] . '更新成功' );

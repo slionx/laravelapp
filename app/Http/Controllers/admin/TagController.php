@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Mockery\Exception;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
 use App\Repositories\TagRepository as Tag;
@@ -71,7 +72,7 @@ class TagController extends Controller
         $data['name'] = $request['name'];
         $result = $this->tag->create($data);
         if($result){
-            return Redirect('admin/tag/create')->with('success', trans('common.tag') . $request['name'] . '创建成功');
+            return Redirect('admin/tag')->with('success', trans('common.tag') . $request['name'] . '创建成功');
         }else{
             return Redirect('admin/tag/create')->withErrors(trans('common.tag') . $request['name'] . '创建失败');
         }
@@ -80,15 +81,47 @@ class TagController extends Controller
 
 	public function edit( $id ) {
     	$tag = $this->tag->find($id);
-		return view('admin.post.tags', compact('tag'));
+		return view('admin.tag.edit', compact('tag','id'));
     }
 
-	public function update(  ) {
+	public function update( Request $request,$id ) {
+		try {
+			$validator = Validator::make( $request->all(), [
+				'name' => 'required|max:255',
+			] );
+			if ($validator->fails()) {
+				return back()
+					->withErrors($validator)
+					->withInput($request->all());
+			}
+			$bool = $this->tag->update($request->all(),$id);
+			if ($bool){
+				return Redirect( 'admin/tag' )->with( 'success', '编辑成功' );
+			}else{
+				return Redirect( 'admin/tag' )->with( 'error', '编辑失败' );
+			}
+		} catch (Exception $e) {
+			return Redirect( 'admin/tag' )->with( 'error', '编辑失败'.$e->getMessage() );
+		}
 		
     }
 
-	public function destroy(  ) {
-		
+	public function destroy( $id ) {
+		try {
+			$tag = $this->tag->find($id);
+			$postTag = $tag->getPosts();
+			foreach ( $postTag as $v ) {
+				$tag->deletePosts($v->id);
+			}
+			$bool = $this->tag->delete($id);
+			if ($bool){
+				return Redirect( 'admin/tag' )->with( 'success', '删除成功' );
+			}else{
+				return Redirect( 'admin/tag' )->with( 'error', '删除失败' );
+			}
+		} catch (Exception $exception) {
+			return Redirect( 'admin/tag' )->with( 'error', '删除失败' );
+		}
     }
 
 	public function show(  ) {

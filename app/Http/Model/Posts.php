@@ -10,7 +10,7 @@ class Posts extends Model
     use SoftDeletes;
 
     protected $table = 'posts';
-    protected $fillable = ['post_title', 'post_content'];
+    protected $fillable = ['post_title', 'post_category','post_content','post_slug','post_author','post_password','post_image','post_status','post_sort','comments_status','comments_count','followers_count'];
     /**
      * 应该被调整为日期的属性
      *

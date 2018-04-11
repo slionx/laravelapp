@@ -21,11 +21,10 @@ class CreatePostsTable extends Migration
             $table->longText('post_content');
             $table->string('post_status')->default('')->comment('文章状态 publish/auto-draft/inherit等');
             $table->string('post_category')->default('');
-            $table->string('post_tag')->default('');
             $table->string('post_image')->default('');
             $table->string('post_password')->default('');
             $table->string('post_sort')->default(255);
-            $table->string('comments_status')->default(1);
+            $table->string('comments_status')->default("off");
             $table->string('comments_count')->default(0);
 	        $table->string('followers_count')->default(0);
             $table->softDeletes();
