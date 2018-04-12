@@ -13,7 +13,7 @@ class Category extends Model
 {
     protected $table = 'category';
 
-	protected $fillable = ['name','sort'];
+	protected $fillable = ['name','sort','count'];
 
     //protected $guarded = 'updated_at';
 

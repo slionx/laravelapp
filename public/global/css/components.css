@@ -13148,6 +13148,15 @@ Timeline
   padding: 0;
   position: relative;
   margin-bottom: 30px; }
+  .timeline:before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 4px;
+    background: #f5f6fa;
+    top: 0px;
+    bottom: 0px;
+    margin-left: 38px; }
   .timeline .timeline-item {
     margin: 0;
     padding: 0; }

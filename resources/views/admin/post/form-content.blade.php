@@ -22,7 +22,7 @@
 <div class="form-group form-md-line-input form-md-floating-label">
     <select class="form-control" name="post_category">
         @if(isset($post->post_category))
-            <option value="{{ $post->post_category }}">{{ $post->post_category }}</option>
+            <option value="{{ $post->post_category }}">{{ $category->name }}</option>
             @if(isset($categories)&& count($categories))
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -55,7 +55,7 @@
     </select>
 
 
-    <span class="help-block"><strong>{{ $errors->has('post_tag') ? ' 文章标签必填项。' : '' }}</strong></span>
+    <span class="help-block"><strong>{{ $errors->has('post_tag') ? ' 文章标签必填项' : '' }}</strong></span>
 </div>
 <div class="form-group form-md-line-input form-md-floating-label">
     <label for="form_control_1">文章内容</label>

@@ -11,24 +11,13 @@
 |
 */
 
-use Illuminate\Http\Request;
-
 // User Auth
 Auth::routes();
 
-
 Route::post('password/change', 'HomeController@changePassword')->middleware('auth');
-
 Route::get('home/{id}/edit', 'HomeController@edit')->name('edit');
-
 Route::post('home/run_edit', 'HomeController@run_edit')->name('run_edit');
-
 Route::post('user/upload/avatar', 'admin\UserController@update')->name('uploadAvatar');
-
-
-
-Route::get('table', 'admin\CategoryController@index');
-
 
 /*
  * admin 路由组
@@ -54,6 +43,8 @@ Route::get('email/verify/{token}','admin\UserController@verify')->name('email.ve
 
 
 Route::get('post/list/', 'admin\PostController@list')->name('post.list');
+Route::get('post/list/{tag}/{id}/', 'admin\PostController@list')->name('post.list.tag');
+Route::get('post/list/{category}/{id}', 'admin\PostController@list')->name('post.list.category');
 Route::get('post/{post}/', 'admin\PostController@show')->name('post.show');
 
 

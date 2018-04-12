@@ -23,11 +23,11 @@ function is_image( $mimeType ) {
 function getEditActionButton($id,$module)
 {
 
-		$url = route($module.'.edit', $id);
-		$edit = trans('common.edit');
-		return <<<Eof
-		<a href="{$url}" class="btn btn-sm yellow-gold btn-outline filter-submit margin-bottom">
-                             <i class="fa fa-edit"></i> {$edit}</a>
+	$url = route($module.'.edit', $id);
+	$edit = trans('common.edit');
+	return <<<Eof
+		<a href="{$url}" title="{$edit}" class="btn btn-sm yellow-gold btn-outline filter-submit margin-bottom">
+                             <i class="fa fa-edit"></i></a>
 Eof;
 
 }
@@ -39,11 +39,9 @@ function getDestroyActionButton($id,$module)
 	$delete = trans('common.delete');
 	$csrfToken = csrf_field();
 	$method = method_field('delete');
-	//event.preventDefault();document.getElementById('delete-form-{$id}').submit()
 	return <<<Eof
-		<a href="javascript:;" class="btn btn-sm red btn-outline filter-cancel destroy_item" onclick="return false;">
-                             <i class="fa fa-trash"></i> {$delete}
-                            
+		<a href="javascript:;" class="btn btn-sm red btn-outline filter-cancel destroy_item" title="{$delete}" onclick="return false;">
+                             <i class="fa fa-trash"></i>
 		<form action="{$url}" method="POST" style="display:none">
 						$method
 						$csrfToken

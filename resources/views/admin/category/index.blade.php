@@ -1,8 +1,11 @@
 @extends('admin.layouts.app')
+@section('theme_layout_styles')
+    <link href="{{ asset('global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet"
+          type="text/css"/>
+@stop
 @section('title','分类')
 @section('content')
-    <link href="{{ asset('global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css"/>
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
@@ -87,31 +90,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="btn-group pull-right">
-                                            <button class="btn green  btn-outline dropdown-toggle"
-                                                    data-toggle="dropdown">Tools
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="fa fa-print"></i> Print </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="fa fa-file-pdf-o"></i> Save as PDF </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="fa fa-file-excel-o"></i> Export to Excel </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="dataTables_wrapper no-footer">
                                 @if (session('success'))
                                     <div class="alert alert-success">
                                         <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -124,12 +104,7 @@
                                         {{ session('error') }}
                                     </div>
                                 @endif
-                                <div class="table-scrollable">
                                     {!! $html->table() !!}
-
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->

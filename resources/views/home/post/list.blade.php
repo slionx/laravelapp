@@ -4,7 +4,7 @@
     <div class="site-content">
         <div class="content-area">
             <main>
-                @foreach ($post as $item)
+                @forelse ($post as $item)
                     <article class="article-post">
                         <header class="entry-title">
                             <h2 class="blog-post-title">
@@ -13,7 +13,7 @@
                                 </a>
                             </h2>
                             <div class="text-muted">
-                                        <span class="timeline">
+                                        <span>
                                             <i class="fa fa-calendar"></i>
                                             编辑于 {{ $item->created_at }} </span>
                                 <span class="blog-quote-author">
@@ -26,18 +26,23 @@
 
                         </div>
                         <div class="blog-post-content">
-                            {!!  mb_substr($item->post_content,0,1000) !!}
+                            {{--{!!  mb_substr($item->post_content,0,1000) !!}--}}
                         </div>
                         <div class="clearfix"></div>
                         <div class=" text-muted blog-quote">
-                            <a href="{{ url('/post',$item->id) }}"><div class="pull-right btn btn-success"><i class="fa fa-link"></i>阅读全文</div></a>
-                            <div class="pull-left "><i class="fa fa-folder"></i> {{ $item->post_category }}&nbsp;</div>
+                            <a href="{{ url('/post',$item->id) }}"><div class="pull-right btn btn-success"><i class="fa fa-link"></i> 阅读全文</div></a>
+                            <div class="pull-left "><i class="fa fa-folder"></i> {{ $item->category_name }}&nbsp;</div>
                             <div class="pull-left blog-comments"><i class="fa fa-comments"></i> {{ $item->comments_count }}&nbsp;</div>
-                            <div class="pull-left blog-post-tags"><i class="fa fa-tags"></i> {{ $item->post_tag }} </div>
+                            <div class="pull-left blog-post-tags"><i class="fa fa-tags"></i> {{ $item->tag_count }} </div>
                         </div>
                     </article>
-                @endforeach
+                @empty
+                    <div class="center-block caption-subject font-red bold uppercase">
+                        <h2>暂无文章</h2>
+                    </div>
+                @endforelse
             </main>
+
 
         </div>
         @include('home.post.widget-area')

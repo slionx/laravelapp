@@ -1,8 +1,11 @@
 @extends('admin.layouts.app')
+@section('theme_layout_styles')
+    <link href="{{ asset('global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet"
+          type="text/css"/>
+@stop
 @section('title','分类')
 @section('content')
-    <link href="{{ asset('global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
@@ -10,7 +13,7 @@
             <!-- BEGIN PAGE HEADER-->
             <!-- BEGIN THEME PANEL -->
         @include('admin.layouts.theme-panel')
-            <!-- END THEME PANEL -->
+        <!-- END THEME PANEL -->
             <!-- BEGIN PAGE BAR -->
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -112,25 +115,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="dataTables_wrapper no-footer">
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
-                                @if (session('error'))
-                                    <div class="alert alert-danger">
-                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                        {{ session('error') }}
-                                    </div>
-                                @endif
-                                <div class="table-scrollable">
-                                    {!! $html->table() !!}
-
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                    {{ session('success') }}
                                 </div>
-                            </div>
-
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            {!! $html->table() !!}
                         </div>
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->

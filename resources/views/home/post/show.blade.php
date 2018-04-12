@@ -14,7 +14,7 @@
                                 @endcan--}}
                             </h2>
                             <div class="text-muted">
-                                        <span class="timeline">
+                                        <span>
                                             <i class="fa fa-calendar"></i>
                                             Posted on {{ $post->created_at }} </span>
                                 <span class="blog-quote-author">

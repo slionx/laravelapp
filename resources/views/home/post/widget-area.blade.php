@@ -75,37 +75,65 @@
             <div class="r"></div>
         </div>
     </div>
-
     <div class="portlet light ">
         <div class="portlet-title">
             <div class="caption" data-toggle="collapse" data-target=".todo-project-list-content-tags">
-                <span class="caption-subject font-red bold uppercase">TAGS </span>
+                <span class="caption-subject font-red bold uppercase">分类 </span>
                 <span class="caption-helper visible-sm-inline-block visible-xs-inline-block">click to view</span>
             </div>
         </div>
         <div class="portlet-body todo-project-list-content todo-project-list-content-tags" style="height: auto;">
             <div class="todo-project-list">
                 <ul class="nav nav-pills nav-stacked">
-                    <li>
-                        <a href="javascript:;">
-                            <span class="badge badge-danger"> 6 </span> Pending </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="badge badge-info"> 2 </span> Completed </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="badge badge-success"> 14 </span> In Progress </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="badge badge-warning"> 6 </span> Closed </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="badge badge-info"> 2 </span> Delivered </a>
-                    </li>
+                    @foreach ($categories as $category)
+                        <li>
+                            <a href="{{ route('post.list.category',['category',$category->id]) }}">
+                                @if(($category->id % 4) == 0)
+                                    <span class="badge badge-danger"> {{ $category->count }} </span> {{ $category->name }} </a>
+                            @elseif(($category->id % 4) == 1)
+                                <span class="badge badge-info"> {{ $category->count }} </span> {{ $category->name }} </a>
+                            @elseif(($category->id % 4) == 2)
+                                <span class="badge badge-success"> {{ $category->count }} </span> {{ $category->name }} </a>
+                            @elseif(($category->id % 4) == 3)
+                                <span class="badge badge-warning"> {{ $category->count }} </span> {{ $category->name }} </a>
+                            @else
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+        <div class="portlet-bottom">
+            <div class="l"></div>
+            <div class="r"></div>
+        </div>
+    </div>
+
+    <div class="portlet light ">
+        <div class="portlet-title">
+            <div class="caption" data-toggle="collapse" data-target=".todo-project-list-content-tags">
+                <span class="caption-subject font-red bold uppercase">标签 </span>
+                <span class="caption-helper visible-sm-inline-block visible-xs-inline-block">click to view</span>
+            </div>
+        </div>
+        <div class="portlet-body todo-project-list-content todo-project-list-content-tags" style="height: auto;">
+            <div class="todo-project-list">
+                <ul class="nav nav-pills nav-stacked">
+                    @foreach ($tags as $tag)
+                        <li>
+                            <a href="{{ route('post.list.tag',['tag',$tag->id]) }}">
+                            @if(($tag->id % 4) == 0)
+                                    <span class="badge badge-danger"> {{ $tag->count }} </span> {{ $tag->name }} </a>
+                            @elseif(($tag->id % 4) == 1)
+                                <span class="badge badge-info"> {{ $tag->count }} </span> {{ $tag->name }} </a>
+                            @elseif(($tag->id % 4) == 2)
+                                <span class="badge badge-success"> {{ $tag->count }} </span> {{ $tag->name }} </a>
+                            @elseif(($tag->id % 4) == 3)
+                                <span class="badge badge-warning"> {{ $tag->count }} </span> {{ $tag->name }} </a>
+                            @else
+                            @endif
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

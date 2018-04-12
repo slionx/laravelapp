@@ -1,10 +1,10 @@
 @extends('admin.layouts.app')
-@section('title')
-@section('content')
+@section('theme_layout_styles')
     <link href="{{ asset('global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet"
           type="text/css"/>
-
+@stop
+@section('content')
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
@@ -93,49 +93,21 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="btn-group pull-right">
-                                            <button class="btn green  btn-outline dropdown-toggle"
-                                                    data-toggle="dropdown">Tools
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="fa fa-print"></i> Print </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="fa fa-file-pdf-o"></i> Save as PDF </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="fa fa-file-excel-o"></i> Export to Excel </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="dataTables_wrapper no-footer">
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
-                                @if (session('error'))
-                                    <div class="alert alert-danger">
-                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                        {{ session('error') }}
-                                    </div>
-                                @endif
-                                <div class="table-scrollable">
-                                    {!! $html->table() !!}
-
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                    {{ session('success') }}
                                 </div>
-                            </div>
-
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            {!! $html->table(['class' => 'table table-striped table-bordered table-hover table-checkable order-column']) !!}
                         </div>
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
@@ -161,23 +133,23 @@
     {!! $html->scripts() !!}
 
 
-{{--    <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}"
-            type="text/javascript"></script>
+    {{--    <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}"
+                type="text/javascript"></script>
 
-    <!-- END PAGE LEVEL PLUGINS -->
-    <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
-    <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
 
-    <script src="{{ asset('global/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>--}}
+        <script src="{{ asset('global/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>--}}
 
 
 @stop

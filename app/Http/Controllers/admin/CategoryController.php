@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Database\Eloquent\Model;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
 use App\Repositories\CategoryRepository as Category;
@@ -39,7 +37,8 @@ class CategoryController extends Controller {
 			],
 		] )->columns( [
 			[ 'data' => 'id', 'name' => 'id', 'title' => trans( 'common.number' ) ],
-			[ 'data' => 'name', 'name' => 'name', 'title' => '名称' ],
+			[ 'data' => 'name', 'name' => 'name', 'title' => '分类名称' ],
+			[ 'data' => 'count', 'name' => 'count', 'title' => '文章数量' ],
 			[ 'data' => 'sort', 'name' => 'sort', 'title' => '排序' ],
 			[ 'data' => 'created_at', 'name' => 'created_at', 'title' => trans( 'menu.created_at' ) ],
 			[ 'data' => 'updated_at', 'name' => 'updated_at', 'title' => trans( 'menu.updated_at' ) ],
@@ -50,7 +49,6 @@ class CategoryController extends Controller {
 	}
 
 	public function ajaxData() {
-
 		return DataTables::of( $this->CategoryRepository->all() )
 		                 ->addColumn( 'action', function ( $CategoryRepository ) {
 			                 return getActionButtonAttribute( $CategoryRepository->id, $this->module );
@@ -100,21 +98,21 @@ class CategoryController extends Controller {
 		} catch ( Exception $e ) {
 			return redirect()->back()->with('error','更新失败！'. $e->getMessage());
 		}
-
 	}
 
 	public function destroy( $id ) {
+		try {
+			if(count($this->post->findByField('post_category',$id)) > 0){
+				return redirect()->back()->with('error','该分类下有对应文章，清先转移文章再删除！');
+			}
+			if($this->CategoryRepository->delete($id)){
+				return redirect()->route('category.index')->with('success', '删除成功！');
+			}else{
+				return redirect()->back()->with('error','删除失败！');
+			}
 
-		if($this->post->find($id,['post_category'])){
-			return redirect()->back()->with('error','该分类下有对应文章，无法删除！');
+		} catch ( Exception $e ) {
+			return redirect()->back()->with('error','删除失败！'. $e->getMessage());
 		}
-		if($this->CategoryRepository->delete($id)){
-			return redirect()->route('category.index')->with('success', '删除成功！');
-		}else{
-			return redirect()->back()->with('error','删除失败！');
-		}
-
 	}
-
-
 }
