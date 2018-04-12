@@ -172,8 +172,9 @@ class PostController extends Controller {
 	public function show( $id ) {
 		$post = $this->post->find( $id );
 		$tags = $this->tag->all(['id','name','count']);
+        $categories = $this->category->all(['id','name','count']);
 
-		return view( 'home.post.show', compact( 'post','tags' ) );
+		return view( 'home.post.show', compact( 'post','tags','categories' ) );
 	}
 
 

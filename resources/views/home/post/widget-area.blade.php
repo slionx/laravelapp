@@ -85,7 +85,7 @@
         <div class="portlet-body todo-project-list-content todo-project-list-content-tags" style="height: auto;">
             <div class="todo-project-list">
                 <ul class="nav nav-pills nav-stacked">
-                    @foreach ($categories as $category)
+                    @forelse ($categories as $category)
                         <li>
                             <a href="{{ route('post.list.category',['category',$category->id]) }}">
                                 @if(($category->id % 4) == 0)
@@ -99,7 +99,8 @@
                             @else
                             @endif
                         </li>
-                    @endforeach
+                    @empty
+                    @endforelse
                 </ul>
             </div>
         </div>
@@ -119,7 +120,7 @@
         <div class="portlet-body todo-project-list-content todo-project-list-content-tags" style="height: auto;">
             <div class="todo-project-list">
                 <ul class="nav nav-pills nav-stacked">
-                    @foreach ($tags as $tag)
+                    @forelse ($tags as $tag)
                         <li>
                             <a href="{{ route('post.list.tag',['tag',$tag->id]) }}">
                             @if(($tag->id % 4) == 0)
@@ -133,7 +134,8 @@
                             @else
                             @endif
                         </li>
-                    @endforeach
+                    @empty
+                    @endforelse
                 </ul>
             </div>
         </div>

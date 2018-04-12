@@ -92,19 +92,19 @@
                                     </div>
                                 </div>
                             </div>
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
-                                @if (session('error'))
-                                    <div class="alert alert-danger">
-                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                        {{ session('error') }}
-                                    </div>
-                                @endif
-                                    {!! $html->table() !!}
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            {!! $html->table() !!}
                         </div>
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
@@ -124,13 +124,12 @@
             }
         });
     </script>
+    <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
     {!! $html->scripts() !!}
-
 {{--    <!-- BEGIN PAGE LEVEL PLUGINS -->
     <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -138,8 +137,8 @@
     <!-- END PAGE LEVEL SCRIPTS -->
     <script src="{{ asset('global/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('pages/scripts/table-datatables-managed.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/scripts/datatable.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
     <script src="{{ asset('global/plugins/datatables/colResizable-1.5.min.js') }}" type="text/javascript"></script>--}}
+
 @stop
