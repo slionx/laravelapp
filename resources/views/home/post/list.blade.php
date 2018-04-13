@@ -2,6 +2,7 @@
 @section('content')
 
     <div class="site-content">
+        @yield('slide')
         <div class="content-area">
             <main>
                 @forelse ($post as $item)

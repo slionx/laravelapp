@@ -382,8 +382,8 @@ class PostController extends Controller {
 		}else{
 			$post = $this->post->paginate( 5 );
 			foreach ( $post as $k => $item ) {
-				$post[ $k ]['tag_count']     = $this->post->find( $item->id )->getTag()->count();
-				$post[ $k ]['category_name'] = $this->category->find( $item->post_category )->name;
+				//$post[ $k ]['tag_count']     = $this->post->find( $item->id )->getTag()->count();
+				//$post[ $k ]['category_name'] = $this->category->find( $item->post_category )->name;
 			}
 		}
 

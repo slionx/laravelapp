@@ -92,7 +92,7 @@ class RegisterController extends Controller
 		$name = $user['name'];
 		//$url = route('email.verify',['token'=>$user['confirmation_token'],'name'=>$name]);
 		//$email = $user['email'];
-		dd($user);
+		//dd($user);
 
 		$flag = Mail::send('email.send',['name'=>$name,'token'=>$user['confirmation_token']],function($message,$user){
 			$to = $user['email'];

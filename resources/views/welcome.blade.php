@@ -39,13 +39,13 @@
                 position: fixed;
                 right: 10px;
                 top: 18px;
+                z-index: 10;
             }
 
             .content {
                 position: absolute;
-                z-index: 200;
+                z-index: 10;
                 text-align: center;
-                margin-top: 250px;
             }
 
             .title {
@@ -68,10 +68,20 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .no-pad {
+                padding: 0px;
+            }
+            .fullscreen-element{
+                position: relative;
+                overflow: hidden;
+                background-color: #0a6aa1;
+            }
         </style>
     </head>
     <body>
     <div id="loader" class="loader" ></div>
+    <div class="fullscreen-element no-pad centered-text">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -80,57 +90,49 @@
                 </div>
             @endif
 
-                @if(Cache::get('welcomeType') == 'slide')
-                    @if(isset($home_bg_images) && $home_bg_images)
-                        <div id="home-cover-slideshow">
-                            @foreach ($home_bg_images as $image)
-                                <div class="home-cover-img" data-src="{{ asset('storage') }}/{{ $image }}"></div>
-                            @endforeach
-                        </div>
-                    @endif
-                @else
-                        <video width="100%" height="100%" @if(Cache::has('videoAddress')) src="{{ Cache::get('videoAddress') }}" @endif autoplay="autoplay" loop="loop" ></video>
-                @endif
-                <!--
-                http://ofo.oss-cn-qingdao.aliyuncs.com/ofoweb/official/new.mp4
-
-                http://v4.music.126.net/20180228172455/f45baba0207dc0261eb895e29d3573e8/web/cloudmusic/mv/20180201093929/e37174eb-e7b1-4810-a62f-02780b829dac/a45112c9a122c042918ec91532b6e2a6.mp4
-
--->
-
-
-                {{--<div class="container">
-                    <div class="content">
-                        <div class="home-box">
-                            <h2 title="{{ $site_title or 'title' }}" style="margin: 0;">
-                                {{ $site_title or '我的个人博客' }}
-                                <a aria-hidden="true" href="">
-                                    <img class="img-circle" src="{{ $avatar or 'https://raw.githubusercontent.com/lufficc/images/master/Xblog/logo.png' }}" alt="{{ $author or 'Author' }}">
-                                </a>
-                            </h2>
-                            <h3 title="{{ $description or 'description' }}" aria-hidden="true" style="margin: 0">
-                                {{ $description or 'Stay Hungry. Stay Foolish.' }}
-                            </h3>
-                            <p class="links">
-                                <font aria-hidden="true">»</font>
-                                <a href="{{ route('post.index') }}" aria-label="点击查看博客文章列表">博客</a>
-
-                                    <font aria-hidden="true">/</font>
-                                    <a href="" aria-label="查看{{ $author or 'author' }}的">name</a>
-
-                            </p>
-                            <p class="links">
-                                <font aria-hidden="true">»</font>
-
-                                    <a href="" target="_blank" aria-label="{{ $author or 'author' }} 的  地址">
-                                        <i class="fa fa- fa-fw" title=""></i>
-                                    </a>
-
-                            </p>
-                        </div>
+            @if(Cache::get('welcomeType') == 'slide')
+                @if(isset($home_bg_images) && $home_bg_images)
+                    <div id="home-cover-slideshow">
+                        @foreach ($home_bg_images as $image)
+                            <div class="home-cover-img" data-src="{{ asset('storage') }}/{{ $image }}"></div>
+                        @endforeach
                     </div>
-                </div>--}}
+                @endif
+            @else
+                <video width="100%" height="100%" @if(Cache::has('videoAddress')) src="{{ Cache::get('videoAddress') }}" @endif autoplay="autoplay" loop="loop" ></video>
+            @endif
 
+            {{--<div class="container">
+                <div class="content">
+                    <div class="home-box">
+                        <h2 title="{{ $site_title or 'title' }}" style="margin: 0;">
+                            {{ $site_title or '我的个人博客' }}
+                            <a aria-hidden="true" href="">
+                                <img class="img-circle" src="{{ $avatar or 'https://raw.githubusercontent.com/lufficc/images/master/Xblog/logo.png' }}" alt="{{ $author or 'Author' }}">
+                            </a>
+                        </h2>
+                        <h3 title="{{ $description or 'description' }}" aria-hidden="true" style="margin: 0">
+                            {{ $description or 'Stay Hungry. Stay Foolish.' }}
+                        </h3>
+                        <p class="links">
+                            <font aria-hidden="true">»</font>
+                            <a href="{{ route('post.index') }}" aria-label="点击查看博客文章列表">博客</a>
+
+                            <font aria-hidden="true">/</font>
+                            <a href="" aria-label="查看{{ $author or 'author' }}的">name</a>
+
+                        </p>
+                        <p class="links">
+                            <font aria-hidden="true">»</font>
+
+                            <a href="" target="_blank" aria-label="{{ $author or 'author' }} 的  地址">
+                                <i class="fa fa- fa-fw" title=""></i>
+                            </a>
+
+                        </p>
+                    </div>
+                </div>
+            </div>--}}
             <div class="content">
                 <div id="title" class="title m-b-md">
                     Slionx
@@ -144,10 +146,32 @@
                 </div>
             </div>
         </div>
-        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
+    </div>
+
+
+
+    <!--
+http://ofo.oss-cn-qingdao.aliyuncs.com/ofoweb/official/new.mp4
+
+http://v4.music.126.net/20180228172455/f45baba0207dc0261eb895e29d3573e8/web/cloudmusic/mv/20180201093929/e37174eb-e7b1-4810-a62f-02780b829dac/a45112c9a122c042918ec91532b6e2a6.mp4
+
+-->
+
+
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
         <script src="{{ asset('js/welcome.js') }}"></script>
     <script src="{{ asset('js/typing.js') }}"></script>
     <script>
+
+        $('.fullscreen-element').each(function(){
+            $(this).css('height', $(window).height());
+        });
+
+        $('.content').each(function(){
+            $(this).css('margin-top', $(window).height()/5);
+        });
+
         document.onreadystatechange = function () {
             if (window.document.readyState === "interactive") {
                 loading();
