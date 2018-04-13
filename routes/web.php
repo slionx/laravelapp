@@ -48,7 +48,7 @@ Route::get('post/list/{category}/{id}', 'admin\PostController@list')->name('post
 Route::get('post/{post}/', 'admin\PostController@show')->name('post.show');
 
 
-Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','menu']], function () {
+Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','menu','AdminLogin']], function () {
 /*路由资源可用方法
  *
  *  GET	/posts	index	posts.index

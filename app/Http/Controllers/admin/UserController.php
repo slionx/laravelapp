@@ -43,7 +43,6 @@ class UserController extends Controller {
 	}
 
 	public function index( Builder $builder ) {
-
 		if ( request()->ajax() ) {
 			return $this->ajaxData();
 		}
@@ -69,9 +68,19 @@ class UserController extends Controller {
 	private function ajaxData() {
 		$tmp = $this->user->all();
 		foreach ($tmp as $k => $v){
-			//$v->getRole();
 			$user_data[$k] = $v;
-			$user_data[$k]['role'] = $v->roles[0]->slug;
+			$role = $v->roles()->get();
+			if (count($role) > 1){
+				$role_arr= '';
+				foreach ( $role as $item ) {
+					$role_arr .= $item->name;
+				}
+				$user_data[$k]['role'] = $role_arr;
+			}elseif (count($role) == 1){
+				$user_data[$k]['role'] = $role[0]->name;
+			} else{
+				$user_data[$k]['role'] = '';
+			}
 			$user_data[$k]['is_active'] = $user_data[$k]['is_active'] ? '是' : '否';
 		}
 		return DataTables::of( $user_data )
@@ -88,13 +97,13 @@ class UserController extends Controller {
 	public function edit( $id ) {
 		$user = $this->user->find($id);
 		$nowroles = $user->getRole();
-		foreach ($nowroles as $role){
-			$now_role[] = $role->id;
+		if($nowroles){
+			foreach ($nowroles as $role){
+				$now_role[] = $role->id;
+			}
+		}else{
+			$now_role = [];
 		}
-
-			 //var_dump($nowroles);
-
-
 		$roles = $this->role->all();
 		return view( 'admin.user.edit' ,compact('user','roles','now_role','id'));
 	}

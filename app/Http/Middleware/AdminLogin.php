@@ -16,10 +16,9 @@ class AdminLogin
      */
     public function handle($request, Closure $next)
     {
-
         if($request->user() && $request->user()->isAdmin()){
             return $next($request);
         }
-        return redirect('/');
+        return redirect('/home');
     }
 }

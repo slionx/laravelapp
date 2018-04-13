@@ -144,7 +144,7 @@
                                                     <label class="">
                                                         <div class="icheckbox_square-green checked" style="position: relative;">
                                                             <input type="checkbox" name="role[]" @if (in_array($role->id,$now_role))  checked="checked" @endif value="{{ $role->id }}" >
-                                                            <ins class="iCheck-helper"></ins></div> {{ $role->name }} [<a data-target="#myModal" data-toggle="modal" href="http://any.cn/admin/role/qln8XnvO">查看角色权限</a>]
+                                                            <ins class="iCheck-helper"></ins></div> {{ $role->slug }} [<a data-target="#myModal" data-toggle="modal" href="">查看角色权限</a>]
                                                     </label>
                                                 </div>
                                             </label>

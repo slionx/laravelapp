@@ -129,7 +129,6 @@
         });
     </script>
     <script src="{{ asset('global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('global/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
     {!! $html->scripts() !!}
 

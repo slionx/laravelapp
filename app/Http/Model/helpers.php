@@ -63,24 +63,89 @@ if(! function_exists('haspermission') ) {
 	{
 		$check = false;
 		if (auth()->check()) {
-
 			$user = auth()->user();
 			$userPermissions =  getCurrentPermission($user);
 			$check = in_array($permission, (array)$userPermissions['permissions']);
 			if (in_array('admin', (array)$userPermissions['roles']) && !$check) {
-				$newPermission = \App\Models\Permission::firstOrCreate([
+				$newPermission = \App\Http\Model\permission::firstOrCreate([
 					'slug' => $permission,
 				],[
-					'name' => $permission,
-					'description' => $permission,
+					'name' => "自动生成权限".$permission,
+					'description' => "自动生成权限".$permission,
 				]);
-				$role = \App\Models\Role::where('slug', 'admin')->first();
+				$role = \App\Http\Model\Role::where('name', 'admin')->first();
 				$role->attachPermission($newPermission);
 				setUserPermissions($user);
 				$check = true;
 			}
 		}
 		return $check;
+	}
+}
+
+/**
+ * 获取当前用户权限、角色
+ */
+if(!function_exists('getCurrentPermission')){
+	function getCurrentPermission($user)
+	{
+		$key = 'user_'.$user->id;
+		if (cache()->has($key)) {
+			return cache($key);
+		}
+		setUserPermissions($user);
+		return cache($key);
+	}
+}
+/**
+ * 刷新当前用户权限、角色
+ */
+if(!function_exists('refreshCurrentPermission')){
+	function refreshCurrentPermission($user)
+	{
+		$key = 'user_'.$user->id;
+		cache()->forget($key);
+		setUserPermissions($user);
+	}
+}
+
+/**
+ * 设置用户权限、角色
+ */
+if(!function_exists('setUserPermissions')){
+	function setUserPermissions($user)
+	{
+		//查出角色对应的所有权限
+		$Permissions = [];
+		$roles = $user->roles()->get();
+		if(count($roles) > 0){
+			foreach ( $roles as $role ) {
+				$allRoles[] = $role->slug;
+				$tmp = \App\Http\Model\Role::find($role->id)->getPermission();
+				foreach ( $tmp as $v ) {
+					$Permissions[] = $v->slug;
+				}
+			}
+		}else{
+			return $Permissions = [];
+		}
+		$Permissions = array_unique($Permissions);
+		$allPermissions = \App\Http\Model\permission::all()->pluck('slug')->all();
+		// 缓存用户权限
+		cache()->forever('user_'.$user->id, [
+			'permissions' => $Permissions,
+			'roles' => $allRoles,
+			'allPermissions' => $allPermissions
+		]);
+	}
+}
+/**
+ * 清空缓存
+ */
+if(!function_exists('cacheClear')){
+	function cacheClear()
+	{
+		cache()->flush();
 	}
 }
 

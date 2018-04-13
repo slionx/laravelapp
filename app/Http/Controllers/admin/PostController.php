@@ -35,7 +35,7 @@ class PostController extends Controller {
 		Posts $posts,
 		Tag $Tag
 	) {
-		//$this->middleware('isadmin');
+		$this->middleware('isadmin');
 		$this->category = $Category;
 		$this->tag      = $Tag;
 		$this->post     = $Post;

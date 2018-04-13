@@ -49,8 +49,8 @@ class RoleController extends Controller
 			],
 		] )->columns( [
 			[ 'data' => 'id', 'name' => 'id', 'title' => trans( 'common.number' ) ],
-			[ 'data' => 'name', 'name' => 'name', 'title' => '名称' ],
-			[ 'data' => 'slug', 'name' => 'sort', 'title' => '规则' ],
+			[ 'data' => 'slug', 'name' => 'slug', 'title' => '名称' ],
+			[ 'data' => 'name', 'name' => 'name', 'title' => '规则' ],
 			[ 'data' => 'created_at', 'name' => 'created_at', 'title' => trans( 'menu.created_at' ) ],
 			[ 'data' => 'updated_at', 'name' => 'updated_at', 'title' => trans( 'menu.updated_at' ) ],
 		] )->addAction( [ 'data' => 'action', 'name' => 'action', 'title' => trans( 'common.action' ) ] );;
@@ -69,7 +69,7 @@ class RoleController extends Controller
 		$permissions = $this->permission->all(['id','name','slug']);
 		if ($permissions->isNotEmpty()) {
 			foreach ($permissions as $v) {
-				$temp = explode('.', $v->slug);
+				$temp = explode('.', $v->name);
 				$permissionArray[$temp[0]][] = $v->toArray();
 			}
 		}
@@ -85,8 +85,8 @@ class RoleController extends Controller
 	public function store(Request $request)
 	{
 		$validator = Validator::make( $request->all(), [
-			'name' => 'required|unique:roles|max:255',
-			'slug' => 'required|max:255',
+			'name' => 'required|max:255',
+			'slug' => 'required|unique:roles|max:255',
 			'permission'=> 'required',
 		] );
 		if ( $validator->fails() ) {
@@ -103,9 +103,9 @@ class RoleController extends Controller
 				}
 			}
 
-			return Redirect( 'admin/role/create' )->with( 'success', '创建成功' );
+			return Redirect( 'admin/role' )->with( 'success', '角色 ' . $request->name .' 创建成功' );
 		} else {
-			return Redirect( 'admin/role/create' )->withInput()->withErrors( '角色' . $request->name . '创建失败' );
+			return Redirect( 'admin/role/create' )->withInput()->withErrors( '角色 ' . $request->name . ' 创建失败' );
 		}
 	}
 
@@ -141,7 +141,7 @@ class RoleController extends Controller
         $permissions = $this->permission->all(['id','name','slug']);
 		if ($permissions->isNotEmpty()) {
 			foreach ($permissions as $v) {
-				$temp = explode('.', $v->slug);
+				$temp = explode('.', $v->name);
 				$permissionArray[$temp[0]][] = $v->toArray();
 			}
 		}

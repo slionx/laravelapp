@@ -105,22 +105,22 @@
                         <div class="portlet-body form">
                             <form action="{{ route('role.store') }}" method="post" class="form-horizontal form-bordered">
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
-                                    <label for="name" class="col-sm-3 control-label">名称</label>
+                                    <label for="name" class="col-sm-3 control-label">角色名称</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="名称名称为必填项，最大长度255。"></i>
-                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="名称">
-                                            <span  class="help-block">{{ $errors->has('name') ? ' 名称为必填项，最大长度255。' : '' }}</span>
+                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="角色名称为必填项，最大长度255。"></i>
+                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="角色名称">
+                                            <span  class="help-block">{{ $errors->has('name') ? ' 角色名称为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group {{ $errors->has('slug') ? ' has-error' : '' }}">
-                                    <label for="slug" class="col-sm-3 control-label">规则</label>
+                                    <label for="slug" class="col-sm-3 control-label">规则名称</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('slug') ? ' fa fa-warning tooltips' : '' }}" data-original-title="规则为必填项，序号只能为数字。"></i>
-                                            <input type="text" name="slug" value="{{ old('slug') }}" class="form-control" id="slug" placeholder="排序">
-                                            <span  class="help-block">{{ $errors->has('slug') ? ' 规则为必填项，最大长度255。' : '' }}</span>
+                                            <i class="{{ $errors->has('slug') ? ' fa fa-warning tooltips' : '' }}" data-original-title="规则名称为必填项，序号只能为数字。"></i>
+                                            <input type="text" name="slug" value="{{ old('slug') }}" class="form-control" id="slug" placeholder="规则名称">
+                                            <span  class="help-block">{{ $errors->has('slug') ? ' 规则名称为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>

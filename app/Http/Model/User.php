@@ -60,7 +60,7 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 	//判断是否有某个角色
 	public function hasRole($role) {
 		if(is_string($role)){
-			return $this->roles->contains('name',$role); //contains 方法判断集合是否包含一个给定项
+			return $this->roles->contains('slug',$role); //contains 方法判断集合是否包含一个给定项
 		}
 		return !! $role->intersect($this->role)->count(); //intersect 方法返回两个集合的交集
 	}
@@ -89,10 +89,10 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 		return $this->roles()->sync($id);
 	}
 
-	public function getRole(  ) {
+	public function getRole() {
 		return $this->roles->all();
 	}
-	public function getOwnRole(  ) {
+	public function getOwnRole() {
 		return $this->roles->first();
 	}
 

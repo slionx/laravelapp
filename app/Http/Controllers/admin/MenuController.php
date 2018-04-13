@@ -44,9 +44,9 @@ class MenuController extends Controller
         }
 	    $result = $this->menu->create($request->all());
 	    if($result){
-		    return Redirect('admin/menu/create')->with('success', '' . $request['name'] . '创建成功');
+		    return Redirect('admin/menu')->with('success', '分类 ' . $request['name'] . ' 创建成功');
 	    }else{
-		    return Redirect('admin/menu/create')->withErrors('' . $request['name'] . '创建失败');
+		    return Redirect('admin/menu/create')->withErrors('分类 ' . $request['name'] . ' 创建失败');
 	    }
 
     }
@@ -69,9 +69,9 @@ class MenuController extends Controller
 	    }
 	    $result = $this->menu->update($request->all(),$id);
 	    if($result){
-		    return Redirect('admin/menu/edit')->with('success', '' . $request['name'] . '修改成功');
+		    return Redirect('admin/menu')->with('success', '分类 ' . $request['name'] . ' 修改成功');
 	    }else{
-		    return Redirect('admin/menu/edit')->withErrors('' . $request['name'] . '修改失败');
+		    return Redirect('admin/menu/edit')->withErrors('分类 ' . $request['name'] . '修改失败');
 	    }
 
     }
