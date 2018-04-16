@@ -42,7 +42,7 @@
 
         <div id="loader" class="loader" ></div>
 
-        <div class="nav-container">
+        {{--<div class="nav-container">
             <nav class="top-bar overlay-bar">
                 <div class="container">
 
@@ -171,15 +171,9 @@
 
                 </div><!--end of container-->
             </nav>
+        </div>--}}
 
-
-
-
-
-
-        </div>
-
-        {{--<nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
                     <!-- Collapsed Hamburger -->
@@ -233,7 +227,7 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
-                                    @if(haspermission('admin'))
+                                    @if(auth()->user()->isadmin())
                                     <li>
                                         <a href="/admin">
                                         {{ trans('common.manageAdmin') }}
@@ -246,7 +240,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>--}}
+        </nav>
 
         <style>
             .loading_background { cursor: wait; display: block; width: 100%; height: 100%; background: rgba(0,0,0,.5); position: absolute; top: 0; left: 0; z-index: 10001; }

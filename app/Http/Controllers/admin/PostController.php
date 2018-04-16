@@ -47,6 +47,8 @@ class PostController extends Controller {
 	 * @return Response
 	 */
 	public function index( Builder $builder ) {
+		//dd(auth()->user()->isadmin());
+
 		//dd($this->ajaxData());
 		if ( request()->ajax() ) {
 			return $this->ajaxData();
@@ -379,6 +381,17 @@ class PostController extends Controller {
 
 		}elseif($param == "category"){
 			$post = Posts::where('post_category', '=', $id)->paginate(5);
+		}elseif($param == "search"){
+			$key = trim($id);
+			if ($key == '')
+				return back()->withErrors("请输入关键字");
+			$key = "%$key%";
+			$post = Posts::where('post_title', 'like', $key)
+			             ->orWhere('post_slug', 'like', $key)
+			             ->with(['tag', 'category'])
+			             ->orderBy('created_at', 'desc')
+			             ->paginate(5);
+
 		}else{
 			$post = $this->post->paginate( 5 );
 			foreach ( $post as $k => $item ) {

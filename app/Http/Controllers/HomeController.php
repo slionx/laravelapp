@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        echo $request->getClientIp();
+        //echo $request->getClientIp();
         return view('home');
     }
 

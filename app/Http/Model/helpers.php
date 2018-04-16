@@ -67,6 +67,7 @@ if(! function_exists('haspermission') ) {
 			$userPermissions =  getCurrentPermission($user);
 			$check = in_array($permission, (array)$userPermissions['permissions']);
 			if (in_array('admin', (array)$userPermissions['roles']) && !$check) {
+				//dd($permission);
 				$newPermission = \App\Http\Model\permission::firstOrCreate([
 					'slug' => $permission,
 				],[
@@ -131,7 +132,6 @@ if(!function_exists('setUserPermissions')){
 		}
 		$Permissions = array_unique($Permissions);
 		$allPermissions = \App\Http\Model\permission::all()->pluck('slug')->all();
-		// 缓存用户权限
 		cache()->forever('user_'.$user->id, [
 			'permissions' => $Permissions,
 			'roles' => $allRoles,
