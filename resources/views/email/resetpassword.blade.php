@@ -54,9 +54,7 @@
                                     <tr>
                                         <td align="center" class="zhwd-high-res-img-wrap zhwd-zhihu-logo"><a
                                                     href=""
-                                                    target="_blank"><img src="http://s1.zhimg.com/edm/s105/zhihu.png"
-                                                                         width="71" height="54"
-                                                                         style="outline:none; display:block; border:none; font-size:14px; font-family:Hiragino Sans GB; color:#ffffff;"></a>
+                                                    target="_blank"></a>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -107,6 +105,12 @@
 </span>
                                                                                         </td>
                                                                                     </tr>
+                                                                                    <tr>
+                                                                                        <td bgcolor="#ffffff" align="left"
+                                                                                            style="background-color:#ffffff; font-size: 17px; color:#7b7b7b; padding:28px 0 0 0;line-height:25px;">
+                                                                                            如果你没有请求重新设置密码，则不需要进一步的操作
+                                                                                        </td>
+                                                                                    </tr>
                                                                                     </tbody>
                                                                                 </table>
                                                                             </td>
@@ -114,7 +118,7 @@
                                                                         <tr>
                                                                             <td align="left" valign="top"
                                                                                 style="font-size:15px; color:#7b7b7b; font-size:14px; line-height: 25px; font-family:Hiragino Sans GB; padding: 20px 0px 35px 0px">
-                                                                                如果以上按钮无法打开，请把下面的链接复制到浏览器地址栏中打开：<a
+                                                                                如果不能点击"重置密码"按钮，请把下面的链接复制到浏览器地址栏中打开：<a
                                                                                         href="{{ route('password.reset',['token'=>$token]) }}"
                                                                                         target="_blank">{{ route('password.reset',['token'=>$token]) }}</a>
                                                                             </td>
@@ -168,7 +172,6 @@
             </tbody>
         </table>--}}
 
-        <img src="http://tmail.zhihu.com/static/-1449140022/email.png">
 
         <style type="text/css">.qmbox style, .qmbox script, .qmbox head, .qmbox link, .qmbox meta {
                 display: none !important;
