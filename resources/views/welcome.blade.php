@@ -29,7 +29,7 @@
     ============================================= -->
     <title>Slionx | The Multi-Purpose HTML5 Template</title>
     <style>
-        #video-slider-play {
+        .video-slider-play {
             position: absolute;
             left: 45%;
             top: auto;
@@ -46,17 +46,17 @@
             text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
         }
 
-        #video-slider-play i:nth-of-type(1) {
+        .video-slider-play i:nth-of-type(1) {
             position: relative;
             left: 2px;
         }
 
-        #video-slider-play i:nth-of-type(2),
-        #video-slider-play.video-played i:nth-of-type(1) { display: none; }
+        .video-slider-play i:nth-of-type(2),
+        .video-slider-play.video-played i:nth-of-type(1) { display: none; }
 
-        #video-slider-play.video-played i:nth-of-type(2) { display: block; }
+        .video-slider-play.video-played i:nth-of-type(2) { display: block; }
 
-        #video-slider-volume {
+        .video-slider-volume {
             position: absolute;
             left: 55%;
             top: auto;
@@ -73,15 +73,15 @@
             text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
         }
 
-        #video-slider-volume i:nth-of-type(1) {
+        .video-slider-volume i:nth-of-type(1) {
             position: relative;
             left: 2px;
         }
 
-        #video-slider-volume i:nth-of-type(2),
-        #video-slider-volume.video-played i:nth-of-type(1) { display: none; }
+        .video-slider-volume i:nth-of-type(2),
+        .video-slider-volume.video-played i:nth-of-type(1) { display: none; }
 
-        #video-slider-volume.video-played i:nth-of-type(2) { display: block; }
+        .video-slider-volume.video-played i:nth-of-type(2) { display: block; }
 
 
         .revo-slider-emphasis-text {
@@ -139,7 +139,12 @@
                 <nav id="primary-menu" class="dark">
 
                     <ul>
-                        <li class="current"><a href="index.html"><div>Home</div></a>
+                        <li class="current"><a href="l.cn"><div>welcole</div></a></li>
+                        @if (Route::has('login'))
+                            <li ><a href="{{ url('/login') }}"><div>login</div></a>
+                            <li ><a href="{{ url('/register') }}"><div>register</div></a>
+                        @endif
+                        <li><a href="index.html"><div>Home</div></a>
                             <ul>
                                 <li><a href="index-corporate.html"><div>Home - Corporate</div></a>
                                     <ul>
@@ -770,7 +775,7 @@
 
             <div class="swiper-container swiper-parent">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide dark" style="background-image: url('{{ asset('welcome/images/5.jpg') }}');">
+                    <div class="swiper-slide dark" style="background-image: url('{{ asset('welcome/images/7.jpg') }}');">
                         <div class="container clearfix">
                             <div class="slider-caption slider-caption-center">
                                 <h2 data-caption-animate="fadeInUp">Welcome to Slionx</h2>
@@ -778,24 +783,46 @@
                             </div>
                         </div>
                     </div>
+
+
+
+                    <div class="swiper-slide">
+                        <div class="container clearfix">
+                            <div class="slider-caption slider-caption-center">
+                                <h2 data-caption-animate="fadeInUp"></h2>
+                                <p data-caption-animate="fadeInUp" data-caption-delay="200"></p>
+                            </div>
+                            <a class="video-slider-play" href="#"><i class="icon-line-play"></i><i class="icon-line-pause"></i></a>
+                            <a class="video-slider-volume" href="#"><i class="icon-line-volume"></i><i class="icon-line2-volume-off"></i></a>
+                        </div>
+                        <div class="video-wrap">
+                            <video class="slide-video" poster="" preload="auto" loop>
+                               {{-- <source src='images/videos/explore.webm' type='video/webm' />--}}
+                                <source src='{{ asset('welcome/mp4/Gareth Emery feat. Christina Novelli - Dynamite (Official Video).webm') }}' type='video/mp4' />
+                            </video>
+                            <div class="video-overlay" style="/*background-color: rgba(0,0,0,0.55);*/"></div>
+                        </div>
+                    </div>
+
                     <div class="swiper-slide dark">
                         <div class="container clearfix">
                             <div class="slider-caption slider-caption-center">
                                 <h2 data-caption-animate="fadeInUp" id="title">Beautifully Flexible Mp4</h2>
                                 <p data-caption-animate="fadeInUp" data-caption-delay="200">Looks beautiful &amp; ultra-sharp on Retina Screen Displays. Powerful Layout with Responsive functionality that can be adapted to any screen size.</p>
                             </div>
-                            <a href="#" id="video-slider-play"><i class="icon-line-play"></i><i class="icon-line-pause"></i></a>
-                            <a href="#" id="video-slider-volume"><i class="icon-line2-volume-off"></i><i class="icon-line-volume"></i></a>
+                            <a class="video-slider-play" href="#" ><i class="icon-line-play"></i><i class="icon-line-pause"></i></a>
+                            <a class="video-slider-volume" href="#" ><i class="icon-line-volume"></i><i class="icon-line2-volume-off"></i></a>
                         </div>
                         <div class="video-wrap">
-                            <video id="slide-video" poster="images/videos/explore.jpg" preload="auto" controls loop>
-                                &lt;!&ndash;<source src='images/videos/explore.webm' type='video/webm' />&ndash;&gt;
-                                <source src='{{ asset('welcome/mp4/a45112c9a122c042918ec91532b6e2a6.mp4') }}' type='video/mp4' />
+                            <video class="slide-video" poster="" preload="auto" loop>
+                                {{--<source src='images/videos/explore.webm' type='video/webm' />--}}
+                                <source src='{{ asset('welcome/mp4/Capital Letters.mp4') }}' type='video/mp4' />
                             </video>
                             <div class="video-overlay" style="background-color: rgba(0,0,0,0.55);"></div>
                         </div>
                     </div>
-                    <div class="swiper-slide" style="background-image: url('{{ asset('welcome/images/7.jpg') }}'); background-position: center top;">
+
+                    <div class="swiper-slide" style="background-image: url('{{ asset('welcome/images/5.jpg') }}'); background-position: center top;">
                         <div class="container clearfix">
                             <div class="slider-caption">
                                 <h2 data-caption-animate="fadeInUp">Great Performance</h2>
@@ -804,6 +831,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div id="slider-arrow-left"><i class="icon-angle-left"></i></div>
                 <div id="slider-arrow-right"><i class="icon-angle-right"></i></div>
                 <div id="slide-number"><div id="slide-number-current"></div><span>/</span><div id="slide-number-total"></div></div>
@@ -933,22 +961,23 @@
 
 <script type="text/javascript" src="{{ asset('welcome/js/typing.js') }}"></script>
 <script>
-    jQuery('#video-slider-play').on('click', function(e){
-        e.preventDefault();
+
+    jQuery('.video-slider-play').on('click', function(e){
+       e.preventDefault();
         if( jQuery(this).hasClass('video-played') ) {
-            jQuery('#slide-video').get(0).play();
+            jQuery(this).parent().parent().find('.slide-video').get(0).play();
         } else {
-            jQuery('#slide-video').get(0).pause();
+            jQuery(this).parent().parent().find('.slide-video').get(0).pause();
         }
         jQuery(this).toggleClass('video-played');
     });
-    $('#slide-video').get(0).volume = 0;
-    jQuery('#video-slider-volume').on('click', function(e){
+
+    jQuery('.video-slider-volume').on('click', function(e){
         e.preventDefault();
         if( jQuery(this).hasClass('video-played') ) {
-            jQuery('#slide-video').get(0).volume = 0;
+            jQuery(this).parent().parent().find('.slide-video').get(0).muted  = false;
         } else {
-            jQuery('#slide-video').get(0).volume = 1;
+            jQuery(this).parent().parent().find('.slide-video').get(0).muted  = true;
         }
         jQuery(this).toggleClass('video-played');
     });
