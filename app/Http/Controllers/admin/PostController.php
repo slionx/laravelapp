@@ -176,7 +176,7 @@ class PostController extends Controller {
 		$tags = $this->tag->all(['id','name','count']);
         $categories = $this->category->all(['id','name','count']);
 
-		return view( 'home.post.show', compact( 'post','tags','categories' ) );
+		return view( 'desktop.post.show', compact( 'post','tags','categories' ) );
 	}
 
 
@@ -400,7 +400,10 @@ class PostController extends Controller {
 			             ->paginate(5);*/
 			foreach ( $post as $index => $item ) {
 				$post[$index] = $item;
-				$post[$index]['category_name'] = $this->category->find($item->post_category)->name;
+				if($item->post_category){
+                    $post[$index]['category_name'] = $this->category->find($item->post_category)->name;
+                }
+
 			}
 		}
 

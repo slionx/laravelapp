@@ -6,7 +6,8 @@
         <div class="widget clearfix">
 
             <h4>Flickr Photostream</h4>
-            <div id="flickr-widget" class="flickr-feed masonry-thumbs" data-id="613394@N22" data-count="16" data-type="group" data-lightbox="gallery"></div>
+            <div id="flickr-widget" class="flickr-feed masonry-thumbs" data-id="613394@N22" data-count="16"
+                 data-type="group" data-lightbox="gallery"></div>
 
         </div>
 
@@ -27,7 +28,8 @@
 
                             <div class="spost clearfix">
                                 <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/3.jpg" alt=""></a>
+                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/3.jpg"
+                                                                  alt=""></a>
                                 </div>
                                 <div class="entry-c">
                                     <div class="entry-title">
@@ -41,7 +43,8 @@
 
                             <div class="spost clearfix">
                                 <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/2.jpg" alt=""></a>
+                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/2.jpg"
+                                                                  alt=""></a>
                                 </div>
                                 <div class="entry-c">
                                     <div class="entry-title">
@@ -55,7 +58,8 @@
 
                             <div class="spost clearfix">
                                 <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/1.jpg" alt=""></a>
+                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/1.jpg"
+                                                                  alt=""></a>
                                 </div>
                                 <div class="entry-c">
                                     <div class="entry-title">
@@ -74,7 +78,8 @@
 
                             <div class="spost clearfix">
                                 <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/1.jpg" alt=""></a>
+                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/1.jpg"
+                                                                  alt=""></a>
                                 </div>
                                 <div class="entry-c">
                                     <div class="entry-title">
@@ -88,7 +93,8 @@
 
                             <div class="spost clearfix">
                                 <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/2.jpg" alt=""></a>
+                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/2.jpg"
+                                                                  alt=""></a>
                                 </div>
                                 <div class="entry-c">
                                     <div class="entry-title">
@@ -102,7 +108,8 @@
 
                             <div class="spost clearfix">
                                 <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/3.jpg" alt=""></a>
+                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/3.jpg"
+                                                                  alt=""></a>
                                 </div>
                                 <div class="entry-c">
                                     <div class="entry-title">
@@ -121,7 +128,8 @@
 
                             <div class="spost clearfix">
                                 <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/icons/avatar.jpg" alt=""></a>
+                                    <a href="#" class="nobg"><img class="img-circle" src="images/icons/avatar.jpg"
+                                                                  alt=""></a>
                                 </div>
                                 <div class="entry-c">
                                     <strong>John Doe:</strong> Veritatis recusandae sunt repellat distinctio...
@@ -130,7 +138,8 @@
 
                             <div class="spost clearfix">
                                 <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/icons/avatar.jpg" alt=""></a>
+                                    <a href="#" class="nobg"><img class="img-circle" src="images/icons/avatar.jpg"
+                                                                  alt=""></a>
                                 </div>
                                 <div class="entry-c">
                                     <strong>Mary Jane:</strong> Possimus libero, earum officia architecto maiores....
@@ -139,7 +148,8 @@
 
                             <div class="spost clearfix">
                                 <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/icons/avatar.jpg" alt=""></a>
+                                    <a href="#" class="nobg"><img class="img-circle" src="images/icons/avatar.jpg"
+                                                                  alt=""></a>
                                 </div>
                                 <div class="entry-c">
                                     <strong>Site Admin:</strong> Deleniti magni labore laboriosam odio...
@@ -158,7 +168,8 @@
         <div class="widget clearfix">
 
             <h4>Portfolio Carousel</h4>
-            <div id="oc-portfolio-sidebar" class="owl-carousel carousel-widget" data-items="1" data-margin="10" data-loop="true" data-nav="false" data-autoplay="5000">
+            <div id="oc-portfolio-sidebar" class="owl-carousel carousel-widget" data-items="1" data-margin="10"
+                 data-loop="true" data-nav="false" data-autoplay="5000">
 
                 <div class="oc-item">
                     <div class="iportfolio">
@@ -167,7 +178,8 @@
                                 <img src="images/portfolio/4/3.jpg" alt="Mac Sunglasses">
                             </a>
                             <div class="portfolio-overlay">
-                                <a href="http://vimeo.com/89396394" class="center-icon" data-lightbox="iframe"><i class="icon-line-play"></i></a>
+                                <a href="http://vimeo.com/89396394" class="center-icon" data-lightbox="iframe"><i
+                                            class="icon-line-play"></i></a>
                             </div>
                         </div>
                         <div class="portfolio-desc center nobottompadding">
@@ -184,7 +196,8 @@
                                 <img src="images/portfolio/4/1.jpg" alt="Open Imagination">
                             </a>
                             <div class="portfolio-overlay">
-                                <a href="images/blog/full/1.jpg" class="center-icon" data-lightbox="image"><i class="icon-line-plus"></i></a>
+                                <a href="images/blog/full/1.jpg" class="center-icon" data-lightbox="image"><i
+                                            class="icon-line-plus"></i></a>
                             </div>
                         </div>
                         <div class="portfolio-desc center nobottompadding">
@@ -204,17 +217,20 @@
             <h4>标签云</h4>
             <div class="tagcloud">
                 @forelse ($tags as $tag)
-                        <a href="{{ route('post.list.tag',['tag',$tag->id]) }}">
-                            @if(($tag->id % 4) == 0)
-                                 {{ $tag->name }} <span class="badge badge-danger"> {{ $tag->count }} </span></a>
-                        @elseif(($tag->id % 4) == 1)
-                             {{ $tag->name }} <span class="badge badge-info"> {{ $tag->count }} </span></a>
-                        @elseif(($tag->id % 4) == 2)
-                             {{ $tag->name }} <span class="badge badge-success"> {{ $tag->count }} </span></a>
-                        @elseif(($tag->id % 4) == 3)
-                             {{ $tag->name }} <span class="badge badge-warning"> {{ $tag->count }} </span></a>
-                        @else
-                        @endif
+                    @if(($tag->id % 4) == 0)
+                        <a href="{{ route('post.list.tag',['tag',$tag->id]) }}">{{ $tag->name }} <span
+                                    class="badge"> {{ $tag->count }} </span></a>
+                    @elseif(($tag->id % 4) == 1)
+                        <a href="{{ route('post.list.tag',['tag',$tag->id]) }}">{{ $tag->name }} <span
+                                    class="badge"> {{ $tag->count }} </span></a>
+                    @elseif(($tag->id % 4) == 2)
+                        <a href="{{ route('post.list.tag',['tag',$tag->id]) }}">{{ $tag->name }} <span
+                                    class="badge"> {{ $tag->count }} </span></a>
+                    @elseif(($tag->id % 4) == 3)
+                        <a href="{{ route('post.list.tag',['tag',$tag->id]) }}">{{ $tag->name }} <span
+                                    class="badge"> {{ $tag->count }} </span></a>
+                    @else
+                    @endif
                 @empty
                 @endforelse
             </div>
