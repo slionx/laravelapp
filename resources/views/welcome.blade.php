@@ -783,9 +783,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                     <div class="swiper-slide">
                         <div class="container clearfix">
                             <div class="slider-caption slider-caption-center">

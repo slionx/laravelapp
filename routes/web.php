@@ -14,10 +14,10 @@
 // User Auth
 Auth::routes();
 
-    Route::get('password/reset', function () {
+   /* Route::get('password/reset', function () {
     	$token =  12321321332121323;
         return view('email.resetpassword',compact( 'token' ));
-    });
+    });*/
 
 
 Route::post('password/change', 'HomeController@changePassword')->middleware('auth');

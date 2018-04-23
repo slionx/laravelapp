@@ -393,17 +393,22 @@ class PostController extends Controller {
 			             ->paginate(5);
 
 		}else{
-			$post = $this->post->paginate( 5 );
-			foreach ( $post as $k => $item ) {
-				//$post[ $k ]['tag_count']     = $this->post->find( $item->id )->getTag()->count();
-				//$post[ $k ]['category_name'] = $this->category->find( $item->post_category )->name;
+			$post = $this->post->with(['tag'])->orderBy('created_at', 'desc')->paginate( 2 );
+
+			/*$post = Posts::with(['tag'])
+			             ->orderBy('created_at', 'asc')
+			             ->paginate(5);*/
+			foreach ( $post as $index => $item ) {
+				$post[$index] = $item;
+				$post[$index]['category_name'] = $this->category->find($item->post_category)->name;
 			}
 		}
 
 
 		$tags = $this->tag->all(['id','name','count']);
 		$categories = $this->category->all(['id','name','count']);
-		return view( 'home.post.list', compact( 'post' ,'tags','categories') );
+		//return view( 'home.post.list', compact( 'post' ,'tags','categories') );
+		return view( 'desktop.post.list', compact( 'post' ,'tags','categories') );
 	}
 
 	/**
