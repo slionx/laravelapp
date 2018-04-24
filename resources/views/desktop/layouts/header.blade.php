@@ -221,7 +221,7 @@
                         </div>
                     </li>
 
-                    <li><a href="#"><div><i class="icon-user"></i>User Profile</div></a>
+                    <li><a href="#"><div><i class="icon-user"></i>{{ auth()->user()->name or 'User Profile'}}</div></a>
                         <ul>
                             @guest
                                 <li ><a href="{{ url('/login') }}"><div>login</div></a></li>

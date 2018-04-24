@@ -47,8 +47,12 @@ Route::post('home/changepw', 'HomeController@changePassword')->name('changePassw
 
 Route::get('email/verify/{token}','admin\UserController@verify')->name('email.verify');
 
+/*Route::get('post/list/', function () {
+    echo 1;
+})->name('post.list');*/
 
 Route::get('post/list/', 'admin\PostController@list')->name('post.list');
+
 Route::get('post/list/{tag}/{id}/', 'admin\PostController@list')->name('post.list.tag');
 Route::get('post/list/{category}/{id}', 'admin\PostController@list')->name('post.list.category');
 Route::get('post/{post}/', 'admin\PostController@show')->name('post.show');

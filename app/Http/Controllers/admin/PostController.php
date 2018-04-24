@@ -34,7 +34,7 @@ class PostController extends Controller {
 		Posts $posts,
 		Tag $Tag
 	) {
-		$this->middleware('isadmin');
+		$this->middleware('isadmin')->except('list','show');
 		$this->category = $Category;
 		$this->tag      = $Tag;
 		$this->post     = $Post;
@@ -410,8 +410,8 @@ class PostController extends Controller {
 			$post = $this->post->with(['tag'])->orderBy('created_at', 'desc')->paginate( 4 );
 
 			/*$post = Posts::with(['tag'])
-			             ->orderBy('created_at', 'asc')
-			             ->paginate(5);*/
+			             ->orderBy('created_at', 'desc')
+			             ->paginate(4);*/
 			foreach ( $post as $index => $item ) {
 				$post[$index] = $item;
 				if($item->post_category){
