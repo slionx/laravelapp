@@ -222,7 +222,7 @@
 
             </div><!-- .postcontent end -->
 
-            @include('desktop.layouts.sidebar')
+            @include('desktop.post.sidebar')
 
         </div>
 

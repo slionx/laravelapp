@@ -48,14 +48,12 @@
                 </ol>
             </div>
 
-        </section><!-- #page-title end -->
+        </section>
+        <!-- #page-title end -->
 
         @yield('content')
 
         @include('desktop.layouts.footer')
-
-
-
 
 </div><!-- #wrapper end -->
 
@@ -71,7 +69,6 @@
 <!-- Footer Scripts
 ============================================= -->
 <script type="text/javascript" src="{{ asset('welcome/js/functions.js') }}"></script>
-
 
 </body>
 </html>

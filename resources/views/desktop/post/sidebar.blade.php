@@ -5,10 +5,47 @@
 
         <div class="widget clearfix">
 
-            <h4>Flickr Photostream</h4>
-            <div id="flickr-widget" class="flickr-feed masonry-thumbs" data-id="613394@N22" data-count="16"
-                 data-type="group" data-lightbox="gallery"></div>
+            <h4>Portfolio Carousel</h4>
+            <div id="oc-portfolio-sidebar" class="owl-carousel carousel-widget" data-items="1" data-margin="10"
+                 data-loop="true" data-nav="false" data-autoplay="5000">
 
+                <div class="oc-item">
+                    <div class="iportfolio">
+                        <div class="portfolio-image">
+                            <a href="#">
+                                <img src="images/portfolio/4/3.jpg" alt="Mac Sunglasses">
+                            </a>
+                            <div class="portfolio-overlay">
+                                <a href="http://vimeo.com/89396394" class="center-icon" data-lightbox="iframe"><i
+                                            class="icon-line-play"></i></a>
+                            </div>
+                        </div>
+                        <div class="portfolio-desc center nobottompadding">
+                            <h3><a href="portfolio-single-video.html">Mac Sunglasses</a></h3>
+                            <span><a href="#">Graphics</a>, <a href="#">UI Elements</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="oc-item">
+                    <div class="iportfolio">
+                        <div class="portfolio-image">
+                            <a href="portfolio-single.html">
+                                <img src="images/portfolio/4/1.jpg" alt="Open Imagination">
+                            </a>
+                            <div class="portfolio-overlay">
+                                <a href="images/blog/full/1.jpg" class="center-icon" data-lightbox="image"><i
+                                            class="icon-line-plus"></i></a>
+                            </div>
+                        </div>
+                        <div class="portfolio-desc center nobottompadding">
+                            <h3><a href="portfolio-single.html">Open Imagination</a></h3>
+                            <span><a href="#">Media</a>, <a href="#">Icons</a></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <div class="widget clearfix">
@@ -16,8 +53,8 @@
             <div class="tabs nobottommargin clearfix" id="sidebar-tabs">
 
                 <ul class="tab-nav clearfix">
-                    <li><a href="#tabs-1">Popular</a></li>
-                    <li><a href="#tabs-2">Recent</a></li>
+                    <li><a href="#tabs-1">热门文章</a></li>
+                    <li><a href="#tabs-2">最多点击</a></li>
                     <li><a href="#tabs-3"><i class="icon-comments-alt norightmargin"></i></a></li>
                 </ul>
 
@@ -166,75 +203,28 @@
         </div>
 
         <div class="widget clearfix">
-
-            <h4>Portfolio Carousel</h4>
-            <div id="oc-portfolio-sidebar" class="owl-carousel carousel-widget" data-items="1" data-margin="10"
-                 data-loop="true" data-nav="false" data-autoplay="5000">
-
-                <div class="oc-item">
-                    <div class="iportfolio">
-                        <div class="portfolio-image">
-                            <a href="#">
-                                <img src="images/portfolio/4/3.jpg" alt="Mac Sunglasses">
-                            </a>
-                            <div class="portfolio-overlay">
-                                <a href="http://vimeo.com/89396394" class="center-icon" data-lightbox="iframe"><i
-                                            class="icon-line-play"></i></a>
-                            </div>
-                        </div>
-                        <div class="portfolio-desc center nobottompadding">
-                            <h3><a href="portfolio-single-video.html">Mac Sunglasses</a></h3>
-                            <span><a href="#">Graphics</a>, <a href="#">UI Elements</a></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="oc-item">
-                    <div class="iportfolio">
-                        <div class="portfolio-image">
-                            <a href="portfolio-single.html">
-                                <img src="images/portfolio/4/1.jpg" alt="Open Imagination">
-                            </a>
-                            <div class="portfolio-overlay">
-                                <a href="images/blog/full/1.jpg" class="center-icon" data-lightbox="image"><i
-                                            class="icon-line-plus"></i></a>
-                            </div>
-                        </div>
-                        <div class="portfolio-desc center nobottompadding">
-                            <h3><a href="portfolio-single.html">Open Imagination</a></h3>
-                            <span><a href="#">Media</a>, <a href="#">Icons</a></span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
+            <h4>分类</h4>
+            <ul class="nav nav-pills nav-stacked">
+                @forelse ($categories as $category)
+                    <li>
+                        <a href="{{ route('post.list.category',['category',$category->id]) }}">
+                            <span class="badge pull-right">{{ $category->count }}</span>
+                            {{ $category->name }}
+                        </a>
+                    </li>
+                @empty
+                @endforelse
+            </ul>
         </div>
-
         <div class="widget clearfix">
-
             <h4>标签云</h4>
             <div class="tagcloud">
                 @forelse ($tags as $tag)
-                    @if(($tag->id % 4) == 0)
-                        <a href="{{ route('post.list.tag',['tag',$tag->id]) }}">{{ $tag->name }} <span
-                                    class="badge"> {{ $tag->count }} </span></a>
-                    @elseif(($tag->id % 4) == 1)
-                        <a href="{{ route('post.list.tag',['tag',$tag->id]) }}">{{ $tag->name }} <span
-                                    class="badge"> {{ $tag->count }} </span></a>
-                    @elseif(($tag->id % 4) == 2)
-                        <a href="{{ route('post.list.tag',['tag',$tag->id]) }}">{{ $tag->name }} <span
-                                    class="badge"> {{ $tag->count }} </span></a>
-                    @elseif(($tag->id % 4) == 3)
-                        <a href="{{ route('post.list.tag',['tag',$tag->id]) }}">{{ $tag->name }} <span
-                                    class="badge"> {{ $tag->count }} </span></a>
-                    @else
-                    @endif
+                    <a href="{{ route('post.list.tag',['tag',$tag->id]) }}">{{ $tag->name }} <span
+                                class="badge"> {{ $tag->count }} </span></a>
                 @empty
                 @endforelse
             </div>
-
         </div>
 
     </div>

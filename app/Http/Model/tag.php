@@ -17,7 +17,7 @@ class Tag extends Model
     }
 
 	public function getPosts(){
-		return $this->Posts()->get();
+		return $this->Posts()->paginate(4);
 	}
 
 	public function deletePosts( $tag ) {

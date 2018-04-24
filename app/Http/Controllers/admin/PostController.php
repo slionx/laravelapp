@@ -13,7 +13,6 @@ use App\Repositories\PostRepository as Post;
 use App\Http\Model\Posts;
 use App\Repositories\CategoryRepository as Category;
 use App\Repositories\TagRepository as Tag;
-
 use Matriphe\Imageupload\Imageupload;
 use Image;
 use Illuminate\Auth\Middleware;
@@ -172,7 +171,13 @@ class PostController extends Controller {
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
 	public function show( $id ) {
-		$post = $this->post->find( $id );
+		//$post = $this->post->find( $id );
+
+
+		$post = Posts::with(['tag'])->find($id);
+		//dd($post->tag);
+		$post['category_name'] = $this->category->find($post->post_category)->name;
+
 		$tags = $this->tag->all(['id','name','count']);
         $categories = $this->category->all(['id','name','count']);
 
@@ -376,11 +381,20 @@ class PostController extends Controller {
 	public function list($param=null,$id=null) {
 		if($param == "tag"){
 			$post = $this->tag->find($id)->getPosts();
-
-			dd($post);
-
+			foreach ( $post as $index => $item ) {
+				$post[$index] = $item;
+				if($item->post_category){
+					$post[$index]['category_name'] = $this->category->find($item->post_category)->name;
+				}
+			}
 		}elseif($param == "category"){
-			$post = Posts::where('post_category', '=', $id)->paginate(5);
+			$post = Posts::where('post_category', '=', $id)->paginate(4);
+			foreach ( $post as $index => $item ) {
+				$post[$index] = $item;
+				if($item->post_category){
+					$post[$index]['category_name'] = $this->category->find($item->post_category)->name;
+				}
+			}
 		}elseif($param == "search"){
 			$key = trim($id);
 			if ($key == '')
@@ -390,10 +404,10 @@ class PostController extends Controller {
 			             ->orWhere('post_slug', 'like', $key)
 			             ->with(['tag', 'category'])
 			             ->orderBy('created_at', 'desc')
-			             ->paginate(5);
+			             ->paginate(4);
 
 		}else{
-			$post = $this->post->with(['tag'])->orderBy('created_at', 'desc')->paginate( 2 );
+			$post = $this->post->with(['tag'])->orderBy('created_at', 'desc')->paginate( 4 );
 
 			/*$post = Posts::with(['tag'])
 			             ->orderBy('created_at', 'asc')
@@ -403,7 +417,6 @@ class PostController extends Controller {
 				if($item->post_category){
                     $post[$index]['category_name'] = $this->category->find($item->post_category)->name;
                 }
-
 			}
 		}
 
