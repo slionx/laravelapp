@@ -95,7 +95,19 @@
 
                                 </div>
                             </div>
-                            {!! $html->table() !!}
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            {!! $html->table(['class' => 'table table-striped table-bordered table-hover table-checkable order-column']) !!}
                         </div>
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->

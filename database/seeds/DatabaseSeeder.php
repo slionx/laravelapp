@@ -12,10 +12,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-	    factory('App\Http\Model\User', 50)->create()->each(function($u) {
+/*	    factory('App\Http\Model\User', 50)->create()->each(function($u) {
 		    $u->posts()->save(factory('App\Http\Model\Post')->make());
-	    });
-          //$this->call(UsersTableSeeder::class);
+	    });*/
+        $this->call(UserTableSeeder::class);
+        $this->call(RoleTableSeeder::class);
+
            /*DB::table('users')->insert([
             'name' => str_random(10),
             'email' => str_random(10).'@gmail.com',

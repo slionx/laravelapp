@@ -81,6 +81,9 @@ php artisan migrate
 composer dumpautoload
 
 php artisan migrate:refresh  刷新表
+
+php artisan migrate:refresh --seed
+
 ------------追加字段----------------
 假设是users表
 php artisan make:migration add_votes_to_users_table --table=users
@@ -90,6 +93,13 @@ Schema::table('users', function ($table) {
 });
 最后
 php artisan migrate
+
+php artisan make:migration notices    追加字段
+
+php artisan migrate:refresh --seed
+
+php artisan make:migrition
+
 ------------追加字段----------------
 
 

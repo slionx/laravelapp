@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
 	        $table->smallInteger('is_active')->default(0);
 	        $table->string('confirmation_token')->default();
 	        $table->string('avatar')->nullable();
-	        $table->string('comments')->default();
 	        //$table->json('setting');
 	        $table->rememberToken();
             $table->timestamps();

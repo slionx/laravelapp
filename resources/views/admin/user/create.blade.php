@@ -181,45 +181,56 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form action="{{ route('user.store') }}" method="post" class="form-horizontal form-bordered">
+                            <form action="{{ route('user.store') }}" method="post" class="form-horizontal form-bordered" enctype="multipart/form-data">
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="col-sm-3 control-label">{{ trans( 'common.name' ) }}</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
                                             <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="用户名为必填项，最大长度255。"></i>
-                                            <input type="text" name="menu_name" value="{{ old('name') }}" class="form-control" id="name" placeholder="路径">
-                                            <span  class="help-block">{{ $errors->has('name') ? ' 路径名称为必填项，最大长度255。' : '' }}</span>
+                                            <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="用户名">
+                                            <span  class="help-block">{{ $errors->has('name') ? ' 用户名为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group {{ $errors->has('display_name') ? ' has-error' : '' }}">
-                                    <label for="display_name" class="col-sm-3 control-label">密码</label>
-                                    <div class="col-sm-4">
-                                        <div class="input-icon right">
-                                            <i class="{{ $errors->has('display_name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="排序为必填项，序号只能为数字。"></i>
-                                            <input type="text" name="display_name" value="{{ old('display_name') }}" class="form-control" id="display_name" placeholder="显示名称">
-                                            <span  class="help-block">{{ $errors->has('display_name') ? ' 显示名称为必填项，序号只能为数字。' : '' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group {{ $errors->has('parentid') ? ' has-error' : '' }}">
+                                <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="parentid" class="col-sm-3 control-label">邮箱</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('parentid') ? ' fa fa-warning tooltips' : '' }}" data-original-title="排序为必填项，序号只能为数字。"></i>
-                                            <input type="text" name="parentid" value="{{ old('parentid') }}" class="form-control" id="parentid" placeholder="父级id">
-                                            <span  class="help-block">{{ $errors->has('parentid') ? ' 父级id为必填项，序号只能为数字。' : '' }}</span>
+                                            <i class="{{ $errors->has('email') ? ' fa fa-warning tooltips' : '' }}" data-original-title="邮箱为必填项"></i>
+                                            <input type="text" name="email" value="{{ old('email') }}" class="form-control" id="parentid" placeholder="邮箱">
+                                            <span  class="help-block">{{ $errors->has('email') ? ' 邮箱为必填项' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group {{ $errors->has('icon') ? ' has-error' : '' }}">
-                                    <label for="sort" class="col-sm-3 control-label">图标</label>
+                                <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <label for="display_name" class="col-sm-3 control-label">密码</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('icon') ? ' fa fa-warning tooltips' : '' }}" data-original-title="排序为必填项，序号只能为数字。"></i>
-                                            <input type="text" name="icon" value="{{ old('icon') }}" class="form-control" id="icon" placeholder="图标">
-                                            <span  class="help-block">{{ $errors->has('icon') ? ' 排序为必填项。' : '' }}</span>
-                                            <span  class="help-block">更多图标请查看 <a href="http://fontawesome.io/icons/" target="_black">Font Awesome</a></span>
+                                            <i class="{{ $errors->has('password') ? ' fa fa-warning tooltips' : '' }}" data-original-title="密码为必填项"></i>
+                                            <input type="password" name="password" class="form-control" id="password" placeholder="密码">
+                                            <span  class="help-block">{{ $errors->has('password') ? ' 显示名称为必填项，序号只能为数字。' : '' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group {{ $errors->has('repassword') ? ' has-error' : '' }}">
+                                    <label for="display_name" class="col-sm-3 control-label">确认密码</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-icon right">
+                                            <i class="{{ $errors->has('repassword') ? ' fa fa-warning tooltips' : '' }}" data-original-title="确认密码为必填项"></i>
+                                            <input type="password" name="repassword" class="form-control" id="repassword" placeholder="确认密码">
+                                            <span  class="help-block">{{ $errors->has('repassword') ? ' 显示名称为必填项，序号只能为数字。' : '' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group {{ $errors->has('avatar') ? ' has-error' : '' }}">
+                                    <label for="sort" class="col-sm-3 control-label">头像</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-icon right">
+                                            <i class="{{ $errors->has('avatar') ? ' fa fa-warning tooltips' : '' }}" data-original-title="头像为必填项"></i>
+                                            <input type="file" name="avatar" value="{{ old('avatar') }}" class="form-control" id="avatar" placeholder="头像">
+                                            <span  class="help-block">{{ $errors->has('avatar') ? ' 头像为必填项。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>

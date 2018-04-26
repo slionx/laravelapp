@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Request;
 use Validator;
 use Illuminate\Support\Facades\Auth;
@@ -82,8 +83,9 @@ class UserController extends Controller {
 				$user_data[$k]['role'] = '';
 			}
 			$user_data[$k]['is_active'] = $user_data[$k]['is_active'] ? '是' : '否';
+			$user_data[$k]['avatar'] = "<img src='..".$user_data[$k]['avatar']."' width='50'>";
 		}
-		return DataTables::of( $user_data )
+		return DataTables::of( $user_data )->escapeColumns([])
 		                 ->addColumn( 'action', function ( $user ) {
 			                 return getActionButtonAttribute( $user->id,$this->module);
 		                 } )
@@ -92,6 +94,46 @@ class UserController extends Controller {
 
 	public function create() {
 		return view( 'admin.user.create' );
+	}
+
+	public function store(Request $request)
+	{
+
+		$this->validate($request, [
+			'name'=>'required|regex:/\w{8,20}/',
+			'email'=>'required|email',
+			'password'=>'same:repassword'
+		],[
+			'name.required'=>'用户名不能省略',
+			'name.regex'=>'用户规则不正确 请填写8至20位字母数字下划线',
+			'email.required'=>'邮箱不能省略',
+			'email.email'=>'邮箱格式不正确',
+			'password.same'=>'两次密码不不一致',
+		]);
+
+		if($request->hasFile('avatar')){
+			$path = './uploads/avatar/'.date('Ymd').'/';
+			$suffix = $request->file('avatar')->guessClientExtension();
+			$filename = time().rand(100000,999999).'.'.$suffix;
+			$request->file('avatar')->move($path,$filename);
+
+			$request->avatar = trim($path.$filename,'.');
+		}
+
+		$user = new \App\Http\Model\User();
+		$user->name = $request->name;
+		$user->email = $request->email;
+		$user->password = Hash::make($request->password);
+		$user->avatar = $request->avatar;
+
+		if($user->save()){
+			return redirect()->route( 'user.index' )->with( 'success', '用户' . $request['name'] . '创建成功' );
+		}else{
+			return redirect()->route( 'user.index' )->with( 'success', '用户' . $request['name'] . '创建成功' );
+		}
+
+		dd($request);
+
 	}
 
 	public function edit( $id ) {
@@ -151,9 +193,9 @@ class UserController extends Controller {
 
 		$milliseconds = getMilliseconds();
 
-		$key = 'user/' . $user->name . "/avatar/$milliseconds." . $request->file( 'image' )->guessClientExtension();
+		$path = ".upload/avatar/$milliseconds." . $request->file( 'image' )->guessClientExtension();
 
-		if ( $url = $this->uploadImage( $user, $request, $key ) ) {
+		if ( $url = $this->uploadImage( $user, $request, $path ) ) {
 			$user->avatar = $url;
 		}
 		if ( $user->save() ) {
@@ -165,26 +207,26 @@ class UserController extends Controller {
 		return back()->with( 'error', '修改失败' );
 	}
 
-	private function uploadImage( User $user, Request $request, $key, $max = 1024, $fileName = 'image' ) {
+	private function uploadImage( User $user, Request $request, $path, $max = 3072, $fileName = 'image' ) {
 		$this->checkPolicy( 'manager', $user );
 		$this->validate( $request, [
 			$fileName => 'required|image|mimes:jpeg,jpg,png|max:' . $max,
 		] );
 		$image = $request->file( $fileName );
 
-		return $this->imageRepository->uploadImage( $image, $key );
+		return $this->imageRepository->uploadImage( $image, $path );
 	}
 
 	public function verify( $token ) {
 		$user = User::where( 'confirmation_token', $token )->first();
 		if ( is_null( $user ) ) {
-			return redirect( '/' );
+			return redirect( '/post/list' );
 		} else {
 			$user->is_active          = 1;
 			$user->confirmation_token = str_random( 40 );
 			$user->save();
 			Auth::login( $user );
-			return redirect( '/home' );
+			return redirect( '/post/list' );
 		}
 	}
 

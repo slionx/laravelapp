@@ -13,17 +13,34 @@ class CreateNoticeTable extends Migration
      */
     public function up()
     {
-        Schema::create('notices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title',50)->default("");
-            $table->string('content',1000)->default("");
-            $table->timestamps();
-        });
-        Schema::create('users_notices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->default(0);
-            $table->integer('notice_id')->default(0);
-        });
+
+            Schema::create('notices', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('title')->default("");
+                $table->string('content')->default("");
+                //$table->string('content')->after('asd');
+
+                $table->string('asd')->default("");
+
+                $table->timestamps();
+            });
+
+
+            Schema::create('users_notices', function (Blueprint $table) {
+                $table->integer('user_id')->unsigned();
+                $table->integer('notice_id')->unsigned();
+                $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('cascade');
+                $table->foreign('notice_id')
+                    ->references('id')
+                    ->on('notices')
+                    ->onDelete('cascade');
+                $table->primary(['user_id', 'notice_id']);
+            });
+
+
     }
 
     /**
@@ -33,7 +50,11 @@ class CreateNoticeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notice');
-        Schema::dropIfExists('users_notices');
+        if (Schema::hasTable('notice')) {
+            Schema::dropIfExists('notice');
+        }
+        if (Schema::hasTable('users_notices')) {
+            Schema::dropIfExists('users_notices');
+        }
     }
 }
