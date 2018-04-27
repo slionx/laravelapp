@@ -102,7 +102,7 @@
                                 <form class="form-horizontal" action="{{ route('welcome.upload') }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="path">上传:</label>
+                                    <label class="col-md-3 control-label" for="file">文件上传:</label>
                                     <div class="col-md-5">
                                         <input type="file" name="file" class="form-control"> </div>
                                 </div>
@@ -125,9 +125,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="path">路径:</label>
+                                    <label class="col-md-3 control-label" for="path">{{ trans('common.welcome') }}路径:</label>
                                     <div class="col-md-5">
-                                        <input type="text" name="path" class="form-control"> </div>
+                                        <input type="text" name="path" value="{{ old('path') }}" class="form-control"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label"></label>

@@ -19,10 +19,24 @@ class WelcomeController extends Controller
 	}
 
 	public function store( Request $request  ) {
-		//echo $request->type;
-		Cache::forever('welcomeType', $request->type);
-		Cache::forever('videoAddress', $request->videoAddress);
-		echo Cache::get('videoAddress');
+
+		$this->validate($request, [
+			'type'=>'required',
+			'path'=>'required',
+		],[
+			'type.required'=>'欢迎页类型为必填项',
+			'path.required'=>'欢迎页路径为必填项',
+		]);
+
+
+		$welcome = new \App\Http\Model\Welcome();
+		$welcome->type = $request->type;
+		$welcome->path = $request->path;
+		if($welcome->save()){
+			return redirect()->route( 'welcome.index' )->with( 'success', '幻灯创建成功' );
+		}else {
+			return redirect()->route('welcome.index')->with('error', '幻灯创建成功');
+		}
 		
 	}
 
@@ -37,7 +51,6 @@ class WelcomeController extends Controller
 	 */
 	public function upload(Request $request){
 
-
 		$this->validate($request, [
 			'file'=>'required|mimetypes:video/mp4,image/jpeg,image/jpg,image/png',
 		],[
@@ -50,21 +63,15 @@ class WelcomeController extends Controller
 			$suffix = $request->file('file')->guessClientExtension();
 			$filename = time().'.'.$suffix;
 			$result = $request->file('file')->move($path,$filename);
-
-
+			$path = trim($path.$filename,'.');
 			if($result){
-				return redirect()->route( 'welcome.create' )->with( 'success', '文件上传成功:'.$path.$filename );
+				return redirect()->route( 'welcome.create' )->with( 'success', '文件上传成功:'.$path );
 			}else{
 				return redirect()->route( 'welcome.create' )->with( 'error',  '文件上传失败' );
 			}
-
-
+		}else{
+			return redirect()->route( 'welcome.create' )->with( 'error',  '不是正确的文件' );
 		}
-
-
-
-
-
 	}
 
 	public function uploadVideo(  ) {
