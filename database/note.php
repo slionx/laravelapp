@@ -54,7 +54,7 @@ app('Illuminate\Hashing\BcryptHasher');
 
 php artisan key:generate
 
-php artisan make:controller tag -r
+php artisan make:controller admin/SlideController -r  //资源路由
 
 php artisan help make:controller
 
@@ -83,6 +83,8 @@ composer dumpautoload
 php artisan migrate:refresh  刷新表
 
 php artisan migrate:refresh --seed
+
+ php artisan make:migration add_asd_to_notice --table=notices
 
 ------------追加字段----------------
 假设是users表

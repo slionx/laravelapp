@@ -130,7 +130,7 @@ class UserController extends Controller {
 			return redirect()->route( 'user.index' )->with( 'success', '用户' . $request['name'] . '创建成功' );
 		}else{
 			return redirect()->route( 'user.index' )->with( 'success', '用户' . $request['name'] . '创建成功' );
-		}
+			error
 
 		dd($request);
 

@@ -73,9 +73,10 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	Route::resource('welcome' ,'WelcomeController');
 
 	//Route::get('/welcome/index', 'WelcomeController@index')->name('welcome.index');
-	Route::get('uploadSlideImages', 'WelcomeController@create')->name('G_uploadImages');
+	Route::post('welcome/upload', 'WelcomeController@upload')->name('welcome.upload');
+
 	Route::post('uploadSlideImages', 'WelcomeController@uploadSlideImages')->name('P_uploadImages');
-	//Route::post('/welcome', 'WelcomeController@store')->name('welcome.store');
+
 
     Route::get('/', 'PostController@index')->name('admin');
 

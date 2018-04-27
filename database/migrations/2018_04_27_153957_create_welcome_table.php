@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Notices extends Migration
+class CreateWelcomeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,12 @@ class Notices extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('welcome', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('type');
+            $table->string('path');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class Notices extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('welcome');
     }
 }

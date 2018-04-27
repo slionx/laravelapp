@@ -77,6 +77,42 @@
                             </div>
                         </div>
                         <div class="portlet-body">
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                                @if (count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                <form class="form-horizontal" action="{{ route('welcome.upload') }}" method="post" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="path">上传:</label>
+                                    <div class="col-md-5">
+                                        <input type="file" name="file" class="form-control"> </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"></label>
+                                    <div class="col-md-5">
+                                        <button type="submit" class="btn red btn-lg" > 提交 </button>
+                                    </div>
+                                </div>
+                            </form>
                             <form class="form-horizontal" action="{{ route('welcome.store') }}" method="post">
                                 {{ csrf_field() }}
                                 <div class="form-group">
@@ -89,59 +125,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="title">视频地址:</label>
+                                    <label class="col-md-3 control-label" for="path">路径:</label>
                                     <div class="col-md-5">
-                                        <input type="text" name="videoAddress" class="form-control" @if(Cache::has('videoAddress')) value="{{ Cache::get('videoAddress') }}"  @else value="http://" @endif placeholder="http://"> </div>
+                                        <input type="text" name="path" class="form-control"> </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="title">Align:</label>
+                                    <label class="col-md-3 control-label"></label>
                                     <div class="col-md-5">
-                                        <select id="growl_align" class="form-control input-small input-inline">
-                                            <option value="left">Left</option>
-                                            <option value="right">Right</option>
-                                            <option value="center">Center</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="title">Width:</label>
-                                    <div class="col-md-5">
-                                        <input id="growl_width" type="text" class="form-control input-small input-inline" value="250" placeholder="enter a width ..."> </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="title">Allow dismiss ?</label>
-                                    <div class="col-md-5">
-                                        <div class="checkbox-list">
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" id="glowl_dismiss" checked="" value="1"> </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="title">Life:</label>
-                                    <div class="col-md-5">
-                                        <select id="growl_delay" class="form-control input-small input-inline">
-                                            <option value="5000">5 second</option>
-                                            <option value="10000">10 seconds</option>
-                                            <option value="12000">12 seconds</option>
-                                            <option value="15000">15 seconds</option>
-                                        </select>
-                                        <span class="help-block"> Time while the message will be displayed. </span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="title">Offset:</label>
-                                    <div class="col-md-5">
-                                        <select id="growl_offset" class="form-control input-small input-inline">
-                                            <option value="top">Top</option>
-                                            <option value="bottom">Bottom</option>
-                                        </select>
-                                        <input id="growl_offset_val" type="text" class="form-control input-small input-inline" value="100" placeholder="enter offset ..."> </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="title"></label>
-                                    <div class="col-md-5">
-                                        <button type="submit" class="btn red btn-lg" > Show Notification! </button>
+                                        <button type="submit" class="btn red btn-lg" > 提交 </button>
                                     </div>
                                 </div>
                             </form>

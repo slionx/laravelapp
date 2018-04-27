@@ -15,7 +15,7 @@ class WelcomeController extends Controller
     }
 
 	public function create(){
-		return view('admin.welcome.image');
+		return view('admin.welcome.create');
 	}
 
 	public function store( Request $request  ) {
@@ -32,32 +32,39 @@ class WelcomeController extends Controller
 
 	/**
 	 * @param Request $request
-	 *上传幻灯图片
+	 *上传
 	 * @return $this
 	 */
-	public function uploadSlideImages(Request $request){
+	public function upload(Request $request){
 
-		$validator = Validator::make( $request->all(), [
-			'image' => 'required|image|mimes:jpeg,jpg,png|max:' . 800048,
-		] );
-		if ( $validator->fails() ) {
-			return back()
-				->withErrors( $validator )
-				->withInput();
-		}
-		try {
-			if ( $request->hasFile( 'image' ) ) {
-				if ( $request->file( 'image' )->isValid() ) {
-					$path = $request->image->store( 'slide', 'public' );
-					if ( $path ) {
-						echo '添加成功' . $path;
-						//return back()->with( 'success', '添加成功' );
-					}
-				}
+
+		$this->validate($request, [
+			'file'=>'required|mimetypes:video/mp4,image/jpeg,image/jpg,image/png',
+		],[
+			'file.required'=>'上传文件必须选择',
+			'file.mimetypes'=>'上传文件类型必须是视频或图片',
+		]);
+
+		if($request->hasFile('file')){
+			$path = './uploads/welcome/';
+			$suffix = $request->file('file')->guessClientExtension();
+			$filename = time().'.'.$suffix;
+			$result = $request->file('file')->move($path,$filename);
+
+
+			if($result){
+				return redirect()->route( 'welcome.create' )->with( 'success', '文件上传成功:'.$path.$filename );
+			}else{
+				return redirect()->route( 'welcome.create' )->with( 'error',  '文件上传失败' );
 			}
-		} catch ( Exception $e ) {
-			echo $e->getMessage();
+
+
 		}
+
+
+
+
+
 	}
 
 	public function uploadVideo(  ) {
@@ -66,43 +73,4 @@ class WelcomeController extends Controller
 
 
 
-
-    function  login(){
-        session(['admin'=>null]);
-        return view('auth.login');
-    }
-
-    function changePassword($id){
-        if (Auth::user()->is_admin or (Auth::id() == $id)) {
-            $user =  User::find($id);
-            $rules = array(
-                'password' => 'required_with:old_password|min:6|confirmed',
-                'old_password' => 'min:6',
-            );
-            if (!(Input::get('nickname') == $user->nickname))
-            {
-                $rules['nickname'] = 'required|min:4||unique:users,nickname';
-            }
-            echo 111;exit;
-            $validator = Validator::make(Input::all(), $rules);
-            if ($validator->passes())
-            {
-                if (!(Input::get('old_password') == '')) {
-                    if (!Hash::check(Input::get('old_password'), $user->password)) {
-                        return Redirect::route('user.edit', $id)->with('user', $user)->with('message', array('type' => 'danger', 'content' => 'Old password error'));
-                    } else {
-                        $user->password = Hash::make(Input::get('password'));
-                    }
-                }
-                $user->nickname = Input::get('nickname');
-                $user->save();
-                return Redirect::route('user.edit', $id)->with('user', $user)->with('message', array('type' => 'success', 'content' => 'Modify successfully'));
-            } else {
-                return Redirect::route('user.edit', $id)->withInput()->with('user', $user)->withErrors($validator);
-            }
-        } else {
-            return Redirect::to('/');
-        }
-
-    }
 }

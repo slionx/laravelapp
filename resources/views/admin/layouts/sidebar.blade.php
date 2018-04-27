@@ -162,9 +162,9 @@
             </a>
             <ul class="sub-menu">
                 <li class="nav-item start ">
-                    <a href="{{ route('welcome.index') }}" class="nav-link ">
+                    <a href="{{ route('welcome.create') }}" class="nav-link ">
                         <i class="icon-bar-chart"></i>
-                        <span class="title">欢迎页管理</span>
+                        <span class="title">添加欢迎页素材</span>
                     </a>
                 </li>
                 <li class="nav-item start ">
