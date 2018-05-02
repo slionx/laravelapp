@@ -53,6 +53,7 @@ Route::get('email/verify/{token}','admin\UserController@verify')->name('email.ve
 
 Route::get('post/list/', 'admin\PostController@list')->name('post.list');
 
+Route::get('post/list/{search}/', 'admin\PostController@list')->name('post.list.search');
 Route::get('post/list/{tag}/{id}/', 'admin\PostController@list')->name('post.list.tag');
 Route::get('post/list/{category}/{id}', 'admin\PostController@list')->name('post.list.category');
 Route::get('post/{post}/', 'admin\PostController@show')->name('post.show');
@@ -74,9 +75,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 
 	//Route::get('/welcome/index', 'WelcomeController@index')->name('welcome.index');
 	Route::post('welcome/upload', 'WelcomeController@upload')->name('welcome.upload');
-
-	Route::post('uploadSlideImages', 'WelcomeController@uploadSlideImages')->name('P_uploadImages');
-
 
     Route::get('/', 'PostController@index')->name('admin');
 
@@ -101,11 +99,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 /*    Route::get('menu/{id}/edit', function ($id) {
         //
     })->name('menu.edit');*/
-
-	Route::get('/image', 'PostController@image');
-	Route::get('/upload', 'PostController@upload');
-
-
 
 });
 Route::group(['middleware' => ['web','auth']], function () {

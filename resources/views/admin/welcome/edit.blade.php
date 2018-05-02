@@ -98,36 +98,22 @@
                                         </ul>
                                     </div>
                                 @endif
-
-                                <form class="form-horizontal" action="{{ route('welcome.upload') }}" method="post" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="{{ route('welcome.update',$welcome->id) }}" method="post">
                                 {{ csrf_field() }}
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="file">文件上传:</label>
-                                    <div class="col-md-5">
-                                        <input type="file" name="file" class="form-control"> </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label"></label>
-                                    <div class="col-md-5">
-                                        <button type="submit" class="btn red btn-lg" > 提交 </button>
-                                    </div>
-                                </div>
-                            </form>
-                            <form class="form-horizontal" action="{{ route('welcome.store') }}" method="post">
-                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="put">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="title">{{ trans('common.welcome') }}类型:</label>
                                     <div class="col-md-5">
                                         <select name="type"  class="form-control input-small input-inline">
-                                            <option value="slide">幻灯</option>
-                                            <option value="video">视频</option>
+                                            <option value="slide" @if($welcome->type == 'slide') selected @endif>幻灯</option>
+                                            <option value="video" @if($welcome->type == 'mp4') selected  @endif>视频</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="path">{{ trans('common.welcome') }}路径:</label>
                                     <div class="col-md-5">
-                                        <input type="text" name="path" value="{{ old('path') }}" class="form-control" placeholder="填写在线地址"> </div>
+                                        <input type="text" name="path" value="{{ isset($welcome) ? $welcome->path : old('path') }}" class="form-control" placeholder="填写在线地址"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label"></label>

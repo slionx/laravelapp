@@ -154,23 +154,23 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item">
-            <a href="javascript:;" class="nav-link nav-toggle">
+        <li class="nav-item @if (Request::is('admin/welcome*')) active open @endif">
+            <a href="javascript:;" class="nav-link nav-toggle ">
                 <i class="icon-home"></i>
-                <span class="title">欢迎页管理</span>
+                <span class="title">欢迎页</span>
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li class="nav-item start ">
+                <li class="nav-item start @if (Request::is('admin/welcome/index')) active open @endif ">
+                    <a href="{{ route('welcome.index') }}" class="nav-link  ">
+                        <i class="icon-bar-chart"></i>
+                        <span class="title">欢迎页</span>
+                    </a>
+                </li>
+                <li class="nav-item start @if (Request::is('admin/welcome/create')) active open @endif">
                     <a href="{{ route('welcome.create') }}" class="nav-link ">
                         <i class="icon-bar-chart"></i>
                         <span class="title">添加欢迎页素材</span>
-                    </a>
-                </li>
-                <li class="nav-item start ">
-                    <a href="admin/uploadSlideImages/" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
-                        <span class="title">上传幻灯图片</span>
                     </a>
                 </li>
                 <li class="nav-item start ">

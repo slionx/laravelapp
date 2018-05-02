@@ -1,4 +1,7 @@
 @extends('desktop.layouts.app')
+@section('title')
+{{ $post->post_title }} -
+@stop
 @section('content')
 
     <!-- Content
@@ -22,15 +25,15 @@
                             ============================================= -->
                             <ul class="entry-meta clearfix">
                                 <li><i class="icon-calendar3"></i> {{ $post->created_at }}</li>
-                                <li><a href="#"><i class="icon-user"></i> {{ $post->post_author }}</a></li>
-                                <li><a href="{{ route('post.list.category',['category',$post->post_category]) }}"><i class="icon-folder-open"></i> {{ $post->category_name }}</a></li>
+                                <li><a href="#"><i class="icon-user"></i> {{ $post->user->name }}</a></li>
+                                <li><a href="{{ route('post.list.category',['category',$post->post_category]) }}"><i class="icon-folder-open"></i> {{ $post->category->name }}</a></li>
                                 <li><a href="#"><i class="icon-comments"></i> {{ $post->comments_count }} Comments</a></li>
                                 <li><a href="#"><i class="icon-camera-retro"></i></a></li>
                             </ul><!-- .entry-meta end -->
                             <!-- Entry Image
                             ============================================= -->
                             <div class="entry-image">
-                                <a href="#"><img src="images/blog/full/1.jpg" alt="Blog Single"></a>
+                                {{--<a href="#"><img src="images/blog/full/1.jpg" alt="Blog Single"></a>--}}
                             </div><!-- .entry-image end -->
                             <!-- Entry Content
                             ============================================= -->
@@ -88,14 +91,22 @@
                         ============================================= -->
                         <div class="post-navigation clearfix">
                             <div class="col_half nobottommargin">
-                                <a href="#">&lArr; This is a Standard post with a Slider Gallery</a>
+                                @if($prev_post)
+                                    <a href="{{ route('post.show',$prev_post->id) }}">&lArr; {{ $prev_post->post_title }}</a>
+                                    @else
+                                    &lArr;没有上一篇文章了
+                                    @endif
                             </div>
                             <div class="col_half col_last tright nobottommargin">
-                                <a href="#">This is an Embedded Audio Post &rArr;</a>
+                                @if($next_post)
+                                    <a href="{{ route('post.show',$next_post->id) }}">{{ $next_post->post_title }} &rArr;</a>
+                                    @else
+                                    本篇已是最新文章&rArr;
+                                @endif
                             </div>
                         </div><!-- .post-navigation end -->
                         {{--@include('desktop.post.related_posts')--}}
-                        @include('desktop.post.comments')
+                        {{--@include('desktop.post.comments')--}}
 
                     </div><!-- .postcontent end -->
                 </div>
@@ -103,6 +114,9 @@
 
                 @include('desktop.post.sidebar')
             </div>
+        </div>
+
+        <div class=" plans-bg clearfix">
         </div>
     </section><!-- #content end -->
 @stop

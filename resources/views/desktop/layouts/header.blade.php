@@ -7,10 +7,11 @@
             <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
             <!-- Logo
             ============================================= -->
-            <div id="logo">
+           {{-- <div id="logo">
                 <a href="index.html" class="standard-logo" data-dark-logo="{{ asset('welcome/images/logo-dark.png') }}"><img src="{{ asset('welcome/images/logo.png') }}" alt="Canvas Logo"></a>
                 <a href="index.html" class="retina-logo" data-dark-logo="{{ asset('welcome/images/logo@2x.png') }}"><img src="{{ asset('welcome/images/') }}" alt="Canvas Logo"></a>
-            </div><!-- #logo end -->
+            </div>--}}
+            <!-- #logo end -->
 
             <!-- Primary Navigation
             ============================================= -->
@@ -221,7 +222,7 @@
                         </div>
                     </li>
 
-                    <li><a href="#"><div><i class="icon-user"></i>{{ auth()->user() or 'User Profile'}}</div></a>
+                    <li><a href="#"><div><i class="icon-user"></i>{{ isset(auth()->user()->name) ? auth()->user()->name : 'User profile'  }} </div></a>
                         <ul>
                             @guest
                                 <li ><a href="{{ url('/login') }}"><div>login</div></a></li>
@@ -253,8 +254,8 @@
                 ============================================= -->
                 <div id="top-search">
                     <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-                    <form action="search.html" method="get">
-                        <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+                    <form action="{{ route('post.list.search',['search']) }}" method="get">
+                        <input type="text" name="keyword" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
                     </form>
                 </div><!-- #top-search end -->
 

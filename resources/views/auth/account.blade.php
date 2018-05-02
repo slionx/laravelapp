@@ -3,14 +3,12 @@
 <head>
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="author" content="Slionx" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="SemiColonWeb" />
+
 
     <!-- Stylesheets
     ============================================= -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
-
     <link rel="stylesheet" href="{{ asset('welcome/css/bootstrap.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('welcome/css/style.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('welcome/css/dark.css') }}" type="text/css" />
@@ -18,44 +16,52 @@
     <link rel="stylesheet" href="{{ asset('welcome/css/animate.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('welcome/css/magnific-popup.css') }}" type="text/css" />
 
-    {{--<link rel="stylesheet" href="{{ asset('welcome/css/swiper.css') }}" type="text/css" />--}}
-
     <link rel="stylesheet" href="{{ asset('welcome/css/responsive.css') }}" type="text/css" />
-    <style>
-        .plans-bg{
-        background: url(/images/plans-bg.png) no-repeat 50% 0px;
-        padding-bottom: 60px;
-        }
-    </style>
-
+    <link rel="stylesheet" href="{{ asset('welcome/css/radio-checkbox.css') }}" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Document Title
     ============================================= -->
-    <title>@yield('title'){{ config('app.name', 'Slionx') }}</title>
+    <title>@yield('title') | Slionx</title>
 
 </head>
+
 <body class="stretched">
 
 <!-- Document Wrapper
 ============================================= -->
 <div id="wrapper" class="clearfix">
-    @include('desktop.layouts.header')
 
-    <!-- Page Title
-		============================================= -->
-        <section id="page-title">
+    <!-- Content
+    ============================================= -->
+    <section id="content">
 
-            <div class="container clearfix">
-                <h1>Slionx</h1>
-                <span>The quieter you become, the more you are able to hear.</span>
+        <div class="content-wrap nopadding">
+
+            <div class="section nopadding nomargin" style="width: 100%; height: 100%; position: absolute; left: 0; top: 0; background: url('{{ asset('welcome/images/7.jpg') }}') center center no-repeat; background-size: cover;"></div>
+
+            <div class="section nobg full-screen nopadding nomargin">
+                <div class="container vertical-middle divcenter clearfix">
+
+                    <div class="row center">
+                        {{--<h1><span class="label label-default">Slionx</span></h1>--}}
+                        {{--<a href="index.html"><img src="images/logo-dark.png" alt="Canvas Logo"></a>--}}
+                    </div>
+
+                    <div class="panel panel-default divcenter noradius noborder" style="max-width: 400px; background-color: rgba(255,255,255,0.7);">
+
+                        @yield('panel-body')
+
+                    </div>
+
+                    <div class="row center dark"><small>Copyrights &copy; All Rights Reserved by Canvas Inc.</small></div>
+
+                </div>
             </div>
 
-        </section>
-        <!-- #page-title end -->
+        </div>
 
-        @yield('content')
-
-        @include('desktop.layouts.footer')
+    </section><!-- #content end -->
 
 </div><!-- #wrapper end -->
 

@@ -12,6 +12,7 @@ use Validator;
 use App\Repositories\PostRepository as Post;
 use App\Http\Model\Posts;
 use App\Repositories\CategoryRepository as Category;
+use App\Repositories\UserRepository as User;
 use App\Repositories\TagRepository as Tag;
 use Matriphe\Imageupload\Imageupload;
 use Image;
@@ -32,12 +33,14 @@ class PostController extends Controller {
 		Category $Category,
 		Post $Post,
 		Posts $posts,
-		Tag $Tag
+		Tag $Tag,
+		User $User
 	) {
 		$this->middleware('isadmin')->except('list','show');
 		$this->category = $Category;
 		$this->tag      = $Tag;
 		$this->post     = $Post;
+		$this->user     = $User;
 	}
 
 	/**
@@ -61,7 +64,8 @@ class PostController extends Controller {
 		                ->columns( [
 			                [ 'data' => 'id', 'name' => 'id', 'title' => trans( 'common.number' ) ],
 			                [ 'data' => 'post_title', 'name' => 'post_title', 'title' => '标题' ],
-			                [ 'data' => 'post_slug', 'name' => 'post_slug', 'title' => 'slug' ],
+							[ 'data' => 'post_author', 'name' => 'post_author', 'title' => '作者' ],
+			                /*[ 'data' => 'post_slug', 'name' => 'post_slug', 'title' => 'slug' ],*/
 			                [ 'data' => 'post_category', 'name' => 'post_category', 'title' => '分类' ],
 			                [ 'data' => 'post_tag', 'name' => 'post_tag', 'title' => '标签' ],
 			                [ 'data' => 'comments_status', 'name' => 'comments_status', 'title' => '评论状态' ],
@@ -82,31 +86,39 @@ class PostController extends Controller {
 			return $query->orderBy( 'id', 'desc' );
 		} )->all();
 
-		foreach ($tmp as $k => $v){
-			$post[$k] = $v;
+		if(count($tmp) >0){
+			foreach ($tmp as $k => $v){
+				$post[$k] = $v;
 
-			if($v['post_category']){
-				$post[$k]['post_category'] = "<span class=\"label label-sm label-success\">".$this->category->find($v['post_category'])->name."</span>";
-			}
-			$tags = $this->post->find($v['id'])->getTag();
-			$tag = '';
-			if(count($tags) > 1){
-				foreach ( $tags as $item) {
-					$tag .= "<a class=\"btn btn-success\"><i class=\"fa fa-tag\"></i> ".$item->name ."</a>";
+				if($v['post_category']){
+					$post[$k]['post_category'] = "<span class=\"label label-sm label-success\">".$this->category->find($v['post_category'])->name."</span>";
 				}
-			}elseif(count($tags) == 1){
-				$tag = "<a class=\"btn btn-success\"><i class=\"fa fa-tag\"></i> ".$tags[0]->name."</a>";
+				if($v['post_author']){
+					$post[$k]['post_author'] = $this->user->find($v['post_author'])->name;
+				}
+				$tags = $this->post->find($v['id'])->getTag();
+				$tag = '';
+				if(count($tags) > 1){
+					foreach ( $tags as $item) {
+						$tag .= "<a class=\"btn btn-success\"><i class=\"fa fa-tag\"></i> ".$item->name ."</a>";
+					}
+				}elseif(count($tags) == 1){
+					$tag = "<a class=\"btn btn-success\"><i class=\"fa fa-tag\"></i> ".$tags[0]->name."</a>";
+				}
+				//$tag = "<p>".$tag."</p>";
+				$post[$k]['post_tag'] = $tag;
+				if($v['comments_status'] == "on"){
+					$post[$k]['comments_status'] = "<span class=\"label label-sm label-success\">".$v->comments_status."</span>";
+				}else{
+					$post[$k]['comments_status'] = "<span class=\"label label-sm label-danger\">".$v->comments_status."</span>";
+				}
+				$post[$k]['comments_count'] = "<span class=\"badge badge-success\">".$v->comments_count."</span>";
+				$post[$k]['followers_count'] = "<span class=\"badge badge-success\">".$v->followers_count."</span>";
 			}
-			//$tag = "<p>".$tag."</p>";
-			$post[$k]['post_tag'] = $tag;
-			if($v['comments_status'] == "on"){
-				$post[$k]['comments_status'] = "<span class=\"label label-sm label-success\">".$v->comments_status."</span>";
-			}else{
-				$post[$k]['comments_status'] = "<span class=\"label label-sm label-danger\">".$v->comments_status."</span>";
-			}
-			$post[$k]['comments_count'] = "<span class=\"badge badge-success\">".$v->comments_count."</span>";
-			$post[$k]['followers_count'] = "<span class=\"badge badge-success\">".$v->followers_count."</span>";
+		}else{
+			$post = [];
 		}
+
 		return DataTables::of( $post )->escapeColumns([])->addIndexColumn()
 		                 ->addColumn( 'action', function ( $PostRepository ) {
 			                 $url = url('/post',$PostRepository->id);
@@ -135,7 +147,7 @@ class PostController extends Controller {
 			return $this->Validator( $request );
 		}
 		$request['post_author'] = "Slionx";
-		$request->post_slug = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
+		//$request->post_slug = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
 		$result = auth()->user()->posts()->create( $request->all() );
 		if ( $result ) {
 			if ( is_array( $request->post_tag ) ) {
@@ -174,14 +186,23 @@ class PostController extends Controller {
 		//$post = $this->post->find( $id );
 
 
-		$post = Posts::with(['tag'])->find($id);
-		//dd($post->tag);
-		$post['category_name'] = $this->category->find($post->post_category)->name;
+		$post = Posts::with(['category'=>function($query){
+			$query->select('id','name');
+		}])->with(['tag'=>function($query){
+			$query->select('id','name');
+		}])->with(['user'=>function($query){
+			$query->select('id','name');
+		}])->orderBy('created_at', 'desc')->findOrFail($id,['id','post_author','post_title','post_content','post_category','comments_count','created_at']);
 
 		$tags = $this->tag->all(['id','name','count']);
         $categories = $this->category->all(['id','name','count']);
 
-		return view( 'desktop.post.show', compact( 'post','tags','categories' ) );
+		$prev_post = Posts::where('id','<',$id)->first(['id','post_title']);
+		$prev_post = $prev_post ? $prev_post : '';
+		$next_post = Posts::where('id','>',$id)->first(['id','post_title']);
+		$next_post = $next_post ? $next_post : '';
+
+		return view( 'desktop.post.show', compact( 'post','tags','categories','prev_post','next_post' ) );
 	}
 
 
@@ -260,8 +281,8 @@ class PostController extends Controller {
 		if ( $validator->fails() ) {
 			return back()->withErrors( $validator )->withInput();
 		}
-		$request['post_author'] = "Slionx";
-		$request->post_slug = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
+		//$request['post_author'] = "Slionx";
+		//$request->post_slug = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
 		if ( $this->post->update( $request->all(), $id ) ) {
 			if ( is_array( $request->post_tag ) ) {
 				foreach ( $request->post_tag as $tag ) {
@@ -306,71 +327,6 @@ class PostController extends Controller {
 		return view( 'admin.tags' );
 	}
 
-	/**
-	 * Display a listing of the posts.
-	 *
-	 * @return Response
-	 */
-	public function upload() {
-		return view( 'admin.post.upload' );
-	}
-
-	/**
-	 * Display a listing of the posts.
-	 *
-	 * @return Response
-	 */
-	public function image() {
-		return view( 'admin.images' );
-	}
-
-	public function upload_img( Request $request ) {
-		$validator = Validator::make( $request->all(), [
-			'files' => 'required|image|mimes:jpeg,jpg,png|max:' . 2048,
-		] );
-		if ( $validator->fails() ) {
-			return back()
-				->withErrors( $validator )
-				->withInput();
-		}
-		/*$file = $request->avatar;
-		var_dump($file);
-
-		var_dump($request->file('avatar'));exit;*/
-		//判断文件在请求中是否存在
-
-		if ( $request->hasFile( 'files' ) ) {
-			//判断文件在上传过程中是否出错
-			//$data = Imageupload::upload(Request::file('file'));
-
-			if ( $request->file( 'files' )->isValid() ) {
-
-				$path = $request->file( 'files' )->store( 'files' );
-
-				//return $path;
-				//var_dump($path);exit
-				//return storage_path($path);
-
-				$progress = array(
-					'files' => array(
-						'name'       => '0qg04YIPXeHx8kKm9qGa7nNVCkL68ihLzb3lL2KC.jpeg',
-						'size'       => false,
-						"type"       => "image/jpeg",
-						"error"      => "File upload aborted",
-						"deleteUrl"  => "http://l.cn../storage/files/0qg04YIPXeHx8kKm9qGa7nNVCkL68ihLzb3lL2KC.jpeg",
-						"deleteType" => "DELETE"
-
-					)
-				);
-				exit( json_encode( $progress ) );
-
-				//$path = $request->avatar->store('images');
-				//$a= ImageuploadModel::upload(Request::file('file'));
-
-			}
-		}
-	}
-
 
 	/**
 	 * @param $id
@@ -378,11 +334,12 @@ class PostController extends Controller {
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function list($param=null,$id=null) {
+	public function list($param=null,$id=null,Request $request) {
 		if($param == "tag"){
 			$post = $this->tag->find($id)->getPosts();
 			foreach ( $post as $index => $item ) {
 				$post[$index] = $item;
+				$post[$index]['post_author'] = $this->user->find($item->post_author)->name;
 				if($item->post_category){
 					$post[$index]['category_name'] = $this->category->find($item->post_category)->name;
 				}
@@ -391,31 +348,44 @@ class PostController extends Controller {
 			$post = Posts::where('post_category', '=', $id)->paginate(4);
 			foreach ( $post as $index => $item ) {
 				$post[$index] = $item;
+				$post[$index]['post_author'] = $this->user->find($item->post_author)->name;
 				if($item->post_category){
 					$post[$index]['category_name'] = $this->category->find($item->post_category)->name;
 				}
 			}
 		}elseif($param == "search"){
-			$key = trim($id);
-			if ($key == '')
+			$keyword = trim($request->keyword);
+
+			if (!$keyword)
 				return back()->withErrors("请输入关键字");
-			$key = "%$key%";
+			$key = "%$keyword%";
 			$post = Posts::where('post_title', 'like', $key)
 			             ->orWhere('post_slug', 'like', $key)
 			             ->with(['tag', 'category'])
 			             ->orderBy('created_at', 'desc')
 			             ->paginate(4);
+			foreach ( $post as $index => $item ) {
+				$post[$index] = $item;
+				$post[$index]['post_author'] = $this->user->find($item->post_author)->name;
+				if($item->post_category){
+					$post[$index]['category_name'] = $this->category->find($item->post_category)->name;
+				}
+			}
 
 		}else{
-			$post = $this->post->with(['tag'])->orderBy('created_at', 'desc')->paginate( 4 );
+			$post = $this->post->with(['tag','category'])->orderBy('created_at', 'desc')->paginate( 4 );
 
 			/*$post = Posts::with(['tag'])
 			             ->orderBy('created_at', 'desc')
 			             ->paginate(4);*/
 			foreach ( $post as $index => $item ) {
 				$post[$index] = $item;
+				$post[$index]['post_author'] = $this->user->find($item->post_author)->name;
+
+				//$post[$index]['post_author'] = $this->post->find($item->id)->user();
+
 				if($item->post_category){
-                    $post[$index]['category_name'] = $this->category->find($item->post_category)->name;
+                    //$post[$index]['category_name'] = $this->category->find($item->post_category)->name;
                 }
 			}
 		}

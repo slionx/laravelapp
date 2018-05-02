@@ -125,7 +125,7 @@
 
     <section id="slider" class="slider-parallax swiper_wrapper full-screen clearfix">
         <div class="slider-parallax-inner">
-            @if(Cache::get('welcomeType') == 'slide')
+            @if(Cache::get('welcomeType') == 'slide1')
             <div class="tp-banner-container">
                 <div class="tp-banner" >
                     <ul>    <!-- SLIDE  -->
@@ -259,7 +259,7 @@
 
                         <li data-transition="slideup" data-slotamount="1" data-masterspeed="1500" data-thumb="{{ asset('welcome/images/7.jpg') }}" data-delay="10000"  data-saveperformance="off"  data-title="Unlimited Possibilities">
                             <!-- MAIN IMAGE -->
-                            <img src="{{ asset('welcome/images/8.jpg') }}"  alt="kenburns6"  data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scale="100" data-scaleend="120" data-bgpositionend="center top">
+                            <img src="{{ asset('welcome/images/7.jpg') }}"  alt="kenburns6"  data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scale="100" data-scaleend="120" data-bgpositionend="center top">
                             <!-- LAYERS -->
 
                             <!-- LAYER NR. 2 -->

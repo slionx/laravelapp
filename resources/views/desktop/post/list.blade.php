@@ -20,11 +20,11 @@
 
                     <div class="entry clearfix">
                         <div class="entry-image">
-                            {{--<a href="images/blog/full/17.jpg" data-lightbox="image"><img class="image_fade" src="images/blog/small/17.jpg" alt="Standard Post with Image"></a>--}}
+                            <a href="http://image.3001.net/images/20180428/15248831748970.png" data-lightbox="image"><img class="image_fade" src="http://image.3001.net/images/20180428/15248831748970.png" alt="Standard Post with Image"></a>
                         </div>
                         <div class="entry-c">
                             <div class="entry-title">
-                                <h2><a href="{{ url('/post',$item->id) }}">{{ $item->post_title }}e</a></h2>
+                                <h2><a href="{{ route('post.show',$item->id) }}">{{ $item->post_title }}</a></h2>
                             </div>
                             <ul class="entry-meta clearfix">
                                 <li><i class="icon-calendar3"></i> {{ $item->created_at }}</li>
@@ -34,8 +34,8 @@
                                 <li><a href="#"><i class="icon-camera-retro"></i></a></li>
                             </ul>
                             <div class="entry-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, asperiores quod est tenetur in. Eligendi, deserunt, blanditiis est quisquam doloribus voluptate id aperiam ea ipsum magni aut perspiciatis rem voluptatibus officia eos rerum deleniti quae nihil facilis repellat atque vitae voluptatem libero at eveniet veritatis ab facere.</p>
-                                <a href="{{ url('/post',$item->id) }}"class="more-link">Read More</a>
+                                <p>{{ $item->post_slug }}</p>
+                                <a href="{{ route('post.show',$item->id) }}"class="more-link">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -225,7 +225,8 @@
             @include('desktop.post.sidebar')
 
         </div>
-
+    </div>
+    <div class="container clearfix plans-bg">
     </div>
 
 </section><!-- #content end -->

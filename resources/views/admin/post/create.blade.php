@@ -73,6 +73,7 @@
             $('#post_tags').select2({
                 post_tag:true
             });
+
         });
     </script>
 @stop

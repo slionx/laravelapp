@@ -14,9 +14,14 @@
 
                     <div class="widget clearfix">
 
-                        <img src="images/footer-widget-logo.png" alt="" class="footer-logo">
+                        <div class="footer__copy mt5">
+                            <img src="{{ asset('images/dark-ln-elephant.png')  }}">
+                            <p>Power By The PHP Framework For Web Artisans , Laravel.</p>
+                        </div>
 
-                        <p>We believe in <strong>Simple</strong>, <strong>Creative</strong> &amp; <strong>Flexible</strong> Design Standards.</p>
+                        <img src="images/footer-widget-logo.1png" alt="" class="footer-logo">
+
+                       {{-- <p>We believe in <strong>Simple</strong>, <strong>Creative</strong> &amp; <strong>Flexible</strong> Design Standards.</p>
 
                         <div style="background: url('images/world-map.png') no-repeat center center; background-size: 100%;">
                             <address>
@@ -27,7 +32,7 @@
                             <abbr title="Phone Number"><strong>Phone:</strong></abbr> (91) 8547 632521<br>
                             <abbr title="Fax"><strong>Fax:</strong></abbr> (91) 11 4752 1433<br>
                             <abbr title="Email Address"><strong>Email:</strong></abbr> info@canvas.com
-                        </div>
+                        </div>--}}
 
                     </div>
 
@@ -40,13 +45,10 @@
                         <h4>Blogroll</h4>
 
                         <ul>
-                            <li><a href="http://codex.wordpress.org/">Documentation</a></li>
-                            <li><a href="http://wordpress.org/support/forum/requests-and-feedback">Feedback</a></li>
-                            <li><a href="http://wordpress.org/extend/plugins/">Plugins</a></li>
-                            <li><a href="http://wordpress.org/support/">Support Forums</a></li>
-                            <li><a href="http://wordpress.org/extend/themes/">Themes</a></li>
-                            <li><a href="http://wordpress.org/news/">WordPress Blog</a></li>
-                            <li><a href="http://planet.wordpress.org/">WordPress Planet</a></li>
+                            <li><a href="https://laravel.com/">Laravel</a></li>
+                            <li><a href="https://github.com/slionx/laravelapp">Github</a></li>
+                            <li><a href="https://www.sec-wiki.com">SecWiki</a></li>
+                            <li><a href="https://www.anquanquan.info/">安全圈Info</a></li>
                         </ul>
 
                     </div>
@@ -168,8 +170,8 @@
         <div class="container clearfix">
 
             <div class="col_half">
-                Copyrights &copy; 2014 All Rights Reserved by Canvas Inc.<br>
-                <div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>
+                Copyrights &copy; 2018 All Rights Reserved by Slionx Inc.<br>
+                <div class="copyright-links">Power By The PHP Framework For Web Artisans, Laravel</div>
             </div>
 
             <div class="col_half col_last tright">

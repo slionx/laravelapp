@@ -17,7 +17,7 @@ class Tag extends Model
     }
 
 	public function getPosts(){
-		return $this->Posts()->paginate(4);
+		return $this->Posts()->orderBy('created_at','desc')->paginate(4);
 	}
 
 	public function deletePosts( $tag ) {

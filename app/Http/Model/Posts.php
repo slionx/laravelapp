@@ -23,12 +23,13 @@ class Posts extends Model
 	 * 定义关联关系允许通过文章访问所属分类
 	 */
 	public function category(){
-    	return $this->belongsTo(Category::class);
+    	return $this->hasOne(Category::class,'id','post_category');
     }
 
 	public function user()
 	{
-		return $this->belongsTo(User::class);
+		return $this->hasOne(User::class,'id','post_author');
+		//return $this->belongsTo(User::class);
 	}
 
 

@@ -45,16 +45,14 @@
     <span class="help-block">是否开启文章评论</span>
 </div>
 <div class="form-group form-md-line-input {{ $errors->has('post_tag') ? ' has-error' : '' }}">
-    <label for="post_tag">文章标签</label>
-    <select class="form-control " name="post_tag[]" id="post_tags" multiple>
+    <label for="post_tags">文章标签</label>
+    <select class="form-control" name="post_tag[]" id="post_tags" multiple="multiple">
             @if($tags)
                 @foreach($tags as $tag)
                     <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                 @endforeach
             @endif
     </select>
-
-
     <span class="help-block"><strong>{{ $errors->has('post_tag') ? ' 文章标签必填项' : '' }}</strong></span>
 </div>
 <div class="form-group form-md-line-input form-md-floating-label">
