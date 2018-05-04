@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use Validator;
 use App\Repositories\PostRepository as Post;
 use App\Http\Model\Posts;
+use App\Http\Model\Tag as Tags;
 use App\Repositories\CategoryRepository as Category;
 use App\Repositories\UserRepository as User;
 use App\Repositories\TagRepository as Tag;
@@ -36,7 +37,7 @@ class PostController extends Controller {
 		Tag $Tag,
 		User $User
 	) {
-		$this->middleware('isadmin')->except('list','show');
+		$this->middleware( 'isadmin' )->except( 'list', 'show' );
 		$this->category = $Category;
 		$this->tag      = $Tag;
 		$this->post     = $Post;
@@ -60,11 +61,11 @@ class PostController extends Controller {
 			'language'    => [
 				'url' => url( 'zh.json' )
 			],
-		] )->addIndex(['data' => 'DT_Row_Index', 'name' => 'DT_Row_Index', 'title' => '序号'])
+		] )->addIndex( [ 'data' => 'DT_Row_Index', 'name' => 'DT_Row_Index', 'title' => '序号' ] )
 		                ->columns( [
 			                [ 'data' => 'id', 'name' => 'id', 'title' => trans( 'common.number' ) ],
 			                [ 'data' => 'post_title', 'name' => 'post_title', 'title' => '标题' ],
-							[ 'data' => 'post_author', 'name' => 'post_author', 'title' => '作者' ],
+			                [ 'data' => 'post_author', 'name' => 'post_author', 'title' => '作者' ],
 			                /*[ 'data' => 'post_slug', 'name' => 'post_slug', 'title' => 'slug' ],*/
 			                [ 'data' => 'post_category', 'name' => 'post_category', 'title' => '分类' ],
 			                [ 'data' => 'post_tag', 'name' => 'post_tag', 'title' => '标签' ],
@@ -73,7 +74,11 @@ class PostController extends Controller {
 			                [ 'data' => 'followers_count', 'name' => 'followers_count', 'title' => '阅读数' ],
 			                [ 'data' => 'created_at', 'name' => 'created_at', 'title' => trans( 'menu.created_at' ) ],
 			                [ 'data' => 'updated_at', 'name' => 'updated_at', 'title' => trans( 'menu.updated_at' ) ],
-		                ] )->addAction( [ 'data' => 'action', 'name' => 'action', 'title' => trans( 'common.action' ) ]);
+		                ] )->addAction( [
+				'data'  => 'action',
+				'name'  => 'action',
+				'title' => trans( 'common.action' )
+			] );
 
 		return view( 'admin.post.index', compact( 'html' ) );
 	}
@@ -86,44 +91,45 @@ class PostController extends Controller {
 			return $query->orderBy( 'id', 'desc' );
 		} )->all();
 
-		if(count($tmp) >0){
-			foreach ($tmp as $k => $v){
-				$post[$k] = $v;
+		if ( count( $tmp ) > 0 ) {
+			foreach ( $tmp as $k => $v ) {
+				$post[ $k ] = $v;
 
-				if($v['post_category']){
-					$post[$k]['post_category'] = "<span class=\"label label-sm label-success\">".$this->category->find($v['post_category'])->name."</span>";
+				if ( $v['post_category'] ) {
+					$post[ $k ]['post_category'] = "<span class=\"label label-sm label-success\">" . $this->category->find( $v['post_category'] )->name . "</span>";
 				}
-				if($v['post_author']){
-					$post[$k]['post_author'] = $this->user->find($v['post_author'])->name;
+				if ( $v['post_author'] ) {
+					$post[ $k ]['post_author'] = $this->user->find( $v['post_author'] )->name;
 				}
-				$tags = $this->post->find($v['id'])->getTag();
-				$tag = '';
-				if(count($tags) > 1){
-					foreach ( $tags as $item) {
-						$tag .= "<a class=\"btn btn-success\"><i class=\"fa fa-tag\"></i> ".$item->name ."</a>";
+				$tags = $this->post->find( $v['id'] )->getTag();
+				$tag  = '';
+				if ( count( $tags ) > 1 ) {
+					foreach ( $tags as $item ) {
+						$tag .= "<a class=\"btn btn-success\"><i class=\"fa fa-tag\"></i> " . $item->name . "</a>";
 					}
-				}elseif(count($tags) == 1){
-					$tag = "<a class=\"btn btn-success\"><i class=\"fa fa-tag\"></i> ".$tags[0]->name."</a>";
+				} elseif ( count( $tags ) == 1 ) {
+					$tag = "<a class=\"btn btn-success\"><i class=\"fa fa-tag\"></i> " . $tags[0]->name . "</a>";
 				}
 				//$tag = "<p>".$tag."</p>";
-				$post[$k]['post_tag'] = $tag;
-				if($v['comments_status'] == "on"){
-					$post[$k]['comments_status'] = "<span class=\"label label-sm label-success\">".$v->comments_status."</span>";
-				}else{
-					$post[$k]['comments_status'] = "<span class=\"label label-sm label-danger\">".$v->comments_status."</span>";
+				$post[ $k ]['post_tag'] = $tag;
+				if ( $v['comments_status'] == "on" ) {
+					$post[ $k ]['comments_status'] = "<span class=\"label label-sm label-success\">" . $v->comments_status . "</span>";
+				} else {
+					$post[ $k ]['comments_status'] = "<span class=\"label label-sm label-danger\">" . $v->comments_status . "</span>";
 				}
-				$post[$k]['comments_count'] = "<span class=\"badge badge-success\">".$v->comments_count."</span>";
-				$post[$k]['followers_count'] = "<span class=\"badge badge-success\">".$v->followers_count."</span>";
+				$post[ $k ]['comments_count']  = "<span class=\"badge badge-success\">" . $v->comments_count . "</span>";
+				$post[ $k ]['followers_count'] = "<span class=\"badge badge-success\">" . $v->followers_count . "</span>";
 			}
-		}else{
+		} else {
 			$post = [];
 		}
 
-		return DataTables::of( $post )->escapeColumns([])->addIndexColumn()
+		return DataTables::of( $post )->escapeColumns( [] )->addIndexColumn()
 		                 ->addColumn( 'action', function ( $PostRepository ) {
-			                 $url = url('/post',$PostRepository->id);
+			                 $url = url( '/post', $PostRepository->id );
+
 			                 return "<a target='_blank' href=\"{$url}\" title=\"查看\" class=\"btn green btn-sm btn-outline filter-submit margin-bottom\">
-                             <i class=\"fa fa-eye\"></i></a>".getActionButtonAttribute( $PostRepository->id, $this->module );
+                             <i class=\"fa fa-eye\"></i></a>" . getActionButtonAttribute( $PostRepository->id, $this->module );
 		                 } )->toJson();
 	}
 
@@ -155,9 +161,10 @@ class PostController extends Controller {
 					$tags[] = $this->tag->find( $tag )->id;
 				}
 				$result->attachTag( $tags );
-				$this->updateTagSum($request->post_tag);
+				$this->updateTagSum( $request->post_tag );
 			}
-			$this->updateCategorySum($request->post_category);
+			$this->updateCategorySum( $request->post_category );
+
 			return redirect()->route( 'post.index' )->with( 'success', '文章' . $request['post_title'] . '创建成功' );
 		} else {
 			return redirect()->route( 'post.index' )->withErrors( '文章' . $request['post_title'] . '创建失败' );
@@ -166,44 +173,18 @@ class PostController extends Controller {
 
 	public function updateTagSum( $tags ) {
 		foreach ( $tags as $tagid ) {
-			$result = $this->tag->find($tagid);
-			$count = $result->getTagSum();
-			$this->tag->update(['count'=>$count],$tagid);
+			$result = $this->tag->find( $tagid );
+			$count  = $result->getTagSum();
+			$this->tag->update( [ 'count' => $count ], $tagid );
 		}
 	}
 
 	public function updateCategorySum( $category_id ) {
-		$count = $this->post->findWhere(['post_category'=>$category_id])->count();
-		$this->category->update(['count'=>$count],$category_id);
+		$count = $this->post->findWhere( [ 'post_category' => $category_id ] )->count();
+		$this->category->update( [ 'count' => $count ], $category_id );
 	}
 
-	/**
-	 * @param $id
-	 *
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-	 */
-	public function show( $id ) {
-		//$post = $this->post->find( $id );
 
-
-		$post = Posts::with(['category'=>function($query){
-			$query->select('id','name');
-		}])->with(['tag'=>function($query){
-			$query->select('id','name');
-		}])->with(['user'=>function($query){
-			$query->select('id','name');
-		}])->orderBy('created_at', 'desc')->findOrFail($id,['id','post_author','post_title','post_content','post_category','comments_count','created_at']);
-
-		$tags = $this->tag->all(['id','name','count']);
-        $categories = $this->category->all(['id','name','count']);
-
-		$prev_post = Posts::where('id','<',$id)->first(['id','post_title']);
-		$prev_post = $prev_post ? $prev_post : '';
-		$next_post = Posts::where('id','>',$id)->first(['id','post_title']);
-		$next_post = $next_post ? $next_post : '';
-
-		return view( 'desktop.post.show', compact( 'post','tags','categories','prev_post','next_post' ) );
-	}
 
 
 	/**
@@ -213,16 +194,17 @@ class PostController extends Controller {
 	 */
 	public function edit( $id ) {
 		$post       = $this->post->find( $id );
-		$category = $this->category->find($post->post_category);
+		$category   = $this->category->find( $post->post_category );
 		$tags       = $this->tag->all();
 		$categories = $this->category->all();
-		$currentTag        = $post->getTag();
-		$tag = '';
+		$currentTag = $post->getTag();
+		$tag        = '';
 		foreach ( $currentTag as $k => $v ) {
-			$tag .= "'$v->id'".',';
+			$tag .= "'$v->id'" . ',';
 		}
-		$tag    = substr( $tag, 0, - 1 );
-		return view( 'admin.post.edit', compact( 'post','category', 'tags', 'categories','tag' ) );
+		$tag = substr( $tag, 0, - 1 );
+
+		return view( 'admin.post.edit', compact( 'post', 'category', 'tags', 'categories', 'tag' ) );
 
 	}
 
@@ -234,11 +216,11 @@ class PostController extends Controller {
 	public function Validator( $request ) {
 
 		$rules     = [
-			'post_title'   => 'required|unique:posts|max:255',
-			'post_slug'    => 'required',
-			'post_content' => 'required',
-			'post_category'     => 'required',
-			'post_tag'     => 'required',
+			'post_title'    => 'required|unique:posts|max:255',
+			'post_slug'     => 'required',
+			'post_content'  => 'required',
+			'post_category' => 'required',
+			'post_tag'      => 'required',
 		];
 		$messages  = [
 			'post_title.required'   => '标题不能为空',
@@ -263,11 +245,11 @@ class PostController extends Controller {
 	 */
 	public function update( $id, Request $request ) {
 		$rules     = [
-			'post_title'   => 'required|max:255',
-			'post_slug'    => 'required',
-			'post_content' => 'required',
-			'post_category'     => 'required',
-			'post_tag'     => 'required',
+			'post_title'    => 'required|max:255',
+			'post_slug'     => 'required',
+			'post_content'  => 'required',
+			'post_category' => 'required',
+			'post_tag'      => 'required',
 		];
 		$messages  = [
 			'post_title.required'   => '标题不能为空',
@@ -290,9 +272,9 @@ class PostController extends Controller {
 				}
 				$post = $this->post->find( $id );
 				$post->syncTag( $tags );
-				$this->updateTagSum($request->post_tag);
+				$this->updateTagSum( $request->post_tag );
 			}
-			$this->updateCategorySum($request->post_category);
+			$this->updateCategorySum( $request->post_category );
 
 			return redirect()->route( 'post.index' )->with( 'success', '文章' . $request['post_title'] . '更新成功' );
 		} else {
@@ -327,6 +309,53 @@ class PostController extends Controller {
 		return view( 'admin.tags' );
 	}
 
+	/**
+	 * @param $id
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function show( $id ) {
+		//$post = $this->post->find( $id );
+
+		$post = Posts::with( [
+			'category' => function ( $query ) {
+				$query->select( 'id', 'name' );
+			}
+		] )->with( [
+			'tag' => function ( $query ) {
+				$query->select( 'id', 'name' );
+			}
+		] )->with( [
+			'user' => function ( $query ) {
+				$query->select( 'id', 'name' );
+			}
+		] )->orderBy( 'created_at', 'desc' )->findOrFail( $id, [
+			'id',
+			'post_author',
+			'post_title',
+			'post_content',
+			'post_category',
+			'comments_count',
+			'followers_count',
+			'post_password',
+			'created_at'
+		] );
+		if($post->post_password && $post->post_author != auth()->user()->id ){
+			return redirect()->route( 'post.list' );
+		}
+
+		$followers_count = $post->followers_count + 1;
+		$this->post->update( ['followers_count'=>$followers_count], $id );
+		$tags       = $this->tag->all( [ 'id', 'name', 'count' ] );
+		$categories = $this->category->all( [ 'id', 'name', 'count' ] );
+
+		$prev_post = Posts::where( 'id', '<', $id )->first( [ 'id', 'post_title' ] );
+		$prev_post = $prev_post ? $prev_post : '';
+		$next_post = Posts::where( 'id', '>', $id )->first( [ 'id', 'post_title' ] );
+		$next_post = $next_post ? $next_post : '';
+
+		return view( 'desktop.post.show', compact( 'post', 'tags', 'categories', 'prev_post', 'next_post' ) );
+	}
 
 	/**
 	 * @param $id
@@ -334,67 +363,54 @@ class PostController extends Controller {
 	 *
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-	public function list($param=null,$id=null,Request $request) {
-		if($param == "tag"){
-			$post = $this->tag->find($id)->getPosts();
-			foreach ( $post as $index => $item ) {
-				$post[$index] = $item;
-				$post[$index]['post_author'] = $this->user->find($item->post_author)->name;
-				if($item->post_category){
-					$post[$index]['category_name'] = $this->category->find($item->post_category)->name;
+	public function list( $param = null, $id = null, Request $request ) {
+		//dd($request);
+		if ( $param == 'tag' ) {
+			$post = Tags::findOrFail( $id, [ 'id' ] )->getPosts();
+		} else {
+			$post = Posts::with( [
+				'category' => function ( $query ) {
+					$query->select( 'id', 'name' );
 				}
-			}
-		}elseif($param == "category"){
-			$post = Posts::where('post_category', '=', $id)->paginate(4);
-			foreach ( $post as $index => $item ) {
-				$post[$index] = $item;
-				$post[$index]['post_author'] = $this->user->find($item->post_author)->name;
-				if($item->post_category){
-					$post[$index]['category_name'] = $this->category->find($item->post_category)->name;
+			] )->with( [
+				'tag' => function ( $query ) {
+					$query->select( 'id', 'name' );
 				}
-			}
-		}elseif($param == "search"){
-			$keyword = trim($request->keyword);
-
-			if (!$keyword)
-				return back()->withErrors("请输入关键字");
-			$key = "%$keyword%";
-			$post = Posts::where('post_title', 'like', $key)
-			             ->orWhere('post_slug', 'like', $key)
-			             ->with(['tag', 'category'])
-			             ->orderBy('created_at', 'desc')
-			             ->paginate(4);
-			foreach ( $post as $index => $item ) {
-				$post[$index] = $item;
-				$post[$index]['post_author'] = $this->user->find($item->post_author)->name;
-				if($item->post_category){
-					$post[$index]['category_name'] = $this->category->find($item->post_category)->name;
+			] )->with( [
+				'user' => function ( $query ) {
+					$query->select( 'id', 'name' );
 				}
-			}
-
-		}else{
-			$post = $this->post->with(['tag','category'])->orderBy('created_at', 'desc')->paginate( 4 );
-
-			/*$post = Posts::with(['tag'])
-			             ->orderBy('created_at', 'desc')
-			             ->paginate(4);*/
-			foreach ( $post as $index => $item ) {
-				$post[$index] = $item;
-				$post[$index]['post_author'] = $this->user->find($item->post_author)->name;
-
-				//$post[$index]['post_author'] = $this->post->find($item->id)->user();
-
-				if($item->post_category){
-                    //$post[$index]['category_name'] = $this->category->find($item->post_category)->name;
-                }
-			}
+			] )->orderBy( 'created_at', 'desc' )->
+			where( function ( $query ) use ( $request, $param, $id ) {
+				$keyword = trim( $request->keyword );
+				if ( $keyword ) {
+					$key = "%$keyword%";
+					$query->where( 'post_title', 'like', $key )->orWhere( 'post_slug', 'like', $key );
+				}
+				if ( $param == "category" ) {
+					$query->where( 'post_category', '=', $id );
+				}
+			} )->paginate( 4, [
+				'id',
+				'post_author',
+				'post_title',
+				'post_slug',
+				'post_content',
+				'post_category',
+				'comments_count',
+				'followers_count',
+				'post_password',
+				'created_at'
+			] );
 		}
 
+		$hot = Posts::orderBy( 'followers_count', 'desc' )->take(3)->get(['id','post_title','followers_count']);
+		//dd($hot);
 
-		$tags = $this->tag->all(['id','name','count']);
-		$categories = $this->category->all(['id','name','count']);
-		//return view( 'home.post.list', compact( 'post' ,'tags','categories') );
-		return view( 'desktop.post.list', compact( 'post' ,'tags','categories') );
+		$tags       = $this->tag->all( [ 'id', 'name', 'count' ] );
+		$categories = $this->category->all( [ 'id', 'name', 'count' ] );
+
+		return view( 'desktop.post.list', compact( 'post', 'tags', 'categories','hot' ) );
 	}
 
 	/**

@@ -28,15 +28,21 @@
                             </div>
                             <ul class="entry-meta clearfix">
                                 <li><i class="icon-calendar3"></i> {{ $item->created_at }}</li>
-                                <li><a href="#"><i class="icon-user"></i> {{ $item->post_author }}</a></li>
-                                <li><i class="icon-folder-open"></i> {{ $item->category_name }}</li>
+                                <li><a href="#"><i class="icon-user"></i> {{ $item->user->name }}</a></li>
+                                <li><a href="{{ route('post.list.category',['category',$item->category]) }}"><i class="icon-folder-open"></i> {{ $item->category->name }}</a></li>
                                 <li><a href="blog-single.html#comments"><i class="icon-comments"></i> {{ $item->comments_count }}</a></li>
                                 <li><a href="#"><i class="icon-camera-retro"></i></a></li>
                             </ul>
-                            <div class="entry-content">
-                                <p>{{ $item->post_slug }}</p>
-                                <a href="{{ route('post.show',$item->id) }}"class="more-link">Read More</a>
-                            </div>
+                            @if($item->post_password && $item->post_author != auth()->user()->id)
+                                <div class="entry-content">
+                                    <h5>私密文章</h5>
+                                </div>
+                            @else
+                                <div class="entry-content">
+                                    <p>{{ $item->post_slug }}</p>
+                                    <a href="{{ route('post.show',$item->id) }}"class="more-link">Read More</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     @empty

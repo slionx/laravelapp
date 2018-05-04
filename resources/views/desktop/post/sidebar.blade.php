@@ -112,52 +112,22 @@
                     </div>
                     <div class="tab-content clearfix" id="tabs-2">
                         <div id="recent-post-list-sidebar">
-
-                            <div class="spost clearfix">
-                                <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/1.jpg"
-                                                                  alt=""></a>
-                                </div>
-                                <div class="entry-c">
-                                    <div class="entry-title">
-                                        <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
+                            @forelse($hot as $item)
+                                <div class="spost clearfix">
+                                    <div class="entry-image">
+                                        <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/2.jpg" alt=""></a>
                                     </div>
-                                    <ul class="entry-meta">
-                                        <li>10th July 2014</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="spost clearfix">
-                                <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/2.jpg"
-                                                                  alt=""></a>
-                                </div>
-                                <div class="entry-c">
-                                    <div class="entry-title">
-                                        <h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
+                                    <div class="entry-c">
+                                        <div class="entry-title">
+                                            <h4><a href="{{ route('post.show',$item->id) }}">{{ $item->post_title }}</a></h4>
+                                        </div>
+                                        <ul class="entry-meta">
+                                            <li><i class="icon-comments-alt"></i> {{ $item->followers_count }} Comments</li>
+                                        </ul>
                                     </div>
-                                    <ul class="entry-meta">
-                                        <li>10th July 2014</li>
-                                    </ul>
                                 </div>
-                            </div>
-
-                            <div class="spost clearfix">
-                                <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/magazine/small/3.jpg"
-                                                                  alt=""></a>
-                                </div>
-                                <div class="entry-c">
-                                    <div class="entry-title">
-                                        <h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
-                                    </div>
-                                    <ul class="entry-meta">
-                                        <li>10th July 2014</li>
-                                    </ul>
-                                </div>
-                            </div>
-
+                            @empty
+                            @endforelse
                         </div>
                     </div>
                     <div class="tab-content clearfix" id="tabs-3">
@@ -175,8 +145,7 @@
 
                             <div class="spost clearfix">
                                 <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/icons/avatar.jpg"
-                                                                  alt=""></a>
+                                    <a href="#" class="nobg"><img class="img-circle" src="images/icons/avatar.jpg" alt=""></a>
                                 </div>
                                 <div class="entry-c">
                                     <strong>Mary Jane:</strong> Possimus libero, earum officia architecto maiores....
