@@ -152,7 +152,7 @@ class PostController extends Controller {
 		if ( $this->Validator( $request ) ) {
 			return $this->Validator( $request );
 		}
-		$request['post_author'] = "Slionx";
+		//$request['post_author'] = "Slionx";
 		//$request->post_slug = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
 		$result = auth()->user()->posts()->create( $request->all() );
 		if ( $result ) {
@@ -349,12 +349,14 @@ class PostController extends Controller {
 		$tags       = $this->tag->all( [ 'id', 'name', 'count' ] );
 		$categories = $this->category->all( [ 'id', 'name', 'count' ] );
 
+		$hot = Posts::orderBy( 'followers_count', 'desc' )->take(3)->get(['id','post_title','followers_count']);
+
 		$prev_post = Posts::where( 'id', '<', $id )->first( [ 'id', 'post_title' ] );
 		$prev_post = $prev_post ? $prev_post : '';
 		$next_post = Posts::where( 'id', '>', $id )->first( [ 'id', 'post_title' ] );
 		$next_post = $next_post ? $next_post : '';
 
-		return view( 'desktop.post.show', compact( 'post', 'tags', 'categories', 'prev_post', 'next_post' ) );
+		return view( 'desktop.post.show', compact( 'post', 'tags', 'categories', 'prev_post', 'next_post','hot' ) );
 	}
 
 	/**
