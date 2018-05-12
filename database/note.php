@@ -8,6 +8,8 @@ dd(app('make')->make('password'));
 dd(app()['hash']->make('password'));
 dd(app('Illuminate\Hashing\BcryptHasher')->make('pwassword'));
 
+try_files $uri $uri/ /index.php?$query_string;
+
 //服务容器的产生
 
 入口index.php

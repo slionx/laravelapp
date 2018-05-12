@@ -11,7 +11,7 @@
             <div class="container clearfix">
                 <!-- Post Content
                         ============================================= -->
-                <div class="postcontent nobottommargin clearfix">
+                <div class="postcontent nobottommargin overflow clearfix">
                     <div class="single-post nobottommargin">
                         <!-- Single Post
                         ============================================= -->

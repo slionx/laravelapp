@@ -172,7 +172,7 @@ class RoleController extends Controller
 			if($bool){
 				return redirect('admin/'.$this->module)->with( 'success', '更新成功' );
 			}else{
-				return Redirect::back()->with('error','更新失败！');
+				return redirect()->back()->with('error','更新失败！');
 			}
 
 		} catch ( Exception $e ) {

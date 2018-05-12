@@ -14,11 +14,11 @@
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="{{ route('dashboard.index') }}">Home</a>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <a href="#">用户</a>
+                        <a href="{{ route('user.index') }}">用户</a>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
@@ -102,37 +102,57 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form action="{{ route('user.update',$user->id) }}" method="post" class="form-horizontal form-bordered">
+                            <form action="{{ route('user.update',$user->id) }}" enctype="multipart/form-data" method="post" class="form-horizontal form-bordered">
                                 {{ csrf_field() }}
                                 {{method_field('PUT')}}
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="col-sm-3 control-label">昵称</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="用户名为必填项，最大长度255。"></i>
-                                            <input type="text" name="menu_name" value="{{ old('name') }}" class="form-control" id="name" placeholder="昵称">
-                                            <span  class="help-block">{{ $errors->has('name') ? ' 路径名称为必填项，最大长度255。' : '' }}</span>
+                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="昵称为必填项，最大长度255。"></i>
+                                            <input type="text" name="name" value="{{ $user->name or old('name') }}" class="form-control" id="name" placeholder="昵称">
+                                            <span  class="help-block">{{ $errors->has('name') ? $error : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group {{ $errors->has('display_name') ? ' has-error' : '' }}">
-                                    <label for="display_name" class="col-sm-3 control-label">密码</label>
+                                <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
+                                    <label for="email" class="col-sm-3 control-label">邮箱</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('display_name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="排序为必填项，序号只能为数字。"></i>
-                                            <input type="text" name="display_name" value="{{ old('display_name') }}" class="form-control" id="display_name" placeholder="密码">
-                                            <span  class="help-block">{{ $errors->has('display_name') ? ' 显示名称为必填项，序号只能为数字。' : '' }}</span>
+                                            <i class="{{ $errors->has('email') ? ' fa fa-warning tooltips' : '' }}" data-original-title="邮箱为必填项"></i>
+                                            <input type="text" name="email" value="{{ $user->email or old('email') }}" class="form-control" id="email" placeholder="邮箱">
+                                            <span  class="help-block">{{ $errors->has('email') ? $error : '' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <label for="password" class="col-sm-3 control-label">密码</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-icon right">
+                                            <i class="{{ $errors->has('password') ? ' fa fa-warning tooltips' : '' }}" data-original-title="密码"></i>
+                                            <input type="text" name="password" value="{{ old('password') }}" class="form-control" id="password" placeholder="密码">
+                                            <span  class="help-block">{{ $errors->has('password') ? $error : '' }}</span>
                                             <span class="help-block text-warning m-b-none">默认空为不修改密码</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group {{ $errors->has('parentid') ? ' has-error' : '' }}">
-                                    <label for="parentid" class="col-sm-3 control-label">邮箱</label>
+                                <div class="form-group {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                                    <label for="password_confirmation" class="col-sm-3 control-label">确认密码</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('parentid') ? ' fa fa-warning tooltips' : '' }}" data-original-title="排序为必填项，序号只能为数字。"></i>
-                                            <input type="text" name="parentid" value="{{ old('parentid') }}" class="form-control" id="parentid" placeholder="邮箱">
-                                            <span  class="help-block">{{ $errors->has('parentid') ? ' 父级id为必填项，序号只能为数字。' : '' }}</span>
+                                            <i class="{{ $errors->has('password_confirmation') ? ' fa fa-warning tooltips' : '' }}" data-original-title="确认密码"></i>
+                                            <input type="text" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="确认密码">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group {{ $errors->has('avatar') ? ' has-error' : '' }}">
+                                    <label for="avatar" class="col-sm-3 control-label">头像</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-icon right">
+                                            <i class="{{ $errors->has('avatar') ? ' fa fa-warning tooltips' : '' }}" data-original-title="头像为必填项"></i>
+                                            <img src="{{ $user->avatar }}" height="128">
+                                            <input type="file" name="avatar" value="{{ old('avatar') }}" class="form-control" id="avatar" placeholder="头像">
+                                            <span  class="help-block">{{ $errors->has('avatar') ? $error : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +176,7 @@
                                         <div class="col-md-offset-3 col-md-9">
                                             <button type="submit" class="btn green">
                                                 <i class="fa fa-check"></i> 提交</button>
-                                            <button type="button" class="btn btn-outline grey-salsa">取消</button>
+                                            <button type="reset" class="btn btn-danger">重置</button>
                                         </div>
                                     </div>
                                 </div>

@@ -1,9 +1,8 @@
 @extends('auth.account')
 @section('title')
     Login
-    @stop
+@endsection
 @section('panel-body')
-
     <div class="panel-body" style="padding: 40px;">
         <form name="login-form" class="nobottommargin" action="{{ route('login') }}" method="post">
             {{ csrf_field() }}
@@ -49,5 +48,4 @@
             <a href="#" class="button button-rounded si-twitter si-colored">Twitter</a>--}}
         </div>
     </div>
-
-    @stop
+@endsection

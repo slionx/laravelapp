@@ -30,7 +30,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
-                                        <a href="javascript:;" class="btn submit">
+                           <a href="javascript:;" class="btn submit">
                                             <i class="icon-magnifier"></i>
                                         </a>
                                     </span>
@@ -38,183 +38,35 @@
             </form>
             <!-- END RESPONSIVE QUICK SEARCH FORM -->
         </li>
-        @if(isset($menu['head']) && count($menu['head']))
-            @foreach($menu['head'] as $v)
-			    <?php
-			    //var_dump($v);
-			    ?>
-
-                <li class="nav-item @if($v['menu_name'] == $menu['url_keyword'][0])active open @endif ">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="{{ $v['icon'] }}"></i>
-                        <span class="title">{{ $v['display_name'] }}</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        @if(isset($menu['body'][$v['id']]) && count($menu['body'][$v['id']]))
-                        @foreach($menu['body'][$v['id']] as $vv)
-
-                            <li class="nav-item @if($vv['menu_keyword'][0].$vv['menu_keyword'][1] == $menu['url_keyword'][0].$menu['url_keyword'][1])active @endif">
-                                <a href="/admin/{{ $vv['menu_name'] }}" class="nav-link ">
-                                    <i class="{{ $vv['icon'] }}"></i>
-                                    <span class="title">{{ $vv['display_name'] }}</span>
-                                </a>
-                            </li>
-                        @endforeach
-                        @endif
-                    </ul>
-                </li>
-            @endforeach
-        @endif
-        <li class="nav-item  @if (Request::is('admin/post*')) active open @endif @if (Request::is('admin/category*')) active open @endif @if (Request::is('admin/tag*')) active open @endif">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="fa fa-navicon"></i>
-                <span class="title">文章管理</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item">
-                    <a href="/admin/post/create" class="nav-link ">
-                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">添加文章</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('post.index') }}" class="nav-link ">
-                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">文章列表</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/category" class="nav-link ">
-                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">分类列表</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/category/create" class="nav-link ">
-                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">添加分类</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/tag" class="nav-link ">
-                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">标签列表</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/tag/create" class="nav-link ">
-                        <i class="fa phpdebugbar-fa-angle-double-down"></i>
-                        <span class="title">添加标签</span>
-                    </a>
-                </li>
-            </ul>
+        <li class="heading">
+            <h3 class="uppercase">Slionx menus</h3>
         </li>
-        <li class="nav-item start @if (Request::is('admin/permission*')) active open @endif @if (Request::is('admin/role*')) active open @endif @if (Request::is('admin/user*')) active open @endif">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-home"></i>
-                <span class="title">系统权限</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item start @if (Request::is('admin/permission')) active open @endif ">
-                    <a href="/admin/permission" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
-                        <span class="title">权限管理</span>
-                    </a>
-                </li>
-                <li class="nav-item start @if (Request::is('admin/permission/create')) active open @endif ">
-                    <a href="/admin/permission/create" class="nav-link ">
-                        <i class="icon-bulb"></i>
-                        <span class="title">添加权限</span>
-                        <span class="badge badge-success">1</span>
-                    </a>
-                </li>
-                <li class="nav-item start @if (Request::is('admin/role')) active open @endif">
-                    <a href="/admin/role/" class="nav-link ">
-                        <i class="icon-graph"></i>
-                        <span class="title">角色管理</span>
-                        <span class="badge badge-danger">5</span>
-                    </a>
-                </li>
-                <li class="nav-item start">
-                    <a href="/admin/role/create" class="nav-link ">
-                        <i class="icon-graph"></i>
-                        <span class="title">添加角色</span>
-                        <span class="badge badge-danger">5</span>
-                    </a>
-                </li>
-                <li class="nav-item start">
-                    <a href="/admin/user/" class="nav-link ">
-                        <i class="icon-graph"></i>
-                        <span class="title">用户管理</span>
-                        <span class="badge badge-danger">5</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item @if (Request::is('admin/welcome*')) active open @endif">
-            <a href="javascript:;" class="nav-link nav-toggle ">
-                <i class="icon-home"></i>
-                <span class="title">欢迎页</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item start @if (Request::is('admin/welcome/index')) active open @endif ">
-                    <a href="{{ route('welcome.index') }}" class="nav-link  ">
-                        <i class="icon-bar-chart"></i>
-                        <span class="title">欢迎页</span>
-                    </a>
-                </li>
-                <li class="nav-item start @if (Request::is('admin/welcome/create')) active open @endif">
-                    <a href="{{ route('welcome.create') }}" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
-                        <span class="title">添加欢迎页素材</span>
-                    </a>
-                </li>
-                <li class="nav-item start ">
-                    <a href="admin/uploadVideo/" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
-                        <span class="title">上传视频</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-home"></i>
-                <span class="title">访问日志</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item start ">
-                    <a href="admin/uploadSlideImages/" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
-                        <span class="title">访问日志</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-home"></i>
-                <span class="title">系统设置</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item start ">
-                    <a href="admin/uploadSlideImages/" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
-                        <span class="title">系统设置</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
+        {!! menuList() !!}
+{{--@foreach($menulist as $item)
+            <li class="nav-item {{ activeMenu($item,$route) }}">
+                <a href="{{ route($item['route']) }}" class="nav-link nav-toggle">
+                    <i class="{{ $item['icon'] }}"></i>
+                    <span class="title">{{ $item['name'] }}</span>
+                    <span class="arrow"></span>
+                </a>
+                @if(isset($item['list']) && is_array($item['list']))
+                <ul class="sub-menu">
+                    @foreach($item['list'] as $sum_item)
+                    <li class="nav-item {{ activeMenu($sum_item,$route) }}">
+                        <a href="{{ route($sum_item['route']) }}" class="nav-link ">
+                            <i class="{{ $sum_item['icon'] }}"></i>
+                            <span class="title">{{ $sum_item['name'] }}</span>
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+                @endif
+            </li>
+@endforeach--}}
 
-
-
-
+        <li class="heading">
+            <h3 class="uppercase">Features</h3>
+        </li>
         <li class="nav-item">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="icon-home"></i>
@@ -244,74 +96,8 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="fa fa-dashboard"></i>
-                <span class="title">仪表盘</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link ">
-                        <i class="icon-bar-chart"></i>
-                        <span class="title">仪表盘</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="heading">
-            <h3 class="uppercase">Features</h3>
-        </li>
-        <li class="nav-item  ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-docs"></i>
-                <span class="title">文章</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="ui_colors.html" class="nav-link ">
-                        <i class="icon-docs"></i>
-                        <span class="title">所有文章</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="ui_general.html" class="nav-link ">
-                        <i class="icon-note"></i>
-                        <span class="title">写文章</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="ui_buttons.html" class="nav-link ">
-                        <span class="title">分类目录</span>
-                    </a>
-                </li>
-                <li @if (Request::is('admin/tag*')) class="nav-item @endif ">
-                    <a href="/admin/tags" class="nav-link ">
-                        <span class="title">标签</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item  ">
-            <a href="javascript:;" class="nav-link nav-toggle">
-                <i class="icon-users"></i>
-                <span class="title">所有用户</span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li class="nav-item  ">
-                    <a href="ui_colors.html" class="nav-link ">
-                        <span class="title">添加用户</span>
-                    </a>
-                </li>
-                <li class="nav-item  ">
-                    <a href="ui_general.html" class="nav-link ">
-                        <span class="title">个人资料</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
+
+
         <li class="nav-item  ">
             <a href="javascript:;" class="nav-link nav-toggle">
                 <i class="fa fa-cogs"></i>

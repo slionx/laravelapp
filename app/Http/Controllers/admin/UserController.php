@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Request;
 use Validator;
@@ -20,27 +21,6 @@ class UserController extends Controller {
 	public function __construct( User $user ,Role $role  ) {
 		$this->user = $user;
 		$this->role = $role;
-	}
-
-	public function AllUser() {
-		//all()
-//        $user = User::all();
-		//find()
-//        $user = User::find(1);
-		//findOrFail();
-//        $user  = User::findOrFail(1);
-//        $user  = User::get();
-//        $user = User::where('id','>','1')
-//            ->orderBy('id','desc')
-//            ->first();
-//        User::chunk(2,function($user){
-//            var_dump($user);
-//        });
-
-
-		//$bool = User::all();
-		//dd( $bool );
-
 	}
 
 	public function index( Builder $builder ) {
@@ -83,8 +63,9 @@ class UserController extends Controller {
 				$user_data[$k]['role'] = '';
 			}
 			$user_data[$k]['is_active'] = $user_data[$k]['is_active'] ? '是' : '否';
-			$user_data[$k]['avatar'] = "<img src='..".$user_data[$k]['avatar']."' width='50'>";
+			$user_data[$k]['avatar'] = "<img src='".config('app.APP_URL').$user_data[$k]['avatar']."' width='50'>";
 		}
+
 		return DataTables::of( $user_data )->escapeColumns([])
 		                 ->addColumn( 'action', function ( $user ) {
 			                 return getActionButtonAttribute( $user->id,$this->module);
@@ -100,25 +81,20 @@ class UserController extends Controller {
 	{
 
 		$this->validate($request, [
-			'name'=>'required|regex:/\w{8,20}/',
+			'name'=>'required|alpha_dash|between:4,20',
 			'email'=>'required|email',
-			'password'=>'same:repassword'
+			'password'=>'confirmed:repassword|between:6,30'
 		],[
 			'name.required'=>'用户名不能省略',
-			'name.regex'=>'用户规则不正确 请填写8至20位字母数字下划线',
 			'email.required'=>'邮箱不能省略',
 			'email.email'=>'邮箱格式不正确',
 			'password.same'=>'两次密码不不一致',
 		]);
-
-		if($request->hasFile('avatar')){
-			$path = './uploads/avatar/'.date('Ymd').'/';
-			$suffix = $request->file('avatar')->guessClientExtension();
-			$filename = time().rand(100000,999999).'.'.$suffix;
-			$request->file('avatar')->move($path,$filename);
-
-			$request->avatar = trim($path.$filename,'.');
-		}
+        if($request->hasFile('avatar')){
+            if ($request->file('avatar')->isValid()){
+                $request->avatar = "/uploads/".$request->avatar->store('avatar/'.date('Ymd'));
+            }
+        }
 
 		$user = new \App\Http\Model\User();
 		$user->name = $request->name;
@@ -148,72 +124,60 @@ class UserController extends Controller {
 		return view( 'admin.user.edit' ,compact('user','roles','now_role','id'));
 	}
 
+    public function destroy($id)
+    {
+        try {
+            $ifHasRole = $this->user->find($id)->roles();
+            if($ifHasRole){
+                return redirect()->back()->with('error','请先取消用户相关角色！');
+            }
+            $result = $this->user->delete($id);
+            if($result){
+                return redirect()->route('user.index')->with('success', '删除成功！');
+            }else{
+                return redirect()->back()->with('error','删除失败！');
+            }
+        } catch ( Exception $e ) {
+            return redirect()->back()->with('error','删除失败！'. $e->getMessage());
+        }
+        
+	}
+
 
 	public function update( Request $request ,$id) {
 		$user = $this->user->find($id);
+        if($request->has('name')){
+            $this->validate($request, ['name'=>'alpha_dash|between:4,20']);
+            $data['name'] = $request->name;
+        }
+        if($request->has('email')){
+            $this->validate($request, ['email'=>'email']);
+            $data['email'] = $request->email;
+        }
+        if($request->hasFile('avatar')){
+            $this->validate($request, [
+                'avatar'=>'mimetypes:image/jpeg,image/jpg,image/png',
+            ],[
+                'avatar.mimetypes'=>'上传文件类型必须是图片',
+            ]);
+            if ($request->file('avatar')->isValid()){
+                $data['avatar'] = "/uploads/".$request->avatar->store('avatar/'.date('Ymd'));
+            }
+        }
+        if($request->has('password')){
+            $this->validate($request, ['password'=>'confirmed:password_confirmation|between:6,30']);
+            $data['password'] = Hash::make($request->password);
+        }
+        $bool = $this->user->update($data,$id);
+
 		$user->syncRoles($request->role);
-
-
-
-		/*
-		$validator = Validator::make( $request->all(), [
-			'avatar' => 'required|image|mimes:jpeg,jpg,png|max:' . 2048,
-		] );
-		if ( $validator->fails() ) {
-			return back()
-				->withErrors( $validator )
-				->withInput();
-		}
-
-		$file = $request->avatar;
-		var_dump($file);
-
-		var_dump($request->file('avatar'));exit;
-		//判断文件在请求中是否存在
-		if ( $request->hasFile( 'avatar' ) ) {
-			//判断文件在上传过程中是否出错
-			if ( $request->file( 'avatar' )->isValid() ) {
-				$path = $request->avatar->store( 'images' );
-				var_dump( $path );
-
-			}
-		}
-		*/
-		//$path = $request->file('avatar')->store('avatars');
-		//Storage::put('avatars/1', $fileContents);
-		//$path = Storage::putFile('avatars', $request->file('avatar'));
-		//var_dump($path);
+        if($bool){
+            return redirect('admin/'.$this->module)->with( 'success', '更新成功' );
+        }else{
+            return redirect()->back()->with('error','更新失败！');
+        }
 	}
 
-
-	public function uploadAvatar( Request $request ) {
-		$user = auth()->user();
-
-		$milliseconds = getMilliseconds();
-
-		$path = ".upload/avatar/$milliseconds." . $request->file( 'image' )->guessClientExtension();
-
-		if ( $url = $this->uploadImage( $user, $request, $path ) ) {
-			$user->avatar = $url;
-		}
-		if ( $user->save() ) {
-			$this->userRepository->clearCache();
-
-			return back()->with( 'success', '修改成功' );
-		}
-
-		return back()->with( 'error', '修改失败' );
-	}
-
-	private function uploadImage( User $user, Request $request, $path, $max = 3072, $fileName = 'image' ) {
-		$this->checkPolicy( 'manager', $user );
-		$this->validate( $request, [
-			$fileName => 'required|image|mimes:jpeg,jpg,png|max:' . $max,
-		] );
-		$image = $request->file( $fileName );
-
-		return $this->imageRepository->uploadImage( $image, $path );
-	}
 
 	public function verify( $token ) {
 		$user = User::where( 'confirmation_token', $token )->first();

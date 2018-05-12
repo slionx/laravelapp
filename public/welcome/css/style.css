@@ -321,7 +321,9 @@ span.middot {
 
 .notopmargin { margin-top: 0 !important; }
 
-.nobottommargin { margin-bottom: 0 !important; }
+.nobottommargin { margin-bottom: 0 !important;}
+
+.overflow { overflow: hidden !important;}
 
 .header-stick { margin-top: -50px !important; }
 

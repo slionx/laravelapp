@@ -43,11 +43,11 @@
             <tr>
                 <td bgcolor="#f7f9fa" align="center" style="padding:22px 0 20px 0" class="responsive-table">
                     <table border="0" cellpadding="0" cellspacing="0"
-                           style="background-color:#00a5b5; border-radius:3px;border:1px solid #dedede;margin:0 auto; background-color:#ffffff"
+                           style="background-color:#1ABC9C; border-radius:3px;border:1px solid #dedede;margin:0 auto; background-color:#ffffff"
                            width="552" class="responsive-table">
                         <tbody>
                         <tr>
-                            <td bgcolor="#00a5b5" height="54" align="center"
+                            <td bgcolor="#1ABC9C" height="54" align="center"
                                 style="border-top-left-radius:3px;border-top-right-radius:3px;">
                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                     <tbody>
@@ -99,7 +99,7 @@
 <a style="text-decoration:none;color:#ffffff;"
    href="{{ route('password.reset',['token'=>$token]) }}"
    target="_blank">
-<div style="padding:10px 25px 10px 25px;border-radius:3px;text-align:center;text-decoration:none;background-color:#00a5b5;color:#ffffff;font-size:17px;margin:0;white-space:nowrap">重置密码
+<div style="padding:10px 25px 10px 25px;border-radius:3px;text-align:center;text-decoration:none;background-color:#1ABC9C;color:#ffffff;font-size:17px;margin:0;white-space:nowrap">重置密码
 </div>
 </a>
 </span>

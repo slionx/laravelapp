@@ -11,7 +11,6 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        //
             $tmp = [];
             $tmp['name'] = 'admin';
             $tmp['slug'] = 'admin';

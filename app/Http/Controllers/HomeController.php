@@ -15,10 +15,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         //echo $request->getClientIp();
-        return view('home');
+        return view('welcome');
     }
 
     public function welcome(){

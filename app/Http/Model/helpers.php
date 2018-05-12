@@ -148,3 +148,212 @@ if(!function_exists('cacheClear')){
         cache()->flush();
     }
 }
+
+
+function getList()
+{
+    $menu_list = [
+        [
+            'name' => '仪表盘',
+            'route' => 'dashboard.index',
+            'icon' => 'fa fa-dashboard',
+            'list' => [
+                [
+                    'name' => '仪表盘',
+                    'route' => 'dashboard.index',
+                    'icon' => 'icon-bar-chart',
+                ],
+            ],
+        ],
+        [
+            'name' => '文章管理',
+            'route' => 'post.index',
+            'icon' => 'icon-docs',
+            'list' => [
+                [
+                    'name' => '文章列表',
+                    'route' => 'post.index',
+                    'icon' => 'icon-docs',
+                    'sub' => [
+                        'post.index',
+                    ],
+                ],
+                [
+                    'name' => '添加文章',
+                    'route' => 'post.create',
+                    'icon' => 'icon-note',
+                    'sub' => [
+                        'post.create',
+                    ],
+                ],
+                [
+                    'name' => '分类列表',
+                    'route' => 'category.index',
+                    'icon' => 'fa fa-navicon',
+                    'sub' => [
+                        'post.create',
+                    ],
+                ],
+                [
+                    'name' => '添加分类',
+                    'route' => 'category.create',
+                    'icon' => 'fa fa-navicon',
+                    'sub' => [
+                        'post.create',
+                    ],
+                ],
+                [
+                    'name' => '标签列表',
+                    'route' => 'tag.index',
+                    'icon' => 'fa fa-navicon',
+                    'sub' => [
+                        'post.create',
+                    ],
+                ],
+                [
+                    'name' => '添加标签',
+                    'route' => 'tag.create',
+                    'icon' => 'fa fa-navicon',
+                    'sub' => [
+                        'post.create',
+                    ],
+                ],
+            ],
+        ],
+        [
+            'name' => '用户管理',
+            'route' => 'user.index',
+            'icon' => 'icon-users',
+            'list' => [
+                [
+                    'name' => '用户列表',
+                    'route' => 'user.index',
+                    'icon' => 'icon-user',
+                ],
+                [
+                    'name' => '添加用户',
+                    'route' => 'user.create',
+                    'icon' => 'icon-user',
+                ],
+                [
+                    'name' => '角色列表',
+                    'route' => 'role.index',
+                    'icon' => 'icon-bar-chart',
+                ],
+                [
+                    'name' => '添加角色',
+                    'route' => 'role.create',
+                    'icon' => 'icon-bar-chart',
+                ],
+                [
+                    'name' => '权限列表',
+                    'route' => 'permission.index',
+                    'icon' => 'icon-bar-chart',
+                ],
+                [
+                    'name' => '添加权限',
+                    'route' => 'permission.create',
+                    'icon' => 'icon-bar-chart',
+                ],
+            ],
+        ],
+        [
+            'name' => '欢迎页管理',
+            'route' => 'welcome.index',
+            'icon' => 'icon-home',
+            'list' => [
+                [
+                    'name' => '欢迎页列表',
+                    'route' => 'welcome.index',
+                    'icon' => 'icon-home',
+                ],
+            ],
+        ],
+        [
+            'name' => '系统设置',
+            'route' => 'welcome.index',
+            'icon' => 'fa fa-cogs',
+            'list' => [
+                [
+                    'name' => '系统设置',
+                    'route' => 'welcome.index',
+                    'icon' => 'fa fa-cogs',
+                ],
+            ],
+        ],
+    ];
+
+   /* $menu_list = $this->resetList($menu_list);
+    foreach ($menu_list as $i => $item) {
+        if (is_array($item['list']) && count($item['list']) == 0) {
+            unset($menu_list[$i]);
+            continue;
+        }
+        if (is_array($item['list'])) {
+            $menu_list[$i]['route'] = $item['list'][0]['route'];
+        }
+    }
+    $menu_list = array_values($menu_list);*/
+    return $menu_list;
+}
+
+function menuList(){
+    $menuList = getList();
+    $route = substr(Request::path(),6);
+    if(strpos($route,'/') ===false){
+        $route = $route."/index";
+    }
+    $route = str_replace('/','.',$route);
+
+    $menu ='';
+    foreach ($menuList as $item) {
+        $menu .= '<li class="nav-item '. activeMenu($item,$route) .'">';
+        $menu .= '<a href="'. route($item['route']) .'" class="nav-link nav-toggle">';
+        $menu .= '<i class="'. $item['icon'] .'"></i>';
+        $menu .= '<span class="title">'. $item['name'] .'</span>';
+        $menu .= '<span class="arrow"></span>';
+        $menu .= '</a>';
+        if(isset($item['list']) && is_array($item['list'])){
+            $menu .= '<ul class="sub-menu">';
+            foreach ($item['list'] as $sub_item) {
+                $menu .= '<li class="nav-item '. activeMenu($sub_item,$route) .'">';
+                $menu .= ' <a href="'. route($sub_item['route']) .'" class="nav-link ">';
+                $menu .= '<span class="title">'. $sub_item['name'] .'</span>';
+                $menu .= '</a>';
+                $menu .= '</li>';
+            }
+            $menu .= '</ul>';
+        }
+        $menu .= '</li>';
+    }
+    return $menu;
+}
+
+function activeMenu($item, $route)
+{
+    if (isset($item['route']) && ($item['route'] == $route ))
+        return 'active open';
+    if (isset($item['list']) && is_array($item['list'])) {
+        foreach ($item['list'] as $sub_item) {
+            $active = activeMenu($sub_item, $route);
+            if ($active != '')
+                return $active;
+        }
+    }
+    return '';
+}
+
+function resetList($list)
+{
+    foreach ($list as $i => $item) {
+        if (isset($item['id']) && $this->user_auth !== null && !in_array($item['id'], $this->user_auth)) {
+            unset($list[$i]);
+            continue;
+        }
+        if (isset($item['list']) && is_array($item['list'])) {
+            $list[$i]['list'] = $this->resetList($item['list']);
+        }
+    }
+    $list = array_values($list);
+    return $list;
+}

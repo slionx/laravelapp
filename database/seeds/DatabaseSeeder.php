@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Http\Model\Posts;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +16,9 @@ class DatabaseSeeder extends Seeder
 	    });*/
         $this->call(UserTableSeeder::class);
         $this->call(RoleTableSeeder::class);
+        $this->call(CategoryTableSeeder::class);
+        $this->call(TagTableSeeder::class);
+        $this->call(PostsTableSeeder::class);
 
            /*DB::table('users')->insert([
             'name' => str_random(10),

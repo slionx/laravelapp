@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en-US">
+<html dir="ltr" lang="{{ app()->getLocale() }}">
 <head>
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -44,7 +44,7 @@
                 <div class="container vertical-middle divcenter clearfix">
 
                     <div class="row center">
-                        {{--<h1><span class="label label-default">Slionx</span></h1>--}}
+                        <h1><a href="{{ url('/') }}"><span class="label label-default">Slionx</span></a></h1>
                         {{--<a href="index.html"><img src="images/logo-dark.png" alt="Canvas Logo"></a>--}}
                     </div>
 
@@ -54,7 +54,7 @@
 
                     </div>
 
-                    <div class="row center dark"><small>Copyrights &copy; All Rights Reserved by Canvas Inc.</small></div>
+                    {{--<div class="row center dark"><small>Copyrights &copy; All Rights Reserved by Canvas Inc.</small></div>--}}
 
                 </div>
             </div>

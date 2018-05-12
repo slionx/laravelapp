@@ -321,9 +321,9 @@
 
                         </li>
 
-                        <li data-transition="slideup" data-slotamount="1" data-masterspeed="1500" data-thumb="{{ asset('welcome/images/8.jpg') }}" data-delay="10000"  data-saveperformance="off"  data-title="Unlimited Possibilities">
+                        <li data-transition="slideup" data-slotamount="1" data-masterspeed="1500" data-thumb="{{ asset('welcome/images/9.jpg') }}" data-delay="10000"  data-saveperformance="off"  data-title="Unlimited Possibilities">
                             <!-- MAIN IMAGE -->
-                            <img src="{{ asset('welcome/images/8.jpg') }}"  alt="kenburns6"  data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scale="100" data-scaleend="120" data-bgpositionend="center top">
+                            <img src="{{ asset('welcome/images/9.jpg') }}"  alt="kenburns6"  data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scale="100" data-scaleend="120" data-bgpositionend="center top">
                             <!-- LAYERS -->
 
                             <!-- LAYER NR. 2 -->
@@ -388,9 +388,6 @@
                 </div>
             </div><!-- END REVOLUTION SLIDER -->
         @else
-
-
-
             <div class="swiper-container swiper-parent">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide dark" style="background-image: url('{{ asset('welcome/images/7.jpg') }}');">
@@ -437,7 +434,7 @@
                         </div>
                     </div>
 
-                    <div class="swiper-slide" style="background-image: url('{{ asset('welcome/images/5.jpg') }}'); background-position: center top;">
+                    <div class="swiper-slide dark" style="background-image: url('{{ asset('welcome/images/9.jpg') }}'); background-position: center top;">
                         <div class="container clearfix">
                             <div class="slider-caption">
                                 <h2 data-caption-animate="fadeInUp">Great Performance</h2>

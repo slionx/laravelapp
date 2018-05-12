@@ -93,11 +93,11 @@
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="{{ route('dashboard.index') }}">Home</a>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <a href="#">用户</a>
+                        <a href="{{ route('user.index') }}">用户</a>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
@@ -186,9 +186,9 @@
                                     <label for="name" class="col-sm-3 control-label">{{ trans( 'common.name' ) }}</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="用户名为必填项，最大长度255。"></i>
+                                            <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="昵称为必填项，最大长度255"></i>
                                             <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" placeholder="用户名">
-                                            <span  class="help-block">{{ $errors->has('name') ? ' 用户名为必填项，最大长度255。' : '' }}</span>
+                                            <span  class="help-block">{{ $errors->has('name') ? ' 昵称为必填项，最大长度255' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -212,13 +212,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group {{ $errors->has('repassword') ? ' has-error' : '' }}">
-                                    <label for="display_name" class="col-sm-3 control-label">确认密码</label>
+                                <div class="form-group {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                                    <label for="password_confirmation" class="col-sm-3 control-label">确认密码</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('repassword') ? ' fa fa-warning tooltips' : '' }}" data-original-title="确认密码为必填项"></i>
-                                            <input type="password" name="repassword" class="form-control" id="repassword" placeholder="确认密码">
-                                            <span  class="help-block">{{ $errors->has('repassword') ? ' 显示名称为必填项，序号只能为数字。' : '' }}</span>
+                                            <i class="{{ $errors->has('password_confirmation') ? ' fa fa-warning tooltips' : '' }}" data-original-title="确认密码为"></i>
+                                            <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="确认密码">
+                                            <span  class="help-block">{{ $errors->has('repassword') ? $error : '' }}</span>
                                         </div>
                                     </div>
                                 </div>
