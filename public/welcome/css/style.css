@@ -5696,6 +5696,19 @@ body:not(.device-touch) .entry-link {
 
 .comment-reply-link:hover { color: #888; }
 
+.comment-delete {
+	display: block;
+	position: absolute;
+	top: 4px;
+	left: auto;
+	text-align: center;
+	right: 20px;
+	width: 14px;
+	height: 14px;
+	color: #CCC;
+	font-size: 14px;
+	line-height: 1;
+}
 
 /* ----------------------------------------------------------------
 	Comment Form

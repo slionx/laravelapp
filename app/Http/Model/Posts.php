@@ -38,6 +38,11 @@ class Posts extends Model
 		return $this->belongsToMany(Tag::class,'post_tag','post_id','tag_id')->withPivot(['post_id','tag_id']);
 	}
 
+    public function comments()
+    {
+        return $this->hasMany(comment::class,'post_id');
+    }
+
 	public function attachTag( $tag ) {
 		return $this->tag()->attach($tag);
 	}

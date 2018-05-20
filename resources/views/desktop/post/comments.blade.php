@@ -2,124 +2,96 @@
                             ============================================= -->
 <div id="comments" class="clearfix">
 
-    <h3 id="comments-title"><span>3</span> 条评论</h3>
+    <h3 id="comments-title"><span>{{ $comment_count }}</span> 条评论</h3>
 
     <!-- Comments List
     ============================================= -->
     <ol class="commentlist clearfix">
-
-        <li class="comment even thread-even depth-1" id="li-comment-1">
-
-            <div id="comment-1" class="comment-wrap clearfix">
-
-                <div class="comment-meta">
-
-                    <div class="comment-author vcard">
-
-													<span class="comment-avatar clearfix">
+        @forelse($comments as $item)
+            <li class="comment" lev="{{ $item->lev }}" id="li-comment-2">
+                <div id="comment-2" class="comment-wrap clearfix">
+                    <div class="comment-meta">
+                        <div class="comment-author vcard">
+					<span class="comment-avatar clearfix">
 													<img alt=''
-                                                         src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60'
-                                                         class='avatar avatar-60 photo avatar-default' height='60'
-                                                         width='60'/></span>
+                                                         src='{{ config('app.APP_URL').$item->user->avatar }}'
+                                                         class='avatar avatar-60 photo' height='60' width='60'/></span>
+
+                        </div>
+                    </div>
+                    <div class="comment-content clearfix">
+                        <div class="comment-author">
+                            <a href='javascript:;' id="comment-author-{{ $item->id }}" rel='external nofollow'
+                               class='url'>{{ $item->user->name }}</a><span>{{ $item->created_at->diffForHumans() }}</span>
+                        </div>
+                        <p>{{ $item->content }}</p>
+                        <span class='comment-reply-link' id="reply-comment-{{ $item->id }}"><i
+                                    class="icon-reply"></i></span>
+                        <span class="comment-delete">
+                                                        		<a href="javascript:;" title="删除"
+                                                                   onclick="comment_delete({{ $item->id }})">
+                             <i class="icon-trash"></i>
+
+ 		</a>
+                        </span>
+
+
+                        @if(haspermission('admin'))
+                        @endif
 
                     </div>
-
+                    <div class="clear"></div>
                 </div>
+            </li>
+            @if(is_array($item['child']))
 
-                <div class="comment-content clearfix">
+                <ul class='children'>
+                    @foreach($item['child'] as $subitem)
 
-                    <div class="comment-author">John Doe<span><a href="#" title="Permalink to this comment">April 24,
-                                2012 at 10:46 am</a></span></div>
-
-                    <p>Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Nullam id dolor id nibh ultricies
-                        vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
-
-                    <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
-
-                </div>
-
-                <div class="clear"></div>
-
-            </div>
-
-
-            <ul class='children'>
-
-                <li class="comment byuser comment-author-_smcl_admin odd alt depth-2" id="li-comment-3">
-
-                    <div id="comment-3" class="comment-wrap clearfix">
-
-                        <div class="comment-meta">
-
-                            <div class="comment-author vcard">
-
+                        <li class="comment byuser comment-author-_smcl_admin odd alt depth-2" id="li-comment-3">
+                            <div id="comment-3" class="comment-wrap clearfix">
+                                <div class="comment-meta">
+                                    <div class="comment-author vcard">
 															<span class="comment-avatar clearfix">
 															<img alt=''
-                                                                 src='http://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G'
+                                                                 src='{{ config('app.APP_URL').$subitem->user->avatar }}'
                                                                  class='avatar avatar-40 photo' height='40' width='40'/></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="comment-content clearfix">
+
+                                    <div class="comment-author"><a href='javascript:;'
+                                                                   id="comment-author-{{ $subitem->id }}"
+                                                                   rel='external nofollow'
+                                                                   class='url'>{{ $subitem->user->name }}</a><span>{{ $subitem->created_at->diffForHumans() }}</span>
+                                    </div>
+
+                                    <p>{{ $subitem->content }}</p>
+
+                                    <a class='comment-reply-link' id="reply-comment-{{ $subitem->id }}"><i
+                                                class="icon-reply"></i></a>
+                                    <span class="comment-delete">
+                                                        		<a href="javascript:;" title="删除"
+                                                                   onclick="comment_delete({{ $item->id }})">
+                             <i class="icon-trash"></i>
+
+ 		</a>
+                        </span>
+
+                                </div>
+
+                                <div class="clear"></div>
 
                             </div>
 
-                        </div>
-
-                        <div class="comment-content clearfix">
-
-                            <div class="comment-author"><a href='#' rel='external nofollow'
-                                                           class='url'>SemiColon</a><span><a href="#"
-                                                                                             title="Permalink to this comment">April
-                                        25, 2012 at 1:03 am</a></span></div>
-
-                            <p>Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-
-                            <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
-
-                        </div>
-
-                        <div class="clear"></div>
-
-                    </div>
-
-                </li>
-
-            </ul>
-
-        </li>
-
-        <li class="comment byuser comment-author-_smcl_admin even thread-odd thread-alt depth-1" id="li-comment-2">
-
-            <div id="comment-2" class="comment-wrap clearfix">
-
-                <div class="comment-meta">
-
-                    <div class="comment-author vcard">
-
-													<span class="comment-avatar clearfix">
-													<img alt=''
-                                                         src='http://1.gravatar.com/avatar/30110f1f3a4238c619bcceb10f4c4484?s=60&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G'
-                                                         class='avatar avatar-60 photo' height='60' width='60'/></span>
-
-                    </div>
-
-                </div>
-
-                <div class="comment-content clearfix">
-
-                    <div class="comment-author"><a href='http://themeforest.net/user/semicolonweb'
-                                                   rel='external nofollow' class='url'>SemiColon</a><span><a href="#"
-                                                                                                             title="Permalink to this comment">April
-                                25, 2012 at 1:03 am</a></span></div>
-
-                    <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
-
-                    <a class='comment-reply-link' href='#'><i class="icon-reply"></i></a>
-
-                </div>
-
-                <div class="clear"></div>
-
-            </div>
-
-        </li>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+        @empty
+        @endforelse
 
     </ol><!-- .commentlist end -->
 
@@ -130,23 +102,55 @@
     <div id="respond" class="clearfix">
 
         <h3>留<span>言</span></h3>
-
-        <form class="clearfix" action="#" method="post" id="commentform">
-
-            <div class="col_one_third">
-                <label for="author">昵称</label>
-                <input type="text" name="author" id="author" value="" size="22" tabindex="1" class="sm-form-control"/>
+        @if (session('success'))
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                {{ session('success') }}
             </div>
-
-            <div class="col_one_third col_last">
-                <label for="email">邮箱</label>
-                <input type="text" name="email" id="email" value="" size="22" tabindex="2" class="sm-form-control"/>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                {{ session('error') }}
             </div>
-            <div class="clear"></div>
+        @endif
+        @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <ol>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ol>
+            </div>
+        @endif
+
+
+        <form class="clearfix" action="{{ route('comment.store') }}" method="post" id="commentform">
+            <input type="hidden" name="post_id" value="{{ $post->id }}">
+            <input type="hidden" name="pid" value="0" id="pid">
+            {{ csrf_field() }}
+
+            {{-- <div class="col_one_third">
+                 <label for="author">昵称</label>
+                 <input type="text" name="author" id="author" value="" size="22" tabindex="1" class="sm-form-control"/>
+             </div>
+
+             <div class="col_one_third col_last">
+                 <label for="email">邮箱</label>
+                 <input type="text" name="email" id="email" value="" size="22" tabindex="2" class="sm-form-control"/>
+             </div>
+             <div class="clear"></div>--}}
 
             <div class="col_full">
                 <label for="comment">评论</label>
-                <textarea name="comment" cols="58" rows="7" tabindex="4" class="sm-form-control"></textarea>
+
+                @if(auth::check())
+                    <textarea name="comment" cols="58" rows="7" tabindex="4" class="sm-form-control"></textarea>
+                @else
+                    <div class="sign-container"><a href="{{ url('/login') }}" class="button button-3d nomargin">登录</a>
+                        <span>后发表评论</span></div>
+                @endif
             </div>
 
             <div class="col_full nobottommargin">
@@ -160,3 +164,17 @@
     </div><!-- #respond end -->
 
 </div><!-- #comments end -->
+
+<form id="comment_delete" method="POST" style="display:none">
+    <input type="hidden" name="_method" value="delete">
+    {{ csrf_field() }}
+</form>
+<script>
+    function comment_delete(id) {
+        var delete_form = document.getElementById("comment_delete");
+        delete_form.action = "http://l.cn/comment/" + id;
+        document.getElementById("comment_delete").submit();
+    }
+</script>
+
+

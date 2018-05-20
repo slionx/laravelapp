@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Model\Comment;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
 use App\Http\Requests\StorePostRequest;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
+use GrahamCampbell\Markdown\Facades\Markdown;
 use App\Repositories\PostRepository as Post;
 use App\Http\Model\Posts;
 use App\Http\Model\Tag as Tags;
@@ -18,6 +20,7 @@ use App\Repositories\TagRepository as Tag;
 use Matriphe\Imageupload\Imageupload;
 use Image;
 use Illuminate\Auth\Middleware;
+use DB;
 
 
 /**
@@ -232,6 +235,7 @@ class PostController extends Controller
         if ($this->Validator($request)) {
             return $this->Validator($request);
         }
+
         //$request['post_author'] = "Slionx";
         //$request->post_slug = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
         $result = auth()->user()->posts()->create($request->all());
@@ -415,6 +419,14 @@ class PostController extends Controller
             'user' => function ($query) {
                 $query->select('id', 'name');
             }
+        ])->with([
+            'comments' => function ($query) {
+                $query->with([
+                    'user' => function ($query) {
+                        $query->select('id', 'name','avatar');
+                    }
+                ])->select(DB::raw('id,user_id,post_id,pid,path,content,created_at,concat(path,",",id) as paths'))->orderBy('paths')->get();
+            }
         ])->orderBy('created_at', 'desc')->findOrFail($id, [
             'id',
             'post_author',
@@ -429,25 +441,50 @@ class PostController extends Controller
         if ($post->post_password && $post->post_author != auth()->user()->id) {
             return redirect()->route('post.list');
         }
+        $comment_count = count($post->comments);
+
+        $comments = $this->getSubTree($post->comments);
+
+        //dd($rssss);
+
 
         $followers_count = $post->followers_count + 1;
-        $this->post->update(['followers_count' => $followers_count], $id);
+        $this->post->update(['followers_count' => $followers_count], $id,['id','followers_count']);
         $tags = $this->tag->all(['id', 'name', 'count']);
         $categories = $this->category->all(['id', 'name', 'count']);
 
         $hot = Posts::orderBy('followers_count', 'desc')->take(3)->get(['id', 'post_title', 'followers_count']);
+        $reply =  Comment::with([
+            'post' => function ($query) {
+                $query->select('id', 'post_title');
+            }
+        ])->select(DB::raw('id,post_id,count(id) as count'))->groupBy('post_id')->orderBy('count','desc')->take(3)->get();
 
+        //dd($reply);
         $prev_post = Posts::where('id', '<', $id)->first(['id', 'post_title']);
         $prev_post = $prev_post ? $prev_post : '';
         $next_post = Posts::where('id', '>', $id)->first(['id', 'post_title']);
         $next_post = $next_post ? $next_post : '';
 
-        return view('desktop.post.show', compact('post', 'tags', 'categories', 'prev_post', 'next_post', 'hot'));
+        return view('desktop.post.show', compact('post', 'tags', 'categories', 'prev_post', 'next_post', 'hot','comments','comment_count','reply'));
     }
+
+    public function getSubTree($data   , $pid = 0, $lev = 0) {
+        $tmp = array();
+        foreach ($data as $key => $value) {
+            if($value['pid'] == $pid) {
+                $value['child'] = $this->getSubTree($data ,  $value['id']);
+                $tmp[] = $value;
+                //$tmp = array_merge($tmp , $this->getSubTree($data ,  $value['id'] , $lev+1));
+            }
+        }
+        return $tmp;
+    }
+
 
     /**
      * @param $id
-     * @param $t
+     * @param $ts
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -495,11 +532,16 @@ class PostController extends Controller
 
         $hot = Posts::orderBy('followers_count', 'desc')->take(3)->get(['id', 'post_title', 'followers_count']);
         //dd($hot);
+        $reply =  Comment::with([
+            'post' => function ($query) {
+                $query->select('id', 'post_title');
+            }
+        ])->select(DB::raw('id,post_id,count(id) as count'))->groupBy('post_id')->orderBy('count','desc')->take(3)->get();
 
         $tags = $this->tag->all(['id', 'name', 'count']);
         $categories = $this->category->all(['id', 'name', 'count']);
 
-        return view('desktop.post.list', compact('post', 'tags', 'categories', 'hot'));
+        return view('desktop.post.list', compact('post', 'tags', 'categories', 'hot','reply'));
     }
 
     /**

@@ -15,6 +15,7 @@
 Auth::routes();
 
 Route::get('/','HomeController@index');
+Route::get('/home','HomeController@index');
 
 Route::post('user/upload/avatar', 'admin\UserController@update')->name('uploadAvatar');
 
@@ -25,12 +26,16 @@ Route::get('post/list/{search}/', 'admin\PostController@list')->name('post.list.
 Route::get('post/list/{tag}/{id}/', 'admin\PostController@list')->name('post.list.tag');
 Route::get('post/list/{category}/{id}', 'admin\PostController@list')->name('post.list.category');
 Route::get('post/{post}/', 'admin\PostController@show')->name('post.show');
+Route::resource('comment', 'CommentController');
+
+//Route::post('/comment', 'CommentController@store')->name('comment.store');
+
 
 /*
  * admin 路由组
  * admin spacename
  * */
-Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','menu','isadmin']], function () {
+Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','isadmin']], function () {
 /*路由资源可用方法
  *
  *  GET	/posts	index	posts.index

@@ -19,7 +19,8 @@
         "yajra/laravel-datatables-html": "^3.2",
         "barryvdh/laravel-ide-helper": "^2.4",
         "predis/predis": "^1.1",
-        "prettus/l5-repository": "^2.6"
+        "prettus/l5-repository": "^2.6",
+        "chenhua/laravel5-markdown-editor": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

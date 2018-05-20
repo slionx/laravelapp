@@ -108,6 +108,109 @@ php artisan make:migrition
 
 
 
+-----------初始配置相关---------------
+
+PHP 必须大于或等于 7.1.3
+必须安装扩展 dom
+必须安装扩展 fileinfo
+必须安装扩展 gd
+必须安装扩展 json
+必须安装扩展 mbstring
+必须安装扩展 openssl
+必须安装 PDO
+使用 MySQL 数据库则必须安装 PHP 扩展 pdo_mysql
+使用 PostgreSQL 数据库则必须安装 PHP 扩展 pdo_pgsql
+使用 SQLite 数据库则必须安装 PHP 拓展 pdo_sqlite
+使用 SQL Server 数据库则必须安装 PHP 拓展 pdo_dblib
+
+Nginx
+如果你使用的是 Nginx，在你的站点配置中加入以下内容，它将会将所有请求都引导到 index.php 前端控制器：
+
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+Apache
+在 项目中 中，已经在根目录 /plulic 中已经提供了 .htaccess 文件，其中已经为您配置好了优雅的地址配置。
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+如果在你的 Apache 中不生效或者由其他位置提供配置，请设置：
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+
+安装项目依赖
+composer install
+
+生成.env
+cp .env.example .env
+php artisan key:generate
+
+编辑.env环境配置
+APP_DEBUG=true #关闭调试
+DB_HOST= #数据库地址
+DB_PORT=3306 #数据库端口
+DB_DATABASE= #数据库名称
+DB_USERNAME= #数据库用户
+DB_PASSWORD= #数据库密码
+
+运行数据迁移和数据填充
+php artisan migrate
+php artisan db:seed
+
+发布拓展包资源
+php artisan vendor:publish --all
+
+
+目录权限 & 公开资源
+大多数时候为了方便，我们在服务器都是使用 root 作为服务器管理账户，可能你在下载 该项目 的时候也适用的 root 账户，这会产生一个问题，php-fpm 或者 nginx 不是运行在 root 账户下的，导致你实际运行站点的时候会出现莫名其妙的错误，你应该将你整个 项目 目录指定给 php 或者 nginx 的运行角色：
+
+
+设置目录权限
+chown -R nginx:nginx  storage/
+chmod -R 755 public/
+chown -R nginx:nginx  public/
+
+目录	权限
+/*	0755
+/storage	0777
+所有资源都存储在 /storage 目录下，所以你需要将公开资源链接到 /public 目录下，请务必执行：
+
+php artisan storage:link
+
+调优
+部署到线上可选，本地测试无需执行
+
+php artisan optimize
+php artisan config:cache
+php artisan route:cache
+
+-------------初始配置相关---------------
+
 
 
 注意: 如果在执行迁移时发生「class not found」错误，试着先执行 composer dump-autoload 命令后再进行一次。

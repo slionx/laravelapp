@@ -129,12 +129,12 @@
             <div class="tp-banner-container">
                 <div class="tp-banner" >
                     <ul>    <!-- SLIDE  -->
-                        <li class="dark" data-transition="fade" data-slotamount="1" data-masterspeed="1500" data-thumb="{{ asset('welcome/images/5.jpg') }}" data-delay="10000"  data-saveperformance="off" data-title="Responsive Design">
+                        <li class="dark" data-transition="fade" data-slotamount="1" data-masterspeed="1500" data-thumb="{{ asset('welcome/images/7.jpg') }}" data-delay="10000"  data-saveperformance="off" data-title="Responsive Design">
                             <!-- MAIN IMAGE -->
-                            <img src="{{ asset('welcome/images/5.jpg') }}"  alt="kenburns1"  data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scale="100" data-scaleend="120" data-bgpositionend="center top">
+                            <img src="{{ asset('welcome/images/7.jpg') }}"  alt="kenburns1"  data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scale="100" data-scaleend="120" data-bgpositionend="center top">
                             <!-- LAYERS -->
 
-                            <!-- LAYER NR. 2 -->
+                           {{-- <!-- LAYER NR. 2 -->
                             <div class="tp-caption customin ltl tp-resizeme revo-slider-caps-text uppercase"
                                  data-x="355"
                                  data-y="215"
@@ -190,15 +190,15 @@
                                  data-endelementdelay="0.1"
                                  data-endspeed="1000"
                                  data-endeasing="Power4.easeIn" style="z-index: 3;"><a href="#" class="button button-border button-white button-light button-large button-rounded tright nomargin"><span>Start Tour</span> <i class="icon-angle-right"></i></a></div>
-
+--}}
                         </li>
 
-                        <li class="dark" data-transition="fade" data-slotamount="1" data-masterspeed="1500" data-thumb="{{ asset('welcome/images/6.jpg') }}" data-delay="10000"  data-saveperformance="off"  data-title="Unlimited Possibilities">
+                        <li class="dark" data-transition="fade" data-slotamount="1" data-masterspeed="1500" data-thumb="{{ asset('welcome/images/wallhaven-220496-1.jpg') }}" data-delay="10000"  data-saveperformance="off"  data-title="Unlimited Possibilities">
                             <!-- MAIN IMAGE -->
-                            <img src="{{ asset('welcome/images/6.jpg') }}"  alt="kenburns6"  data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scale="100" data-scaleend="120" data-bgpositionend="center top">
+                            <img src="{{ asset('welcome/images/wallhaven-220496-1.jpg') }}"  alt="kenburns6"  data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scale="100" data-scaleend="120" data-bgpositionend="center top">
                             <!-- LAYERS -->
 
-                            <!-- LAYER NR. 2 -->
+                            {{--<!-- LAYER NR. 2 -->
                             <div class="tp-caption customin ltl tp-resizeme revo-slider-caps-text uppercase"
                                  data-x="453"
                                  data-y="215"
@@ -253,136 +253,20 @@
                                  data-elementdelay="0.01"
                                  data-endelementdelay="0.1"
                                  data-endspeed="1000"
-                                 data-endeasing="Power4.easeIn" style="z-index: 3;"><a href="#" class="button button-border button-large button-rounded tright nomargin"><span>Browse</span><i class="icon-angle-right"></i></a></div>
+                                 data-endeasing="Power4.easeIn" style="z-index: 3;"><a href="#" class="button button-border button-large button-rounded tright nomargin"><span>Browse</span><i class="icon-angle-right"></i></a></div>--}}
 
                         </li>
 
-                        <li data-transition="slideup" data-slotamount="1" data-masterspeed="1500" data-thumb="{{ asset('welcome/images/7.jpg') }}" data-delay="10000"  data-saveperformance="off"  data-title="Unlimited Possibilities">
+                        <li data-transition="slideup" data-slotamount="1" data-masterspeed="1500" data-thumb="{{ asset('welcome/images/sweet_blonde-wallpaper-1920x1080.jpg') }}" data-delay="10000"  data-saveperformance="off"  data-title="Unlimited Possibilities">
                             <!-- MAIN IMAGE -->
-                            <img src="{{ asset('welcome/images/7.jpg') }}"  alt="kenburns6"  data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scale="100" data-scaleend="120" data-bgpositionend="center top">
+                            <img src="{{ asset('welcome/images/sweet_blonde-wallpaper-1920x1080.jpg') }}"  alt="kenburns6"  data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scale="100" data-scaleend="120" data-bgpositionend="center top">
                             <!-- LAYERS -->
-
-                            <!-- LAYER NR. 2 -->
-                            <div class="tp-caption customin ltl tp-resizeme revo-slider-caps-text uppercase"
-                                 data-x="453"
-                                 data-y="215"
-                                 data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;s:800;e:Power4.easeOutQuad;"
-                                 data-speed="800"
-                                 data-start="1000"
-                                 data-easing="easeOutQuad"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.1"
-                                 data-endspeed="1000"
-                                 data-endeasing="Power4.easeIn" style="z-index: 3; color: #333; white-space: nowrap;">Why Choose Canvas?</div>
-
-                            <div class="tp-caption customin ltl tp-resizeme revo-slider-emphasis-text nopadding noborder"
-                                 data-x="264"
-                                 data-y="230"
-                                 data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;s:800;e:Power4.easeOutQuad;"
-                                 data-speed="800"
-                                 data-start="1200"
-                                 data-easing="easeOutQuad"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.1"
-                                 data-endspeed="1000"
-                                 data-endeasing="Power4.easeIn" style="z-index: 3; color: #333; white-space: nowrap;">Unlimited Possibilities</div>
-
-                            <div class="tp-caption customin ltl tp-resizeme revo-slider-desc-text"
-                                 data-x="245"
-                                 data-y="340"
-                                 data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;s:800;e:Power4.easeOutQuad;"
-                                 data-speed="800"
-                                 data-start="1400"
-                                 data-easing="easeOutQuad"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.1"
-                                 data-endspeed="1000"
-                                 data-endeasing="Power4.easeIn" style="z-index: 3; color: #333; max-width: 650px; white-space: normal;">Create whatever you require for your Business to bloom with Tons of Customization Possibilities.</div>
-
-                            <div class="tp-caption customin ltl tp-resizeme"
-                                 data-x="508"
-                                 data-y="450"
-                                 data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;s:800;e:Power4.easeOutQuad;"
-                                 data-speed="800"
-                                 data-start="1550"
-                                 data-easing="easeOutQuad"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.1"
-                                 data-endspeed="1000"
-                                 data-endeasing="Power4.easeIn" style="z-index: 3;"><a href="#" class="button button-border button-large button-rounded tright nomargin"><span>Browse</span><i class="icon-angle-right"></i></a></div>
-
                         </li>
 
-                        <li data-transition="slideup" data-slotamount="1" data-masterspeed="1500" data-thumb="{{ asset('welcome/images/9.jpg') }}" data-delay="10000"  data-saveperformance="off"  data-title="Unlimited Possibilities">
+                        <li class="dark" data-transition="slideup" data-slotamount="1" data-masterspeed="1500" data-thumb="{{ asset('welcome/images/girl_white_hair_and_dark_eyebrows-wallpaper-2880x1620.jpg') }}" data-delay="10000"  data-saveperformance="off"  data-title="Unlimited Possibilities">
                             <!-- MAIN IMAGE -->
-                            <img src="{{ asset('welcome/images/9.jpg') }}"  alt="kenburns6"  data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scale="100" data-scaleend="120" data-bgpositionend="center top">
+                            <img src="{{ asset('welcome/images/girl_white_hair_and_dark_eyebrows-wallpaper-2880x1620.jpg') }}"  alt="kenburns6"  data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-scale="100" data-scaleend="120" data-bgpositionend="center top">
                             <!-- LAYERS -->
-
-                            <!-- LAYER NR. 2 -->
-                            <div class="tp-caption customin ltl tp-resizeme revo-slider-caps-text uppercase"
-                                 data-x="453"
-                                 data-y="215"
-                                 data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;s:800;e:Power4.easeOutQuad;"
-                                 data-speed="800"
-                                 data-start="1000"
-                                 data-easing="easeOutQuad"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.1"
-                                 data-endspeed="1000"
-                                 data-endeasing="Power4.easeIn" style="z-index: 3; color: #333; white-space: nowrap;">Why Choose Canvas?</div>
-
-                            <div class="tp-caption customin ltl tp-resizeme revo-slider-emphasis-text nopadding noborder"
-                                 data-x="264"
-                                 data-y="230"
-                                 data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;s:800;e:Power4.easeOutQuad;"
-                                 data-speed="800"
-                                 data-start="1200"
-                                 data-easing="easeOutQuad"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.1"
-                                 data-endspeed="1000"
-                                 data-endeasing="Power4.easeIn" style="z-index: 3; color: #333; white-space: nowrap;">Unlimited Possibilities</div>
-
-                            <div class="tp-caption customin ltl tp-resizeme revo-slider-desc-text"
-                                 data-x="245"
-                                 data-y="340"
-                                 data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;s:800;e:Power4.easeOutQuad;"
-                                 data-speed="800"
-                                 data-start="1400"
-                                 data-easing="easeOutQuad"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.1"
-                                 data-endspeed="1000"
-                                 data-endeasing="Power4.easeIn" style="z-index: 3; color: #333; max-width: 650px; white-space: normal;">Create whatever you require for your Business to bloom with Tons of Customization Possibilities.</div>
-
-                            <div class="tp-caption customin ltl tp-resizeme"
-                                 data-x="508"
-                                 data-y="450"
-                                 data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;s:800;e:Power4.easeOutQuad;"
-                                 data-speed="800"
-                                 data-start="1550"
-                                 data-easing="easeOutQuad"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-elementdelay="0.01"
-                                 data-endelementdelay="0.1"
-                                 data-endspeed="1000"
-                                 data-endeasing="Power4.easeIn" style="z-index: 3;"><a href="#" class="button button-border button-large button-rounded tright nomargin"><span>Browse</span><i class="icon-angle-right"></i></a></div>
-
                         </li>
                     </ul>
                 </div>
@@ -434,7 +318,7 @@
                         </div>
                     </div>
 
-                    <div class="swiper-slide dark" style="background-image: url('{{ asset('welcome/images/9.jpg') }}'); background-position: center top;">
+                    <div class="swiper-slide dark" style="background-image: url('{{ asset('welcome/images/redhead_girl-wallpaper-1920x1080.jpg') }}'); background-position: center top;">
                         <div class="container clearfix">
                             <div class="slider-caption">
                                 <h2 data-caption-animate="fadeInUp">Great Performance</h2>

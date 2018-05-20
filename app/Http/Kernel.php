@@ -37,9 +37,6 @@ class Kernel extends HttpKernel
             'bindings',
         ],
 
-        'menu' => [
-            \App\Http\Middleware\Getmenu::class,
-        ],
     ];
 
     /**

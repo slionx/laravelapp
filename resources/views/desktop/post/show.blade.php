@@ -38,7 +38,7 @@
                             <!-- Entry Content
                             ============================================= -->
                             <div class="entry-content notopmargin">
-                            {!! $post->post_content !!}
+                            {!! MarkdownEditor::parse($post->post_content)  !!}
                             <!-- Tag Cloud
                                 ============================================= -->
                                 @if(count($post->tag))
@@ -106,7 +106,7 @@
                             </div>
                         </div><!-- .post-navigation end -->
                         {{--@include('desktop.post.related_posts')--}}
-                        {{--@include('desktop.post.comments')--}}
+                        @include('desktop.post.comments')
 
                     </div><!-- .postcontent end -->
                 </div>

@@ -122,7 +122,7 @@
                                             <h4><a href="{{ route('post.show',$item->id) }}">{{ $item->post_title }}</a></h4>
                                         </div>
                                         <ul class="entry-meta">
-                                            <li><i class="icon-comments-alt"></i> {{ $item->followers_count }} Comments</li>
+                                            <li><i class="icon-comments-alt"></i> {{ $item->followers_count }} 次浏览</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -132,35 +132,23 @@
                     </div>
                     <div class="tab-content clearfix" id="tabs-3">
                         <div id="recent-post-list-sidebar">
-
-                            <div class="spost clearfix">
-                                <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/icons/avatar.jpg"
-                                                                  alt=""></a>
-                                </div>
-                                <div class="entry-c">
-                                    <strong>John Doe:</strong> Veritatis recusandae sunt repellat distinctio...
-                                </div>
-                            </div>
-
+                            @forelse($reply as $item)
                             <div class="spost clearfix">
                                 <div class="entry-image">
                                     <a href="#" class="nobg"><img class="img-circle" src="images/icons/avatar.jpg" alt=""></a>
                                 </div>
                                 <div class="entry-c">
-                                    <strong>Mary Jane:</strong> Possimus libero, earum officia architecto maiores....
+                                    <div class="entry-title">
+                                        <h4><a href="{{ route('post.show',$item->post->id) }}">{{ $item->post->post_title }}</a></h4>
+                                    </div>
+                                    <ul class="entry-meta">
+                                        <li><strong><i class="icon-comments-alt"></i> {{ $item->count }} 条回复</strong></li>
+                                    </ul>
+                                    {{--Mary Jane: {{ $item->post->post_title }}--}}
                                 </div>
                             </div>
-
-                            <div class="spost clearfix">
-                                <div class="entry-image">
-                                    <a href="#" class="nobg"><img class="img-circle" src="images/icons/avatar.jpg"
-                                                                  alt=""></a>
-                                </div>
-                                <div class="entry-c">
-                                    <strong>Site Admin:</strong> Deleniti magni labore laboriosam odio...
-                                </div>
-                            </div>
+                            @empty
+                            @endforelse
 
                         </div>
                     </div>

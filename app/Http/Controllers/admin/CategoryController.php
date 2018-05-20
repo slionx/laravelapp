@@ -58,7 +58,6 @@ class CategoryController extends Controller {
 
 	public function show( Request $request ) {
 
-
 	}
 
 	public function create() {
@@ -110,7 +109,6 @@ class CategoryController extends Controller {
 			}else{
 				return redirect()->back()->with('error','删除失败！');
 			}
-
 		} catch ( Exception $e ) {
 			return redirect()->back()->with('error','删除失败！'. $e->getMessage());
 		}

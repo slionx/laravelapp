@@ -169,9 +169,10 @@ return [
         Stevenyangecho\UEditor\UEditorServiceProvider::class,//百度编辑器
         //Matriphe\Imageupload\ImageuploadServiceProvider::class,//图片上传
 	    Yajra\DataTables\DataTablesServiceProvider::class,//DataTables
-	    Yajra\DataTables\HtmlServiceProvider::class,
+	    Yajra\DataTables\HtmlServiceProvider::class,//DataTables HTML
 	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,//ide-helper
 	    Prettus\Repository\Providers\RepositoryServiceProvider::class,//RepositoryServiceProvider
+        Chenhua\MarkdownEditor\MarkdownEditorServiceProvider::class,
 
 
         /*
@@ -241,6 +242,8 @@ return [
         //'Image' => Intervention\Image\Facades\Image::class,//图片的创建、修改和压缩处理
         //'Imageupload' => Matriphe\Imageupload\ImageuploadFacade::class,//图片上传
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,//DataTables
+        //'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class, //Markdown
+        'MarkdownEditor' => Chenhua\MarkdownEditor\Facades\MarkdownEditor::class,
 
 
     ],
