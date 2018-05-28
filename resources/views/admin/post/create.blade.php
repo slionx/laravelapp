@@ -7,12 +7,11 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-theme">
                     <div class="panel-heading">
-
+                        @include('vendor.editor.head')
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                            @include('UEditor::head')
                             <!-- BEGIN VALIDATION STATES-->
                                 <div class="portlet light portlet-fit portlet-form bordered">
                                     <div class="portlet-title">

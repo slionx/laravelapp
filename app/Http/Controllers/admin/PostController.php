@@ -21,6 +21,8 @@ use Matriphe\Imageupload\Imageupload;
 use Image;
 use Illuminate\Auth\Middleware;
 use DB;
+use EndaEditor;
+
 
 
 /**
@@ -70,7 +72,6 @@ class PostController extends Controller
                 ['data' => 'id', 'name' => 'id', 'title' => trans('common.number')],
                 ['data' => 'post_title', 'name' => 'post_title', 'title' => '标题'],
                 ['data' => 'post_author', 'name' => 'post_author', 'title' => '作者'],
-                /*[ 'data' => 'post_slug', 'name' => 'post_slug', 'title' => 'slug' ],*/
                 ['data' => 'post_category', 'name' => 'post_category', 'title' => '分类'],
                 ['data' => 'post_tag', 'name' => 'post_tag', 'title' => '标签'],
                 ['data' => 'comments_status', 'name' => 'comments_status', 'title' => '评论状态'],
@@ -84,7 +85,7 @@ class PostController extends Controller
                 'title' => trans('common.action')
             ]);
 
-        return view('admin.post.index', compact('html'));
+        return view('Backend.post.index', compact('html'));
     }
 
     public function ajaxData()
@@ -101,7 +102,7 @@ class PostController extends Controller
             'user' => function ($query) {
                 $query->select('id', 'name');
             }
-        ])->get([
+        ])->orderBy('id','desc')->get([
             'id',
             'post_title',
             'post_author',
@@ -177,11 +178,11 @@ class PostController extends Controller
         }*/
 
         return DataTables::of($tmp)->escapeColumns([])->addIndexColumn()
-            ->editColumn('post_category', function ($tmp) {
+            ->editColumn('comments_status', function ($tmp) {
                 if ($tmp->comments_status == "on"){
-                    return "<span class=\"label label-sm label-success\">" . $tmp->comments_status . "</span>";
+                    return "<span class=\"m-badge m-badge--accent m-badge--dot\"></span> <span class=\"m--font-bold m--font-accent\">" . $tmp->comments_status . "</span>";
                 }else{
-                    return "<span class=\"label label-sm label-danger\">" . $tmp->comments_status . "</span>";
+                    return "<span class=\"m-badge m-badge--danger m-badge--dot\"></span> <span class=\"m--font-bold m--font-danger\">" . $tmp->comments_status . "</span>";
                 }
             })
             ->editColumn('post_tag', function ($post) {
@@ -191,7 +192,7 @@ class PostController extends Controller
                         $tag .= "<a class=\"btn btn-success\"><i class=\"fa fa-tag\"></i> " . $item->name . "</a>";
                     }
                 } elseif (count($post->tag) == 1) {
-                    $tag = "<a class=\"btn btn-success\"><i class=\"fa fa-tag\"></i> " . $post->tag[0]->name . "</a>";
+                    $tag = "<a class=\"btn btn-success\">tag: " . $post->tag[0]->name . "</a>";
                 }
                 return $tag;
             })
@@ -214,12 +215,19 @@ class PostController extends Controller
             })->make(true);
     }
 
+    public function postUpload(){
+        $data = EndaEditor::uploadImgFile('endaEdit');
+
+        return json_encode($data);
+
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        return view('admin.post.create', [
+        return view('Backend.post.create', [
             'categories' => $this->category->all(),
             'tags' => $this->tag->all(),
         ]);
@@ -232,9 +240,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
+
         if ($this->Validator($request)) {
             return $this->Validator($request);
         }
+        str_slug(1);
 
         //$request['post_author'] = "Slionx";
         //$request->post_slug = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
@@ -288,8 +299,9 @@ class PostController extends Controller
             $tag .= "'$v->id'" . ',';
         }
         $tag = substr($tag, 0, -1);
+        dd($tag);
 
-        return view('admin.post.edit', compact('post', 'category', 'tags', 'categories', 'tag'));
+        return view('Backend.post.edit', compact('post', 'category', 'tags', 'categories', 'tag'));
 
     }
 
@@ -303,7 +315,7 @@ class PostController extends Controller
 
         $rules = [
             'post_title' => 'required|unique:posts|max:255',
-            'post_slug' => 'required',
+            //'post_slug' => 'required',
             'post_content' => 'required',
             'post_category' => 'required',
             'post_tag' => 'required',
@@ -311,8 +323,8 @@ class PostController extends Controller
         $messages = [
             'post_title.required' => '标题不能为空',
             'post_title.max' => '标题最长不能超过255字符',
-            'post_slug.required' => 'slug不能为空',
-            'category.required' => '分类不能为空',
+            //'post_slug.required' => 'slug不能为空',
+            'post_category.required' => '分类不能为空',
             'post_tag.required' => '至少选择一个标签',
             'post_content.required' => '文章内容不能为空',
         ];
@@ -333,7 +345,6 @@ class PostController extends Controller
     {
         $rules = [
             'post_title' => 'required|max:255',
-            'post_slug' => 'required',
             'post_content' => 'required',
             'post_category' => 'required',
             'post_tag' => 'required',
@@ -341,7 +352,6 @@ class PostController extends Controller
         $messages = [
             'post_title.required' => '标题不能为空',
             'post_title.max' => '标题最长不能超过255字符',
-            'post_slug.required' => 'slug不能为空',
             'category.required' => '分类不能为空',
             'post_tag.required' => '至少选择一个标签',
             'post_content.required' => '文章内容不能为空',
@@ -490,6 +500,7 @@ class PostController extends Controller
      */
     public function list($param = null, $id = null, Request $request)
     {
+
         //dd($request);
         if ($param == 'tag') {
             $post = Tags::findOrFail($id, ['id'])->getPosts();

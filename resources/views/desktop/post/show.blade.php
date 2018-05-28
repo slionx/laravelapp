@@ -20,15 +20,20 @@
                             ============================================= -->
                             <div class="entry-title">
                                 <h2>{{ $post->post_title }}</h2>
+
                             </div><!-- .entry-title end -->
                             <!-- Entry Meta
                             ============================================= -->
                             <ul class="entry-meta clearfix">
-                                <li><i class="icon-calendar3"></i> {{ $post->created_at }}</li>
+                                <li><i class="icon-calendar3"></i> {{ $post->created_at->diffForHumans() }}</li>
                                 <li><a href="#"><i class="icon-user"></i> {{ $post->user->name }}</a></li>
                                 <li><a href="{{ route('post.list.category',['category',$post->post_category]) }}"><i class="icon-folder-open"></i> {{ $post->category->name }}</a></li>
                                 <li><a href="#"><i class="icon-comments"></i> {{ $post->comments_count }} Comments</a></li>
                                 <li><a href="#"><i class="icon-camera-retro"></i></a></li>
+                                @can('post.update')
+                                    <li><a href="#"><i class="icon-edit"></i>修改文章</a></li>
+                                @endcan
+
                             </ul><!-- .entry-meta end -->
                             <!-- Entry Image
                             ============================================= -->
@@ -38,7 +43,7 @@
                             <!-- Entry Content
                             ============================================= -->
                             <div class="entry-content notopmargin">
-                            {!! MarkdownEditor::parse($post->post_content)  !!}
+                            {!! $post->post_content  !!}
                             <!-- Tag Cloud
                                 ============================================= -->
                                 @if(count($post->tag))
@@ -119,4 +124,10 @@
         <div class=" plans-bg clearfix">
         </div>
     </section><!-- #content end -->
+
+    <script src="http://keenthemes.com/metronic/preview/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+<script>
+
+    /*post = $('.entry-content').markdown().data({!! $post->post_content  !!}).parseContent();*/
+</script>
 @stop

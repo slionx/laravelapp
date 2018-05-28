@@ -141,7 +141,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        Barryvdh\Debugbar\ServiceProvider::class,
+        //Barryvdh\Debugbar\ServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -164,15 +164,13 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        MaxHoffmann\Parsedown\ParsedownServiceProvider::class,  //mark
-        //Intervention\Image\ImageServiceProvider::class,//图片的创建、修改和压缩处理
-        Stevenyangecho\UEditor\UEditorServiceProvider::class,//百度编辑器
-        //Matriphe\Imageupload\ImageuploadServiceProvider::class,//图片上传
 	    Yajra\DataTables\DataTablesServiceProvider::class,//DataTables
 	    Yajra\DataTables\HtmlServiceProvider::class,//DataTables HTML
 	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,//ide-helper
 	    Prettus\Repository\Providers\RepositoryServiceProvider::class,//RepositoryServiceProvider
-        Chenhua\MarkdownEditor\MarkdownEditorServiceProvider::class,
+        //Barryvdh\Debugbar\ServiceProvider::class,
+        YuanChao\Editor\EndaEditorServiceProvider::class,
+
 
 
         /*
@@ -238,12 +236,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        //'Markdown'        => 'MaxHoffmann\Parsedown\ParsedownFacade',//mark
-        //'Image' => Intervention\Image\Facades\Image::class,//图片的创建、修改和压缩处理
-        //'Imageupload' => Matriphe\Imageupload\ImageuploadFacade::class,//图片上传
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,//DataTables
-        //'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class, //Markdown
-        'MarkdownEditor' => Chenhua\MarkdownEditor\Facades\MarkdownEditor::class,
+        //'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'EndaEditor' => YuanChao\Editor\Facade\EndaEditorFacade::class,
 
 
     ],

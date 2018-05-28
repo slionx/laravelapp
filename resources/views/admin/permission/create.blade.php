@@ -105,7 +105,7 @@
                         <div class="portlet-body form">
                             <form action="{{ route('permission.store') }}" method="post" class="form-horizontal form-bordered">
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
-                                    <label for="name" class="col-sm-3 control-label">名称</label>
+                                    <label for="name" class="col-sm-3 control-label">权限</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
                                             <i class="{{ $errors->has('name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="分类名称为必填项，最大长度255。"></i>
@@ -114,13 +114,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group {{ $errors->has('slug') ? ' has-error' : '' }}">
-                                    <label for="slug" class="col-sm-3 control-label">权限</label>
+                                <div class="form-group {{ $errors->has('display_name') ? ' has-error' : '' }}">
+                                    <label for="display_name" class="col-sm-3 control-label">名称</label>
                                     <div class="col-sm-4">
                                         <div class="input-icon right">
-                                            <i class="{{ $errors->has('slug') ? ' fa fa-warning tooltips' : '' }}" data-original-title="权限为必填项"></i>
-                                            <input type="text" name="slug" value="{{ old('slug') }}" class="form-control" id="slug" placeholder="权限">
-                                            <span  class="help-block">{{ $errors->has('slug') ? ' 权限为必填项，最大长度255。' : '' }}</span>
+                                            <i class="{{ $errors->has('display_name') ? ' fa fa-warning tooltips' : '' }}" data-original-title="权限为必填项"></i>
+                                            <input type="text" name="display_name" value="{{ old('display_name') }}" class="form-control" id="display_name" placeholder="权限">
+                                            <span  class="help-block">{{ $errors->has('display_name') ? ' 权限为必填项，最大长度255。' : '' }}</span>
                                         </div>
                                     </div>
                                 </div>

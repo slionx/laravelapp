@@ -147,7 +147,7 @@
                                                                         <div class="col-md-4">
                                                                             <div class="i-checks">
                                                                                 <label>
-                                                                                    <input type="checkbox" name="permission[]" value="{{ $v['id'] }}"> <i></i> {{ $v['name'] }}
+                                                                                    <input type="checkbox" name="permission[]" value="{{ $v['id'] }}"> <i></i> {{ $v['display_name'] }}
                                                                                 </label>
                                                                             </div>
                                                                         </div>

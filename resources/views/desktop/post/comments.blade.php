@@ -8,15 +8,13 @@
     ============================================= -->
     <ol class="commentlist clearfix">
         @forelse($comments as $item)
-            <li class="comment" lev="{{ $item->lev }}" id="li-comment-2">
+            <li class="comment" id="li-comment-2">
                 <div id="comment-2" class="comment-wrap clearfix">
                     <div class="comment-meta">
                         <div class="comment-author vcard">
-					<span class="comment-avatar clearfix">
-													<img alt=''
-                                                         src='{{ config('app.APP_URL').$item->user->avatar }}'
-                                                         class='avatar avatar-60 photo' height='60' width='60'/></span>
-
+                            <span class="comment-avatar clearfix">
+                                <img alt='' src='{{ config('app.APP_URL').$item->user->avatar }}' class='avatar avatar-60 photo' height='60' width='60'/>
+                            </span>
                         </div>
                     </div>
                     <div class="comment-content clearfix">
@@ -34,11 +32,6 @@
 
  		</a>
                         </span>
-
-
-                        @if(haspermission('admin'))
-                        @endif
-
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -52,10 +45,11 @@
                             <div id="comment-3" class="comment-wrap clearfix">
                                 <div class="comment-meta">
                                     <div class="comment-author vcard">
-															<span class="comment-avatar clearfix">
-															<img alt=''
-                                                                 src='{{ config('app.APP_URL').$subitem->user->avatar }}'
-                                                                 class='avatar avatar-40 photo' height='40' width='40'/></span>
+                                        <span class="comment-avatar clearfix">
+                                            <img alt=''
+                                                 src='{{ config('app.APP_URL').$subitem->user->avatar }}'
+                                                 class='avatar avatar-40 photo' height='40' width='40'/>
+                                        </span>
                                     </div>
 
                                 </div>

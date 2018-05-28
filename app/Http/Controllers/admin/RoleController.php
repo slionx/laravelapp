@@ -66,7 +66,7 @@ class RoleController extends Controller
 	public function create(  )
 	{
 
-		$permissions = $this->permission->all(['id','name','slug']);
+		$permissions = $this->permission->all(['id','name','display_name']);
 		if ($permissions->isNotEmpty()) {
 			foreach ($permissions as $v) {
 				$temp = explode('.', $v->name);
@@ -138,7 +138,7 @@ class RoleController extends Controller
 			$role_permissionArray = [];
 		}
 
-        $permissions = $this->permission->all(['id','name','slug']);
+        $permissions = $this->permission->all(['id','name','display_name']);
 		if ($permissions->isNotEmpty()) {
 			foreach ($permissions as $v) {
 				$temp = explode('.', $v->name);

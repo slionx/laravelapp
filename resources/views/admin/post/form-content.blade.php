@@ -57,24 +57,9 @@
 </div>
 <div class="form-group form-md-line-input form-md-floating-label">
     <label for="form_control_1">文章内容</label>
-
-    <div id="post_content">
-        <textarea name="post_content" style="display:none;"></textarea>
+    <div class="editor container">
+        <textarea id='myEditor'>{!! isset($post) ? $post->post_content : old('post_content') !!}</textarea>
     </div>
-
-@include('markdown::encode',['editors'=>['post_content']])
-
-
-{{--    <!-- 加载编辑器的容器 -->
-    <script id="container" name="post_content" type="text/plain">{!! isset($post) ? $post->post_content : old('post_content') !!}</script>
-    <!-- 实例化编辑器 -->
-    <script type="text/javascript">
-
-        var ue = UE.getEditor('container');
-        ue.ready(function() {
-            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.
-        });
-    </script>--}}
 </div>
 </div>
 

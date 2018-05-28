@@ -53,10 +53,18 @@ app()['some::class'];
 app('Illuminate\Hashing\BcryptHasher');
 \App::make(some::class);
 
+php artisan make:model Company -mcr
+-m 创建迁移文件
+-c 创建控制器文件
+-r 为控制器添加资源操作方法
 
 php artisan key:generate
 
-php artisan make:controller admin/SlideController -r  //资源路由
+php artisan ide-helper:generate
+
+php artisan make:controller admin/SlideController --resource --model=user  //资源路由
+
+php artisan make:controller admin/SlideController -r
 
 php artisan help make:controller
 

@@ -146,6 +146,7 @@ class UserController extends Controller {
 
 	public function update( Request $request ,$id) {
 		$user = $this->user->find($id);
+
         if($request->has('name')){
             $this->validate($request, ['name'=>'alpha_dash|between:4,20']);
             $data['name'] = $request->name;
@@ -169,9 +170,10 @@ class UserController extends Controller {
             $data['password'] = Hash::make($request->password);
         }
         $bool = $this->user->update($data,$id);
-
+        //dd(1);
 		$user->syncRoles($request->role);
         if($bool){
+            refreshCurrentPermission($user);
             return redirect('admin/'.$this->module)->with( 'success', '更新成功' );
         }else{
             return redirect()->back()->with('error','更新失败！');

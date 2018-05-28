@@ -4972,7 +4972,7 @@ body.device-touch.device-xxs .portfolio-notitle .portfolio-overlay { display: no
 	margin: 0 10px 15px 0;
 	color: #999;
 	font-family: 'Crete Round', serif;
-	font-style: italic;
+	/*font-style: italic;*/
 }
 
 .entry-meta li:before {

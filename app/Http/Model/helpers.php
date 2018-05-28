@@ -26,8 +26,8 @@ function getEditActionButton($id,$module)
     $url = route($module.'.edit', $id);
     $edit = trans('common.edit');
     return <<<Eof
-		<a href="{$url}" title="{$edit}" class="btn btn-sm yellow-gold btn-outline filter-submit margin-bottom">
-                             <i class="fa fa-edit"></i></a>
+		<a href="{$url}" title="{$edit}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill">
+                             <i class="la la-edit"></i></a>
 Eof;
 
 }
@@ -40,7 +40,7 @@ function getDestroyActionButton($id,$module)
     $csrfToken = csrf_field();
     $method = method_field('delete');
     return <<<Eof
-		<a href="javascript:;" class="btn btn-sm red btn-outline filter-cancel destroy_item" title="{$delete}" onclick="return false;">
+		<a href="javascript:;" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="{$delete}" onclick="return false;">
                              <i class="fa fa-trash"></i>
 		<form action="{$url}" method="POST" style="display:none">
 						$method
@@ -58,87 +58,6 @@ function getActionButtonAttribute($id,$module)
 }
 
 
-if(! function_exists('haspermission') ) {
-    function haspermission($permission)
-    {
-        $check = false;
-        if (auth()->check()) {
-            $user = auth()->user();
-            $userPermissions =  getCurrentPermission($user);
-            $check = in_array($permission, (array)$userPermissions['permissions']);
-            if (in_array('admin', (array)$userPermissions['roles']) && !$check) {
-                //dd($permission);
-                $newPermission = \App\Http\Model\permission::firstOrCreate([
-                    'slug' => $permission,
-                ],[
-                    'name' => "自动生成权限".$permission,
-                    'description' => "自动生成权限".$permission,
-                ]);
-                $role = \App\Http\Model\Role::where('name', 'admin')->first();
-                $role->attachPermission($newPermission);
-                setUserPermissions($user);
-                $check = true;
-            }
-        }
-        return $check;
-    }
-}
-
-/**
- * 获取当前用户权限、角色
- */
-if(!function_exists('getCurrentPermission')){
-    function getCurrentPermission($user)
-    {
-        $key = 'user_'.$user->id;
-        if (cache()->has($key)) {
-            return cache($key);
-        }
-        setUserPermissions($user);
-        return cache($key);
-    }
-}
-/**
- * 刷新当前用户权限、角色
- */
-if(!function_exists('refreshCurrentPermission')){
-    function refreshCurrentPermission($user)
-    {
-        $key = 'user_'.$user->id;
-        cache()->forget($key);
-        setUserPermissions($user);
-    }
-}
-
-/**
- * 设置用户权限、角色
- */
-if(!function_exists('setUserPermissions')){
-    function setUserPermissions($user)
-    {
-        //查出角色对应的所有权限
-        $Permissions = [];
-        $roles = $user->roles()->get();
-        if(count($roles) > 0){
-            foreach ( $roles as $role ) {
-                $allRoles[] = $role->slug;
-                $tmp = \App\Http\Model\Role::find($role->id)->getPermission();
-                foreach ( $tmp as $v ) {
-                    $Permissions[] = $v->slug;
-                }
-            }
-        }else{
-            return $Permissions = [];
-        }
-        $Permissions = array_unique($Permissions);
-        $allPermissions = \App\Http\Model\permission::all()->pluck('slug')->all();
-        cache()->forever('user_'.$user->id, [
-            'permissions' => $Permissions,
-            'roles' => $allRoles,
-            'allPermissions' => $allPermissions
-        ]);
-    }
-}
 /**
  * 清空缓存
  */

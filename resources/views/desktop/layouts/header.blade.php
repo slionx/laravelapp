@@ -21,7 +21,7 @@
                     <li @if (Request::is('/')) class="current" @endif><a href="/"><div>welcole</div></a></li>
                     <li @if (Request::is('post*')) class="current" @endif ><a href="{{ route('post.list') }}"><div>post</div></a></li>
                     <li @if (Request::is('post*')) class="current" @endif ><a href="{{ route('post.list') }}"><div>归档</div></a></li>
-                    <li><a href="#"><div><i class="icon-user"></i>{{ isset(auth()->user()->name) ? auth()->user()->name : 'User profile'  }} </div></a>
+                    <li><a href="#"><div><i class="icon-user"></i>{{ auth()->user()->name ?? 'User profile'  }} </div></a>
                         <ul>
                             @guest
                                 <li ><a href="{{ url('/login') }}"><div>login</div></a></li>
