@@ -48,7 +48,7 @@ class Posts extends Model
 	}
 
 	public function getTag(){
-		return $this->tag()->get();
+		return $this->tag()->get(['id','name']);
 	}
 
 	public function syncTag( $tag ) {

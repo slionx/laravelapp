@@ -70,17 +70,17 @@
                 <div class="m-portlet__head-caption">
                     <div class="m-portlet__head-title">
                         <h3 class="m-portlet__head-text">
-                            添加文章
+                            {{ trans('common.edit') }}{{ trans('common.category') }}
                         </h3>
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
                     <ul class="m-portlet__nav">
                         <li class="m-portlet__nav-item">
-                            <a href="{{ route('post.index') }}" class="btn btn-accent m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air">
+                            <a href="{{ route('category.index') }}" class="btn btn-accent m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air">
 						<span>
 							<i class="fa fa-list"></i>
-							<span>{{ trans('common.post') }}{{ trans('common.list') }}</span>
+							<span>{{ trans('common.category') }}{{ trans('common.list') }}</span>
 						</span>
                             </a>
                         </li>
@@ -88,9 +88,10 @@
                 </div>
             </div>
             <!--begin::Form-->
-            <form class="m-form m-form--fit m-form--label-align-right" id="m_form_1" novalidate="novalidate" method="post" enctype="multipart/form-data" action="{{ route('post.store') }}">
+            <form class="m-form m-form--fit m-form--label-align-right" novalidate="novalidate" method="post" action="{{ route('category.update',$category->id) }}">
                 {{ csrf_field() }}
-                @include('Backend.post.form-content')
+                <input type="hidden" name="_method" value="put">
+                @include('Backend.category.form-content')
             </form>
             <!--end::Form-->
         </div>

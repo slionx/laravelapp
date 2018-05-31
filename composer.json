@@ -16,7 +16,7 @@
         "predis/predis": "^1.1",
         "prettus/l5-repository": "^2.6",
         "yuanchao/laravel-5-markdown-editor": "dev-master",
-        "jellybool/translug": "^2.0"
+        "laravelchen/laravel-editormd": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

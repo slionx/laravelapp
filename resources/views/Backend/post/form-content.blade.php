@@ -1,42 +1,7 @@
+{!! editor_css() !!}
 <div class="m-portlet__body">
     <div class="m-form__content">
-
-        @if (session('success'))
-            <div class="alert alert-success">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="m-alert m-alert--icon alert alert-danger" role="alert" id="m_form_1_msg">
-                <div class="m-alert__icon">
-                    <i class="la la-warning"></i>
-                </div>
-                <div class="m-alert__text">
-                    {{ session('error') }}
-                </div>
-                <div class="m-alert__close">
-                    <button type="button" class="close" data-close="alert" aria-label="Close">
-                    </button>
-                </div>
-            </div>
-        @endif
-        @if (count($errors) > 0)
-            <div class="m-alert m-alert--icon alert alert-danger" role="alert" id="m_form_1_msg">
-                <div class="m-alert__icon">
-                    <i class="la la-warning"></i>
-                </div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-                <div class="m-alert__close">
-                    <button type="button" class="close" data-close="alert" aria-label="Close">
-                    </button>
-                </div>
-            </div>
-        @endif
+        @include('Backend.layouts.alert')
     </div>
     <div class="form-group m-form__group row {{ $errors->has('post_title') ? ' has-danger' : '' }}">
         <label class="col-form-label col-lg-3 col-sm-12" for="post_title">文章标题 *</label>
@@ -57,15 +22,30 @@
         <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group date ">
                 <select class="form-control m-bootstrap-select m_selectpicker" multiple data-actions-box="true" name="post_tag[]" id="post_tag">
-                    @if(isset($post->post_tag))
-                        <option value="{{ $post->post_category }}">{{ $post->post_tag- }}</option>
-
-
-                        @else
-                        @if($tags && count($tags))
-                        @foreach($tags as $tag)
-                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
-                        @endforeach
+                    @if(isset($sel_tag_arr) && count($sel_tag_arr))
+                        @if(isset($tags) && count($tags))
+                            @foreach($tags as $tag)
+                                <option @if(in_array($tag->id,$sel_tag_arr))  selected @endif value="{{ $tag->id }}">{{ $tag->name }}</option>
+                            @endforeach
+                        @endif
+                    @elseif(old('post_tag') && count(old('post_tag')))
+                        <?php
+                        foreach (old('post_tag') as $item) {
+                            $sel_tag_arr[] = $item;
+                        }
+                        ?>
+                        @if(isset($sel_tag_arr) && count($sel_tag_arr))
+                            @if(isset($tags) && count($tags))
+                                @foreach($tags as $tag)
+                                    <option @if(in_array($tag->id,$sel_tag_arr))  selected @endif value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                @endforeach
+                            @endif
+                        @endif
+                    @else
+                        @if(isset($tags) && count($tags))
+                            @foreach($tags as $tag)
+                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                            @endforeach
                         @endif
                     @endif
                 </select>
@@ -81,11 +61,18 @@
         <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group">
                 <select class="form-control m-bootstrap-select m_selectpicker" name="post_category" id="post_category">
+                    <option value="">未选择文章分类</option>
                     @if(isset($post->post_category))
                         <option value="{{ $post->post_category }}">{{ $category->name }}</option>
                         @if(isset($categories)&& count($categories))
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        @endif
+                    @elseif(old('post_category'))
+                        @if(isset($categories)&& count($categories))
+                            @foreach($categories as $category)
+                                <option @if(intval(old('post_category')[0]) == $category->id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         @endif
                     @else
@@ -98,7 +85,6 @@
                 </select>
                 <div class="input-group-append"><span class="input-group-text"><i class="la la-pencil"></i></span></div>
             </div>
-
             <div class="form-control-feedback">{{ $errors->has('post_category') ? $errors->first('post_category', ':message') : '文章分类为必选项' }}</div>
         </div>
     </div>
@@ -111,23 +97,61 @@
             <div class="switch">
                 <input data-switch="true" type="checkbox" checked="checked" data-on-color="success" data-off-color="danger" @isset($post->comments_status) @if($post->comments_status == "on") checked @endif @endisset name="comments_status" id="comments_status">
             </div>
-            <div class="form-control-feedback">This field is required.</div>
+            <div class="form-control-feedback"></div>
         </div>
     </div>
 
     <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space"></div>
 
-    <div class="form-group m-form__group row {{ $errors->has('post_category') ? ' has-danger' : '' }}">
-        <label class="col-form-label col-lg-3 col-sm-12" for="post_content">文章内容 *</label>
+    <div class="form-group m-form__group row {{ $errors->has('post_content') ? ' has-danger' : '' }}">
+        <label class="col-form-label col-lg-3 col-sm-12" for="editormd_id">文章内容 *</label>
         <div class="col-lg-9 col-md-9 col-sm-12">
-            <div class="md-editor">
-                <textarea placeholder="键入Markdown内容" class="form-control md-input" id="post_content" name="post_content" data-provide="markdown" rows="10" style="resize: none;" aria-describedby="markdown-error">{!! isset($post) ? $post->post_content : old('post_content') !!}</textarea>
-                <div class="md-fullscreen-controls">
-                    <a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="fa fa-compress"></span></a>
-                </div>
+            <div class="md-editor" id="editormd_id">
+                <textarea style="display:none;" name="post_content">{!! isset($post) ? $post->post_content : old('post_content') !!}</textarea>
             </div>
-
-            <div id="markdown-error" class="form-control-feedback">This field is required.</div>
+            <div class="form-control-feedback">{{ $errors->has('post_content') ? $errors->first('post_content', ':message') : '文章内容为必选项' }}</div>
         </div>
     </div>
 </div>
+<div class="m-portlet__foot m-portlet__foot--fit">
+    <div class="m-form__actions m-form__actions">
+        <div class="row">
+            <div class="col-lg-9 ml-lg-auto">
+                <button type="submit" class="btn btn-success">发布</button>
+                <button type="reset" class="btn btn-secondary">重置</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+{!! editor_js() !!}
+<script>
+    var BootstrapSwitch = {
+        init: function () {
+            $("input[name='comments_status']").bootstrapSwitch()
+        }
+    };
+    var BootstrapMaxlength = {
+        init: function () {
+            $("input[name='post_title']").maxlength({
+                alwaysShow: !0,
+                threshold: 5,
+                warningClass: "m-badge m-badge--success m-badge--rounded m-badge--wide",
+                limitReachedClass: "m-badge m-badge--danger m-badge--rounded m-badge--wide"
+            })
+        }
+    };
+    var BootstrapSelect = {
+        init: function () {
+            $("#post_tag").selectpicker({
+                noneSelectedText: '未选择文章标签',
+            }),
+                $("#post_category").selectpicker()
+        }
+    };
+    jQuery(document).ready(function () {
+        BootstrapSwitch.init()
+        BootstrapMaxlength.init()
+        BootstrapSelect.init()
+    });
+</script>

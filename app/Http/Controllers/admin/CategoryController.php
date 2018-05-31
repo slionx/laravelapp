@@ -44,7 +44,7 @@ class CategoryController extends Controller {
 			[ 'data' => 'updated_at', 'name' => 'updated_at', 'title' => trans( 'menu.updated_at' ) ],
 		] )->addAction( [ 'data' => 'action', 'name' => 'action', 'title' => trans( 'common.action' ) ] );;
 
-		return view( 'admin.category.index', compact( 'html' ) );
+		return view( 'Backend.category.index', compact( 'html' ) );
 
 	}
 
@@ -61,7 +61,7 @@ class CategoryController extends Controller {
 	}
 
 	public function create() {
-		return view( 'admin.category.create' );
+		return view( 'Backend.category.create' );
 	}
 
 	public function store( Request $request ) {
@@ -76,15 +76,15 @@ class CategoryController extends Controller {
 				->withInput( $request->all() );
 		}
 		if ( $this->CategoryRepository->create( $request->all() ) ) {
-			return Redirect( 'admin/category/create' )->with( 'success', '创建成功' );
+			return Redirect()->route( 'category.index')->with( 'success', '分类' . $request->name . '创建成功' );
 		} else {
-			return Redirect( 'admin/category/create' )->withErrors( '分类' . $request->name . '创建失败' );
+			return Redirect()->back()->with( 'error','分类' . $request->name . '创建失败' );
 		}
 	}
 
 	public function edit( $id ) {
 		$category = $this->CategoryRepository->find($id);
-		return view( 'admin.category.edit',compact('category') );
+		return view( 'Backend.category.edit',compact('category') );
 	}
 
 	public function update( Request $request ,$id ) {
@@ -92,10 +92,10 @@ class CategoryController extends Controller {
 		try {
 			$bool       = $this->CategoryRepository->update($request->all(), $id );
 			if ( $bool ) {
-				return redirect()->route( 'category.index')->with('success', '更新成功！');
+				return Redirect()->route( 'category.index')->with('success', '更新成功！');
 			}
 		} catch ( Exception $e ) {
-			return redirect()->back()->with('error','更新失败！'. $e->getMessage());
+			return Redirect()->back()->with('error','更新失败！'. $e->getMessage());
 		}
 	}
 

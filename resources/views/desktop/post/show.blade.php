@@ -3,7 +3,6 @@
 {{ $post->post_title }} -
 @stop
 @section('content')
-
     <!-- Content
 		============================================= -->
     <section id="content">
@@ -43,7 +42,9 @@
                             <!-- Entry Content
                             ============================================= -->
                             <div class="entry-content notopmargin">
-                            {!! $post->post_content  !!}
+                                <div id="post_content">
+                                    　　<textarea style="display:none;">{!! $post->post_content  !!}</textarea>
+                                </div>
                             <!-- Tag Cloud
                                 ============================================= -->
                                 @if(count($post->tag))
@@ -125,9 +126,16 @@
         </div>
     </section><!-- #content end -->
 
-    <script src="http://keenthemes.com/metronic/preview/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+    <script src="//cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
+    {!! editor_js() !!}
 <script>
-
-    /*post = $('.entry-content').markdown().data({!! $post->post_content  !!}).parseContent();*/
+    editormd.markdownToHTML("post_content", {
+        htmlDecode      : "style,script,iframe",
+        emoji           : true,
+        taskList        : true,
+        tex             : true,  // 默认不解析
+        flowChart       : true,  // 默认不解析
+        sequenceDiagram : true  // 默认不解析
+    });
 </script>
 @stop

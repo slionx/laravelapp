@@ -40,7 +40,7 @@ function getDestroyActionButton($id,$module)
     $csrfToken = csrf_field();
     $method = method_field('delete');
     return <<<Eof
-		<a href="javascript:;" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="{$delete}" onclick="return false;">
+		<a href="javascript:;" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill destroy_item" title="{$delete}" onclick="return false;">
                              <i class="fa fa-trash"></i>
 		<form action="{$url}" method="POST" style="display:none">
 						$method

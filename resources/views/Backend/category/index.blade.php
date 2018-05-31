@@ -87,17 +87,17 @@
                 <div class="m-portlet__head-caption">
                     <div class="m-portlet__head-title">
                         <h3 class="m-portlet__head-text">
-                            {{ trans('common.post') }}{{ trans('common.list') }}
+                            {{ trans('common.category') }}{{ trans('common.list') }}
                         </h3>
                     </div>
                 </div>
                 <div class="m-portlet__head-tools">
                     <ul class="m-portlet__nav">
                         <li class="m-portlet__nav-item">
-                            <a href="{{ route('post.create') }}" class="btn btn-accent m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air">
+                            <a href="{{ route('category.create') }}" class="btn btn-accent m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air">
 						<span>
 							<i class="la la-plus"></i>
-							<span>{{ trans('common.create') }}{{ trans('common.post') }}</span>
+							<span>{{ trans('common.create') }}{{ trans('common.category') }}</span>
 						</span>
                             </a>
                         </li>
@@ -184,8 +184,14 @@
             }
         });
     </script>
+
     <!--begin::Page Vendors -->
     <script src="http://keenthemes.com/metronic/preview/assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
     <!--end::Page Vendors -->
+
     {!! $html->scripts() !!}
+
+    <!--begin::Page Resources -->
+{{--    <script src="http://keenthemes.com/metronic/preview/assets/demo/default/custom/crud/datatables/advanced/column-rendering.js" type="text/javascript"></script>--}}
+    <!--end::Page Resources -->
 @endsection

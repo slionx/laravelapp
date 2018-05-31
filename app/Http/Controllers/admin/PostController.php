@@ -215,12 +215,6 @@ class PostController extends Controller
             })->make(true);
     }
 
-    public function postUpload(){
-        $data = EndaEditor::uploadImgFile('endaEdit');
-
-        return json_encode($data);
-
-    }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -240,13 +234,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
-
         if ($this->Validator($request)) {
             return $this->Validator($request);
         }
-        str_slug(1);
-
         //$request['post_author'] = "Slionx";
         //$request->post_slug = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
         $result = auth()->user()->posts()->create($request->all());
@@ -260,9 +250,9 @@ class PostController extends Controller
             }
             $this->updateCategorySum($request->post_category);
 
-            return redirect()->route('post.index')->with('success', '文章' . $request['post_title'] . '创建成功');
+            return redirect()->route('post.index')->with('success', '文章' . $request->post_title . '创建成功');
         } else {
-            return redirect()->route('post.index')->withErrors('文章' . $request['post_title'] . '创建失败');
+            return redirect()->back()->withInput($request->all())->with('error','文章' . $request->post_title . '创建失败');
         }
     }
 
@@ -281,7 +271,6 @@ class PostController extends Controller
         $this->category->update(['count' => $count], $category_id);
     }
 
-
     /**
      * @param $id
      *
@@ -291,17 +280,13 @@ class PostController extends Controller
     {
         $post = $this->post->find($id);
         $category = $this->category->find($post->post_category);
-        $tags = $this->tag->all();
-        $categories = $this->category->all();
+        $tags = $this->tag->all(['id','name']);
+        $categories = $this->category->all(['id','name']);
         $currentTag = $post->getTag();
-        $tag = '';
-        foreach ($currentTag as $k => $v) {
-            $tag .= "'$v->id'" . ',';
+        foreach ($currentTag as $item) {
+            $sel_tag_arr[] = $item->id;
         }
-        $tag = substr($tag, 0, -1);
-        dd($tag);
-
-        return view('Backend.post.edit', compact('post', 'category', 'tags', 'categories', 'tag'));
+        return view('Backend.post.edit', compact('post', 'category', 'tags', 'categories', 'sel_tag_arr'));
 
     }
 
@@ -316,16 +301,16 @@ class PostController extends Controller
         $rules = [
             'post_title' => 'required|unique:posts|max:255',
             //'post_slug' => 'required',
-            'post_content' => 'required',
-            'post_category' => 'required',
             'post_tag' => 'required',
+            'post_category' => 'required',
+            'post_content' => 'required',
         ];
         $messages = [
             'post_title.required' => '标题不能为空',
             'post_title.max' => '标题最长不能超过255字符',
             //'post_slug.required' => 'slug不能为空',
-            'post_category.required' => '分类不能为空',
             'post_tag.required' => '至少选择一个标签',
+            'post_category.required' => '选择一个分类',
             'post_content.required' => '文章内容不能为空',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -375,7 +360,7 @@ class PostController extends Controller
 
             return redirect()->route('post.index')->with('success', '文章' . $request['post_title'] . '更新成功');
         } else {
-            return redirect()->back()->withInput()->withErrors('errors', '更新失败！');
+            return redirect()->back()->withInput($request->all())->with('error', '文章' . $request['post_title'] .'更新失败！');
         }
     }
 

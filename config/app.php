@@ -170,6 +170,7 @@ return [
 	    Prettus\Repository\Providers\RepositoryServiceProvider::class,//RepositoryServiceProvider
         //Barryvdh\Debugbar\ServiceProvider::class,
         YuanChao\Editor\EndaEditorServiceProvider::class,
+        LaravelChen\Editormd\EditorMdProvider::class,
 
 
 

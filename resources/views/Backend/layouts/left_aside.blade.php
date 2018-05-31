@@ -47,10 +47,16 @@
                             <a href="{{ route('post.create') }}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">添加文章</span></a>
                         </li>
                         <li class="m-menu__item " aria-haspopup="true">
-                            <a href="?page=components/icons/lineawesome&amp;demo=default" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Lineawesome</span></a>
+                            <a href="{{ route('category.index') }}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">分类管理</span></a>
                         </li>
                         <li class="m-menu__item " aria-haspopup="true">
-                            <a href="?page=components/icons/socicons&amp;demo=default" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Socicons</span></a>
+                            <a href="{{ route('category.create') }}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">添加分类</span></a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('tag.index') }}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">标签管理</span></a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('tag.create') }}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">添加标签</span></a>
                         </li>
                     </ul>
                 </div>

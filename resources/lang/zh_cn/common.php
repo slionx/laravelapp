@@ -3,9 +3,10 @@
 return array (
     'action' => '操作',
     'number' => '序号',
-    'create' => '增加',
+    'create' => '添加',
     'edit' => '修改',
     'action'=>'操作',
+    'list'=>'列表',
     'delete' => '删除',
     'show' => '查看',
     'cancel' => '返回',

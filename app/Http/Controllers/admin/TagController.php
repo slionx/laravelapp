@@ -42,7 +42,7 @@ class TagController extends Controller
             [ 'data' => 'updated_at', 'name' => 'updated_at', 'title' => trans( 'menu.updated_at' ) ],
         ] )->addAction( [ 'data' => 'action', 'name' => 'action', 'title' => trans( 'common.action' ) ] );;
 
-        return view( 'admin.tag.index', compact( 'html' ) );
+        return view( 'Backend.tag.index', compact( 'html' ) );
 
     }
 
