@@ -20,8 +20,6 @@ class CreateNoticeTable extends Migration
                 $table->string('content')->default("");
                 //$table->string('content')->after('asd');
 
-                //$table->string('asd')->default("");
-
                 $table->timestamps();
             });
 

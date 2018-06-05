@@ -1,110 +1,18 @@
 @extends('Backend.layouts.app')
 @section('Web_font')
-    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CRoboto:300,400,500,600,700" media="all">
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+{{--    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CRoboto:300,400,500,600,700" media="all">--}}
 @endsection
 @section('css')
     <!--begin::Page Vendors -->
-    <link href="http://keenthemes.com/metronic/preview/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('Backend/css/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css">
     <!--end::Page Vendors -->
-    <style type="text/css">
-        span.im-caret {
-            -webkit-animation: 1s blink step-end infinite;
-            animation: 1s blink step-end infinite;
-        }
-
-        @keyframes blink {
-            from, to {
-                border-right-color: black;
-            }
-            50% {
-                border-right-color: transparent;
-            }
-        }
-
-        @-webkit-keyframes blink {
-            from, to {
-                border-right-color: black;
-            }
-            50% {
-                border-right-color: transparent;
-            }
-        }
-
-        span.im-static {
-            color: grey;
-        }
-
-        div.im-colormask {
-            display: inline-block;
-            border-style: inset;
-            border-width: 2px;
-            -webkit-appearance: textfield;
-            -moz-appearance: textfield;
-            appearance: textfield;
-        }
-
-        div.im-colormask > input {
-            position: absolute;
-            display: inline-block;
-            background-color: transparent;
-            color: transparent;
-            -webkit-appearance: caret;
-            -moz-appearance: caret;
-            appearance: caret;
-            border-style: none;
-            left: 0; /*calculated*/
-        }
-
-        div.im-colormask > input:focus {
-            outline: none;
-        }
-
-        div.im-colormask > input::-moz-selection {
-            background: none;
-        }
-
-        div.im-colormask > input::selection {
-            background: none;
-        }
-
-        div.im-colormask > input::-moz-selection {
-            background: none;
-        }
-
-        div.im-colormask > div {
-            color: black;
-            display: inline-block;
-            width: 100px; /*calculated*/
-        }</style>
-    <style type="text/css">/* Chart.js */
-        @-webkit-keyframes chartjs-render-animation {
-            from {
-                opacity: 0.99
-            }
-            to {
-                opacity: 1
-            }
-        }
-
-        @keyframes chartjs-render-animation {
-            from {
-                opacity: 0.99
-            }
-            to {
-                opacity: 1
-            }
-        }
-
-        .chartjs-render-monitor {
-            -webkit-animation: chartjs-render-animation 0.001s;
-            animation: chartjs-render-animation 0.001s;
-        }</style>
 @endsection
 @section('header_script')
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+{{--    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>--}}
 
-    <script charset="utf-8" src="chrome-extension://jgphnjokjhjlcnnajmfjlacjnjkhleah/js/btype.js"></script>
+{{--    <script charset="utf-8" src="chrome-extension://jgphnjokjhjlcnnajmfjlacjnjkhleah/js/btype.js"></script>--}}
 @endsection
 @section('content')
 <!-- BEGIN: Subheader -->
@@ -1107,11 +1015,11 @@
 @endsection
 @section('footer_script')
     <!--begin::Page Vendors -->
-    <script src="http://keenthemes.com/metronic/preview/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
+    <script src="{{ asset('Backend/js/fullcalendar.bundle.js') }}" type="text/javascript"></script>
     <!--end::Page Vendors -->
 
 
     <!--begin::Page Snippets -->
-    <script src="http://keenthemes.com/metronic/preview/assets/app/js/dashboard.js" type="text/javascript"></script>
+    <script src="{{ asset('Backend/js/dashboard.js') }}" type="text/javascript"></script>
     <!--end::Page Snippets -->
 @endsection

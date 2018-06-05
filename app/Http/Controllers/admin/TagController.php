@@ -56,7 +56,7 @@ class TagController extends Controller
     }
 
     public function create(){
-        return view( 'admin.tag.create' );
+        return view( 'Backend.tag.create' );
     }
 
     public function store(Request $request)
@@ -72,16 +72,16 @@ class TagController extends Controller
         $data['name'] = $request['name'];
         $result = $this->tag->create($data);
         if($result){
-            return Redirect('admin/tag')->with('success', trans('common.tag') . $request['name'] . '创建成功');
+            return Redirect()->route('tag.index')->with('success', trans('common.tag') . $request['name'] . '创建成功');
         }else{
-            return Redirect('admin/tag/create')->withErrors(trans('common.tag') . $request['name'] . '创建失败');
+            return Redirect()->back()->with('error',trans('common.tag') . $request['name'] . '创建失败')->withInput($request->all());
         }
 
     }
 
 	public function edit( $id ) {
     	$tag = $this->tag->find($id);
-		return view('admin.tag.edit', compact('tag','id'));
+		return view('Backend.tag.edit', compact('tag','id'));
     }
 
 	public function update( Request $request,$id ) {
@@ -96,12 +96,12 @@ class TagController extends Controller
 			}
 			$bool = $this->tag->update($request->all(),$id);
 			if ($bool){
-				return Redirect( 'admin/tag' )->with( 'success', '编辑成功' );
+				return Redirect()->route('tag.index')->with( 'success', '修改成功' );
 			}else{
-				return Redirect( 'admin/tag' )->with( 'error', '编辑失败' );
+				return Redirect()->back()->with( 'error', '修改失败' )->withInput($request->all());
 			}
 		} catch (Exception $e) {
-			return Redirect( 'admin/tag' )->with( 'error', '编辑失败'.$e->getMessage() );
+			return Redirect()->back()->with( 'error', '修改失败'.$e->getMessage() )->withInput($request->all());
 		}
 		
     }
@@ -115,17 +115,13 @@ class TagController extends Controller
 			}
 			$bool = $this->tag->delete($id);
 			if ($bool){
-				return Redirect( 'admin/tag' )->with( 'success', '删除成功' );
+				return Redirect()->route('tag.index')->with( 'success', '删除成功' );
 			}else{
-				return Redirect( 'admin/tag' )->with( 'error', '删除失败' );
+				return Redirect()->route('tag.index')->with( 'error', '删除失败' );
 			}
 		} catch (Exception $exception) {
-			return Redirect( 'admin/tag' )->with( 'error', '删除失败' );
+			return Redirect()->route('tag.index')->with( 'error', '删除失败' );
 		}
-    }
-
-	public function show(  ) {
-		
     }
 
 }

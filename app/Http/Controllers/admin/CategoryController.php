@@ -76,9 +76,9 @@ class CategoryController extends Controller {
 				->withInput( $request->all() );
 		}
 		if ( $this->CategoryRepository->create( $request->all() ) ) {
-			return Redirect()->route( 'category.index')->with( 'success', '分类' . $request->name . '创建成功' );
+			return Redirect()->route('category.index')->with( 'success', '分类' . $request->name . '创建成功' );
 		} else {
-			return Redirect()->back()->with( 'error','分类' . $request->name . '创建失败' );
+			return Redirect()->back()->with( 'error','分类' . $request->name . '创建失败' )->withInput($request->all());
 		}
 	}
 
@@ -92,10 +92,10 @@ class CategoryController extends Controller {
 		try {
 			$bool       = $this->CategoryRepository->update($request->all(), $id );
 			if ( $bool ) {
-				return Redirect()->route( 'category.index')->with('success', '更新成功！');
+				return Redirect()->route('category.index')->with('success', '更新成功！');
 			}
 		} catch ( Exception $e ) {
-			return Redirect()->back()->with('error','更新失败！'. $e->getMessage());
+			return Redirect()->back()->with('error','更新失败！'. $e->getMessage())->withInput($request->all());
 		}
 	}
 

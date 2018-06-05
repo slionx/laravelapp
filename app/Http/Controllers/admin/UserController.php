@@ -43,7 +43,7 @@ class UserController extends Controller {
 			[ 'data' => 'updated_at', 'name' => 'updated_at', 'title' => trans( 'menu.updated_at' ) ],
 		] )->addAction( [ 'data' => 'action', 'name' => 'action', 'title' => trans( 'common.action' ) ] );;
 
-		return view( 'admin.user.index', compact( 'html' ) );
+		return view( 'Backend.user.index', compact( 'html' ) );
 	}
 
 	private function ajaxData() {
@@ -74,7 +74,9 @@ class UserController extends Controller {
 	}
 
 	public function create() {
-		return view( 'admin.user.create' );
+        $roles = $this->role->all();
+        $current_role = [];
+		return view( 'Backend.user.create' ,compact('roles','current_role'));
 	}
 
 	public function store(Request $request)
@@ -88,7 +90,7 @@ class UserController extends Controller {
 			'name.required'=>'用户名不能省略',
 			'email.required'=>'邮箱不能省略',
 			'email.email'=>'邮箱格式不正确',
-			'password.same'=>'两次密码不不一致',
+			'password.same'=>'两次密码不一致',
 		]);
         if($request->hasFile('avatar')){
             if ($request->file('avatar')->isValid()){
@@ -105,23 +107,23 @@ class UserController extends Controller {
 		if($user->save()){
 			return redirect()->route( 'user.index' )->with( 'success', '用户' . $request['name'] . '创建成功' );
 		}else {
-			return redirect()->route('user.index')->with('success', '用户' . $request['name'] . '创建成功');
+			return redirect()->back()->with('error', '用户' . $request['name'] . '创建失败');
 		}
 
 	}
 
 	public function edit( $id ) {
 		$user = $this->user->find($id);
-		$nowroles = $user->getRole();
-		if($nowroles){
-			foreach ($nowroles as $role){
-				$now_role[] = $role->id;
+		$user_role = $user->getRole();
+		if($user_role){
+			foreach ($user_role as $role){
+				$current_role[] = $role->id;
 			}
 		}else{
-			$now_role = [];
+            $current_role = [];
 		}
 		$roles = $this->role->all();
-		return view( 'admin.user.edit' ,compact('user','roles','now_role','id'));
+		return view( 'Backend.user.edit' ,compact('user','roles','current_role','id'));
 	}
 
     public function destroy($id)
@@ -170,10 +172,8 @@ class UserController extends Controller {
             $data['password'] = Hash::make($request->password);
         }
         $bool = $this->user->update($data,$id);
-        //dd(1);
 		$user->syncRoles($request->role);
         if($bool){
-            refreshCurrentPermission($user);
             return redirect('admin/'.$this->module)->with( 'success', '更新成功' );
         }else{
             return redirect()->back()->with('error','更新失败！');

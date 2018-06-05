@@ -185,7 +185,7 @@
         });
     </script>
     <!--begin::Page Vendors -->
-    <script src="http://keenthemes.com/metronic/preview/assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
+    <script src="{{ asset('Backend/js/datatables.bundle.js') }}" type="text/javascript"></script>
     <!--end::Page Vendors -->
     {!! $html->scripts() !!}
 @endsection

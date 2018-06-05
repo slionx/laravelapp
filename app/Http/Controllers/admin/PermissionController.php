@@ -39,7 +39,7 @@ class permissionController extends Controller
             ['data' => 'updated_at', 'name' => 'updated_at', 'title' => trans('menu.updated_at')],
         ])->addAction(['data' => 'action', 'name' => 'action', 'title' => trans('common.action')]);;
 
-        return view('admin.permission.index', compact('html'));
+        return view('Backend.permission.index', compact('html'));
     }
 
     public function ajaxData()
@@ -54,7 +54,7 @@ class permissionController extends Controller
 
     public function create()
     {
-        return view('admin.permission.create');
+        return view('Backend.permission.create');
     }
 
     public function store(Request $request)
@@ -62,7 +62,6 @@ class permissionController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|unique:permissions|max:255',
             'display_name' => 'required|max:255',
-            'description' => 'required|max:255',
         ]);
         if ($validator->fails()) {
             return back()
@@ -70,9 +69,9 @@ class permissionController extends Controller
                 ->withInput($request->all());
         }
         if ($this->permission->create($request->all())) {
-            return Redirect('admin/permission/create')->with('success', '创建成功');
+            return Redirect()->route('permission.index')->with('success', '创建成功');
         } else {
-            return Redirect('admin/permission/create')->withErrors('权限' . $request->name . '创建失败');
+            return Redirect()->back()->withInput($request->all())->with('error','权限' . $request->name . '创建失败');
         }
     }
 
@@ -84,7 +83,7 @@ class permissionController extends Controller
     public function edit($id)
     {
         $permission = $this->permission->find($id);
-        return view('admin.permission.edit', compact('permission', 'id'));
+        return view('Backend.permission.edit', compact('permission', 'id'));
     }
 
     /**
@@ -99,7 +98,6 @@ class permissionController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required|max:255',
                 'display_name' => 'required|max:255',
-                'description' => 'required|max:255',
             ]);
             if ($validator->fails()) {
                 return back()
@@ -108,16 +106,15 @@ class permissionController extends Controller
             }
             $permission = $this->permission->find($id);
             $permission->name = $request->name;
-            $permission->slug = $request->slug;
-            $permission->description = $request->description;
+            $permission->display_name = $request->display_name;
             $bool = $permission->save();
             if ($bool) {
-                return Redirect('admin/permission/')->with('success', '更新成功');
+                return Redirect()->route('permission.index')->with('success', '更新成功');
             } else {
-                return redirect()->route('permission.edit', $id)->withInput()->withErrors('更新失败,请稍后重试！');
+                return redirect()->back()->withInput()->withErrors('更新失败,请稍后重试！');
             }
         } catch (Exception $e) {
-            return redirect()->route('permission.edit', $id)->withInput()->withErrors($e->getMessage());
+            return redirect()->back()->withInput($request->all())->withErrors($e->getMessage());
         }
     }
 

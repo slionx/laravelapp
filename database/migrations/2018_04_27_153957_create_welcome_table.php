@@ -17,6 +17,7 @@ class CreateWelcomeTable extends Migration
             $table->increments('id');
             $table->string('type');
             $table->string('path');
+            $table->increments('sort')->default(0);
             $table->timestamps();
         });
     }

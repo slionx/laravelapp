@@ -91,10 +91,11 @@
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
       <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
-      <path value="$PROJECT_DIR$/vendor/yuanchao/laravel-5-markdown-editor" />
       <path value="$PROJECT_DIR$/vendor/laravelchen/laravel-editormd" />
       <path value="$PROJECT_DIR$/vendor/qiniu/php-sdk" />
       <path value="$PROJECT_DIR$/vendor/zgldh/qiniu-laravel-storage" />
+      <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
     </include_path>
   </component>
   <component name="PhpUnit">

@@ -1,4 +1,4 @@
-{!! editor_css() !!}
+
 <div class="m-portlet__body">
     <div class="m-form__content">
         @include('Backend.layouts.alert')
@@ -19,7 +19,7 @@
     </div>
 
     <div class="form-group m-form__group row {{ $errors->has('sort') ? ' has-danger' : '' }}">
-        <label class="col-form-label col-lg-3 col-sm-12" for="sort">分类名称 *</label>
+        <label class="col-form-label col-lg-3 col-sm-12" for="sort">排序 *</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="input-group data">
                 <input type="text" class="form-control m-input" id="sort" name="sort" value="0" maxlength="3" placeholder="排序" value="{{ isset($category) ? $category->sort : old('sort') }}" aria-describedby="m_datepicker-error">

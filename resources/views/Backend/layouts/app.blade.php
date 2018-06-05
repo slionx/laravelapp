@@ -1,4 +1,4 @@
-<html lang="en" class="wf-poppins-n5-active wf-poppins-n6-active wf-poppins-n7-active wf-roboto-n3-active wf-roboto-n4-active wf-roboto-n5-active wf-roboto-n6-active wf-roboto-n7-active wf-poppins-n3-active wf-poppins-n4-active wf-active">
+<html lang="en" >
 <!-- begin::Head -->
 <head>
     <meta charset="utf-8">
@@ -13,8 +13,8 @@
     <!--begin::Web font -->
     @yield('Web_font')
 
+    <script src="{{ asset('Backend/js/jquery.min.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
-
     <script>
         WebFont.load({
             google: {"families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"]},
@@ -31,10 +31,8 @@
 
 
     <link href="{{ asset('Backend/css/vendors.bundle.css') }}" rel="stylesheet" type="text/css">
-    <link href="http://keenthemes.com/metronic/preview/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('Backend/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
     <!--end::Base Styles -->
-
-    <link rel="shortcut icon" href="http://keenthemes.com/metronic/preview/assets/demo/default/media/img/logo/favicon.ico">
 
     <script>
         (function (i, s, o, g, r, a, m) {
@@ -626,8 +624,8 @@
 </ul>
 <!-- begin::Quick Nav -->
 <!--begin::Base Scripts -->
-<script src="http://keenthemes.com/metronic/preview/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
-<script src="http://keenthemes.com/metronic/preview/assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
+<script src="{{ asset('Backend/js/vendors.bundle.js') }}" type="text/javascript"></script>
+<script src="{{ asset('Backend/js/scripts.bundle.js') }}" type="text/javascript"></script>
 <!--end::Base Scripts -->
 
 @yield('footer_script')

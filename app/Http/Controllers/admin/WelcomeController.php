@@ -25,12 +25,12 @@ class WelcomeController extends Controller
 			[ 'data' => 'id', 'name' => 'id', 'title' => trans( 'common.number' ) ],
 			[ 'data' => 'type', 'name' => 'type', 'title' => '类型' ],
 			[ 'data' => 'path', 'name' => 'path', 'title' => '路径' ],
-			/*[ 'data' => 'sort', 'name' => 'sort', 'title' => '排序' ],*/
+			[ 'data' => 'sort', 'name' => 'sort', 'title' => '排序' ],
 			[ 'data' => 'created_at', 'name' => 'created_at', 'title' => trans( 'menu.created_at' ) ],
 			[ 'data' => 'updated_at', 'name' => 'updated_at', 'title' => trans( 'menu.updated_at' ) ],
 		] )->addAction( [ 'data' => 'action', 'name' => 'action', 'title' => trans( 'common.action' ) ] );;
 
-        return view('admin.welcome.index',compact('html'));
+        return view('Backend.welcome.index',compact('html'));
     }
 	public function ajaxData() {
 		$welcome_model = new \App\Http\Model\Welcome();
@@ -43,7 +43,7 @@ class WelcomeController extends Controller
 	}
 
 	public function create(){
-		return view('admin.welcome.create');
+		return view('Backend.welcome.create');
 	}
 
 	public function store( Request $request  ) {
@@ -142,18 +142,17 @@ class WelcomeController extends Controller
 		]);
 
 		if($request->hasFile('file')){
-			$path = './uploads/welcome/';
-			$suffix = $request->file('file')->guessClientExtension();
-			$filename = time().'.'.$suffix;
-			$result = $request->file('file')->move($path,$filename);
-			$path = $request->server('HTTP_ORIGIN').trim($path.$filename,'.');
+            if ($request->file('file')->isValid()){
+                $result = "/uploads/".$request->file->store('welcome/'.date('Ymd'));
+                $path = $request->server('HTTP_ORIGIN').$result;
+            }
 			if($result){
-				return redirect()->route( 'welcome.create' )->with( 'success', '文件上传成功:'.$path );
+				return redirect()->route( 'welcome.create' )->with( 'success', '文件上传成功:  '.$path );
 			}else{
-				return redirect()->route( 'welcome.create' )->with( 'error',  '文件上传失败' );
+				return redirect()->back()->withInput($request->all())->with( 'error',  '文件上传失败' );
 			}
 		}else{
-			return redirect()->route( 'welcome.create' )->with( 'error',  '不是正确的文件' );
+			return redirect()->back()->withInput($request->all())->with( 'error',  '不是正确的文件' );
 		}
 	}
 }

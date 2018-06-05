@@ -141,7 +141,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
-        //Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -168,10 +168,7 @@ return [
 	    Yajra\DataTables\HtmlServiceProvider::class,//DataTables HTML
 	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,//ide-helper
 	    Prettus\Repository\Providers\RepositoryServiceProvider::class,//RepositoryServiceProvider
-        //Barryvdh\Debugbar\ServiceProvider::class,
-        YuanChao\Editor\EndaEditorServiceProvider::class,
-        LaravelChen\Editormd\EditorMdProvider::class,
-
+        LaravelChen\Editormd\EditorMdProvider::class,//Editormd
 
 
         /*
@@ -204,7 +201,7 @@ return [
 
     'aliases' => [
 				
-				//'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
@@ -238,10 +235,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,//DataTables
-        //'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'EndaEditor' => YuanChao\Editor\Facade\EndaEditorFacade::class,
-
-
     ],
 
 ];
