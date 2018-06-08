@@ -10,14 +10,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
-use GrahamCampbell\Markdown\Facades\Markdown;
+
 use App\Repositories\PostRepository as Post;
 use App\Http\Model\Posts;
 use App\Http\Model\Tag as Tags;
 use App\Repositories\CategoryRepository as Category;
 use App\Repositories\UserRepository as User;
 use App\Repositories\TagRepository as Tag;
-use Matriphe\Imageupload\Imageupload;
 use Image;
 use Illuminate\Auth\Middleware;
 use DB;
@@ -146,9 +145,7 @@ class PostController extends Controller
                 return  "<span class=\"badge badge-success\">" .$post->followers_count. "</span>";
             })
             ->addColumn('action', function ($PostRepository) {
-                $url = url('/post', $PostRepository->id);
-                return "<a target='_blank' href=\"{$url}\" title=\"查看\" class=\"btn green btn-sm btn-outline filter-submit margin-bottom\">
-                             <i class=\"fa fa-eye\"></i></a>" . getActionButtonAttribute($PostRepository->id, $this->module);
+                return getViewActionButton('post.show',$PostRepository->id) . getActionButtonAttribute($PostRepository->id, $this->module);
             })->make(true);
     }
 
@@ -368,7 +365,8 @@ class PostController extends Controller
             'comments_count',
             'followers_count',
             'post_password',
-            'created_at'
+            'created_at',
+            'comments_status'
         ]);
         if ($post->post_password && $post->post_author != auth()->user()->id) {
             return redirect()->route('post.list');

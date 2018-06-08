@@ -29,9 +29,11 @@
                                 <li><a href="{{ route('post.list.category',['category',$post->post_category]) }}"><i class="icon-folder-open"></i> {{ $post->category->name }}</a></li>
                                 <li><a href="#"><i class="icon-comments"></i> {{ $post->comments_count }} Comments</a></li>
                                 <li><a href="#"><i class="icon-camera-retro"></i></a></li>
-                                @can('post.update')
+{{--                                @can('post.update')
                                     <li><a href="#"><i class="icon-edit"></i>修改文章</a></li>
-                                @endcan
+                                @endcan--}}
+
+
 
                             </ul><!-- .entry-meta end -->
                             <!-- Entry Image

@@ -56,3 +56,10 @@ $response = $kernel->handle(
 $response->send();
 
 $kernel->terminate($request, $response);
+
+
+
+if(!cache()->has('backend_global_set_global_comment_status')){
+    cache()->forever('backend_global_set_global_comment_status',"off");
+}
+

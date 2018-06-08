@@ -19,6 +19,6 @@ class isAdmin
         if($request->user() && $request->user()->isAdmin()){
             return $next($request);
         }
-        return redirect('/post/list');
+        return redirect()->back();
     }
 }

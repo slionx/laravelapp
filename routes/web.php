@@ -26,10 +26,11 @@ Route::get('post/list/{search}/', 'admin\PostController@list')->name('post.list.
 Route::get('post/list/{tag}/{id}/', 'admin\PostController@list')->name('post.list.tag');
 Route::get('post/list/{category}/{id}', 'admin\PostController@list')->name('post.list.category');
 Route::get('post/{post}/', 'admin\PostController@show')->name('post.show');
-Route::resource('comment', 'CommentController');
+Route::post('comment', 'admin\CommentController@store')->name('comment.store');
 
-//Route::post('/comment', 'CommentController@store')->name('comment.store');
-
+Route::group(['namespace' => 'Admin','middleware' => ['auth','web','isadmin']], function () {
+    Route::delete('comment/{comment}/', 'CommentController@destroy')->name('desktop.comment.delete');//只能管理员删除前台评论，否则回退
+});
 
 /*
  * admin 路由组
@@ -59,6 +60,11 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	Route::resource('category' ,'CategoryController');
     Route::resource('tag', 'TagController');
     Route::resource('dashboard', 'DashboardController');
+
+    Route::get('comment', 'CommentController@index')->name('comment.index');
+    Route::delete('comment/{comment}', 'CommentController@destroy')->name('comment.destroy');
+    Route::post('settings', 'SettingsController@UpdateSet')->name('settings.UpdateSet');
+
 
 });
 

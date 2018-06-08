@@ -1,4 +1,11 @@
 <?php
+/*use Illuminate\Support\Facades\Cache;
+
+Cache::forever('backend_global_set.global_comment_status',false);
+*/
+
+
+
 
 
 /**
@@ -51,10 +58,17 @@ Eof;
 
 }
 
+function getViewActionButton($name,$parm)
+{
+    $url = route($name, $parm);
+    return "<a target='_blank' href=\"{$url}\" title=\"查看\" class=\"m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill\"><i class=\"fa fa-eye\"></i></a>";
+
+}
+
 function getActionButtonAttribute($id,$module)
 {
     return getEditActionButton($id,$module)
-    .getDestroyActionButton($id,$module);
+        .getDestroyActionButton($id,$module);
 }
 
 
@@ -202,17 +216,17 @@ function getList()
         ],
     ];
 
-   /* $menu_list = $this->resetList($menu_list);
-    foreach ($menu_list as $i => $item) {
-        if (is_array($item['list']) && count($item['list']) == 0) {
-            unset($menu_list[$i]);
-            continue;
-        }
-        if (is_array($item['list'])) {
-            $menu_list[$i]['route'] = $item['list'][0]['route'];
-        }
-    }
-    $menu_list = array_values($menu_list);*/
+    /* $menu_list = $this->resetList($menu_list);
+     foreach ($menu_list as $i => $item) {
+         if (is_array($item['list']) && count($item['list']) == 0) {
+             unset($menu_list[$i]);
+             continue;
+         }
+         if (is_array($item['list'])) {
+             $menu_list[$i]['route'] = $item['list'][0]['route'];
+         }
+     }
+     $menu_list = array_values($menu_list);*/
     return $menu_list;
 }
 

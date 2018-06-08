@@ -2,6 +2,8 @@
 
 return [
 
+    'global_comment_status'=>true,//是否开启所有文章评论
+
 	'welcomeType' => 'slide',
 
 	// 自定义用户名

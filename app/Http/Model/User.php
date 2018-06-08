@@ -4,12 +4,15 @@ namespace App\Http\Model;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use App\Notifications\InvoicePaid;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+
 
 class User extends Eloquent implements AuthenticatableContract,CanResetPasswordContract
 
@@ -42,11 +45,22 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 		protected function asDateTime($val){
 			return $val;
 		}*/
-	public function sendPasswordResetNotification($token){
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
+	/*public function sendPasswordResetNotification($token){
 		$flag = Mail::send('email.resetpassword',['token'=>$token],function($message){
 			$message->to($this->email)->subject('Slionx 博客帐户密码重置');
 		});
-	}
+	}*/
 
 	public function posts() {
 		return $this->hasMany(Posts::class,'post_author');
@@ -95,6 +109,14 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 	public function getOwnRole() {
 		return $this->roles->first();
 	}
+
+    public function send_notify()
+    {
+        $user = \Auth::user();
+        $user->notify(new InvoicePaid($invoice));
+	}
+
+
 
 }
 

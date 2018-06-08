@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  *
@@ -114,7 +113,7 @@ php artisan make:migrition
 
 ------------追加字段----------------
 
-
+redis-server.exe redis.windows.conf
 
 -----------初始配置相关---------------
 
@@ -189,6 +188,10 @@ DB_PASSWORD= #数据库密码
 运行数据迁移和数据填充
 php artisan migrate
 php artisan db:seed
+
+php artisan make:notification InvoicePaid //创建通知
+
+php artisan queue:listen
 
 发布拓展包资源
 php artisan vendor:publish --all
