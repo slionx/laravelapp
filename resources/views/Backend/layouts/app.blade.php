@@ -133,6 +133,8 @@
 
 @include('Backend.layouts.quick_sidebar')
 
+
+
 <!--begin::Base Scripts -->
 <script src="{{ asset('Backend/js/vendors.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ asset('Backend/js/scripts.bundle.js') }}" type="text/javascript"></script>
@@ -140,6 +142,154 @@
 
 @yield('footer_script')
 
+<script type="text/javascript">
+    function UpdateSet(name) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            }
+        });
+        var status = "off";
+        if ($("input[name=" + name + "]").prop("checked") == true) {
+            status = "on";
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "settings",
+            async: false,
+            dataType: "json",
+            data: "name="+ name +"&status=" + status,
+            success: function (data) {
+                var notify_type;
+                var message;
+                if(data.status == true){
+                    notify_type = 1;
+                }else{
+                    notify_type = 0;
+                }
+                if(data.result == "on"){
+                    message = "已开启";
+                }else {
+                    message = "已关闭";
+                }
+                show_notify(notify_type,message,notify_type);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                show_notify(0,'Ajax调用错误，请刷新后重试,错误: '+errorThrown,0);
+            },
+            complete: function () {
+
+            },
+        });
+
+    }
+
+    //begin notifications
+    var global_notifications_total = 0;
+    function ajax_load_notifications_data(callback){
+        var data = []
+        data.total = 0
+        data.notifications = []
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            }
+        });
+        //var limit = 5;
+        $.get('/notifications',{async:false}) .then((response) => {
+
+            data.total = response.total
+            data.notifications = response.notifications.map(({ id, data, created }) => {
+                return {
+                    id: id,
+                    text: data.text,
+                    badge: data.badge,
+                    action_url: data.action_url,
+                    created: created
+                }
+            })
+            callback(data);
+        })
+    }
+
+    ajax_load_notifications_data(function(rs){
+        global_notifications_total = rs.total;
+        $(".m-dropdown__header-title").html(rs.total + " new")
+        if(rs.total > 0){
+            $("#m-nav__link-badge").addClass("m-badge m-badge--dot m-badge--dot-small m-badge--danger m-animate-blink");
+            $("#m-nav__link-icon").addClass("m-animate-shake");
+
+            var html ='';
+            rs.notifications.map(function(element){
+                html += '<div class="m-list-timeline__item" id="'+ element.id +'">'
+                html += '<span class="m-list-timeline__badge"></span>'
+                html += '<span class="m-list-timeline__text">' + element.text
+                if(element.badge){
+                    html +='<span class="m-badge m-badge--' + element.badge + ' m-badge--wide">' + element.badge + '</span>'
+                }
+                if(element.action_url){
+                    html +='<a href="' + element.action_url + '" class="m-link">Check</a>'
+                }
+                html += '</span>'
+                html += '<span class="m-list-timeline__time">'+ element.created +'</span>'
+                html += '<span class="m-list-timeline__icon">'
+                html += "<a class=\"close\" data-close=\"alert\" onclick=\"event.preventDefault();makeAsRead('" + element.id + "');\" aria-label=\"Close\">x"
+                html += '</a>\n'
+                html += '</span>'
+                html += '</div>'
+            })
+            $('#m-list-timeline__items').append(html);
+        }else {
+            html += '<div class="m-stack m-stack--ver m-stack--general" style="min-height: 180px;">'
+            html += '<div class="m-stack__item m-stack__item--center m-stack__item--middle">'
+            html += '<span class="">All caught up!<br>No new logs.</span>'
+            html += '</div>'
+            html += '</div>'
+            $('#topbar_notifications_events').html(html);
+        }
+
+    });
+
+    function  makeAsRead( id ){
+        var code = 0;
+        $.post("/notifications/" + id + "/read",function(result){
+            if(result.status == true){
+                code = 1;
+                $("#"+id).remove();
+                global_notifications_total = global_notifications_total-1;
+                $(".m-dropdown__header-title").html(global_notifications_total + " new")
+            }
+            show_notify(code,result.result,code);
+        });
+    }
+
+    function markAllRead() {
+        var url = "/notifications/mark-all-read";
+        var code = 0;
+        $.post(url,function(result){
+            if(result.status == true){
+                code = 1;
+                $(".m-dropdown__header-title").html("0 new")
+                $("#m-nav__link-badge").removeClass("m-badge m-badge--dot m-badge--dot-small m-badge--danger m-animate-blink");
+                $("#m-nav__link-icon").removeClass("m-animate-shake");
+
+                $('#topbar_notifications_events').html("");
+                var html ='';
+                html += '<div class="m-stack m-stack--ver m-stack--general" style="min-height: 180px;">'
+                html += '<div class="m-stack__item m-stack__item--center m-stack__item--middle">'
+                html += '<span class="">All caught up!<br>No new logs.</span>'
+                html += '</div>'
+                html += '</div>'
+                $('#topbar_notifications_events').append(html);
+            }
+            show_notify(code,result.result,code);
+        });
+    }
+
+    //end notifications
+</script>
+<script src="{{ asset('Backend/js/notify.js') }}"></script>
 
 
 <!-- begin::Page Loader -->
@@ -186,53 +336,8 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function() {
-    });
 
-    function UpdateSet(name) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            }
-        });
-        var status = "off";
-        if ($("input[name=" + name + "]").prop("checked") == true) {
-            status = "on";
-        }
 
-        $.ajax({
-            type: "POST",
-            url: "settings",
-            async: false,
-            dataType: "json",
-            data: "name="+ name +"&status=" + status,
-            success: function (data) {
-                var notify_type;
-                var message;
-                if(data.status == true){
-                    notify_type = 1;
-                }else{
-                    notify_type = 0;
-                }
-                if(data.result == "on"){
-                    message = "已开启";
-                }else {
-                    message = "已关闭";
-                }
-                show_notify(notify_type,message,notify_type);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                show_notify(0,'Ajax调用错误，请刷新后重试,错误: '+errorThrown,0);
-            },
-            complete: function () {
 
-            },
-        });
-
-    }
-
-</script>
-<script src="{{ asset('Backend/js/notify.js') }}"></script>
 </body>
 </html>

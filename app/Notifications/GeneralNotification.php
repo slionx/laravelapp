@@ -3,22 +3,26 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Carbon;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\SimpleMessage;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class InvoicePaid extends Notification implements ShouldQueue
+class GeneralNotification extends Notification
 {
     use Queueable;
+
+    protected $notification_array;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($notification_array)
     {
-        //
+        $this->notification_array = $notification_array;
     }
 
     /**
@@ -29,7 +33,7 @@ class InvoicePaid extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['database'];
     }
 
     /**
@@ -41,9 +45,9 @@ class InvoicePaid extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -55,12 +59,22 @@ class InvoicePaid extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+            'title' => 'Hello from Laravel!',
+            'body' => 'Thank you for using our application.',
+            'action_url' => 'https://laravel.com',
+            'created' => Carbon::now()->toIso8601String()
         ];
     }
 
+
+
     public function toDatabase($notifiable)
     {
-
+        return $this->notification_array ? $this->notification_array : [];
+/*        return [
+            "text"=>"通知内容",
+            "badge"=>"success",
+            "action_url" => "",
+        ];*/
     }
 }

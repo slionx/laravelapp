@@ -27,7 +27,7 @@
                                 <h2><a href="{{ route('post.show',$item->id) }}">{{ $item->post_title }}</a></h2>
                             </div>
                             <ul class="entry-meta clearfix">
-                                <li><i class="icon-calendar3"></i> {{ $item->created_at }}</li>
+                                <li><i class="icon-calendar3"></i> {{ $item->created_at->diffForHumans() }}</li>
                                 <li><a href="#"><i class="icon-user"></i> {{ $item->user->name }}</a></li>
                                 <li><a href="{{ route('post.list.category',['category',$item->category]) }}"><i class="icon-folder-open"></i> {{ $item->category->name }}</a></li>
                                 <li><a href="blog-single.html#comments"><i class="icon-comments"></i> {{ $item->comments_count }}</a></li>

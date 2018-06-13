@@ -11,6 +11,13 @@
 |
 */
 
+// Notifications
+Route::get('run', 'NotificationController@store');
+Route::post('notifications', 'NotificationController@store');
+Route::get('notifications', 'NotificationController@index');
+Route::post('notifications/{id}/read', 'NotificationController@markAsRead');
+Route::post('notifications/mark-all-read', 'NotificationController@markAllRead')->name('mark-all-read');
+
 // User Auth
 Auth::routes();
 

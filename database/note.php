@@ -69,6 +69,7 @@ php artisan help make:controller
 
 php artisan storage:link
 
+php artisan make:job SendMessage
 
 
 创建表
@@ -189,7 +190,9 @@ DB_PASSWORD= #数据库密码
 php artisan migrate
 php artisan db:seed
 
-php artisan make:notification InvoicePaid //创建通知
+php artisan make:notification GeneralNotification //创建通知
+
+php artisan notifications:table
 
 php artisan queue:listen
 

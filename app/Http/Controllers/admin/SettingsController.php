@@ -20,7 +20,7 @@ class SettingsController extends Controller
             }else{
                 $json_arr = ['status'=>false,'result'=>$result];
             }
-            echo json_encode($json_arr);exit();
+            return response()->json($json_arr, 200);
         }
     }
 

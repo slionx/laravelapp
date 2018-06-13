@@ -45,3 +45,4 @@ function show_notify(notify_type_key,message,icon_key,url,title) {
                 t.update("message", "<strong>Checking</strong> for errors."), t.update("type", "success"), t.update("progress", 100)
             }, 4e3))*/
 }
+

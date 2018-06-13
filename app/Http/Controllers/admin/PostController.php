@@ -413,9 +413,9 @@ class PostController extends Controller
 
 
     /**
-     * @param $id
-     * @param $ts
-     *
+     * @param null $param
+     * @param null $id
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function list($param = null, $id = null, Request $request)
