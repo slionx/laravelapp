@@ -269,6 +269,7 @@
         var code = 0;
         $.post(url,function(result){
             if(result.status == true){
+                global_notifications_total = 0;
                 code = 1;
                 $(".m-dropdown__header-title").html("0 new")
                 $("#m-nav__link-badge").removeClass("m-badge m-badge--dot m-badge--dot-small m-badge--danger m-animate-blink");
@@ -290,6 +291,7 @@
     //end notifications
 </script>
 <script src="{{ asset('Backend/js/notify.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
 
 
 <!-- begin::Page Loader -->
@@ -337,7 +339,67 @@
     </div>
 </div>
 
+<script src="{{ asset('Backend/js/socket.io.js') }}"></script>
+<script>
 
+    var socket = io("http://l.cn:6001");
+    socket.on('connection', function(socket){
+        console.log('socket.io client a user connected'+socket);
+    });
+    socket.on('private-user-channel-2:App\\Events\\SendNotification', function(response){
+        console.log(response);
+        console.log(response.message.text);
+
+
+        if(response.message.text){
+            if(global_notifications_total === 0 ){
+                $("#m-nav__link-badge").addClass("m-badge m-badge--dot m-badge--dot-small m-badge--danger m-animate-blink");
+                $("#m-nav__link-icon").addClass("m-animate-shake");
+
+                $("#topbar_notifications_events").html('');
+                var header = '';
+                header += '<div class="m-scrollable m-scroller ps" data-scrollable="true" data-height="250" data-mobile-height="200" style="height: 250px; overflow: hidden;">'
+                header += '<div class="m-list-timeline m-list-timeline--skin-light">'
+                header += '<div class="m-list-timeline__items" id="m-list-timeline__items"></div></div></div>';
+                $("#topbar_notifications_events").html(header);
+            }
+            global_notifications_total = global_notifications_total+1;
+            $(".m-dropdown__header-title").html(global_notifications_total + " new")
+
+
+
+
+
+            var html = '';
+            html += '<div class="m-list-timeline__item" id="">'
+            html += '<span class="m-list-timeline__badge"></span>'
+            html += '<span class="m-list-timeline__text">' + response.message.text
+            if(response.message.badge){
+                html +='<span class="m-badge m-badge--' + response.message.badge + ' m-badge--wide">' + response.message.badge + '</span>'
+            }
+            if(response.message.action_url){
+                html +='<a href="' + response.message.action_url + '" class="m-link">Check</a>'
+            }
+            html += '</span>'
+            html += '<span class="m-list-timeline__time">'+ 11 +'</span>'
+            html += '<span class="m-list-timeline__icon">'
+            html += "<a class=\"close\" data-close=\"alert\" onclick=\"event.preventDefault();\" aria-label=\"Close\">x"
+            html += '</a>\n'
+            html += '</span>'
+            html += '</div>'
+
+
+            $('#m-list-timeline__items').append(html);
+
+        }
+
+    });
+    /*    setTimeout(function () {
+            socket.on('disconnect', function(socket){
+                console.log('socket.io client disconnect'+socket);
+            });
+        },10000);*/
+</script>
 
 </body>
 </html>

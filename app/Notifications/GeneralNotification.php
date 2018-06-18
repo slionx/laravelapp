@@ -13,16 +13,16 @@ class GeneralNotification extends Notification
 {
     use Queueable;
 
-    protected $notification_array;
+    protected $message;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($notification_array)
+    public function __construct($message)
     {
-        $this->notification_array = $notification_array;
+        $this->message = $message;
     }
 
     /**
@@ -70,7 +70,7 @@ class GeneralNotification extends Notification
 
     public function toDatabase($notifiable)
     {
-        return $this->notification_array ? $this->notification_array : [];
+        return $this->message ? $this->message : [];
 /*        return [
             "text"=>"通知内容",
             "badge"=>"success",

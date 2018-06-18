@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\SomeEvent;
+use App\Events\SendNotification;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EventListener
+class SendNotificationListener
 {
     /**
      * Create the event listener.
@@ -21,10 +21,10 @@ class EventListener
     /**
      * Handle the event.
      *
-     * @param  SomeEvent  $event
+     * @param  SendNotification  $event
      * @return void
      */
-    public function handle(SomeEvent $event)
+    public function handle(SendNotification $event)
     {
         //
     }

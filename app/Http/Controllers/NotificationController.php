@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Events\NotificationRead;
 use App\Events\NotificationReadAll;
+use App\Events\SendNotification;
 use App\Notifications\GeneralNotification;
 
 class NotificationController extends Controller
@@ -44,13 +45,18 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
-        $request->user()->notify(new GeneralNotification([
+        $channel = 'user-channel-';
+        $message = [
             "text"=>"通知内容",
             "badge"=>"danger",
             "action_url" => "http://l.cn",
-        ]));
+        ];
 
-        return response()->json('Notification sent.', 201);
+
+        $request->user()->notify(new GeneralNotification($message));
+
+        event(new SendNotification($request->user()->id,$message,$channel));
+        return response()->json(['status'=>true,'result'=>'Notification sent.'], 200);
 
     }
 

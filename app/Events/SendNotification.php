@@ -10,18 +10,24 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class SomeEvent
+class SendNotification implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public $user;
+    public $message = [];
+    protected $channel;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user, $message, $channel)
     {
-        //
+        $this->user = $user;
+        $this->message = $message;
+        $this->channel = $channel;
     }
 
     /**
@@ -31,6 +37,6 @@ class SomeEvent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new PrivateChannel($this->channel.$this->user);
     }
 }

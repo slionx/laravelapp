@@ -22,7 +22,7 @@ Route::post('notifications/mark-all-read', 'NotificationController@markAllRead')
 Auth::routes();
 
 Route::get('/','HomeController@index');
-Route::get('/home','HomeController@index');
+Route::get('/demo','HomeController@demo');
 
 Route::post('user/upload/avatar', 'admin\UserController@update')->name('uploadAvatar');
 

@@ -21,6 +21,12 @@ class HomeController extends Controller
         return view('welcome');
     }
 
+    public function demo()
+    {
+        //echo $request->getClientIp();
+        return view('demo');
+    }
+
     public function welcome(){
 
 	    $home_bg_images = Storage::allFiles('slide');
