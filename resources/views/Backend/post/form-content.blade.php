@@ -17,6 +17,21 @@
             <div class="form-control-feedback">{{ $errors->has('post_title') ? $errors->first('post_title', ':message') : '文章标题为必填项，文章标题应小于255字节。' }}</div>
         </div>
     </div>
+    <div class="form-group m-form__group row {{ $errors->has('file') ? ' has-danger' : '' }}">
+        <label class="col-form-label col-lg-3 col-sm-12" for="file">文章主图</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="input-group data">
+                <input type="file" class="custom-file-input" id="file" name="file">
+                <label class="custom-file-label" for="avatar">选择图片</label>
+
+                <div class="input-group-append">
+							<span class="input-group-text">
+								<img src="" height="128">
+							</span>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="form-group m-form__group row {{ $errors->has('post_tag') ? ' has-danger' : '' }}">
         <label class="col-form-label col-lg-3 col-sm-12" for="post_tag">文章标签 *</label>
         <div class="col-lg-4 col-md-9 col-sm-12">

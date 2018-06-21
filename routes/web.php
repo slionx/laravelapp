@@ -11,6 +11,9 @@
 |
 */
 
+// UploadImage
+Route::post('/images/store', 'UploadImagesController@store')->name('storeImage');
+
 // Notifications
 Route::get('run', 'NotificationController@store');
 Route::post('notifications', 'NotificationController@store');
