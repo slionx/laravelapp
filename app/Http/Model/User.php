@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use App\Notifications\ResetPasswordNotification;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
@@ -18,13 +19,14 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 
 {
 	use Notifiable;
+    use Authorizable;
 	use AuthenticableTrait;
 	use CanResetPassword;
 
 	protected $table = 'users';
 	protected $primaryKey = 'id';
 
-	//指定必须赋值的字段
+	//指定批量赋值的字段
 	protected $fillable = ['name','email','password','avatar','is_active','confirmation_token'];
 	//指定不允许批量赋值的字段
 	//protected $guarded = [];
@@ -34,17 +36,9 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 
 	// protected $dateFormat = 'U';
 	//
-	//自动维护时间戳
+	//自动维护时间戳 created_at 和 updated_at 字段
 	//public $timestamps  =  true;
 
-
-
-	/*    protected function getDateFormat(){
-			return time();
-		}
-		protected function asDateTime($val){
-			return $val;
-		}*/
     /**
      * Send the password reset notification.
      *

@@ -112,6 +112,10 @@ php artisan migrate:refresh --seed
 
 php artisan make:migrition
 
+php artisan db:backup 通过iseed库自动备份当前数据库的数据到Seeder文件里，解决研发时测试数据同步或临时数据结构变更测试数据面临清空等问题。并可根据migrations的文件顺序进行合理的排序，避免由于依赖关系引起的后续数据填充问题。
+php artisan db:clear 清空数据库，心情不爽的时候用一下，感觉棒棒哒。
+php artisan db:upgrade 升级数据库，可能加了新的字段等，会自动填充Seeder文件里的数据，升级之前最好先备份下数据。
+
 ------------追加字段----------------
 
 redis-server.exe redis.windows.conf

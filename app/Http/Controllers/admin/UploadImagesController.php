@@ -1,12 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Model\Upload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class UploadImagesController extends Controller
 {
+    public function __construct(Upload $upload)
+    {
+        $this->upload = $upload;
+    }
 
     public function store(Request $request)
     {
@@ -18,16 +23,40 @@ class UploadImagesController extends Controller
 
         if($request->hasFile('file')){
             if ($request->file('file')->isValid()){
-                $result = "/uploads/".$request->file->store('images/'.date('Ymd'));
-                $path = $request->server('HTTP_ORIGIN').$result;
-            }
-            if($result){
-                return redirect()->route( 'welcome.create' )->with( 'success', '文件上传成功:  '.$path );
-            }else{
-                return redirect()->back()->withInput($request->all())->with( 'error',  '文件上传失败' );
+                $path = $request->file->store('images/'.date('Ymd'));
+                $full_path = $request->server('HTTP_ORIGIN')."/uploads/".$path;
+                if($path){
+                    $this->upload->path = $full_path;
+                    $result = $this->upload->save();
+                    return response()->json(['status'=>$result,'result'=>$full_path,'id'=>$this->upload->id], 200);
+                }else{
+                    return response()->json(['status'=>false,'result'=>'error'], 200);
+                }
             }
         }else{
-            return redirect()->back()->withInput($request->all())->with( 'error',  '不是正确的文件' );
+            return response()->json(['status'=>false,'result'=>'error file'], 200);
         }
+    }
+
+    public function destroy($id)
+    {
+        $result = $this->upload->findOrFail($id,['id','path']);
+        if($result){
+            $replace_str = config("app.url")."/";
+            $path = str_replace($replace_str,'',$result->path);
+            \File::delete($path);
+            $result->delete($id);
+            return response()->json(['status'=>true], 200);
+        }
+    }
+
+    public function select(Request $request)
+    {
+
+        $result = $this->upload->select(['id', 'path', 'created_at'])->orderBy('created_at','desc')->paginate(5);
+
+
+        return response()->json(['result'=>$result], 200);
+        dd($data);
     }
 }

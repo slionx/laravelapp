@@ -11,8 +11,7 @@
 |
 */
 
-// UploadImage
-Route::post('/images/store', 'UploadImagesController@store')->name('storeImage');
+
 
 // Notifications
 Route::get('run', 'NotificationController@store');
@@ -57,10 +56,15 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	PUT/PATCH	/posts/{post}	update	posts.update
 	DELETE	/posts/{post}	destroy	posts.destroy
 */
+// UploadImage
+    Route::post('/images/store', 'UploadImagesController@store')->name('image.store');
+    Route::delete('/images/{id}', 'UploadImagesController@destroy')->name('image.destroy');
+    Route::get('images/select', 'UploadImagesController@select')->name('image.select');
 
 	//欢迎页路由
 	Route::resource('welcome' ,'WelcomeController');
 	Route::post('welcome/upload', 'WelcomeController@upload')->name('welcome.upload');
+
     Route::get('dashboard/index', 'DashboardController@index')->name('admin');
     Route::resource('post' ,'PostController')->except('show');
 	Route::resource('menu' ,'MenuController');

@@ -8,6 +8,7 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="_token" content="{{ csrf_token() }}"/>
 
 
     <!--begin::Web font -->
@@ -254,7 +255,7 @@
     function  makeAsRead( id ){
         var code = 0;
         $.post("/notifications/" + id + "/read",function(result){
-            if(result.status == true){
+            if(result.status === true){
                 code = 1;
                 $("#"+id).remove();
                 global_notifications_total = global_notifications_total-1;
@@ -291,7 +292,7 @@
     //end notifications
 </script>
 <script src="{{ asset('Backend/js/notify.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+
 
 
 <!-- begin::Page Loader -->
@@ -339,7 +340,7 @@
     </div>
 </div>
 
-<script src="{{ asset('Backend/js/socket.io.js') }}"></script>
+{{--<script src="{{ asset('Backend/js/socket.io.js') }}"></script>
 <script>
 
     var socket = io("http://l.cn:6001");
@@ -349,7 +350,6 @@
     socket.on('private-user-channel-2:App\\Events\\SendNotification', function(response){
         console.log(response);
         console.log(response.message.text);
-
 
         if(response.message.text){
             if(global_notifications_total === 0 ){
@@ -399,7 +399,7 @@
                 console.log('socket.io client disconnect'+socket);
             });
         },10000);*/
-</script>
+</script>--}}
 
 </body>
 </html>

@@ -166,7 +166,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 	    Yajra\DataTables\DataTablesServiceProvider::class,//DataTables
 	    Yajra\DataTables\HtmlServiceProvider::class,//DataTables HTML
-	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,//ide-helper
+	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,//ideide-helper
 	    Prettus\Repository\Providers\RepositoryServiceProvider::class,//RepositoryServiceProvider
         LaravelChen\Editormd\EditorMdProvider::class,//Editormd
 

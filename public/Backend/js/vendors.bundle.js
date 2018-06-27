@@ -24354,11 +24354,13 @@ var Emitter = function () {
             return this
         }
     }]), t
-}(), Dropzone = function (t) {
+}()/*,
+    
+Dropzone = function (t) {
     function e(t, i) {
         _classCallCheck(this, e);
         var n, r = _possibleConstructorReturn(this, (e.__proto__ || Object.getPrototypeOf(e)).call(this)), o = void 0;
-        if (r.element = t, r.version = e.version, r.defaultOptions.previewTemplate = r.defaultOptions.previewTemplate.replace(/\n*/g, ""), r.clickableElements = [], r.listeners = [], r.files = [], "string" == typeof r.element && (r.element = document.querySelector(r.element)), !r.element || null == r.element.nodeType) throw new Error("Invalid dropzone element.");
+        if (r.element = t, r.version = e.version, r.defaultOptions.previewTemplate = r.defaultOptions.previewTemplate.replace(/\n*!/g, ""), r.clickableElements = [], r.listeners = [], r.files = [], "string" == typeof r.element && (r.element = document.querySelector(r.element)), !r.element || null == r.element.nodeType) throw new Error("Invalid dropzone element.");
         if (r.element.dropzone) throw new Error("Dropzone already attached.");
         e.instances.push(r), r.element.dropzone = r;
         var s, a = null != (n = e.optionsForElement(r.element)) ? n : {};
@@ -24374,7 +24376,7 @@ var Emitter = function () {
     return _inherits(e, Emitter), _createClass(e, null, [{
         key: "initClass", value: function () {
             this.prototype.Emitter = Emitter, this.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "addedfiles", "removedfile", "thumbnail", "error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"], this.prototype.defaultOptions = {
-                url: null,
+                url: "/images/store",
                 method: "post",
                 withCredentials: !1,
                 timeout: 3e4,
@@ -24471,7 +24473,7 @@ var Emitter = function () {
                     return r.srcX = (t.width - r.srcWidth) / 2, r.srcY = (t.height - r.srcHeight) / 2, r.trgWidth = e, r.trgHeight = i, r
                 },
                 transformFile: function (t, e) {
-                    return (this.options.resizeWidth || this.options.resizeHeight) && t.type.match(/image.*/) ? this.resizeImage(t, this.options.resizeWidth, this.options.resizeHeight, this.options.resizeMethod, e) : e(t)
+                    return (this.options.resizeWidth || this.options.resizeHeight) && t.type.match(/image.*!/) ? this.resizeImage(t, this.options.resizeWidth, this.options.resizeHeight, this.options.resizeMethod, e) : e(t)
                 },
                 previewTemplate: '<div class="dz-preview dz-file-preview">\n  <div class="dz-image"><img data-dz-thumbnail /></div>\n  <div class="dz-details">\n    <div class="dz-size"><span data-dz-size></span></div>\n    <div class="dz-filename"><span data-dz-name></span></div>\n  </div>\n  <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>\n  <div class="dz-error-message"><span data-dz-errormessage></span></div>\n  <div class="dz-success-mark">\n    <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">\n      <title>Check</title>\n      <defs></defs>\n      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">\n        <path d="M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z" id="Oval-2" stroke-opacity="0.198794158" stroke="#747474" fill-opacity="0.816519475" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>\n      </g>\n    </svg>\n  </div>\n  <div class="dz-error-mark">\n    <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">\n      <title>Error</title>\n      <defs></defs>\n      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">\n        <g id="Check-+-Oval-2" sketch:type="MSLayerGroup" stroke="#747474" stroke-opacity="0.198794158" fill="#FFFFFF" fill-opacity="0.816519475">\n          <path d="M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z" id="Oval-2" sketch:type="MSShapeGroup"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>',
                 drop: function (t) {
@@ -24921,7 +24923,7 @@ var Emitter = function () {
     }, {
         key: "_enqueueThumbnail", value: function (t) {
             var e = this;
-            if (this.options.createImageThumbnails && t.type.match(/image.*/) && t.size <= 1024 * this.options.maxThumbnailFilesize * 1024) return this._thumbnailQueue.push(t), setTimeout(function () {
+            if (this.options.createImageThumbnails && t.type.match(/image.*!/) && t.size <= 1024 * this.options.maxThumbnailFilesize * 1024) return this._thumbnailQueue.push(t), setTimeout(function () {
                 return e._processThumbnailQueue()
             }, 0)
         }
@@ -25321,7 +25323,7 @@ Dropzone.initClass(), Dropzone.version = "5.4.0", Dropzone.options = {}, Dropzon
 }, Dropzone.dataURItoBlob = function (t) {
     for (var e = atob(t.split(",")[1]), i = t.split(",")[0].split(":")[1].split(";")[0], n = new ArrayBuffer(e.length), r = new Uint8Array(n), o = 0, s = e.length, a = 0 <= s; a ? o <= s : o >= s; a ? o++ : o--) r[o] = e.charCodeAt(o);
     return new Blob([n], {type: i})
-};
+};*/
 var without = function (t, e) {
     return t.filter(function (t) {
         return t !== e
@@ -25333,6 +25335,7 @@ var without = function (t, e) {
         return t.charAt(1).toUpperCase()
     })
 };
+/*
 Dropzone.createElement = function (t) {
     var e = document.createElement("div");
     return e.innerHTML = t, e.childNodes[0]
@@ -25379,6 +25382,8 @@ Dropzone.createElement = function (t) {
         return new Dropzone(this, t)
     })
 }), "undefined" != typeof module && null !== module ? module.exports = Dropzone : window.Dropzone = Dropzone, Dropzone.ADDED = "added", Dropzone.QUEUED = "queued", Dropzone.ACCEPTED = Dropzone.QUEUED, Dropzone.UPLOADING = "uploading", Dropzone.PROCESSING = Dropzone.UPLOADING, Dropzone.CANCELED = "canceled", Dropzone.ERROR = "error", Dropzone.SUCCESS = "success";
+*/
+
 var detectVerticalSquash = function (t) {
     t.naturalWidth;
     var e = t.naturalHeight, i = document.createElement("canvas");
@@ -25488,6 +25493,7 @@ function __guardMethod__(t, e, i) {
     return void 0 !== t && null !== t && "function" == typeof t[e] ? i(t, e) : void 0
 }
 
+/*
 Dropzone._autoDiscoverFunction = function () {
     if (Dropzone.autoDiscover) return Dropzone.discover()
 }, contentLoaded(window, Dropzone._autoDiscoverFunction), function (t, e) {
@@ -28114,7 +28120,7 @@ Dropzone._autoDiscoverFunction = function () {
                     n = 1 * (this.options.maximumImageFileSize / Math.pow(1024, i)).toFixed(2) + " " + " KMGTP"[i] + "B";
                 e = "<small>" + this.lang.image.maximumFileSize + " : " + n + "</small>"
             }
-            var r = ['<div class="form-group note-form-group note-group-select-from-files">', '<label class="note-form-label">' + this.lang.image.selectFromFiles + "</label>", '<input class="note-image-input note-form-control note-input" ', ' type="file" name="files" accept="image/*" multiple="multiple" />', e, "</div>", '<div class="form-group note-group-image-url" style="overflow:auto;">', '<label class="note-form-label">' + this.lang.image.url + "</label>", '<input class="note-image-url form-control note-form-control note-input ', ' col-md-12" type="text" />', "</div>"].join(""),
+            var r = ['<div class="form-group note-form-group note-group-select-from-files">', '<label class="note-form-label">' + this.lang.image.selectFromFiles + "</label>", '<input class="note-image-input note-form-control note-input" ', ' type="file" name="files" accept="image/!*" multiple="multiple" />', e, "</div>", '<div class="form-group note-group-image-url" style="overflow:auto;">', '<label class="note-form-label">' + this.lang.image.url + "</label>", '<input class="note-image-url form-control note-form-control note-input ', ' col-md-12" type="text" />', "</div>"].join(""),
                 o = '<button type="submit" href="#" class="btn btn-primary note-btn note-btn-primary note-image-btn" disabled>' + this.lang.image.insert + "</button>";
             this.$dialog = this.ui.dialog({
                 title: this.lang.image.insert,
@@ -28243,10 +28249,10 @@ Dropzone._autoDiscoverFunction = function () {
                 n = e.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/),
                 r = e.match(/(?:www\.|\/\/)instagram\.com\/p\/(.[a-zA-Z0-9_-]*)/),
                 o = e.match(/\/\/vine\.co\/v\/([a-zA-Z0-9]+)/),
-                s = e.match(/\/\/(player\.)?vimeo\.com\/([a-z]*\/)*(\d+)[?]?.*/),
+                s = e.match(/\/\/(player\.)?vimeo\.com\/([a-z]*\/)*(\d+)[?]?.*!/),
                 a = e.match(/.+dailymotion.com\/(video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/),
                 l = e.match(/\/\/v\.youku\.com\/v_show\/id_(\w+)=*\.html/), c = e.match(/\/\/v\.qq\.com.*?vid=(.+)/),
-                h = e.match(/\/\/v\.qq\.com\/x?\/?(page|cover).*?\/([^\/]+)\.html\??.*/), d = e.match(/^.+.(mp4|m4v)$/),
+                h = e.match(/\/\/v\.qq\.com\/x?\/?(page|cover).*?\/([^\/]+)\.html\??.*!/), d = e.match(/^.+.(mp4|m4v)$/),
                 u = e.match(/^.+.(ogg|ogv)$/), p = e.match(/^.+.(webm)$/);
             if (n && 11 === n[1].length) {
                 var f = n[1];
@@ -30215,7 +30221,7 @@ Dropzone._autoDiscoverFunction = function () {
 }(function (t) {
     return function () {
         function e(t) {
-            return t.replace(/<.[^<>]*?>/g, " ").replace(/&nbsp;|&#160;/gi, " ").replace(/[.(),;:!?%#$'\"_+=\/\-“”’]*/g, "")
+            return t.replace(/<.[^<>]*?>/g, " ").replace(/&nbsp;|&#160;/gi, " ").replace(/[.(),;:!?%#$'\"_+=\/\-“”’]*!/g, "")
         }
 
         t.validator.addMethod("maxWords", function (t, i, n) {
@@ -30227,9 +30233,9 @@ Dropzone._autoDiscoverFunction = function () {
             return this.optional(i) || r.match(o).length >= n[0] && r.match(o).length <= n[1]
         }, t.validator.format("Please enter between {0} and {1} words."))
     }(), t.validator.addMethod("accept", function (e, i, n) {
-        var r, o, s = "string" == typeof n ? n.replace(/\s/g, "") : "image/*", a = this.optional(i);
+        var r, o, s = "string" == typeof n ? n.replace(/\s/g, "") : "image/!*", a = this.optional(i);
         if (a) return a;
-        if ("file" === t(i).attr("type") && (s = s.replace(/[\-\[\]\/\{\}\(\)\+\?\.\\\^\$\|]/g, "\\$&").replace(/,/g, "|").replace(/\/\*/g, "/.*"), i.files && i.files.length)) for (o = new RegExp(".?(" + s + ")$", "i"), r = 0; r < i.files.length; r++) if (!i.files[r].type.match(o)) return !1;
+        if ("file" === t(i).attr("type") && (s = s.replace(/[\-\[\]\/\{\}\(\)\+\?\.\\\^\$\|]/g, "\\$&").replace(/,/g, "|").replace(/\/\*!/g, "/.*"), i.files && i.files.length)) for (o = new RegExp(".?(" + s + ")$", "i"), r = 0; r < i.files.length; r++) if (!i.files[r].type.match(o)) return !1;
         return !0
     }, t.validator.format("Please enter a value with a valid mimetype.")), t.validator.addMethod("alphanumeric", function (t, e) {
         return this.optional(e) || /^\w+$/i.test(t)
@@ -33679,11 +33685,11 @@ Dropzone._autoDiscoverFunction = function () {
                     x: T,
                     y: T
                 },
-                R = /[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*/,
+                R = /[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*!/,
                 B = {hs: 1, rg: 1}, H = /,?([achlmqrstvxz]),?/gi,
                 z = /([achlmrqstvz])[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029,]*((-?\d*\.?\d*(?:e[\-+]?\d+)?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*)+)/gi,
                 U = /([rstm])[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029,]*((-?\d*\.?\d*(?:e[\-+]?\d+)?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*)+)/gi,
-                W = /(-?\d*\.?\d*(?:e[\-+]?\d+)?)[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*/gi,
+                W = /(-?\d*\.?\d*(?:e[\-+]?\d+)?)[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*!/gi,
                 Y = (e._radial_gradient = /^r(?:\(([^,]+?)[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*([^\)]+?)\))?/, {}),
                 V = function (t, e) {
                     return N(t) - N(e)
@@ -35134,7 +35140,7 @@ Dropzone._autoDiscoverFunction = function () {
         }.apply(e, n)) || (t.exports = r)
     }, function (t, e, i) {
         var n, r, o, s, a, l, c, h, d, u, p, f, m;
-        s = "hasOwnProperty", a = /[\.\/]/, l = /\s*,\s*/, c = function (t, e) {
+        s = "hasOwnProperty", a = /[\.\/]/, l = /\s*,\s*!/, c = function (t, e) {
             return t - e
         }, h = {n: {}}, d = function () {
             for (var t = 0, e = this.length; t < e; t++) if (void 0 !== this[t]) return this[t]
@@ -35261,7 +35267,7 @@ Dropzone._autoDiscoverFunction = function () {
                                 l(u - .5, 2) + l(p - .5, 2) > .25 && (p = o.sqrt(.25 - l(u - .5, 2)) * r + .5) && .5 != p && (p = p.toFixed(5) - 1e-5 * r)
                             }
                             return d
-                        })).split(/\s*\-\s*/), "linear" == c) {
+                        })).split(/\s*\-\s*!/), "linear" == c) {
                             var _ = r.shift();
                             if (_ = -n(_), isNaN(_)) return null;
                             var x = [0, 0, o.cos(t.rad(_)), o.sin(t.rad(_))], w = 1 / (s(a(x[2]), a(x[3])) || 1);
@@ -35944,7 +35950,7 @@ Dropzone._autoDiscoverFunction = function () {
                     var a = Math.pow, l = "linear", c = ".5 .5";
                     if (e.attrs.gradient = o, o = (o = i(o).replace(t._radial_gradient, function (t, e, i) {
                         return l = "radial", e && i && (e = n(e), i = n(i), a(e - .5, 2) + a(i - .5, 2) > .25 && (i = r.sqrt(.25 - a(e - .5, 2)) * (2 * (i > .5) - 1) + .5), c = e + d + i), u
-                    })).split(/\s*\-\s*/), "linear" == l) {
+                    })).split(/\s*\-\s*!/), "linear" == l) {
                         var h = o.shift();
                         if (h = -n(h), isNaN(h)) return null
                     }
@@ -39875,7 +39881,7 @@ Dropzone._autoDiscoverFunction = function () {
                     var e = !0 !== t, i = e ? this.clone().utc() : this;
                     return i.year() < 0 || i.year() > 9999 ? Y(i, e ? "YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]" : "YYYYYY-MM-DD[T]HH:mm:ss.SSSZ") : E(Date.prototype.toISOString) ? e ? this.toDate().toISOString() : new Date(this._d.valueOf()).toISOString().replace("Z", Y(i, "Z")) : Y(i, e ? "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]" : "YYYY-MM-DD[T]HH:mm:ss.SSSZ")
                 }, di.inspect = function () {
-                    if (!this.isValid()) return "moment.invalid(/* " + this._i + " */)";
+                    if (!this.isValid()) return "moment.invalid(/!* " + this._i + " *!/)";
                     var t = "moment", e = "";
                     this.isLocal() || (t = 0 === this.utcOffset() ? "moment.utc" : "moment.parseZone", e = "Z");
                     var i = "[" + t + '("]', n = 0 <= this.year() && this.year() <= 9999 ? "YYYY" : "YYYYYY",
@@ -43098,7 +43104,7 @@ Dropzone._autoDiscoverFunction = function () {
                 _enabled: "undefined" != typeof window && "undefined" != typeof document,
                 initialize: function () {
                     var t, e, i, n = "from{opacity:0.99}to{opacity:1}";
-                    e = "@-webkit-keyframes " + a + "{" + n + "}@keyframes " + a + "{" + n + "}." + s + "{-webkit-animation:" + a + " 0.001s;animation:" + a + " 0.001s;}", i = (t = this)._style || document.createElement("style"), t._style || (t._style = i, e = "/* Chart.js */\n" + e, i.setAttribute("type", "text/css"), document.getElementsByTagName("head")[0].appendChild(i)), i.appendChild(document.createTextNode(e))
+                    e = "@-webkit-keyframes " + a + "{" + n + "}@keyframes " + a + "{" + n + "}." + s + "{-webkit-animation:" + a + " 0.001s;animation:" + a + " 0.001s;}", i = (t = this)._style || document.createElement("style"), t._style || (t._style = i, e = "/!* Chart.js *!/\n" + e, i.setAttribute("type", "text/css"), document.getElementsByTagName("head")[0].appendChild(i)), i.appendChild(document.createTextNode(e))
                 },
                 acquireContext: function (t, e) {
                     "string" == typeof t ? t = document.getElementById(t) : t.length && (t = t[0]), t && t.canvas && (t = t.canvas);
@@ -44919,7 +44925,7 @@ Dropzone._autoDiscoverFunction = function () {
         }, K = function () {
             return "undefined" == typeof window || "undefined" == typeof document
         },
-        X = ('\n <div aria-labelledby="' + _.title + '" aria-describedby="' + _.content + '" class="' + _.popup + '" tabindex="-1">\n   <div class="' + _.header + '">\n     <ul class="' + _.progresssteps + '"></ul>\n     <div class="' + _.icon + " " + x.error + '">\n       <span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span>\n     </div>\n     <div class="' + _.icon + " " + x.question + '">\n       <span class="' + _["icon-text"] + '">?</span>\n      </div>\n     <div class="' + _.icon + " " + x.warning + '">\n       <span class="' + _["icon-text"] + '">!</span>\n      </div>\n     <div class="' + _.icon + " " + x.info + '">\n       <span class="' + _["icon-text"] + '">i</span>\n      </div>\n     <div class="' + _.icon + " " + x.success + '">\n       <div class="swal2-success-circular-line-left"></div>\n       <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>\n       <div class="swal2-success-ring"></div> <div class="swal2-success-fix"></div>\n       <div class="swal2-success-circular-line-right"></div>\n     </div>\n     <img class="' + _.image + '" />\n     <h2 class="' + _.title + '" id="' + _.title + '"></h2>\n     <button type="button" class="' + _.close + '">×</button>\n   </div>\n   <div class="' + _.content + '">\n     <div id="' + _.content + '"></div>\n     <input class="' + _.input + '" />\n     <input type="file" class="' + _.file + '" />\n     <div class="' + _.range + '">\n       <input type="range" />\n       <output></output>\n     </div>\n     <select class="' + _.select + '"></select>\n     <div class="' + _.radio + '"></div>\n     <label for="' + _.checkbox + '" class="' + _.checkbox + '">\n       <input type="checkbox" />\n     </label>\n     <textarea class="' + _.textarea + '"></textarea>\n     <div class="' + _.validationerror + '" id="' + _.validationerror + '"></div>\n   </div>\n   <div class="' + _.actions + '">\n     <button type="button" class="' + _.confirm + '">OK</button>\n     <button type="button" class="' + _.cancel + '">Cancel</button>\n   </div>\n   <div class="' + _.footer + '">\n   </div>\n </div>\n').replace(/(^|\n)\s*/g, ""),
+        X = ('\n <div aria-labelledby="' + _.title + '" aria-describedby="' + _.content + '" class="' + _.popup + '" tabindex="-1">\n   <div class="' + _.header + '">\n     <ul class="' + _.progresssteps + '"></ul>\n     <div class="' + _.icon + " " + x.error + '">\n       <span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span>\n     </div>\n     <div class="' + _.icon + " " + x.question + '">\n       <span class="' + _["icon-text"] + '">?</span>\n      </div>\n     <div class="' + _.icon + " " + x.warning + '">\n       <span class="' + _["icon-text"] + '">!</span>\n      </div>\n     <div class="' + _.icon + " " + x.info + '">\n       <span class="' + _["icon-text"] + '">i</span>\n      </div>\n     <div class="' + _.icon + " " + x.success + '">\n       <div class="swal2-success-circular-line-left"></div>\n       <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>\n       <div class="swal2-success-ring"></div> <div class="swal2-success-fix"></div>\n       <div class="swal2-success-circular-line-right"></div>\n     </div>\n     <img class="' + _.image + '" />\n     <h2 class="' + _.title + '" id="' + _.title + '"></h2>\n     <button type="button" class="' + _.close + '">×</button>\n   </div>\n   <div class="' + _.content + '">\n     <div id="' + _.content + '"></div>\n     <input class="' + _.input + '" />\n     <input type="file" class="' + _.file + '" />\n     <div class="' + _.range + '">\n       <input type="range" />\n       <output></output>\n     </div>\n     <select class="' + _.select + '"></select>\n     <div class="' + _.radio + '"></div>\n     <label for="' + _.checkbox + '" class="' + _.checkbox + '">\n       <input type="checkbox" />\n     </label>\n     <textarea class="' + _.textarea + '"></textarea>\n     <div class="' + _.validationerror + '" id="' + _.validationerror + '"></div>\n   </div>\n   <div class="' + _.actions + '">\n     <button type="button" class="' + _.confirm + '">OK</button>\n     <button type="button" class="' + _.cancel + '">Cancel</button>\n   </div>\n   <div class="' + _.footer + '">\n   </div>\n </div>\n').replace(/(^|\n)\s*!/g, ""),
         Z = function (t) {
             var e = N();
             if (e && (e.parentNode.removeChild(e), T([document.documentElement, document.body], [_["no-backdrop"], _["has-input"], _["toast-shown"]])), !K()) {
@@ -45503,3 +45509,4 @@ Dropzone._autoDiscoverFunction = function () {
     cancelButtonClass: "btn btn-secondary m-btn m-btn--custom",
     cancelButtonColor: null
 });
+*/
