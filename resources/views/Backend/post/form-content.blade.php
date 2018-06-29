@@ -1,46 +1,77 @@
 {!! editor_css() !!}
 <style>
-    .wall-item {
-        display: block;
-        margin: 0 0 30px 0;
-        padding: 12px;
-        background: white;
+    .wall-image {
+        width: 692px;
+    }
+    .wall-image-item-ul{
+        float: left;
+        padding: 0px;
+        margin-left: 3px;
+    }
+    .wall-image-item-ul li{
+        list-style: none;
         border-radius: 3px;
-        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
-        transition: all 220ms;
+        border-color: #34bfa3;
+        background-color: #34bfa3;
+        margin-bottom: 3px;
+        padding: 2px;
     }
-    .wall-item:hover {
-        box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.1);
-        transform: translateY(-5px);
-        transition: all 220ms;
-    }
-    .wall-item > img {
-        display: block;
-        width: 100%;
+    .wall-image-item-ul li:hover{
+        box-shadow: 0 0 10px #2ca189;
+        background-color: #2ca189;
+        border-color: #299781;
     }
 
-    .wall-image {
-        display: block;
-        position: relative;
+    .wall-image-item-ul li img{
+        width: 200px;
     }
-    .wall-column {
-        display: block;
+    .wall-image-item-ul li a{
+        width: 0px;
         position: relative;
-        width: 25%;
+        top: -7px;
+        right: 13px;
+        float: right;
+        border-radius: 5em;
+        color: #f12143;
+        text-decoration:none;
+    }
+    .wall-image-item-ul li a:hover{
+        color: #f22d4e;
+    }
+    .wall-image-item {
         float: left;
-        padding: 0 12px;
-        box-sizing: border-box;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        margin-left: 2px;
+        margin-right: 2px;
+        padding-top: 3px;
+        padding-right: 3px;
+        padding-left: 3px;
+        padding-bottom: 3px;
+        /*        margin: 2px;
+                padding: 3px;*/
+        border-radius: 3px;
+        border-color: #34bfa3;
+        background-color: #34bfa3;
     }
-    @media (max-width: 640px) {
-        .wall-column {
-            width: 50%;
-        }
+    .wall-image-item:hover {
+        box-shadow: 0 0 10px #2ca189;
+        background-color: #2ca189;
+        border-color: #299781;
     }
-    @media (max-width: 480px) {
-        .wall-column {
-            width: auto;
-            float: none;
-        }
+    .wall-image-item img { width: 200px; }
+    .wall-image-item a {
+        width: 0px;
+        position: relative;
+        top: -7px;
+        right: 13px;
+        float: right;
+        border-radius: 5em;
+        color: #f12143;
+        text-decoration:none;
+    }
+    .wall-image-item a:hover{
+        color: #f22d4e;
     }
 </style>
 
@@ -237,7 +268,8 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="dropzone_tab_3" role="tabpanel">
-                                <div class="wall-image">
+
+                                <div class="wall-image" id="my-gallery-container">
 
                                 </div>
                             </div>
@@ -254,7 +286,8 @@
 <!--end::Modal-->
 
 @section('footer_script')
-
+    <script src="{{ asset('Backend/js/masonry.pkgd.min.js') }}"></script>
+    <script src="{{ asset('Backend/js/dropzone.js') }}"></script>
     {!! editor_js() !!}
     <script>
         var BootstrapSwitch = {
@@ -286,8 +319,8 @@
             BootstrapSelect.init()
         });
     </script>
-    <script src="{{ asset('Backend/js/jaliswall.js') }}"></script>
-    <script src="{{ asset('Backend/js/dropzone.js') }}"></script>
+
+
     <script>
 
 
@@ -304,20 +337,41 @@
                 $.get("{{ route('image.select') }}",function (response) {
                     console.log(response.result.data);
                     if(response.result.data){
-                        console.log(1);
                         var html = '';
+                        $("#my-gallery-container").html(html);
+                        var ul = '<ul class="wall-image-item-ul" id="wall-image-item-ul-0"></ul><ul class="wall-image-item-ul" id="wall-image-item-ul-1"></ul><ul class="wall-image-item-ul" id="wall-image-item-ul-2"></ul>';
+                        $("#my-gallery-container").append(ul)
                         response.result.data.map(function(element){
-                            html += '<a class="wall-item" data-image-id="'+ element.id +'" ><img src="'+ element.path +'" />1<a href="javascript:" class="" title="关闭">2<i class="flaticon-search-1"></i></a></a>';
+                            if(element.id % 3 == 0){
+                                var li_0 = '<li><img src="'+ element.path +'" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></li>';
+                                $("#wall-image-item-ul-0").append(li_0)
+                            }else if(element.id % 3 == 1){
+                                var li_1 = '<li><img src="'+ element.path +'" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></li>';
+                                $("#wall-image-item-ul-1").append(li_1)
+                            }else if (element.id % 3 == 2){
+                                var li_2 = '<li><img src="'+ element.path +'" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></li>';
+                                $("#wall-image-item-ul-2").append(li_2)
+                            }
+
+
+
+                            //html += '<div class="wall-image-item" data-image-id="'+ element.id +'"><img src="'+ element.path +'" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></a></div><div class="clearfix"></div>';
 
                             /*html += '<div class="grid-item" data-image-id="'+ element.id +'"><img src="'+ element.path +'"></div>';*/
                         })
-                        $(".wall-image").html(html);
+                        //var aa = $("#my-gallery-container").html(html);
                         get_image_button = true;
-                        $('.wall-image').jaliswall({ item: '.wall-item' });
+
+                        /* $('#my-gallery-container').masonry({
+                             itemSelector: '.wall-image-item',
+                             columnWidth: 10,
+                         });*/
+
+
+
                     }
                 })
             }
-            console.log(get_image_button);
         });
 
 
