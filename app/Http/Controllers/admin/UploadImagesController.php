@@ -53,10 +53,8 @@ class UploadImagesController extends Controller
     public function select(Request $request)
     {
 
-        $result = $this->upload->select(['id', 'path', 'created_at'])->orderBy('created_at','desc')->paginate(20);
-
+        $result = $this->upload->select(['id', 'path', 'created_at'])->orderBy('created_at','desc')->paginate(3,'','page',$request->page);
 
         return response()->json(['result'=>$result], 200);
-        dd($data);
     }
 }

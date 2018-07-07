@@ -3,12 +3,14 @@
     .wall-image {
         width: 692px;
     }
-    .wall-image-item-ul{
+
+    .wall-image-item-ul {
         float: left;
         padding: 0px;
         margin-left: 3px;
     }
-    .wall-image-item-ul li{
+
+    .wall-image-item-ul li {
         list-style: none;
         border-radius: 3px;
         border-color: #34bfa3;
@@ -16,16 +18,18 @@
         margin-bottom: 3px;
         padding: 2px;
     }
-    .wall-image-item-ul li:hover{
+
+    .wall-image-item-ul li:hover {
         box-shadow: 0 0 10px #2ca189;
         background-color: #2ca189;
         border-color: #299781;
     }
 
-    .wall-image-item-ul li img{
+    .wall-image-item-ul li img {
         width: 200px;
     }
-    .wall-image-item-ul li a{
+
+    .wall-image-item-ul li a {
         width: 0px;
         position: relative;
         top: -7px;
@@ -33,11 +37,13 @@
         float: right;
         border-radius: 5em;
         color: #f12143;
-        text-decoration:none;
+        text-decoration: none;
     }
-    .wall-image-item-ul li a:hover{
+
+    .wall-image-item-ul li a:hover {
         color: #f22d4e;
     }
+
     .wall-image-item {
         float: left;
         margin-top: 2px;
@@ -54,12 +60,17 @@
         border-color: #34bfa3;
         background-color: #34bfa3;
     }
+
     .wall-image-item:hover {
         box-shadow: 0 0 10px #2ca189;
         background-color: #2ca189;
         border-color: #299781;
     }
-    .wall-image-item img { width: 200px; }
+
+    .wall-image-item img {
+        width: 200px;
+    }
+
     .wall-image-item a {
         width: 0px;
         position: relative;
@@ -68,9 +79,10 @@
         float: right;
         border-radius: 5em;
         color: #f12143;
-        text-decoration:none;
+        text-decoration: none;
     }
-    .wall-image-item a:hover{
+
+    .wall-image-item a:hover {
         color: #f22d4e;
     }
 </style>
@@ -223,7 +235,8 @@
 
 
 <!--begin::Modal-->
-<div class="modal fade" id="dropzone_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="dropzone_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -250,7 +263,8 @@
                                                 style="vertical-align: inherit;">提取网络图片</font></font></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#dropzone_tab_3" id="get_images"><font style="vertical-align: inherit;"><font
+                                <a class="nav-link" data-toggle="tab" href="#dropzone_tab_3" id="get_images"><font
+                                            style="vertical-align: inherit;"><font
                                                 style="vertical-align: inherit;">浏览图片</font></font></a>
                             </li>
                         </ul>
@@ -262,7 +276,7 @@
                                 <div class="form-group m-form__group row">
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                         <div class="input-group date">
-                                            <input type="text" class="form-control m-input" placeholder="输入网络图片地址" >
+                                            <input type="text" class="form-control m-input" placeholder="输入网络图片地址">
                                         </div>
                                     </div>
                                 </div>
@@ -271,6 +285,11 @@
 
                                 <div class="wall-image" id="my-gallery-container">
 
+                                </div>
+                                <div style="position: absolute;bottom: 0;" class="dataTables_paginate paging_full_numbers" id="wall_image__paginate">
+                                    <ul class="pagination">
+
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -322,7 +341,12 @@
 
 
     <script>
+        $("#wall_image__paginate").on('click', 'ul li a', function () {   //on 绑定动态元素的点击事件
+            var page = $(this).attr("data-page");
+            get_pagination(page);
 
+            //event.stopPropagation();  阻止把事件分派到其他节点
+        });
 
 
         $.ajaxSetup({
@@ -330,50 +354,91 @@
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             }
         });
-
+        var curPage = 1;
+        var pageSize = 3;
         var get_image_button = false;
-        $("#get_images").click(function(){
-            if(get_image_button === false){
-                $.get("{{ route('image.select') }}",function (response) {
-                    console.log(response.result.data);
-                    if(response.result.data){
+        $("#get_images").click(function () {
+            if (get_image_button === false) {
+                get_pagination(1);
+            }
+        });
+
+        function get_pagination(curPage){
+            $.ajax({
+                type: "POST",
+                url: "{{ route('image.select') }}",
+                async: false,
+                dataType: "json",
+                data: "page=" + curPage,
+                success: function (response) {
+                    console.log(response.result);
+                    if (response.result.data) {
                         var html = '';
                         $("#my-gallery-container").html(html);
                         var ul = '<ul class="wall-image-item-ul" id="wall-image-item-ul-0"></ul><ul class="wall-image-item-ul" id="wall-image-item-ul-1"></ul><ul class="wall-image-item-ul" id="wall-image-item-ul-2"></ul>';
                         $("#my-gallery-container").append(ul)
-                        response.result.data.map(function(element){
-                            if(element.id % 3 == 0){
-                                var li_0 = '<li><img src="'+ element.path +'" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></li>';
+                        response.result.data.map(function (element) {
+                            if (element.id % 3 == 1) {
+                                var li_0 = '<li><img src="' + element.path + '" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></li>';
                                 $("#wall-image-item-ul-0").append(li_0)
-                            }else if(element.id % 3 == 1){
-                                var li_1 = '<li><img src="'+ element.path +'" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></li>';
+                            } else if (element.id % 3 == 0) {
+                                var li_1 = '<li><img src="' + element.path + '" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></li>';
                                 $("#wall-image-item-ul-1").append(li_1)
-                            }else if (element.id % 3 == 2){
-                                var li_2 = '<li><img src="'+ element.path +'" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></li>';
+                            } else if (element.id % 3 == 2) {
+                                var li_2 = '<li><img src="' + element.path + '" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></li>';
                                 $("#wall-image-item-ul-2").append(li_2)
                             }
-
-
-
                             //html += '<div class="wall-image-item" data-image-id="'+ element.id +'"><img src="'+ element.path +'" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></a></div><div class="clearfix"></div>';
-
                             /*html += '<div class="grid-item" data-image-id="'+ element.id +'"><img src="'+ element.path +'"></div>';*/
                         })
-                        //var aa = $("#my-gallery-container").html(html);
-                        get_image_button = true;
+                        get_image_button = false;
 
-                        /* $('#my-gallery-container').masonry({
-                             itemSelector: '.wall-image-item',
-                             columnWidth: 10,
-                         });*/
+                        var totalPage = response.result.total / pageSize;
+
+                        if (curPage > totalPage) curPage = totalPage;
+
+                        var pagination = '';
+                        if (curPage == 1) {
+                            pagination += '<li class="paginate_button page-item first disabled"><a href="javascript:void(0)" data-page="1" class="page-link"><i class="la la-angle-double-left"></i></a></li>';
+
+                        }else {
+                            pagination += '<li class="paginate_button page-item first "><a href="javascript:void(0)" data-page="1" class="page-link"><i class="la la-angle-double-left"></i></a></li>';
+                            pagination +='<li class="paginate_button page-item disabled "><a href="javascript:void(0)" data-page="" class="page-link">...</a></li>';
+                            pagination += '<li class="paginate_button page-item "><a href="javascript:void(0)" data-page="'+ (parseInt(curPage)-1) +'" class="page-link">' + (parseInt(curPage)-1) + '</a></li>';
+                        }
+
+
+                        pagination += '<li class="paginate_button page-item active"><a href="javascript:void(0)" data-page="'+curPage+'" class="page-link">' + curPage + '</a></li>';
+
+           /*             for (var i = 1; i < totalPage + 1; i++) {
+                            if (i == parseInt(response.result.current_page)) {
+                                pagination += '<li class="paginate_button page-item active"><a href="javascript:void(0)" data-page="'+i+'" class="page-link">' + i + '</a></li>';
+                            } else {
+                                pagination += '<li class="paginate_button page-item "><a href="javascript:void(0)" data-page="'+i+'" class="page-link">' + i + '</a></li>';
+                            }
+                        }*/
+                        if (curPage >= totalPage) {
+                            pagination +='<li class="paginate_button page-item last disabled"><a href="javascript:void(0)" data-page="'+response.result.last_page+'" class="page-link"><i class="la la-angle-double-right"></i></a></li>';
+                        } else {
+                            pagination +='<li class="paginate_button page-item"><a href="javascript:void(0)" data-page="'+ ( parseInt(curPage) + 1 ) +'" class="page-link">' + (parseInt(curPage)+1) + '</a></li>';
+                            pagination +='<li class="paginate_button page-item disabled"><a href="javascript:void(0)" data-page="" class="page-link">...</a></li>';
+                            pagination +='<li class="paginate_button page-item last"><a href="javascript:void(0)" data-page="'+response.result.last_page+'" class="page-link"><i class="la la-angle-double-right"></i></a></li>';
+                        }
+                        $(".pagination").html(pagination);
 
 
 
                     }
-                })
-            }
-        });
 
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('网络环境异常，请刷新后重试');
+                },
+                complete: function () { //生成分页条
+                    //getPageBar();
+                },
+            });
+        }
 
 
         Dropzone.autoDiscover = false;

@@ -59,7 +59,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 // UploadImage
     Route::post('/images/store', 'UploadImagesController@store')->name('image.store');
     Route::delete('/images/{id}', 'UploadImagesController@destroy')->name('image.destroy');
-    Route::get('images/select', 'UploadImagesController@select')->name('image.select');
+    Route::post('images/select', 'UploadImagesController@select')->name('image.select');
 
 	//欢迎页路由
 	Route::resource('welcome' ,'WelcomeController');
