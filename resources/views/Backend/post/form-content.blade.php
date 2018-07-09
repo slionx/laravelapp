@@ -240,7 +240,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">图床</h5>
+                <h5 class="modal-title" id="exampleModalLabel">图库</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -344,8 +344,6 @@
         $("#wall_image__paginate").on('click', 'ul li a', function () {   //on 绑定动态元素的点击事件
             var page = $(this).attr("data-page");
             get_pagination(page);
-
-            //event.stopPropagation();  阻止把事件分派到其他节点
         });
 
 
@@ -355,7 +353,7 @@
             }
         });
         var curPage = 1;
-        var pageSize = 3;
+        var pageSize = 9;
         var get_image_button = false;
         $("#get_images").click(function () {
             if (get_image_button === false) {
@@ -367,9 +365,9 @@
             $.ajax({
                 type: "POST",
                 url: "{{ route('image.select') }}",
-                async: false,
+                //async: false,
                 dataType: "json",
-                data: "page=" + curPage,
+                data: "page=" + curPage + "&perpage=" + pageSize,
                 success: function (response) {
                     console.log(response.result);
                     if (response.result.data) {
@@ -379,13 +377,13 @@
                         $("#my-gallery-container").append(ul)
                         response.result.data.map(function (element) {
                             if (element.id % 3 == 1) {
-                                var li_0 = '<li><img src="' + element.path + '" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></li>';
+                                var li_0 = '<li data-gallery-image-id="'+element.id+'"><img src="' + element.path + '" /><a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></li>';
                                 $("#wall-image-item-ul-0").append(li_0)
                             } else if (element.id % 3 == 0) {
-                                var li_1 = '<li><img src="' + element.path + '" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></li>';
+                                var li_1 = '<li data-gallery-image-id="'+element.id+'"><img src="' + element.path + '" /><a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></li>';
                                 $("#wall-image-item-ul-1").append(li_1)
                             } else if (element.id % 3 == 2) {
-                                var li_2 = '<li><img src="' + element.path + '" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></li>';
+                                var li_2 = '<li data-gallery-image-id="'+element.id+'"><img src="' + element.path + '" /><a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></li>';
                                 $("#wall-image-item-ul-2").append(li_2)
                             }
                             //html += '<div class="wall-image-item" data-image-id="'+ element.id +'"><img src="'+ element.path +'" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></a></div><div class="clearfix"></div>';
@@ -399,16 +397,16 @@
 
                         var pagination = '';
                         if (curPage == 1) {
-                            pagination += '<li class="paginate_button page-item first disabled"><a href="javascript:void(0)" data-page="1" class="page-link"><i class="la la-angle-double-left"></i></a></li>';
+                            pagination += '<li class="paginate_button page-item first disabled"><a href="javascript:;" data-page="1" class="page-link"><i class="la la-angle-double-left"></i></a></li>';
 
                         }else {
-                            pagination += '<li class="paginate_button page-item first "><a href="javascript:void(0)" data-page="1" class="page-link"><i class="la la-angle-double-left"></i></a></li>';
-                            pagination +='<li class="paginate_button page-item disabled "><a href="javascript:void(0)" data-page="" class="page-link">...</a></li>';
-                            pagination += '<li class="paginate_button page-item "><a href="javascript:void(0)" data-page="'+ (parseInt(curPage)-1) +'" class="page-link">' + (parseInt(curPage)-1) + '</a></li>';
+                            pagination += '<li class="paginate_button page-item first "><a href="javascript:;" data-page="1" class="page-link"><i class="la la-angle-double-left"></i></a></li>';
+                            pagination +='<li class="paginate_button page-item disabled "><a href="javascript:;" data-page="" class="page-link">...</a></li>';
+                            pagination += '<li class="paginate_button page-item "><a href="javascript:;" data-page="'+ (parseInt(curPage)-1) +'" class="page-link">' + (parseInt(curPage)-1) + '</a></li>';
                         }
 
 
-                        pagination += '<li class="paginate_button page-item active"><a href="javascript:void(0)" data-page="'+curPage+'" class="page-link">' + curPage + '</a></li>';
+                        pagination += '<li class="paginate_button page-item active"><a href="javascript:;" data-page="'+curPage+'" class="page-link">' + curPage + '</a></li>';
 
            /*             for (var i = 1; i < totalPage + 1; i++) {
                             if (i == parseInt(response.result.current_page)) {
@@ -418,18 +416,14 @@
                             }
                         }*/
                         if (curPage >= totalPage) {
-                            pagination +='<li class="paginate_button page-item last disabled"><a href="javascript:void(0)" data-page="'+response.result.last_page+'" class="page-link"><i class="la la-angle-double-right"></i></a></li>';
+                            pagination +='<li class="paginate_button page-item last disabled"><a href="javascript:;" data-page="'+response.result.last_page+'" class="page-link"><i class="la la-angle-double-right"></i></a></li>';
                         } else {
-                            pagination +='<li class="paginate_button page-item"><a href="javascript:void(0)" data-page="'+ ( parseInt(curPage) + 1 ) +'" class="page-link">' + (parseInt(curPage)+1) + '</a></li>';
-                            pagination +='<li class="paginate_button page-item disabled"><a href="javascript:void(0)" data-page="" class="page-link">...</a></li>';
-                            pagination +='<li class="paginate_button page-item last"><a href="javascript:void(0)" data-page="'+response.result.last_page+'" class="page-link"><i class="la la-angle-double-right"></i></a></li>';
+                            pagination +='<li class="paginate_button page-item"><a href="javascript:;" data-page="'+ ( parseInt(curPage) + 1 ) +'" class="page-link">' + (parseInt(curPage)+1) + '</a></li>';
+                            pagination +='<li class="paginate_button page-item disabled"><a href="javascript:;" data-page="" class="page-link">...</a></li>';
+                            pagination +='<li class="paginate_button page-item last"><a href="javascript:;" data-page="'+response.result.last_page+'" class="page-link"><i class="la la-angle-double-right"></i></a></li>';
                         }
                         $(".pagination").html(pagination);
-
-
-
                     }
-
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert('网络环境异常，请刷新后重试');
@@ -438,6 +432,14 @@
                     //getPageBar();
                 },
             });
+        }
+
+        function remove_gallery_image(id){
+            if (id) {
+                $.post('/admin/images/' + id, {'_method': 'DELETE'}, function (data) {
+                    console.log('删除结果:' + data);
+                })
+            }
         }
 
 
