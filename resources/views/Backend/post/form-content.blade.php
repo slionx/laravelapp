@@ -1,7 +1,113 @@
 {!! editor_css() !!}
 <style>
+    .attachment button {
+        display: none;
+    }
+    .attachment:hover > button {
+        display: block;
+        height: 24px;
+        width: 24px;
+        padding: 0;
+        border: 0;
+        position: absolute;
+        z-index: 10;
+        top: 5px;
+        right: 5px;
+        outline: 0;
+        /*        background: #eee;*/
+        cursor: pointer;
+        /*        box-shadow: 0 0 0 1px #fff, 0 0 0 2px rgba(0,0,0,.15);*/
+        background-color: #f12143;
+        box-shadow: 0 0 0 1px #fff, 0 0 0 2px #f12143;
+    }
+    .flaticon-delete-2{
+        font-size: 1rem;
+        color: #fff;
+    }
+
+    .centered{
+        /*position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;*/
+        height: 100%;
+        -webkit-transform: translate(50%,50%);
+        transform: translate(50%,50%);
+    }
+    .thumbnail{
+        overflow: hidden;
+        /*position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 1;
+        transition: opacity .1s;*/
+    }
+    .attachment-preview{
+        position: relative;
+        box-shadow: inset 0 0 15px rgba(0,0,0,.1), inset 0 0 0 1px rgba(0,0,0,.05);
+        background: #eee;
+        cursor: pointer;
+    }
+
+    .attachment:focus {
+        box-shadow: inset 0 0 2px 3px #2ca189, inset 0 0 0 7px #2ca189;
+        outline: 0;
+    }
+    .attachment{
+        float: left;
+        position: relative;
+        padding: 4px;
+        margin: 4px;
+/*        color: #444;*/
+        cursor: pointer;
+        list-style: none;
+        text-align: center;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        width: 22%;
+        height: 128px;
+        box-sizing: border-box;
+/*        border-color: #299781;*/
+        box-shadow: 0 0 10px #b7b7b7;
+    }
+    .attachment:hover {
+        border-color: #34bfa3;
+        box-shadow: 0 0 10px #34bfa3;
+        background-color: #34bfa3;
+    }
+
+    .attachments{
+        overflow: auto;
+/*
+        position: static;
+        top: 50px;
+        left: 0;
+        right: 300px;
+        bottom: 0;
+        outline: 0;*/
+    }
+
+    .attachment .thumbnail img {
+/*        position: absolute;
+        top: 0;
+        left: 0;*/
+    }
+    .attachment .attachment-preview img {
+        max-height: 100%;
+    }
+    .attachment .thumbnail .centered img {
+        -webkit-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
+
+
+
     .wall-image {
-        width: 692px;
+
     }
 
     .wall-image-item-ul {
@@ -20,9 +126,10 @@
     }
 
     .wall-image-item-ul li:hover {
+        border-color: #299781;
         box-shadow: 0 0 10px #2ca189;
         background-color: #2ca189;
-        border-color: #299781;
+
     }
 
     .wall-image-item-ul li img {
@@ -284,6 +391,36 @@
                             <div class="tab-pane" id="dropzone_tab_3" role="tabpanel">
 
                                 <div class="wall-image" id="my-gallery-container">
+                                    <ul class="attachments">
+                                        <li class="attachment">
+                                            <div class="attachment-preview">
+                                                <div class="thumbnail">
+                                                    <div class="centered">
+                                                        <img src="http://l.cn/uploads/images/20180628/WBMTvwZvF2lt5erIs5wQJ5BFOkrzpAZRyXG9eEPy.jpeg">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button"><span class="flaticon-delete-2"></span></button>
+                                        </li>
+                                        <li class="attachment">
+                                            <div class="attachment-preview">
+                                                <div class="thumbnail">
+                                                    <div class="centered">
+                                                        <img src="http://l.cn/uploads/images/20180628/rSYs6WU11EAixElN8D0xlq6EFkGOq3V0707tTfZh.jpeg">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="attachment">
+                                            <div class="attachment-preview">
+                                                <div class="thumbnail">
+                                                    <div class="centered">
+                                                        <img src="http://l.cn/uploads/images/20180628/Wgv3Mo9Xl9KMJvAyldZHVE5CRPjokG4G4MGGcLXx.jpeg">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
 
                                 </div>
                                 <div style="position: absolute;bottom: 0;" class="dataTables_paginate paging_full_numbers" id="wall_image__paginate">
@@ -353,7 +490,7 @@
             }
         });
         var curPage = 1;
-        var pageSize = 9;
+        var pageSize = 12;
         var get_image_button = false;
         $("#get_images").click(function () {
             if (get_image_button === false) {
@@ -372,49 +509,57 @@
                     console.log(response.result);
                     if (response.result.data) {
                         var html = '';
-                        $("#my-gallery-container").html(html);
-                        var ul = '<ul class="wall-image-item-ul" id="wall-image-item-ul-0"></ul><ul class="wall-image-item-ul" id="wall-image-item-ul-1"></ul><ul class="wall-image-item-ul" id="wall-image-item-ul-2"></ul>';
-                        $("#my-gallery-container").append(ul)
+                        //$("#my-gallery-container").html(html);
+                        //var ul = '<ul class="wall-image-item-ul" id="wall-image-item-ul-0"></ul><ul class="wall-image-item-ul" id="wall-image-item-ul-1"></ul><ul class="wall-image-item-ul" id="wall-image-item-ul-2"></ul>';
+                       //$(".attachments").html('');
                         response.result.data.map(function (element) {
-                            if (element.id % 3 == 1) {
-                                var li_0 = '<li data-gallery-image-id="'+element.id+'"><img src="' + element.path + '" /><a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></li>';
-                                $("#wall-image-item-ul-0").append(li_0)
-                            } else if (element.id % 3 == 0) {
-                                var li_1 = '<li data-gallery-image-id="'+element.id+'"><img src="' + element.path + '" /><a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></li>';
-                                $("#wall-image-item-ul-1").append(li_1)
-                            } else if (element.id % 3 == 2) {
-                                var li_2 = '<li data-gallery-image-id="'+element.id+'"><img src="' + element.path + '" /><a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></li>';
-                                $("#wall-image-item-ul-2").append(li_2)
-                            }
+                            /*                            if (element.id % 3 == 1) {
+                                                            var li_0 = '<li data-gallery-image-id="'+element.id+'"><img src="' + element.path + '" /><a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></li>';
+                                                            $("#wall-image-item-ul-0").append(li_0)
+                                                        } else if (element.id % 3 == 0) {
+                                                            var li_1 = '<li data-gallery-image-id="'+element.id+'"><img src="' + element.path + '" /><a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></li>';
+                                                            $("#wall-image-item-ul-1").append(li_1)
+                                                        } else if (element.id % 3 == 2) {
+                                                            var li_2 = '<li data-gallery-image-id="'+element.id+'"><img src="' + element.path + '" /><a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></li>';
+                                                            $("#wall-image-item-ul-2").append(li_2)
+                                                        }*/
+
+                            /*var li = '<li data-gallery-image-id="'+element.id+'">' +
+                                '<div>'+
+                                '<img src="' + element.path + '" />' +
+                                '<a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></a>' +
+                                '</li>';*/
+
+                            var li = '<li class="attachment" data-gallery-image-id="'+element.id+'"><div class="attachment-preview"><div class="thumbnail"><div class="centered"><img src="' + element.path + '"></div></div></div><button type="button" onclick="remove_gallery_image('+element.id+')" ><span class="flaticon-delete-2"></span></button></li>'
+
+                            $(".attachments").append(li)
                             //html += '<div class="wall-image-item" data-image-id="'+ element.id +'"><img src="'+ element.path +'" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></a></div><div class="clearfix"></div>';
                             /*html += '<div class="grid-item" data-image-id="'+ element.id +'"><img src="'+ element.path +'"></div>';*/
                         })
                         get_image_button = false;
 
-                        var totalPage = response.result.total / pageSize;
+                        var totalPage = Math.ceil(response.result.total / pageSize);
 
                         if (curPage > totalPage) curPage = totalPage;
+                        console.log(curPage);
 
                         var pagination = '';
                         if (curPage == 1) {
                             pagination += '<li class="paginate_button page-item first disabled"><a href="javascript:;" data-page="1" class="page-link"><i class="la la-angle-double-left"></i></a></li>';
-
                         }else {
                             pagination += '<li class="paginate_button page-item first "><a href="javascript:;" data-page="1" class="page-link"><i class="la la-angle-double-left"></i></a></li>';
                             pagination +='<li class="paginate_button page-item disabled "><a href="javascript:;" data-page="" class="page-link">...</a></li>';
                             pagination += '<li class="paginate_button page-item "><a href="javascript:;" data-page="'+ (parseInt(curPage)-1) +'" class="page-link">' + (parseInt(curPage)-1) + '</a></li>';
                         }
-
-
                         pagination += '<li class="paginate_button page-item active"><a href="javascript:;" data-page="'+curPage+'" class="page-link">' + curPage + '</a></li>';
 
-           /*             for (var i = 1; i < totalPage + 1; i++) {
-                            if (i == parseInt(response.result.current_page)) {
-                                pagination += '<li class="paginate_button page-item active"><a href="javascript:void(0)" data-page="'+i+'" class="page-link">' + i + '</a></li>';
-                            } else {
-                                pagination += '<li class="paginate_button page-item "><a href="javascript:void(0)" data-page="'+i+'" class="page-link">' + i + '</a></li>';
-                            }
-                        }*/
+                        /*             for (var i = 1; i < totalPage + 1; i++) {
+                                         if (i == parseInt(response.result.current_page)) {
+                                             pagination += '<li class="paginate_button page-item active"><a href="javascript:void(0)" data-page="'+i+'" class="page-link">' + i + '</a></li>';
+                                         } else {
+                                             pagination += '<li class="paginate_button page-item "><a href="javascript:void(0)" data-page="'+i+'" class="page-link">' + i + '</a></li>';
+                                         }
+                                     }*/
                         if (curPage >= totalPage) {
                             pagination +='<li class="paginate_button page-item last disabled"><a href="javascript:;" data-page="'+response.result.last_page+'" class="page-link"><i class="la la-angle-double-right"></i></a></li>';
                         } else {
@@ -434,11 +579,15 @@
             });
         }
 
+
         function remove_gallery_image(id){
             if (id) {
-                $.post('/admin/images/' + id, {'_method': 'DELETE'}, function (data) {
+                /*$.post('/admin/images/' + id, {'_method': 'DELETE'}, function (data) {
                     console.log('删除结果:' + data);
-                })
+                })*/
+                $(".attachment[data-gallery-image-id='"+id+"']").remove();
+
+
             }
         }
 
