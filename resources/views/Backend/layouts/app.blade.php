@@ -136,13 +136,12 @@
 
 
 
+@yield('footer_script')
 <!--begin::Base Scripts -->
 <script src="{{ asset('Backend/js/vendors.bundle.js') }}" type="text/javascript"></script>
 <script src="{{ asset('Backend/js/scripts.bundle.js') }}" type="text/javascript"></script>
 <!--end::Base Scripts -->
-
-@yield('footer_script')
-
+<script src="{{ asset('Backend/js/notify.js') }}"></script>
 <script type="text/javascript">
     function UpdateSet(name) {
         $.ajaxSetup({
@@ -291,10 +290,6 @@
 
     //end notifications
 </script>
-<script src="{{ asset('Backend/js/notify.js') }}"></script>
-
-
-
 <!-- begin::Page Loader -->
 <script>
     $(window).on('load', function () {

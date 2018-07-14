@@ -491,11 +491,10 @@
         });
         var curPage = 1;
         var pageSize = 12;
-        var get_image_button = false;
         $("#get_images").click(function () {
-            if (get_image_button === false) {
+
                 get_pagination(1);
-            }
+
         });
 
         function get_pagination(curPage){
@@ -509,40 +508,15 @@
                     console.log(response.result);
                     if (response.result.data) {
                         var html = '';
-                        //$("#my-gallery-container").html(html);
-                        //var ul = '<ul class="wall-image-item-ul" id="wall-image-item-ul-0"></ul><ul class="wall-image-item-ul" id="wall-image-item-ul-1"></ul><ul class="wall-image-item-ul" id="wall-image-item-ul-2"></ul>';
-                       //$(".attachments").html('');
+                        $(".attachments").html('');
                         response.result.data.map(function (element) {
-                            /*                            if (element.id % 3 == 1) {
-                                                            var li_0 = '<li data-gallery-image-id="'+element.id+'"><img src="' + element.path + '" /><a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></li>';
-                                                            $("#wall-image-item-ul-0").append(li_0)
-                                                        } else if (element.id % 3 == 0) {
-                                                            var li_1 = '<li data-gallery-image-id="'+element.id+'"><img src="' + element.path + '" /><a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></li>';
-                                                            $("#wall-image-item-ul-1").append(li_1)
-                                                        } else if (element.id % 3 == 2) {
-                                                            var li_2 = '<li data-gallery-image-id="'+element.id+'"><img src="' + element.path + '" /><a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></li>';
-                                                            $("#wall-image-item-ul-2").append(li_2)
-                                                        }*/
-
-                            /*var li = '<li data-gallery-image-id="'+element.id+'">' +
-                                '<div>'+
-                                '<img src="' + element.path + '" />' +
-                                '<a href="javascript:" onclick="remove_gallery_image('+element.id+')" title="删除"><i class="flaticon-circle"></i></a>' +
-                                '</li>';*/
-
-                            var li = '<li class="attachment" data-gallery-image-id="'+element.id+'"><div class="attachment-preview"><div class="thumbnail"><div class="centered"><img src="' + element.path + '"></div></div></div><button type="button" onclick="remove_gallery_image('+element.id+')" ><span class="flaticon-delete-2"></span></button></li>'
-
-                            $(".attachments").append(li)
-                            //html += '<div class="wall-image-item" data-image-id="'+ element.id +'"><img src="'+ element.path +'" /><a href="javascript:" title="删除"><i class="flaticon-circle"></i></a></div><div class="clearfix"></div>';
-                            /*html += '<div class="grid-item" data-image-id="'+ element.id +'"><img src="'+ element.path +'"></div>';*/
+                            html += '<li class="attachment" data-gallery-image-id="'+element.id+'"><div class="attachment-preview"><div class="thumbnail"><div class="centered"><img src="' + element.path + '"></div></div></div><button type="button" onclick="remove_gallery_image('+element.id+')" ><span class="flaticon-delete-2"></span></button></li>'
                         })
-                        get_image_button = false;
+                        $(".attachments").append(html)
 
                         var totalPage = Math.ceil(response.result.total / pageSize);
-
                         if (curPage > totalPage) curPage = totalPage;
                         console.log(curPage);
-
                         var pagination = '';
                         if (curPage == 1) {
                             pagination += '<li class="paginate_button page-item first disabled"><a href="javascript:;" data-page="1" class="page-link"><i class="la la-angle-double-left"></i></a></li>';
@@ -552,14 +526,6 @@
                             pagination += '<li class="paginate_button page-item "><a href="javascript:;" data-page="'+ (parseInt(curPage)-1) +'" class="page-link">' + (parseInt(curPage)-1) + '</a></li>';
                         }
                         pagination += '<li class="paginate_button page-item active"><a href="javascript:;" data-page="'+curPage+'" class="page-link">' + curPage + '</a></li>';
-
-                        /*             for (var i = 1; i < totalPage + 1; i++) {
-                                         if (i == parseInt(response.result.current_page)) {
-                                             pagination += '<li class="paginate_button page-item active"><a href="javascript:void(0)" data-page="'+i+'" class="page-link">' + i + '</a></li>';
-                                         } else {
-                                             pagination += '<li class="paginate_button page-item "><a href="javascript:void(0)" data-page="'+i+'" class="page-link">' + i + '</a></li>';
-                                         }
-                                     }*/
                         if (curPage >= totalPage) {
                             pagination +='<li class="paginate_button page-item last disabled"><a href="javascript:;" data-page="'+response.result.last_page+'" class="page-link"><i class="la la-angle-double-right"></i></a></li>';
                         } else {
@@ -572,22 +538,16 @@
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert('网络环境异常，请刷新后重试');
-                },
-                complete: function () { //生成分页条
-                    //getPageBar();
-                },
+                }
             });
         }
 
 
         function remove_gallery_image(id){
             if (id) {
-                /*$.post('/admin/images/' + id, {'_method': 'DELETE'}, function (data) {
-                    console.log('删除结果:' + data);
-                })*/
-                $(".attachment[data-gallery-image-id='"+id+"']").remove();
-
-
+                $.post('/admin/images/' + id, {'_method': 'DELETE'}, function (data) {
+                    $(".attachment[data-gallery-image-id='"+id+"']").remove();
+                })
             }
         }
 

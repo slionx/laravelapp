@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Model\SystemSet;
 
 
 
@@ -12,9 +13,10 @@ class SettingsController extends Controller
     public function UpdateSet(Request $request)
     {
         if($request->ajax()){
-            cache()->forget('backend_global_set_'.$request->name);
-            cache()->forever('backend_global_set_'.$request->name,$request->status);
-            $result = cache()->get('backend_global_set_'.$request->name);
+            //global_comment_status
+            $set = SystemSet::where('name','=',$request->name)->firstOrFail();
+            $set->value = $request->status;
+            $result = $set->save();
             if($result){
                 $json_arr = ['status'=>true,'result'=>$result];
             }else{

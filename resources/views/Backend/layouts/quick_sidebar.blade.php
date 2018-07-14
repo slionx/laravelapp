@@ -24,7 +24,7 @@
                             <span class="m-list-settings__item-control">
 							<span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
 							<label>
-							<input type="checkbox" @if(cache()->get('backend_global_set_global_comment_status') == "on" ) checked="checked" @endif onchange="UpdateSet('global_comment_status')"  name="global_comment_status">
+							<input type="checkbox" @if( App\Http\Model\SystemSet::where('name','=','global_comment_status')->firstOrFail()->value == "on" ) checked="checked" @endif onchange="UpdateSet('global_comment_status')"  name="global_comment_status">
 							<span></span>
 							</label>
 							</span>

@@ -86,7 +86,7 @@
             <div class="m-checkbox-inline">
                 @foreach($roles as $role)
                 <label class="m-checkbox">
-                    <input type="checkbox" name="role[]" @if (in_array($role->id,$current_role)) checked="checked" @endif value="{{ $role->id }}">{{ $role->slug }} [<a data-target="#myModal" data-toggle="modal" href="">查看角色权限</a>]
+                    <input type="radio" name="role[]" @if (in_array($role->id,$current_role)) checked="checked" @endif value="{{ $role->id }}">{{ $role->slug }} [<a data-target="#myModal" data-toggle="modal" href="">查看角色权限</a>]
                     <span></span>
                 </label>
                 @endforeach

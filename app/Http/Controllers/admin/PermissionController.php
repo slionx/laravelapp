@@ -12,8 +12,8 @@ use App\Repositories\PermissionRepository;
 
 class permissionController extends Controller
 {
-    protected $module = 'permission';
 
+    protected $module = 'permission';
 
     public function __construct(PermissionRepository $permission)
     {

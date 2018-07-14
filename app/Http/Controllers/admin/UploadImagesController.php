@@ -53,7 +53,7 @@ class UploadImagesController extends Controller
     public function select(Request $request)
     {
 
-        $perpage = $request->perpage ? $request->perpage : 9;
+        $perpage = $request->perpage ? $request->perpage : 12;
         $result = $this->upload->orderBy('created_at','desc')->paginate($perpage,['id', 'path', 'created_at'],'page',$request->page);
         return response()->json(['result'=>$result], 200);
     }

@@ -43,6 +43,10 @@ class PermissionTableSeeder extends Seeder
         $tmp[23]['display_name'] = '用户管理-删除';
         $tmp[23]['description'] = '删除用户';
 
+        $tmp[24]['name'] = 'user.edit';
+        $tmp[24]['display_name'] = '用户管理-模板-修改';
+        $tmp[24]['description'] = '用户管理-模板-修改';
+
         $tmp[30]['name'] = 'role.index';
         $tmp[30]['display_name'] = '角色管理';
         $tmp[30]['description'] = '角色管理';
