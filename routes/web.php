@@ -45,7 +45,7 @@ Route::group(['namespace' => 'Admin','middleware' => ['auth','web','isadmin']], 
  * admin 路由组
  * admin spacename
  * */
-Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','CheckPermission']], function () {
+Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web']], function () {
 /*路由资源可用方法
  *
  *  GET	/posts	index	posts.index
@@ -56,6 +56,8 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	PUT/PATCH	/posts/{post}	update	posts.update
 	DELETE	/posts/{post}	destroy	posts.destroy
 */
+    Route::get('/test', 'UserController@test');
+
 // UploadImage
     Route::post('/images/store', 'UploadImagesController@store')->name('image.store');
     Route::delete('/images/{id}', 'UploadImagesController@destroy')->name('image.destroy');

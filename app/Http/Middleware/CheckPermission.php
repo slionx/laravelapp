@@ -38,7 +38,5 @@ class CheckPermission
             abort(401);
         }
         //$d = $request->user()->can('post.index',$request);
-
-
     }
 }

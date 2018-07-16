@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Model\AdminLog;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,7 @@ use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
 use App\Repositories\RoleRepository as Role;
 use App\Repositories\UserRepository as User;
+use DB;
 
 
 class UserController extends Controller {
@@ -22,6 +24,30 @@ class UserController extends Controller {
 		$this->user = $user;
 		$this->role = $role;
 	}
+
+	public function test(){
+
+        DB::beginTransaction();
+
+        $user = new \App\Http\Model\User();
+        $user->name = rand(1,99);
+        $user->email = rand(1,99).'@qq.com';
+        $user->password = Hash::make('123456');
+        $user->avatar = '';
+
+
+        if(!$user->save()){
+            DB::rollBack();
+            return response()->json('error');
+        }
+
+        $log = AdminLog::create(\Auth::id(),AdminLog::TYPE_USER,"tianjia用户");
+        if ($log['status'] !== 1) {
+            DB::rollBack();
+            return response()->json($log);
+        }
+        DB::commit();
+    }
 
 	public function index( Builder $builder ) {
 		if ( request()->ajax() ) {

@@ -75,10 +75,6 @@ php artisan make:job SendMessage
 创建表
 php artisan make:migration create_users_table
 
-php artisan make:migration create_images_table
-
-php artisan make:migration create_users_table --create=users
-
 php artisan make:migration create_category_table --create=category   //创建表
 
 php artisan make:migration add_votes_to_users_table --table=users    //更新表
