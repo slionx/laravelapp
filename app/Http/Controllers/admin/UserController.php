@@ -127,7 +127,7 @@ class UserController extends Controller {
 		$user = new \App\Http\Model\User();
 		$user->name = $request->name;
 		$user->email = $request->email;
-		$user->password = Hash::make($request->password);
+		$user->password = \Hash::make($request->password);
 		$user->avatar = $request->avatar;
 
 		if($user->save()){
@@ -195,7 +195,7 @@ class UserController extends Controller {
         }
         if($request->has('password')){
             $this->validate($request, ['password'=>'confirmed:password_confirmation|between:6,30']);
-            $data['password'] = Hash::make($request->password);
+            $data['password'] = \Hash::make($request->password);
         }
         $bool = $this->user->update($data,$id);
 		$user->syncRoles($request->role);
@@ -215,7 +215,7 @@ class UserController extends Controller {
 			$user->is_active          = 1;
 			$user->confirmation_token = str_random( 40 );
 			$user->save();
-			Auth::login( $user );
+			\Auth::login( $user );
 			return redirect( '/post/list' );
 		}
 	}

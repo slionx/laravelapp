@@ -29,7 +29,7 @@ class HomeController extends Controller
 
     public function welcome(){
 
-	    $home_bg_images = Storage::allFiles('slide');
+	    $home_bg_images = \Storage::allFiles('slide');
 
 	    return view('welcome',compact('home_bg_images'));
     }
