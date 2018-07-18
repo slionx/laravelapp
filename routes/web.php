@@ -79,7 +79,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 
     Route::get('comment', 'CommentController@index')->name('comment.index');
     Route::delete('comment/{comment}', 'CommentController@destroy')->name('comment.destroy');
-    Route::post('settings', 'SettingsController@UpdateSet')->name('settings.UpdateSet');
+    Route::post('settings', 'SystemSetController@UpdateSet')->name('settings.UpdateSet');
 
 
 });
