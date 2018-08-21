@@ -282,7 +282,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide">
+                    <div class="swiper-slide dark">
                         <div class="container clearfix">
                             <div class="slider-caption slider-caption-center">
                                 <h2 data-caption-animate="fadeInUp"></h2>
@@ -312,7 +312,7 @@
                         <div class="video-wrap">
                             <video class="slide-video" poster="" preload="auto" loop>
                                 {{--<source src='images/videos/explore.webm' type='video/webm' />--}}
-                                <source src='{{ asset('welcome/mp4/Capital Letters.mp4') }}' type='video/mp4' />
+                                <source src='{{ asset('welcome/mp4/a45112c9a122c042918ec91532b6e2a6.mp4') }}' type='video/mp4' />
                             </video>
                             <div class="video-overlay" style="background-color: rgba(0,0,0,0.55);"></div>
                         </div>

@@ -169,6 +169,7 @@ return [
 	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,//ideide-helper
 	    Prettus\Repository\Providers\RepositoryServiceProvider::class,//RepositoryServiceProvider
         LaravelChen\Editormd\EditorMdProvider::class,//Editormd
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,//LogViewer
 
 
         /*

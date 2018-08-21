@@ -96,6 +96,7 @@
       <path value="$PROJECT_DIR$/vendor/laravelchen/laravel-editormd" />
       <path value="$PROJECT_DIR$/vendor/zgldh/qiniu-laravel-storage" />
       <path value="$PROJECT_DIR$/vendor/qiniu/php-sdk" />
+      <path value="$PROJECT_DIR$/vendor/rap2hpoutre/laravel-log-viewer" />
     </include_path>
   </component>
   <component name="PhpUnit">

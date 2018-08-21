@@ -15,7 +15,8 @@
         "barryvdh/laravel-ide-helper": "^2.4",
         "predis/predis": "^1.1",
         "prettus/l5-repository": "^2.6",
-        "laravelchen/laravel-editormd": "^2.5"
+        "laravelchen/laravel-editormd": "^2.5",
+        "rap2hpoutre/laravel-log-viewer": "^0.18.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

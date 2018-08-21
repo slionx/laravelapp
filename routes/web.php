@@ -67,6 +67,9 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	Route::resource('welcome' ,'WelcomeController');
 	Route::post('welcome/upload', 'WelcomeController@upload')->name('welcome.upload');
 
+	//日志
+    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+
     Route::get('dashboard/index', 'DashboardController@index')->name('admin');
     Route::resource('post' ,'PostController')->except('show');
 	Route::resource('menu' ,'MenuController');

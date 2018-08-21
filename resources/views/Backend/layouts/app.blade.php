@@ -32,7 +32,7 @@
 
 
     <link href="{{ asset('Backend/css/vendors.bundle.css') }}" rel="stylesheet" type="text/css">
-    <link href="http://keenthemes.com/metronic/preview/assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('Backend/css/style.bundle.css') }}" rel="stylesheet" type="text/css">
     <!--end::Base Styles -->
 
     <script>
