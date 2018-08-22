@@ -20,8 +20,7 @@
                                 <span class="m-badge m-badge--danger">2</span>
                             </span>
                         </span>
-                    </span>
-                </a>
+                    </span> </a>
             </li>
 
             <li class="m-menu__item m-menu__item--submenu @if(request()->is('admin/post*'))  m-menu__item--active @endif" aria-haspopup="true" m-menu-submenu-toggle="hover">
@@ -89,6 +88,25 @@
                     </ul>
                 </div>
             </li>
+            @if(isset($menulist) && !empty($menulist))
+                @foreach($menulist as $item)
+                    <li class="m-menu__item m-menu__item--submenu @if(request()->is('admin/welcome*'))  m-menu__item--active @endif" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                        <a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-share"></i><span class="m-menu__link-text">{{ $item['name'] }}</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                        <div class="m-menu__submenu "><span class="m-menu__arrow"></span>
+                            <ul class="m-menu__subnav">
+                                @if($item['child'])
+                                    @foreach($item['child'] as $child_item)
+                                        <li class="m-menu__item @if(request()->route()->action['as'] == $child_item['url'])  m-menu__item--active @endif" aria-haspopup="true">
+                                            <a href="{{ url($child_item['url']) }}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">{{ $child_item['name'] }}</span></a>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
+                    </li>
+                @endforeach
+            @endif
+            {{ dd(request()) }}
 
             <li class="m-menu__section ">
                 <h4 class="m-menu__section-text">Components</h4>
@@ -98,6 +116,5 @@
         </ul>
     </div>
     <!-- END: Aside Menu -->
-</div>
-<!-- END: Left Aside -->
+</div><!-- END: Left Aside -->
 

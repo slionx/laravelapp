@@ -15,10 +15,12 @@ class CreateMenuTable extends Migration
     {
         Schema::create('menu', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('menu_name')->default('');
-            $table->string('display_name');
-            $table->integer('parentid');
-            $table->string('icon')->default('');
+            $table->integer('pid')->nullable();
+            $table->string('name')->unique();
+            $table->integer('icon')->default('');
+            $table->string('url');
+            $table->integer('weights')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

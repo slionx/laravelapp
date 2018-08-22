@@ -14,11 +14,12 @@ class MenuController extends Controller
 	}
 
     public function index(){
-        dd($this->getList());
 
+        $result = $this->menu->orderBy('weights','desc')->findWhere(['status' => 1])->toarray();
 
-        $result = $this->menu->all();
-        return view('admin.menu.index', compact('result'));
+        $a = $this->sortMenuSetCache($result);
+        dd($a);
+        //return view('admin.menu.index', compact('result'));
     }
     public function show(){
         //$menu = new Menu;
@@ -536,6 +537,7 @@ class MenuController extends Controller
         return $menu_list;
 
     }
+
 
     /**
      * 获取当前二级菜单列表

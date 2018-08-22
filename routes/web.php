@@ -56,7 +56,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	PUT/PATCH	/posts/{post}	update	posts.update
 	DELETE	/posts/{post}	destroy	posts.destroy
 */
-    Route::get('/test', 'UserController@test');
+    Route::get('/test', 'MenuController@index');
 
 // UploadImage
     Route::post('/images/store', 'UploadImagesController@store')->name('image.store');

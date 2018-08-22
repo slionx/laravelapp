@@ -315,3 +315,4 @@ function get_client_ip($type = 0) {
     $ip   = $long ? array($ip, $long) : array('0.0.0.0', 0);
     return $ip[$type];
 }
+

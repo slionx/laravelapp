@@ -25,7 +25,7 @@ class UserController extends Controller {
 		$this->role = $role;
 	}
 
-	public function test(){
+	public function test11(){
 
         DB::beginTransaction();
 
