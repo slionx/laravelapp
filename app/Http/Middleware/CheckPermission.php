@@ -23,7 +23,8 @@ class CheckPermission
         if($getRole != null){
             $permissions = Role::findOrFail($getRole->id)->getPermission();  //role_id
             if(!$permissions){
-                return redirect()->back()->with('error', '没有此模块权限');
+                abort(404,'没有此模块权限');
+                //return redirect()->back()->with('error', '没有此模块权限');
             }else{
                 foreach ($permissions as $permission) {
                     $permission_arr[] = $permission->name;
@@ -31,11 +32,12 @@ class CheckPermission
                 if(in_array($routeName,$permission_arr)){
                     return $next($request);
                 }else{
-                    return redirect()->back()->with('error', '没有此模块权限');
+                    abort(403,'没有此模块权限');
+                    //return redirect()->back()->with('error', '没有此模块权限');
                 }
             }
         }else{
-            abort(401);
+            abort(404,'没有此模块权限');
         }
         //$d = $request->user()->can('post.index',$request);
     }

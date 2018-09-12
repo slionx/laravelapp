@@ -45,7 +45,7 @@ Route::group(['namespace' => 'Admin','middleware' => ['auth','web','isadmin']], 
  * admin 路由组
  * admin spacename
  * */
-Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web']], function () {
+Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth','web','CheckPermission']], function () {
 /*路由资源可用方法
  *
  *  GET	/posts	index	posts.index

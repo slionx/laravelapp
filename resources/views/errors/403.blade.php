@@ -108,7 +108,7 @@
             back online as soon as possible.
         </p>
 
-        <p>
+        <p> {{$exception->getMessage()}}
             Perhaps you would like to go to our <a href="{{{ URL::to('/') }}}">home page</a>?
         </p>
     </div>
