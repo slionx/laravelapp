@@ -214,7 +214,16 @@ chown -R nginx:nginx  public/
 /storage	0777
 所有资源都存储在 /storage 目录下，所以你需要将公开资源链接到 /public 目录下，请务必执行：
 
-php artisan storage:link
+创建软链
+接下来我们需要在 public 目录下创建一个连到 storage/app/public 目录下的软链接：
+
+ php artisan storage:link
+
+初始化数据库  php artisan migrate:fresh && php artisan migrate:reset
+
+导入sql mysql laravel < database/admin.sql
+
+清除模板文件缓存 php artisan view:clear
 
 调优
 部署到线上可选，本地测试无需执行
