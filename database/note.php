@@ -250,6 +250,74 @@ php artisan help make:controller
 
 php artisan key:generate
 
+-------------尽可能使用更短、更易读的语法---------------
+
+通用语法	                                                                更短、更可读的语法
+Session::get('cart')	                                                session('cart')
+$request->session()->get('cart')	                                    session('cart')
+Session::put('cart', $data)	                                            session(['cart' => $data])
+$request->input('name'), Request::get('name')	                        $request->name, request('name')
+return Redirect::back()	                                                return back()
+is_null($object->relation) ? $object->relation->id : null }	            optional($object->relation)->id
+return view('index')->with('title', $title)->with('client', $client)	return view('index', compact('title', 'client'))
+$request->has('value') ? $request->value : 'default';	                $request->get('value', 'default')
+Carbon::now(), Carbon::today()	                                        now(), today()
+App::make('Class')	                                                    app('Class')
+->where('column', '=', 1)	                                            ->where('column', 1)
+->orderBy('created_at', 'desc')	                                        ->latest()
+->orderBy('age', 'desc')	                                            ->latest('age')
+->orderBy('created_at', 'asc')	                                        ->oldest()
+->select('id', 'name')->get()	                                        ->get(['id', 'name'])
+->first()->name	                                                        ->value('name')
+
+
+-------------Laravel 命名约定---------------
+
+Controller	单数 	正确 ArticleController	错误 ArticlesController
+Route	    复数	    正确 articles/1	        错误 article/1
+Named route	带点符号的蛇形命名   正确 users.show_active	错误 users.show-active, show-active-users
+Model	    单数	    正确 User	            错误 Users
+hasOne or belongsTo relationship	单数      正确 articleComment  错误 articleComments, article_comment
+All other relationships	            复数	      正确 articleComments    错误 articleComment, article_comments
+Table	复数	    正确 article_comments	错误 article_comment, articleComments
+Method	小驼峰命名	正确 getAll	错误 get_all
+Method in test class	小驼峰命名	正确 testGuestCannotSeeArticle	错误 test_guest_cannot_see_article
+Variable	小驼峰命名	正确 $articlesWithAuthor	    错误 $articles_with_author
+Collection	具描述性的复数形式(数据变量名)	    正确 $activeUsers = User::active()->get()	错误 $active, $data
+Object	具描述性的单数形式	正确 $activeUser = User::active()->first()	错误 $users, $obj
+Config and language files index	蛇形命名	    正确 articles_enabled	错误 ArticlesEnabled; articles-enabled
+View	蛇形命名	    正确 show_filtered.blade.php	    错误 showFiltered.blade.php, show-filtered.blade.php
+Config	蛇形命名	    正确 google_calendar.php	    错误 googleCalendar.php, google-calendar.php
+Contract (interface)	形容词或名词	    正确 Authenticatable	    错误 AuthenticationInterface, IAuthentication
+Trait	形容词	正确 Notifiable	    正确 NotificationTrait
+
+Method in resource controller  看下面表格
+Verb	    URI	Action	            Route Name
+GET	        /photos	index	        photos.index
+GET	        /photos/create	        create	photos.create
+POST	    /photos	store	        photos.store
+GET	        /photos/{photo}	        show	photos.show
+GET	        /photos/{photo}/edit	edit	photos.edit
+PUT/PATCH	/photos/{photo}	        update	photos.update
+DELETE	    /photos/{photo}	        destroy	photos.destroy
+
+数据模型相关的命名规范：
+
+数据模型类名 必须 为「单数」, 如：App\Models\Photo
+类文件名 必须 为「单数」，如：app/Models/Photo.php
+
+数据库表名字 必须 为「复数」，多个单词情况下使用「Snake Case」 如：photos, my_photos （注：目前由于和其他团队合作开发，所以这一条规范暂时不硬性要求）
+数据库表迁移名字 必须 为「复数」，如：2014_08_08_234417_create_photos_table.php
+数据填充文件名 必须 为「复数」，如：PhotosTableSeeder.php
+数据库字段名 必须 为「Snake Case」，如：view_count, is_vip
+数据库表主键 必须 为「id」（注：这条规范一定要严格执行，避免像018server的prouct表一样出现product_id这样的主键）
+数据库表外键 必须 为「resource_id」，如：user_id, post_id
+数据模型变量 必须 为「resource_id」，如：$user_id, $post_id
+
+
+
+-------------php artisan list---------------
+
 Usage:
   command [options] [arguments]
 
@@ -264,84 +332,110 @@ Options:
   -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 
 Available commands:
-  clear-compiled       Remove the compiled class file
-  down                 Put the application into maintenance mode
-  env                  Display the current framework environment
-  help                 Displays help for a command
-  inspire              Display an inspiring quote
-  list                 Lists commands
-  migrate              Run the database migrations
-  optimize             Optimize the framework for better performance
-  serve                Serve the application on the PHP development server
-  up                   Bring the application out of maintenance mode
+  clear-compiled        Remove the compiled class file
+  down                  Put the application into maintenance mode
+  env                   Display the current framework environment
+  help                  Displays help for a command
+  inspire               Display an inspiring quote
+  list                  Lists commands
+  migrate               Run the database migrations
+  optimize              Optimize the framework for better performance (deprecated)
+  preset                Swap the front-end scaffolding for the application
+  serve                 Serve the application on the PHP development server
+  tinker                Interact with your application
+  up                    Bring the application out of maintenance mode
  app
-  app:name             Set the application namespace
+  app:name              Set the application namespace
  auth
-  auth:clear-resets    Flush expired password reset tokens
+  auth:clear-resets     Flush expired password reset tokens
  cache
-  cache:clear          Flush the application cache
-  cache:forget         Remove an item from the cache
-  cache:table          Create a migration for the cache database table
+  cache:clear           Flush the application cache
+  cache:forget          Remove an item from the cache
+  cache:table           Create a migration for the cache database table
  config
-  config:cache         Create a cache file for faster configuration loading
-  config:clear         Remove the configuration cache file
+  config:cache          Create a cache file for faster configuration loading
+  config:clear          Remove the configuration cache file
+ datatables
+  datatables:make       Create a new DataTable service class.
+  datatables:scope      Create a new DataTable Scope class.
  db
-  db:seed              Seed the database with records
+  db:seed               Seed the database with records
  debugbar
-  debugbar:clear       Clear the Debugbar Storage
+  debugbar:clear        Clear the Debugbar Storage
  event
-  event:generate       Generate the missing events and listeners based on registration
+  event:generate        Generate the missing events and listeners based on registration
+ ide-helper
+  ide-helper:eloquent   Add \Eloquent helper to \Eloquent\Model
+  ide-helper:generate   Generate a new IDE Helper file.
+  ide-helper:meta       Generate metadata for PhpStorm
+  ide-helper:models     Generate autocompletion for models
  key
-  key:generate         Set the application key
+  key:generate          Set the application key
  make
-  make:auth            Scaffold basic login and registration views and routes
-  make:command         Create a new Artisan command
-  make:controller      Create a new controller class
-  make:event           Create a new event class
-  make:job             Create a new job class
-  make:listener        Create a new event listener class
-  make:mail            Create a new email class
-  make:middleware      Create a new middleware class
-  make:migration       Create a new migration file
-  make:model           Create a new Eloquent model class
-  make:notification    Create a new notification class
-  make:policy          Create a new policy class
-  make:provider        Create a new service provider class
-  make:request         Create a new form request class
-  make:seeder          Create a new seeder class
-  make:test            Create a new test class
+  make:auth             Scaffold basic login and registration views and routes
+  make:bindings         Add repository bindings to service provider.
+  make:command          Create a new Artisan command
+  make:controller       Create a new controller class
+  make:criteria         Create a new criteria.
+  make:entity           Create a new entity.
+  make:event            Create a new event class
+  make:exception        Create a new custom exception class
+  make:factory          Create a new model factory
+  make:job              Create a new job class
+  make:listener         Create a new event listener class
+  make:mail             Create a new email class
+  make:middleware       Create a new middleware class
+  make:migration        Create a new migration file
+  make:model            Create a new Eloquent model class
+  make:notification     Create a new notification class
+  make:policy           Create a new policy class
+  make:presenter        Create a new presenter.
+  make:provider         Create a new service provider class
+  make:repository       Create a new repository.
+  make:request          Create a new form request class
+  make:resource         Create a new resource
+  make:rest-controller  Create a new RESTful controller.
+  make:rule             Create a new validation rule
+  make:seeder           Create a new seeder class
+  make:test             Create a new test class
+  make:transformer      Create a new Transformer Class
+  make:validator        Create a new validator.
  migrate
-  migrate:install      Create the migration repository
-  migrate:refresh      Reset and re-run all migrations
-  migrate:reset        Rollback all database migrations
-  migrate:rollback     Rollback the last database migration
-  migrate:status       Show the status of each migration
+  migrate:fresh         Drop all tables and re-run all migrations
+  migrate:install       Create the migration repository
+  migrate:refresh       Reset and re-run all migrations
+  migrate:reset         Rollback all database migrations
+  migrate:rollback      Rollback the last database migration
+  migrate:status        Show the status of each migration
  notifications
-  notifications:table  Create a migration for the notifications table
+  notifications:table   Create a migration for the notifications table
+ package
+  package:discover      Rebuild the cached package manifest
  queue
-  queue:failed         List all of the failed queue jobs
-  queue:failed-table   Create a migration for the failed queue jobs database table
-  queue:flush          Flush all of the failed queue jobs
-  queue:forget         Delete a failed queue job
-  queue:listen         Listen to a given queue
-  queue:restart        Restart queue worker daemons after their current job
-  queue:retry          Retry a failed queue job
-  queue:table          Create a migration for the queue jobs database table
-  queue:work           Start processing jobs on the queue as a daemon
+  queue:failed          List all of the failed queue jobs
+  queue:failed-table    Create a migration for the failed queue jobs database table
+  queue:flush           Flush all of the failed queue jobs
+  queue:forget          Delete a failed queue job
+  queue:listen          Listen to a given queue
+  queue:restart         Restart queue worker daemons after their current job
+  queue:retry           Retry a failed queue job
+  queue:table           Create a migration for the queue jobs database table
+  queue:work            Start processing jobs on the queue as a daemon
  route
-  route:cache          Create a route cache file for faster route registration
-  route:clear          Remove the route cache file
-  route:list           List all registered routes
+  route:cache           Create a route cache file for faster route registration
+  route:clear           Remove the route cache file
+  route:list            List all registered routes
  schedule
-  schedule:run         Run the scheduled commands
+  schedule:run          Run the scheduled commands
  session
-  session:table        Create a migration for the session database table
+  session:table         Create a migration for the session database table
  storage
-  storage:link         Create a symbolic link from "public/storage" to "storage/app/public"
+  storage:link          Create a symbolic link from "public/storage" to "storage/app/public"
  vendor
-  vendor:publish       Publish any publishable assets from vendor packages
+  vendor:publish        Publish any publishable assets from vendor packages
  view
-  view:clear           Clear all compiled view files
+  view:clear            Clear all compiled view files
+
 
 
 */

@@ -26,10 +26,12 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 	protected $table = 'users';
 	protected $primaryKey = 'id';
 
-	//指定批量赋值的字段
+	//指定可以批量赋值的字段(白名单)
 	protected $fillable = ['name','email','password','avatar','is_active','confirmation_token'];
-	//指定不允许批量赋值的字段
+
+	//指定不允许批量赋值的字段(黑名单)
 	//protected $guarded = [];
+
 	protected $hidden = [
 		'password', 'remember_token','confirmation_token',
 	];
