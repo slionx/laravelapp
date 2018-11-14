@@ -14,7 +14,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 class PostRepository extends BaseRepository {
 
 	function model() {
-		return "App\\Http\\Model\\Posts";
+		return "App\\Http\\Model\\Post";
 	}
 
 }

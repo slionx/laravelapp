@@ -11,7 +11,7 @@ class Tag extends Model {
 	protected $fillable = [ 'name', 'count' ];
 
 	public function Posts() {
-		return $this->belongsToMany( Posts::class, 'post_tag', 'tag_id', 'post_id' );
+		return $this->belongsToMany( Post::class, 'post_tag', 'tag_id', 'post_id' );
 	}
 
 	public function getPosts() {

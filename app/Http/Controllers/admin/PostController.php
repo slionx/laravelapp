@@ -11,8 +11,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
 
-use App\Repositories\PostRepository as Post;
-use App\Http\Model\Posts;
+use App\Services\PostService;
+use App\Http\Model\Post;
 use App\Http\Model\Tag as Tags;
 use App\Repositories\CategoryRepository as Category;
 use App\Repositories\UserRepository as User;
@@ -36,14 +36,16 @@ class PostController extends Controller
     protected $module = 'post';
 
     public function __construct(
+        PostService $PostService,
         Category $Category,
         Post $Post,
-        Posts $posts,
+        Post $posts,
         Tag $Tag,
         User $User
     )
     {
         $this->middleware('isadmin')->except('list', 'show');
+        $this->postService = $PostService;
         $this->category = $Category;
         $this->tag = $Tag;
         $this->post = $Post;
@@ -89,7 +91,7 @@ class PostController extends Controller
 
     public function ajaxData()
     {
-        $tmp = Posts::with([
+        $tmp = Post::with([
             'category' => function ($query) {
                 $query->select('id', 'name');
             }
@@ -171,19 +173,9 @@ class PostController extends Controller
         if ($this->Validator($request)) {
             return $this->Validator($request);
         }
-        //$request['post_author'] = "Slionx";
-        //$request->post_slug = title_case( str_slug( $request->post_slug, '-' ) );//slug标题自动大写 空格转-方便SEO
-        $result = auth()->user()->posts()->create($request->all());
-        if ($result) {
-            if (is_array($request->post_tag)) {
-                foreach ($request->post_tag as $tag) {
-                    $tags[] = $this->tag->find($tag)->id;
-                }
-                $result->attachTag($tags);
-                $this->updateTagSum($request->post_tag);
-            }
-            $this->updateCategorySum($request->post_category);
 
+        $post = $this->postService->store($request);
+        if ($post) {
             return redirect()->route('post.index')->with('success', '文章' . $request->post_title . '创建成功');
         } else {
             return redirect()->back()->withInput($request->all())->with('error','文章' . $request->post_title . '创建失败');
@@ -336,7 +328,7 @@ class PostController extends Controller
     {
         //$post = $this->post->find( $id );
 
-        $post = Posts::with([
+        $post = Post::with([
             'category' => function ($query) {
                 $query->select('id', 'name');
             }
@@ -383,7 +375,7 @@ class PostController extends Controller
         $tags = $this->tag->all(['id', 'name', 'count']);
         $categories = $this->category->all(['id', 'name', 'count']);
 
-        $hot = Posts::orderBy('followers_count', 'desc')->take(3)->get(['id', 'post_title', 'followers_count']);
+        $hot = Post::orderBy('followers_count', 'desc')->take(3)->get(['id', 'post_title', 'followers_count']);
         $reply =  Comment::with([
             'post' => function ($query) {
                 $query->select('id', 'post_title');
@@ -391,9 +383,9 @@ class PostController extends Controller
         ])->select(DB::raw('id,post_id,count(id) as count'))->groupBy('post_id')->orderBy('count','desc')->take(3)->get();
 
         //dd($reply);
-        $prev_post = Posts::where('id', '<', $id)->first(['id', 'post_title']);
+        $prev_post = Post::where('id', '<', $id)->first(['id', 'post_title']);
         $prev_post = $prev_post ? $prev_post : '';
-        $next_post = Posts::where('id', '>', $id)->first(['id', 'post_title']);
+        $next_post = Post::where('id', '>', $id)->first(['id', 'post_title']);
         $next_post = $next_post ? $next_post : '';
 
         return view('desktop.post.show', compact('post', 'tags', 'categories', 'prev_post', 'next_post', 'hot','comments','comment_count','reply'));
@@ -425,7 +417,7 @@ class PostController extends Controller
         if ($param == 'tag') {
             $post = Tags::findOrFail($id, ['id'])->getPosts();
         } else {
-            $post = Posts::with([
+            $post = Post::with([
                 'category' => function ($query) {
                     $query->select('id', 'name');
                 }
@@ -461,7 +453,7 @@ class PostController extends Controller
             ]);
         }
 
-        $hot = Posts::orderBy('followers_count', 'desc')->take(3)->get(['id', 'post_title', 'followers_count']);
+        $hot = Post::orderBy('followers_count', 'desc')->take(3)->get(['id', 'post_title', 'followers_count']);
         //dd($hot);
         $reply =  Comment::with([
             'post' => function ($query) {

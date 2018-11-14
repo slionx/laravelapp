@@ -59,7 +59,7 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 	}*/
 
 	public function posts() {
-		return $this->hasMany(Posts::class,'post_author');
+		return $this->hasMany(Post::class,'post_author');
 	}
 
 	public function roles() {
