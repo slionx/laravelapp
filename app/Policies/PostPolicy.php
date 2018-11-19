@@ -20,8 +20,13 @@ class PostPolicy
         //
     }
 
-    public function own(User $user, Post $posts)
+    public function own(User $user, Post $post)
     {
-        return $user->id === $posts->post_author;
+        return $user->id === $post->post_author;
+    }
+
+    public function create(User $user, Post $post)
+    {
+        return $user->can('post.create',$post);
     }
 }

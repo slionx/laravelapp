@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Http\Model\Post;
 use App\Http\Model\User;
 use App\Http\Model\Permission;
-use function foo\func;
+use App\Policies\PostPolicy;
+//use function foo\func;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -18,6 +20,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        Post::class => PostPolicy::class,
     ];
 
     /**
@@ -25,10 +28,10 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(\Illuminate\Contracts\Auth\Access\Gate $gate)
+    public function boot()
     {
 
-        $this->registerPolicies($gate);
+        $this->registerPolicies();
         /*
         $permissions = $this->getPermissions();
         if($permissions){

@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
-
 use App\Services\PostService;
 use App\Http\Model\Post;
 use App\Http\Model\Tag as Tags;
@@ -168,8 +167,10 @@ class PostController extends Controller
      *
      * @return $this|PostController|\Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request,Post $post)
     {
+        $this->authorize('create', $post);
+
         if ($this->Validator($request)) {
             return $this->Validator($request);
         }
