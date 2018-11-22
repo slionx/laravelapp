@@ -169,7 +169,7 @@ class PostController extends Controller
      */
     public function store(Request $request,Post $post)
     {
-        $this->authorize('create', $post);
+
 
         if ($this->Validator($request)) {
             return $this->Validator($request);
@@ -255,6 +255,8 @@ class PostController extends Controller
      */
     public function update($id, Request $request)
     {
+        $this->authorize('update', Post::class);
+        dd(1);
         $rules = [
             'post_title' => 'required|max:255',
             'post_content' => 'required',

@@ -112,6 +112,15 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
         $user->notify(new InvoicePaid($invoice));
 	}
 
+    public function isSuperAdmin()
+    {
+        // 定义ID为1为超级管理员
+        if ($this->id == 1) {
+            return true;
+        }
+        return false;
+    }
+
 
 
 }
