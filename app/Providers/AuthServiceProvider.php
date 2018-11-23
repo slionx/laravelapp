@@ -20,7 +20,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
-        Post::class => PostPolicy::class,
+        //Post::class => PostPolicy::class,
     ];
 
     /**
@@ -28,11 +28,11 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(\Illuminate\Contracts\Auth\Access\Gate $gate)
     {
 
-        $this->registerPolicies();
-        /*
+        $this->registerPolicies($gate);
+
         $permissions = $this->getPermissions();
         if($permissions){
             foreach ($permissions as $permission){
@@ -40,7 +40,7 @@ class AuthServiceProvider extends ServiceProvider
                     return $user->hasRole($permission->roles);
                 });
             }
-        }*/
+        }
 
     }
 

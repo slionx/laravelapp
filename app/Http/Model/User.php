@@ -72,7 +72,7 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
 		if(is_string($role)){
 			return $this->roles->contains('name',$role); //contains 方法判断集合是否包含一个给定项
 		}
-		return !! $role->intersect($this->role)->count(); //intersect 方法返回两个集合的交集
+		return !! $role->intersect($this->roles)->count(); //intersect 方法返回两个集合的交集
 	}
 
     public function isAdmin()
@@ -109,7 +109,7 @@ class User extends Eloquent implements AuthenticatableContract,CanResetPasswordC
     public function send_notify()
     {
         $user = \Auth::user();
-        $user->notify(new InvoicePaid($invoice));
+        //$user->notify(new InvoicePaid($invoice));
 	}
 
     public function isSuperAdmin()

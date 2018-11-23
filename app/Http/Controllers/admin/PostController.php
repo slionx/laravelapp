@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Model\Comment;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Yajra\Datatables\Datatables;
 use Yajra\DataTables\Html\Builder;
 use App\Http\Requests\StorePostRequest;
@@ -255,8 +256,7 @@ class PostController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->authorize('update', Post::class);
-        dd(1);
+
         $rules = [
             'post_title' => 'required|max:255',
             'post_content' => 'required',
@@ -331,6 +331,8 @@ class PostController extends Controller
     {
         //$post = $this->post->find( $id );
 
+
+
         $post = Post::with([
             'category' => function ($query) {
                 $query->select('id', 'name');
@@ -363,6 +365,10 @@ class PostController extends Controller
             'created_at',
             'comments_status'
         ]);
+        $this->authorize('post.update', $post);
+
+
+
         if ($post->post_password && $post->post_author != auth()->user()->id) {
             return redirect()->route('post.list');
         }
@@ -374,7 +380,7 @@ class PostController extends Controller
 
 
         $followers_count = $post->followers_count + 1;
-        $this->post->update(['followers_count' => $followers_count], $id,['id','followers_count']);
+        $this->post->update(['followers_count' => $followers_count], ['id'=>$id]);
         $tags = $this->tag->all(['id', 'name', 'count']);
         $categories = $this->category->all(['id', 'name', 'count']);
 

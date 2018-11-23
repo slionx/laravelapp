@@ -22,7 +22,7 @@ class PostPolicy
 
     public function update(User $user, Post $post)
     {
-        return $user->id === $post->post_author;
+        //return $user->id == $post->post_author;
         //return $user->can('update');
     }
     public function before($user, $ability)
