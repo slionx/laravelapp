@@ -9,6 +9,7 @@ use App\Policies\PostPolicy;
 //use function foo\func;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -20,7 +21,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
-        //Post::class => PostPolicy::class,
+        Post::class => PostPolicy::class,
     ];
 
     /**
@@ -28,19 +29,22 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(\Illuminate\Contracts\Auth\Access\Gate $gate)
+    public function boot(GateContract $gate)
     {
 
         $this->registerPolicies($gate);
+/*        $gate->define('update', function ($user, $post) {
+            return $user->id == $post->post_author;
+        });*/
 
-        $permissions = $this->getPermissions();
+  /*      $permissions = $this->getPermissions();
         if($permissions){
             foreach ($permissions as $permission){
                 $gate->define($permission->name,function (User $user) use ($permission){
                     return $user->hasRole($permission->roles);
                 });
             }
-        }
+        }*/
 
     }
 

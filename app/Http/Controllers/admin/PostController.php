@@ -329,7 +329,13 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //$post = $this->post->find( $id );
+        $post = $this->post->find( $id );
+        //$this->authorize('update', $post);
+
+/*        if (!auth()->user()->can('update',$post)) {
+            abort(403);
+        }*/
+        $this->authorize('show',$post);
 
 
 
@@ -365,7 +371,7 @@ class PostController extends Controller
             'created_at',
             'comments_status'
         ]);
-        $this->authorize('post.update', $post);
+
 
 
 

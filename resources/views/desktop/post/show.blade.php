@@ -24,9 +24,9 @@
                             <!-- Entry Meta
                             ============================================= -->
                             <ul class="entry-meta clearfix">
-                                @can('post.update',$post)
+{{--                                @can('post.update',$post)
                                 <li><i class="icon-calendar3"></i> <a>编辑文章</a></li>
-                                @endcan
+                                @endcan--}}
                                 <li><i class="icon-calendar3"></i> {{ $post->created_at->diffForHumans() }}</li>
                                 <li><a href="#"><i class="icon-user"></i> {{ $post->user->name }}</a></li>
                                 <li><a href="{{ route('post.list.category',['category',$post->post_category]) }}"><i class="icon-folder-open"></i> {{ $post->category->name }}</a></li>
